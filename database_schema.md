@@ -2,16 +2,18 @@
 
 ## Tables
 - users
-- profiles
 - boards
 - pins
-- pin comments
+- board_pins
 - follows
 
+
 ## Relationships
-- ONE User MANY Boards
-- ONE Board MANY Pins
-- ONE Pin MANY Pin Comments
+- ONE User has MANY Boards
+- One User has MANY Pins
+- ONE User has MANY Follows
+- MANY Boards have MANY Pins
+
 
 ## `users`
 | **Column Name** | **Data Type** | **Details** |
