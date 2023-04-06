@@ -1,4 +1,4 @@
-# interest Database Schema
+# interestme Database Schema
 
 ![dbdiagram]
 
