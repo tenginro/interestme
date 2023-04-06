@@ -1,4 +1,8 @@
-# Pinterest Database Schema
+# interest Database Schema
+
+![dbdiagram]
+
+[dbdiagram]: ./assets/dbDiagram.png
 
 ## Tables
 - users
