@@ -32,7 +32,7 @@ def seed_pins():
 
     pin4 = Pin(
         user_id=2,
-        board_id=1,
+        board_id=2,
         name="Soda",
         description="Food Soda",
         category_id=1,
@@ -41,7 +41,7 @@ def seed_pins():
 
     pin5 = Pin(
         user_id=2,
-        board_id=1,
+        board_id=2,
         name="Sun",
         description="Sun Picture",
         category_id=2,
@@ -50,7 +50,7 @@ def seed_pins():
 
     pin6 = Pin(
         user_id=2,
-        board_id=1,
+        board_id=2,
         name="Technology",
         description="Tech Tech Tech",
         category_id=3,
@@ -59,7 +59,7 @@ def seed_pins():
 
     pin7 = Pin(
         user_id=3,
-        board_id=1,
+        board_id=3,
         name="Soda",
         description="Food Soda",
         category_id=1,
@@ -68,7 +68,7 @@ def seed_pins():
 
     pin8 = Pin(
         user_id=3,
-        board_id=1,
+        board_id=3,
         name="Sun",
         description="Sun Picture",
         category_id=2,
@@ -77,7 +77,7 @@ def seed_pins():
 
     pin9 = Pin(
         user_id=3,
-        board_id=1,
+        board_id=3,
         name="Technology",
         description="Tech Tech Tech",
         category_id=3,
@@ -86,7 +86,7 @@ def seed_pins():
 
     pin10 = Pin(
         user_id=4,
-        board_id=1,
+        board_id=4,
         name="Salad",
         description="Food Salad",
         category_id=1,
@@ -95,7 +95,7 @@ def seed_pins():
 
     pin11 = Pin(
         user_id=4,
-        board_id=1,
+        board_id=4,
         name="Sunflower",
         description="SunFlower Picture",
         category_id=2,
@@ -104,7 +104,7 @@ def seed_pins():
 
     pin12 = Pin(
         user_id=4,
-        board_id=1,
+        board_id=4,
         name="Technology",
         description="Tech Tech Tech",
         category_id=3,

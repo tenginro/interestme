@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .board_pins import board_pins
 
 class Board(db.Model):
     __tablename__ = 'boards'
