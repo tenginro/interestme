@@ -7,7 +7,7 @@ class Category(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True),
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(75), nullable=False)
 
     pin = db.relationship("Pin", back_populates="category")
