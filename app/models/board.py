@@ -4,7 +4,7 @@ class Board(db.Model):
     __tablename__ = 'boards'
 
     id = db.Column(db.Integer, primary_key=True),
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id")),
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False),
     name = db.Column(db.String(50), nullable=False),
     description = db.Column(db.String(255)),
     board_cover = db.Column(db.String(255)),

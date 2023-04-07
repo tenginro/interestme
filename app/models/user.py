@@ -35,6 +35,16 @@ class User(db.Model, UserMixin):
         back_populates='user_saved'
     )
 
+    user_following = db.relationship(
+        'Follow',
+        back_populates='user_follower'
+    )
+
+    user_follower = db.relationship(
+        'Follow',
+        back_populates = 'user_following'
+    )
+
     @property
     def password(self):
         return self.hashed_password
