@@ -14,7 +14,7 @@ class Pin(db.Model):
     board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")),nullable=False),
     name = db.Column(db.String(50), nullable=False),
     description = db.Column(db.String(255)),
-    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("categories.id")),
+    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("categories.id"))),
     url = db.Column(db.String(255))
 
     # relationship attributed
