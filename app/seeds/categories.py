@@ -10,6 +10,7 @@ def seed_category():
     db.session.add(category1)
     db.session.add(category2)
     db.session.add(category3)
+    db.session.commit()
 
 
 def undo_category():
