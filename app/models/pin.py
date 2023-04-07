@@ -6,12 +6,15 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Pin(db.Model):
     __tablename__ = 'pins'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True),
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False),
-    board_id = db.Column(db.Integer, db.ForeignKey("boards.id"),nullable=False),
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False),
+    board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")),nullable=False),
     name = db.Column(db.String(50), nullable=False),
     description = db.Column(db.String(255)),
-    category = db.Column(db.String(50)),
+    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("categories.id")),
     url = db.Column(db.String(255))
 
     # relationship attributed
@@ -31,5 +34,7 @@ class Pin(db.Model):
         secondary=user_pins,
         back_populates='saved_pins'
     )
+
+    category = db.relationship("Category", back_populates="pin")
 
     
