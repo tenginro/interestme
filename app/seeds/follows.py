@@ -87,10 +87,27 @@ def seed_follows():
 
 
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.add(john)
-    db.session.add(jane)
+    db.session.add(follow1)
+    db.session.add(follow2)
+    db.session.add(follow3)
+    db.session.add(follow4)
+    db.session.add(follow5)
+    db.session.add(follow6)
+    db.session.add(follow7)
+    db.session.add(follow8)
+    db.session.add(follow9)
+    db.session.add(follow10)
+    db.session.add(follow11)
+    db.session.add(follow12)
+    db.session.add(follow13)
+    db.session.add(follow14)
+    db.session.add(follow15)
+    db.session.add(follow16)
+    db.session.add(follow17)
+    db.session.add(follow18)
+    db.session.add(follow19)
+    db.session.add(follow20)
+
+
     db.session.commit()
 
