@@ -18,6 +18,23 @@ class User(db.Model, UserMixin):
     profile_pic = db.Column(db.String(255))
     about = db.Column(db.String(255))
 
+     # relationship attributed
+    pins = db.relationship(
+        'Pin',
+        back_populates='user'
+    )
+
+    boards = db.relationship(
+        'Board',
+        back_populates='user'
+    )
+
+    saved_pins = db.relationship(
+        'Pin',
+        secondary=user_pins,
+        back_populates='user_saved'
+    )
+
     @property
     def password(self):
         return self.hashed_password

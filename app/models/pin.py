@@ -13,3 +13,23 @@ class Pin(db.Model):
     description = db.Column(db.String(255)),
     category = db.Column(db.String(50)),
     url = db.Column(db.String(255))
+
+    # relationship attributed
+    user = db.relationship(
+        'User',
+        back_populates='pins'
+    )
+
+    pin_board = db.relationship(
+        'Board',
+        secondary=board_pins,
+        back_populates='board_pins'
+    )
+
+    user_saved = db.relationship(
+        'User',
+        secondary=user_pins,
+        back_populates='saved_pins'
+    )
+
+    

@@ -10,5 +10,10 @@ class Board(db.Model):
     board_cover = db.Column(db.String(255)),
     secret = db.Column(db.Boolean, default=False)
 
-    user = db.relationship("User", back_populates="Boards")
-    pins = db.relationship("Pin")
+    user = db.relationship("User", back_populates="boards")
+
+    board_pins = db.relationship(
+        'Pin',
+        secondary=board_pins,
+        back_populates='pin_board'
+    )
