@@ -1,5 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
+import { getPinDetail } from '../../store/pin';
 
-function Pin
+const Pin = () => {
+    const { pinId } = useParams();
+    const dispatch = useDispatch();
+    const pin = useSelector(state=>state.pins.singlePin);
+    
+
+    useEffect(()=>{
+        dispatch(getPinDetail(pinId));
+    },[dispatch])
+
+    return(
+        <div>
+            <div>
+                <img src={pin.url} />
+            </div>
+            <div>
+                <h2>{pin.name}</h2>
+                <p>{pin.description}</p>
+            </div>
+        </div>
+    )
+}
+
+export default Pin;
