@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .user_pin import user_pins
+# from .user_pin import user_pins
 from .board_pins import board_pins
 
 
@@ -30,8 +30,8 @@ class Pin(db.Model):
         "Board", secondary=board_pins, back_populates="board_pins"
     )
 
-    user_saved = db.relationship(
-        "User", secondary=user_pins, back_populates="saved_pins"
-    )
+    # user_saved = db.relationship(
+    #     "User", secondary=user_pins, back_populates="saved_pins"
+    # )
 
     category = db.relationship("Category", back_populates="pin")

@@ -1,8 +1,9 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .user_pin import user_pins
 
+# from .user_pin import user_pins
+# from .follow import follows
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -29,21 +30,18 @@ class User(db.Model, UserMixin):
         back_populates='user'
     )
 
-    saved_pins = db.relationship(
-        'Pin',
-        secondary=user_pins,
-        back_populates='user_saved'
-    )
+    # saved_pins = db.relationship(
+    #     'Pin',
+    #     secondary=user_pins,
+    #     back_populates='user_saved'
+    # )
 
-    user_following = db.relationship(
-        'Follow',
-        back_populates='user_follower'
-    )
-
-    user_follower = db.relationship(
-        'Follow',
-        back_populates = 'user_following'
-    )
+    # following = db.relationship(
+    #     'User', secondary=follows,
+    #     primaryjoin=lambda: User.id == follows.c.user_id,
+    #     secondaryjoin=lambda: User.id == follows.c.following_id,
+    #     back_populates='followers'
+    # )
 
     @property
     def password(self):
