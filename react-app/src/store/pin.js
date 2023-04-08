@@ -42,14 +42,20 @@ export const actionClearPin = () => ({
   type: CLEAR_PIN_DETAIL,
 });
 
+export const normalizingData = (data) => {
+  const obj = {};
+  data.forEach((ele) => (obj[ele.id] = ele));
+  return obj;
+};
+
 export const getAllPins = () => async (dispatch) => {
   const response = await fetch("/api/pins");
-
   if (response.ok) {
     const pins = await response.json();
-    await dispatch(actionLoadAllPins(pins));
+    dispatch(actionLoadAllPins(pins));
     return pins;
   }
+  return response;
 };
 
 export const getPinDetail = (id) => async (dispatch) => {
