@@ -34,11 +34,10 @@ def seed_boards():
         secret=True,
     )
 
-    db.session.add(board1)
-    db.session.add(board2)
-    db.session.add(board3)
-    db.session.add(board4)
+    all_boards = [board1, board2, board3, board4]
+    add_boards = [db.session.add(board) for board in all_boards]
     db.session.commit()
+    return all_boards
 
 
 def undo_boards():

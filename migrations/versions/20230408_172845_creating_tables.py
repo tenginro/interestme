@@ -1,8 +1,8 @@
 """creating tables
 
-Revision ID: c380a5f3182e
+Revision ID: 95977f1380c1
 Revises: 
-Create Date: 2023-04-08 17:16:27.152324
+Create Date: 2023-04-08 17:28:45.827171
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'c380a5f3182e'
+revision = '95977f1380c1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,12 +52,10 @@ def upgrade():
     op.create_table('pins',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('board_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('url', sa.String(length=255), nullable=True),
-    sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -71,6 +69,7 @@ def upgrade():
     
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        
     # ### end Alembic commands ###
 
 

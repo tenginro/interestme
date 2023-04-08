@@ -16,8 +16,8 @@ class Board(db.Model):
 
     user = db.relationship("User", back_populates="boards")
 
-    board_pins = db.relationship(
+    pins = db.relationship(
         'Pin',
         secondary=board_pins,
-        back_populates='pin_board'
+        back_populates='boards'
     )

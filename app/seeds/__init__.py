@@ -26,8 +26,9 @@ def seed():
         undo_boards()
         undo_users()
     seed_users()
-    seed_boards()
-    seed_pins()
+    all_boards = seed_boards()
+    print(all_boards)
+    seed_pins(all_boards)
     # seed_follows()
     seed_category()
     # Add other seed functions here

@@ -13,9 +13,9 @@ class Pin(db.Model):
     user_id = db.Column(
         db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False
     )
-    board_id = db.Column(
-        db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), nullable=False
-    )
+    # board_id = db.Column(
+    #     db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), nullable=False
+    # )
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255))
     category_id = db.Column(
@@ -26,8 +26,8 @@ class Pin(db.Model):
     # relationship attributed
     user = db.relationship("User", back_populates="pins")
 
-    pin_board = db.relationship(
-        "Board", secondary=board_pins, back_populates="board_pins"
+    boards = db.relationship(
+        "Board", secondary=board_pins, back_populates="pins"
     )
 
     # user_saved = db.relationship(
