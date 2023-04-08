@@ -9,7 +9,7 @@ const REMOVE_PIN = "pins/delete";
 const CLEAR_PIN_DETAIL = "pins/clear_pin_state";
 const CLEAR_PINS = "pins/clear_pins_state";
 
-export const actionLoadPins = (pins) => ({
+export const actionLoadAllPins = (pins) => ({
   type: LOAD_PINS,
   pins,
 });
@@ -47,17 +47,17 @@ export const getAllPins = () => async (dispatch) => {
 
   if (response.ok) {
     const pins = await response.json();
-    await dispatch(actionLoadPins(pins));
+    await dispatch(actionLoadAllPins(pins));
     return pins;
   }
 };
 
 export const getPinDetail = () => async (dispatch) => {
-  const response = await fetch("/api/pins/${id}");
+  const response = await fetch(`/api/pins/${id}`);
 
   if (response.ok) {
     const pin = await response.json();
-    await dispatch(actionLoadPins(pin));
+    await dispatch(actionLoadPinDetail(pin));
     return pin;
   }
 };
