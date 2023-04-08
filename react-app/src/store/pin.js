@@ -30,9 +30,9 @@ export const actionUpdatePin = (pin) => ({
   type: UPDATE_PIN,
   pin,
 });
-export const actionRemovePin = (pin) => ({
+export const actionRemovePin = (id) => ({
   type: REMOVE_PIN,
-  pin,
+  id,
 });
 
 export const actionClearPins = () => ({
@@ -42,17 +42,11 @@ export const actionClearPin = () => ({
   type: CLEAR_PIN_DETAIL,
 });
 
-export const normalizingData = (data) => {
-  const obj = {};
-  data.forEach((ele) => (obj[ele.id] = ele));
-  return obj;
-};
-
 export const getAllPins = () => async (dispatch) => {
   const response = await fetch("/api/pins");
   if (response.ok) {
     const pins = await response.json();
-    dispatch(actionLoadAllPins(pins));
+    await dispatch(actionLoadAllPins(pins));
     return pins;
   }
   return response;
@@ -77,6 +71,31 @@ export const getUserPins = () => async (dispatch) => {
   }
 };
 
+export const updatePin = (pin) => async (dispatch) => {
+  const response = await fetch(`/api/pins/${pin.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(pin),
+  });
+  if (response.ok) {
+    const updatedPin = await response.json();
+    dispatch(actionUpdatePin(updatedPin));
+    return updatedPin;
+  }
+  return response.json();
+};
+
+export const deletePin = (pin) => async (dispatch) => {
+  const response = await fetch(`/api/pins/${pin.id}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    await dispatch(actionRemovePin(pin.id));
+    return await response.json();
+  }
+  return await response.json();
+};
+
 const initialState = {
   allPins: {},
   singlePin: {},
@@ -98,6 +117,20 @@ const pinReducer = (state = initialState, action) => {
         allUserPins[pin.id] = pin;
       });
       return { ...state, allPins: { ...allUserPins } };
+    case UPDATE_PIN:
+      return {
+        ...state,
+        allPins: { ...state.allPins, [action.pin.id]: action.pin },
+        singlePin: {},
+      };
+    case REMOVE_PIN:
+      const newState = { ...state };
+      delete newState.allPins[action.id];
+      return newState;
+    case CLEAR_PINS:
+      return { ...state, allPins: {} };
+    case CLEAR_PIN_DETAIL:
+      return { ...state, singlePin: {} };
     default:
       return state;
   }
