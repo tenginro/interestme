@@ -1,13 +1,13 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+# from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class Follow(db.Model):
-    __tablename__ = 'follows'
+# class Follow(db.Model):
+#     __tablename__ = 'follows'
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+#     if environment == "production":
+#         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    following_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+#     following_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
     

@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 def seed_category():
     category1 = Category(name="Food")
     category2 = Category(name="Tech")
-    category3 = Category(name="Car")
+    category3 = Category(name="Art")
 
     db.session.add(category1)
     db.session.add(category2)
