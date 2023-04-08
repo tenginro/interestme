@@ -52,7 +52,7 @@ export const getAllPins = () => async (dispatch) => {
   }
 };
 
-export const getPinDetail = () => async (dispatch) => {
+export const getPinDetail = (id) => async (dispatch) => {
   const response = await fetch(`/api/pins/${id}`);
 
   if (response.ok) {
@@ -92,6 +92,8 @@ const pinReducer = (state = initialState, action) => {
         allUserPins[pin.id] = pin;
       });
       return { ...state, allPins: { ...allUserPins } };
+    default:
+      return state;
   }
 };
 
