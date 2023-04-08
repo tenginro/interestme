@@ -35,3 +35,13 @@ class Pin(db.Model):
     # )
 
     category = db.relationship("Category", back_populates="pin")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
+            "description": self.description,
+            "category_id": self.category_id,
+            "url": self.url,
+        }
