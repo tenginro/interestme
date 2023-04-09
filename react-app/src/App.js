@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import AllPins from "./components/AllPins";
 import SinglePin from "./components/SinglePin";
+import CurrentPins from "./components/ManagePins";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/pins/current">
+            <CurrentPins />
           </Route>
           <Route exact path="/pins/:pinId">
             <SinglePin />
