@@ -16,7 +16,7 @@ function DeleteModal ({pin}) {
         await closeModal()
         await dispatch(pinsActions.getUserPins());
         await dispatch(pinsActions.getAllPins())
-        
+        history.push(`/pins/current`)
     }
 
     const ClickNo = (e) => {
