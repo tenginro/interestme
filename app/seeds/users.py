@@ -5,23 +5,20 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', first_name="Demo", last_name="Dem", email='demo@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg", about="This guy is too lazy to do an introduction")
-    marnie = User(
-        username='marnie', first_name="Marnie", last_name="Mar",email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', first_name="Bobbie", last_name="Bob", email='bobbie@aa.io', password='password')
-    john = User(
-        username='john_doe', first_name="John", last_name="Doe", email='john_doe@aa.io', password='password')
-    jane = User(
-        username='jane_doe', first_name="Jane", last_name="Doe", email='jane_doe@aa.io', password='password')
+        username='DemoUser', first_name="Demo", last_name="User", email='demouser@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg", about="This guy is too lazy to do an introduction")
+    user1 = User(
+        username='UserOne', first_name="One", last_name="User",email='userone@aa.io', password='password')
+    user2 = User(
+        username='UserTwo', first_name="Two", last_name="User",email='usertwo@aa.io', password='password')
+    user3 = User(
+        username='UserThree', first_name="Three", last_name="User",email='userthree@aa.io', password='password')
+    user4 = User(
+        username='UserFour', first_name="Four", last_name="User",email='userfour@aa.io', password='password')
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.add(john)
-    db.session.add(jane)
+    all_users = [demo, user1, user2, user3, user4 ]
+    add_users = [db.session.add(user) for user in all_users]
     db.session.commit()
-
+    return all_users
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
 # have a built in function to do this. With postgres in production TRUNCATE
