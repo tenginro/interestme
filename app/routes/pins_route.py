@@ -21,8 +21,8 @@ def get_pins_by_id(id):
 
 @pin.route("/pins/current")
 def get_user_pins():
-    print('current user', current_user)
-    
-    user_pins = Pin.query.filter(Pin.user_id == 1)
+    user = current_user.to_dict()
+    user_pins = Pin.query.filter(Pin.user_id == user["id"])
     pins = [pin.to_dict() for pin in user_pins]
     return pins
+
