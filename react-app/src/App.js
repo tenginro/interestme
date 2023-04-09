@@ -7,11 +7,10 @@ import LoginFormPage from "./components/LoginFormPage";
 import AllPins from "./components/AllPins";
 import SinglePin from "./components/SinglePin";
 import CurrentPins from "./components/ManagePins";
-import CreatePin from './components/CreatePin';
-import EditPin from './components/ManagePins/EditPin'
+import CreatePin from "./components/CreatePin";
+import EditPin from "./components/ManagePins/EditPin";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-
 
 function App() {
   const dispatch = useDispatch();
@@ -25,10 +24,16 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login">
+          <Route exact path="/">
+            <AllPins />
+          </Route>
+          <Route exact path="/pins">
+            <AllPins />
+          </Route>
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
           <Route exact path="/pins/current">
@@ -42,9 +47,6 @@ function App() {
           </Route>
           <Route exact path="/pins/:pinId">
             <SinglePin />
-          </Route>
-          <Route exact path="/pins">
-            <AllPins />
           </Route>
         </Switch>
       )}
