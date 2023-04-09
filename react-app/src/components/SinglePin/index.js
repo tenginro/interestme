@@ -11,7 +11,7 @@ const Pin = () => {
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     return () => dispatch(actionClearPin());
-  }, [dispatch]);
+  }, [dispatch, pinId]);
 
   return (
     <div>
