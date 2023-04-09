@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask_login import current_user
 
 from ..models import db, Pin, User
 
@@ -17,3 +18,11 @@ def get_pins_by_id(id):
     single_pin = Pin.query.get(id)
     return single_pin.to_dict()
 
+
+@pin.route("/pins/current")
+def get_user_pins():
+    print('current user', current_user)
+    
+    user_pins = Pin.query.filter(Pin.user_id == 1)
+    pins = [pin.to_dict() for pin in user_pins]
+    return pins
