@@ -27,7 +27,7 @@ const EditPin = () => {
     if (pin) {
       setName(pin.name);
       setDescription(pin.description);
-      setCategory(pin.category);
+      setCategory(pin.category_id);
       setUrl(pin.url);
     }
   }, [pin]);
@@ -106,7 +106,7 @@ const EditPin = () => {
             <input
               type="text"
               onChange={updateDescription}
-              value={name}
+              value={description}
               placeholder="Tell everyone what your Pin is about"
               name="description"
             ></input>
