@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import AllPins from "./components/AllPins";
+import SinglePin from "./components/SinglePin";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -26,7 +27,10 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/pins">
+          <Route exact path="/pins/:pinId">
+            <SinglePin />
+          </Route>
+          <Route exact path="/pins">
             <AllPins />
           </Route>
         </Switch>
