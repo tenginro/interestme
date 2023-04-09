@@ -12,7 +12,7 @@ function DeleteModal ({pin}) {
 
     const ClickYes = async (e) => {
         e.preventDefault();
-        await dispatch(pinsActions.deletePin(pin.id))
+        await dispatch(pinsActions.deletePin(pin))
         await closeModal()
         await dispatch(pinsActions.getUserPins());
         await dispatch(pinsActions.getAllPins())
@@ -26,7 +26,7 @@ function DeleteModal ({pin}) {
 
     return (
         <div className='deleteModal'>
-            <h1>Are you sure?</h1>A
+            <h1>Are you sure?</h1>
             <h4>Once you delete a Pin, you can't undo it!</h4>
             <div>
                 <div className='submitDiv de'>

@@ -40,14 +40,14 @@ const EditPin = () => {
     const updateCategory = (e) => setCategory(e.target.value);
     const updateUrl = (e) => setUrl(e.target.value);
 
-    useEffect(()=>{
-        const err = [];
-        if(!name.length) err.name = 'Name is required'
-        if(!description.length) err.description='Description is required'
-        if(!url.length) err.url='Image is required'
-        if(!category.length) err.category = 'Category is required'
-        setErrors(err)
-    },[name, description, url, category])
+    // useEffect(()=>{
+    //     const err = [];
+    //     if(!name.length) err.name = 'Name is required'
+    //     if(!description.length) err.description='Description is required'
+    //     if(!url.length) err.url='Image is required'
+    //     if(!category.length) err.category = 'Category is required'
+    //     setErrors(err)
+    // },[name, description, url, category])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,6 +70,11 @@ const EditPin = () => {
                 await setResErrors(updatedRes.errors);
             }
         }
+    }
+
+    const cancelClick = (e) => {
+        e.preventDefault();
+        history.push(`/pins/current`)
     }
 
     if(!pin) return (
@@ -127,7 +132,9 @@ const EditPin = () => {
                     modalComponent={<DeleteModal pin={pin}/>}
                 />
                 <div>
-                    <button>Cancel</button>
+                    <button
+                    onClick={cancelClick}
+                    >Cancel</button>
                     <button type='Submit'>Save</button>
                 </div>
 
