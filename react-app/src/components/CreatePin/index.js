@@ -62,7 +62,7 @@ const CreatePin = () => {
                 <ul>
                     {hasSubmitted && Boolean(Object.values(resErrors).length) ? <li>{Object.values(resErrors)}</li> : null}
                 </ul>
-                <div>
+                <div className='leftSide'>
                     <label>Upload an Image</label>
                     <input
                     type='text'
@@ -73,9 +73,35 @@ const CreatePin = () => {
                     >
                     </input>
                 </div>
-                <div>
-                    <label></label>
+                <div className='rightSide'>
+                    <div>
+                    <input
+                    type='text'
+                    onChange={(e)=>setCategory(e.target.value)}
+                    value={category}
+                    placeholder='Choose a category'
+                    name='category'
+                    ></input>
+                    <button 
+                    type='submit'
+                    >Save</button>
+                    </div>
+                    <input
+                    type='text'
+                    onChange={(e)=>setName(e.target.value)}
+                    value={name}
+                    placeholder='Add your title'
+                    name='name'
+                    ></input>
+                    <input
+                    type='text'
+                    onChange={(e)=>setDescription(e.target.value)}
+                    value={name}
+                    placeholder='Tell everyone what your Pin is about'
+                    name='description'
+                    ></input>
                 </div>
+                
             </form>
         </div>
     )
