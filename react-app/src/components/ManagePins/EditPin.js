@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as pinsAction from '../../store/pin';
 
-const CreatePin = () => {
+const EditPin = () => {
+
+    const {pinId} = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const pin = useSelector(state=>state.pins.singlePin);
+
+    useEffect(()=>{
+        dispatch(pinsAction.getPinDetail(pinId))
+    },[dispatch])
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
@@ -11,8 +21,21 @@ const CreatePin = () => {
     const [errors, setErrors] = useState({});
     const [resErrors, setResErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
-    const dispatch = useDispatch();
-    const history = useHistory();
+
+    useEffect(()=>{
+        if(pin) {
+            setName(pin.name);
+            setDescription(pin.description);
+            setCategory(pin.category);
+            setUrl(pin.url);
+
+        }
+    }, [pin])
+
+    const updateName = (e) => setName(e.target.value);
+    const updateDescription = (e) => setDescription(e.target.value);
+    const updateCategory = (e) => setCategory(e.target.value);
+    const updateUrl = (e) => setUrl(e.target.value);
 
     useEffect(()=>{
         const err = [];
@@ -28,40 +51,32 @@ const CreatePin = () => {
         await setHasSubmitted(true);
         await setResErrors({})
 
-        const newPin ={
+        const payload ={
+            ...pin,
             name,
             description,
             url,
             category
         };
         if(!Boolean(Object.values(errors).length)){
-            const createdRes = await dispatch(pinsAction.createPin(newPin))
-            if(!createdRes.errors) {
-                history.push(`/pins/${createdRes.id}`)
-                await reset()
+            const updatedRes = await dispatch(pinsAction.updatePin(payload))
+            if(!updatedRes.errors) {
+                history.push(`/pins/${updatedRes.id}`)
+                await setHasSubmitted(false);
             } else {
-                await setResErrors(createdRes.errors);
+                await setResErrors(updatedRes.errors);
             }
         }
     }
 
-    const reset = () => {
-        setName('');
-        setDescription('');
-        setCategory('');
-        setUrl('');
-        setErrors({});
-        setResErrors({});
-        setHasSubmitted(false);
-    };
-
+    if(!pin) return (
+        <h1>No pins found</h1>
+    )
     return (
         <div>
-            <h1>Create a New Pin</h1>
+            <h1>Update a Pin</h1>
             <form onSubmit={handleSubmit}>
-                <ul>
-                    {hasSubmitted && Boolean(Object.values(resErrors).length) ? <li>{Object.values(resErrors)}</li> : null}
-                </ul>
+                
                 <div className='leftSide'>
                     <label>Upload an Image</label>
                     <input
@@ -75,16 +90,16 @@ const CreatePin = () => {
                 </div>
                 <div className='rightSide'>
                     <div>
-                        <input
-                        type='text'
-                        onChange={(e)=>setCategory(e.target.value)}
-                        value={category}
-                        placeholder='Choose a category'
-                        name='category'
-                        ></input>
-                        <button 
-                        type='submit'
-                        >Save</button>
+                    <input
+                    type='text'
+                    onChange={(e)=>setCategory(e.target.value)}
+                    value={category}
+                    placeholder='Choose a category'
+                    name='category'
+                    ></input>
+                    <button 
+                    type='submit'
+                    >Save</button>
                     </div>
                     <div>
                         <input
@@ -102,7 +117,7 @@ const CreatePin = () => {
                         <input
                         type='text'
                         onChange={(e)=>setDescription(e.target.value)}
-                        value={description}
+                        value={name}
                         placeholder='Tell everyone what your Pin is about'
                         name='description'
                         ></input>
@@ -116,4 +131,4 @@ const CreatePin = () => {
     )
 }
 
-export default CreatePin;
+export default EditPin;

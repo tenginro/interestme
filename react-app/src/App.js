@@ -7,8 +7,10 @@ import LoginFormPage from "./components/LoginFormPage";
 import AllPins from "./components/AllPins";
 import SinglePin from "./components/SinglePin";
 import CurrentPins from "./components/ManagePins";
+import CreatePin from './components/CreatePin';
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +32,9 @@ function App() {
           </Route>
           <Route exact path="/pins/current">
             <CurrentPins />
+          </Route>
+          <Route exact path="/pins/new">
+            <CreatePin />
           </Route>
           <Route exact path="/pins/:pinId">
             <SinglePin />
