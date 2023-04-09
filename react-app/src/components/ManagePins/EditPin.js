@@ -81,7 +81,7 @@ const EditPin = () => {
                     <label>Upload an Image</label>
                     <input
                     type='text'
-                    onChange={(e)=>setUrl(e.target.value)}
+                    onChange={updateUrl}
                     value = {url}
                     placeholder='Drag and drop an image url to upload'
                     name = 'url'
@@ -92,7 +92,7 @@ const EditPin = () => {
                     <div>
                     <input
                     type='text'
-                    onChange={(e)=>setCategory(e.target.value)}
+                    onChange={updateCategory}
                     value={category}
                     placeholder='Choose a category'
                     name='category'
@@ -104,7 +104,7 @@ const EditPin = () => {
                     <div>
                         <input
                         type='text'
-                        onChange={(e)=>setName(e.target.value)}
+                        onChange={updateName}
                         value={name}
                         placeholder='Add your title'
                         name='name'
@@ -116,7 +116,7 @@ const EditPin = () => {
                     <div>
                         <input
                         type='text'
-                        onChange={(e)=>setDescription(e.target.value)}
+                        onChange={updateDescription}
                         value={name}
                         placeholder='Tell everyone what your Pin is about'
                         name='description'
