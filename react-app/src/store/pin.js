@@ -72,6 +72,28 @@ export const getUserPins = () => async (dispatch) => {
   }
 };
 
+export const createPin = (pin, user) => async (dispatch) => {
+  const { name, description, category_id, url } = pin;
+
+  const response = await fetch("/api/pin", {
+    method: "POST",
+    body: JSON.stringify({
+      name,
+      description,
+      category_id,
+      url,
+      user_id: user.id,
+    }),
+  });
+
+  if (response.ok) {
+    const newPin = await response.json();
+    await dispatch(actionCreatePin(newPin));
+    return newPin;
+  }
+  return response;
+};
+
 export const updatePin = (pin) => async (dispatch) => {
   const response = await fetch(`/api/pins/${pin.id}`, {
     method: "PUT",
@@ -118,6 +140,12 @@ const pinReducer = (state = initialState, action) => {
         allUserPins[pin.id] = pin;
       });
       return { ...state, allPins: { ...allUserPins } };
+    case CREATE_PIN:
+      return {
+        ...state,
+        allPins: { ...state.allPins, [action.pin.id]: action.pin },
+        singlePin: {},
+      };
     case UPDATE_PIN:
       return {
         ...state,
