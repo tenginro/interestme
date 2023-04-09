@@ -1,5 +1,5 @@
-from flask import Blueprint
-from flask_login import current_user
+from flask import Blueprint, request
+from flask_login import current_user, login_required
 
 from ..models import db, Pin, User
 from ..forms import PinForm
@@ -29,33 +29,43 @@ def get_user_pins():
 
 @pin.route("/pins", methods=["POST"])
 def create_pin():
+    user = current_user.to_dict()
     form = PinForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        new_pin = Pin({
-            "name": form.data["name"],
-            "description": form.data["description"],
-            "category": form.data["category"],
-            "url": form.data["url"]
-        })
+        new_pin = Pin(
+            user_id = user["id"],
+            name = form.data["name"],
+            description = form.data["description"],
+            category_id = form.data["category_id"],
+            url = form.data["url"]
+        )
         db.session.add(new_pin)
         db.session.commit()
         return new_pin.to_dict()
+    if form.errors:
+        return form.errors
     return 'Bad Data'
 
 @pin.route("pins/<int:id>", methods=["PUT"])
 def update_pin(id):
-
+    user = current_user.to_dict()
     pin = Pin.query.get(id)
-    form = PinForm()
-    if form.validate_on_submit():
-        pin.name = form.data["name"]
-        pin.description = form.data["description"]
-        pin.category = form.data["category"]
-        pin.url = form.data["url"]
-        db.session.commit()
-        updated_pin = Pin.query.get(id)
-        return updated_pin.to_dict()
-    return 'Bad Data'
+
+    if pin["user_id"] == user["id"]:
+        form = PinForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+        if form.validate_on_submit():
+            pin.name = form.data["name"]
+            pin.description = form.data["description"]
+            pin.category = form.data["category"]
+            pin.url = form.data["url"]
+            db.session.commit()
+            updated_pin = Pin.query.get(id)
+            return updated_pin.to_dict()
+        if form.errors:
+            return form.errors
+    return 'User does not own this pin'
 
 @pin.route("pins/<int:id>", methods=["DELETE"])
 def delete_pin(id):
