@@ -16,7 +16,7 @@ const Pin = () => {
   return (
     <div>
       <div>
-        <img src={pin.url} />
+        <img src={pin.url} alt="pin.url" />
       </div>
       <div>
         <h2>{pin.name}</h2>
