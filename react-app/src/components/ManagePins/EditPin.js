@@ -74,34 +74,11 @@ const EditPin = () => {
     )
     return (
         <div>
-            <h1>Update a Pin</h1>
+            <h1>Edit this Pin</h1>
             <form onSubmit={handleSubmit}>
-                
                 <div className='leftSide'>
-                    <label>Upload an Image</label>
-                    <input
-                    type='text'
-                    onChange={updateUrl}
-                    value = {url}
-                    placeholder='Drag and drop an image url to upload'
-                    name = 'url'
-                    >
-                    </input>
-                </div>
-                <div className='rightSide'>
                     <div>
-                    <input
-                    type='text'
-                    onChange={updateCategory}
-                    value={category}
-                    placeholder='Choose a category'
-                    name='category'
-                    ></input>
-                    <button 
-                    type='submit'
-                    >Save</button>
-                    </div>
-                    <div>
+                        <label>Title</label>
                         <input
                         type='text'
                         onChange={updateName}
@@ -114,6 +91,17 @@ const EditPin = () => {
                             }
                     </div>
                     <div>
+                        <label>Category</label>
+                        <input
+                        type='text'
+                        onChange={updateCategory}
+                        value={category}
+                        placeholder='Choose a category'
+                        name='category'
+                        ></input>
+                    </div>
+                    <div>
+                        <label>Description</label>
                         <input
                         type='text'
                         onChange={updateDescription}
@@ -126,9 +114,23 @@ const EditPin = () => {
                             }
                     </div>
                 </div>
+                <div className='rightSide'>
+                    <img src={pin.url} />
+                </div>
             </form>
+            <div className='bottom'>
+                <div>
+                    <button>Delete</button>
+                </div>
+                <div>
+                    <button>Cancel</button>
+                    <button type='Submit'>Save</button>
+                </div>
+
+            </div>
         </div>
     )
 }
 
 export default EditPin;
+
