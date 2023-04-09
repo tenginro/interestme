@@ -73,7 +73,7 @@ def delete_pin(id):
     if pin:
         db.session.delete(pin)
         db.session.commit()
-        return 'Pin Deleted!'
+        return {"message":'Pin Deleted!'}
     return 'Pin not found!'
 
 
