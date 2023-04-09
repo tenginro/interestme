@@ -54,14 +54,15 @@ def update_pin(id):
         pin.url = form.data["url"]
         db.session.commit()
         updated_pin = Pin.query.get(id)
-        return update_pin.to_dict()
+        return updated_pin.to_dict()
     return 'Bad Data'
 
 @pin.route("pins/<int:id>", methods=["DELETE"])
 def delete_pin(id):
     pin = Pin.query.get(id)
     if pin:
-        db.session.remove(pin)
+        db.session.delete(pin)
+        db.session.commit()
         return 'Pin Deleted!'
     return 'Pin not found!'
 
