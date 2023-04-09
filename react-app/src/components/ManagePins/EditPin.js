@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { NavLink, Link, useHistory, useParams } from 'react-router-dom';
 import * as pinsAction from '../../store/pin';
+import OpenModalButton from '../OpenModalButton/index'
+import DeleteModal from '../DeletePinModal'
+
 
 const EditPin = () => {
 
@@ -119,9 +122,10 @@ const EditPin = () => {
                 </div>
             </form>
             <div className='bottom'>
-                <div>
-                    <button>Delete</button>
-                </div>
+                <OpenModalButton 
+                    buttonText= 'Delete'
+                    modalComponent={<DeleteModal pin={pin}/>}
+                />
                 <div>
                     <button>Cancel</button>
                     <button type='Submit'>Save</button>
