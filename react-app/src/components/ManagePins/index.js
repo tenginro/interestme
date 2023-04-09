@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getUserPins } from "../../store/pin";
@@ -24,6 +24,13 @@ function CurrentPins() {
               <img src={pin.url} alt={pin.name} />
             </NavLink>
             <button>Save</button>
+            <div>
+                <button>
+                    <Link key={pin.id} to={`/pins/${pin.id}/edit`} >
+                        Update
+                    </Link>
+                </button>
+            </div>
           </div>
         ))}
       </nav>
