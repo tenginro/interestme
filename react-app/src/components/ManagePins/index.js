@@ -7,13 +7,9 @@ import { getUserPins } from "../../store/pin";
 function CurrentPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
-  console.log("currentpins function");
-  console.log("pinObj", pinsObj);
 
   useEffect(() => {
-    console.log("before dispatch");
     dispatch(getUserPins());
-    console.log("after dispatch");
   }, [dispatch]);
 
   if (!pinsObj) return null;
@@ -23,7 +19,7 @@ function CurrentPins() {
     <div>
       <nav>
         {pins.map((pin) => (
-          <div>
+          <div key={pin.id}>
             <NavLink key={pin.id} to={`/pins/${pin.id}`}>
               <img src={pin.url} alt={pin.name} />
             </NavLink>

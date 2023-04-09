@@ -63,13 +63,10 @@ export const getPinDetail = (id) => async (dispatch) => {
 };
 
 export const getUserPins = () => async (dispatch) => {
-  console.log("before fetching user pins");
   const response = await fetch("/api/pins/current");
-  console.log("after fetching user pins");
 
   if (response.ok) {
     const pins = await response.json();
-    console.log("pins", pins);
     await dispatch(actionLoadUserPins(pins));
     return pins;
   }
