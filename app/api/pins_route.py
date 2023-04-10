@@ -27,6 +27,8 @@ def get_user_pins():
     pins = [pin.to_dict() for pin in user_pins]
     return pins
 
+# saved pins
+
 @pin.route("/pins", methods=["POST"])
 @login_required
 def create_pin():
