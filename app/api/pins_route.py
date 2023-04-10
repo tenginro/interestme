@@ -28,6 +28,7 @@ def get_user_pins():
     return pins
 
 @pin.route("/pins", methods=["POST"])
+@login_required
 def create_pin():
     user = current_user.to_dict()
     form = PinForm()
@@ -48,6 +49,7 @@ def create_pin():
     return {"message": 'Bad Data', "statusCode": 400}
 
 @pin.route("pins/<int:id>", methods=["PUT"])
+@login_required
 def update_pin(id):
     user = current_user.to_dict()
     pin = Pin.query.get(id)
@@ -68,6 +70,7 @@ def update_pin(id):
     return {"message": 'User does not own this pin', "statusCode": 400}
 
 @pin.route("pins/<int:id>", methods=["DELETE"])
+@login_required
 def delete_pin(id):
     pin = Pin.query.get(id)
     if pin:

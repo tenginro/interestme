@@ -8,3 +8,5 @@ class PinForm(FlaskForm):
     description = StringField("description", validators=[DataRequired()])
     category_id = SelectField("category", choices=[(1, "Food"), (2, "Tech"), (3, "Art")])
     url = StringField("url")
+
+
