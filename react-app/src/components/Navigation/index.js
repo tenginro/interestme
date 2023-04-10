@@ -17,7 +17,7 @@ function Navigation({ isLoaded }){
       <li className="home li">
         <NavLink exact to="/pins">
           <div className="logoLine">
-            <img className="logo" src={require("./icon.png")} alt="logo"></img>
+            <img className="logo" src={require("./icon.png")} alt="logo" />
             Tinterest
           </div>
         </NavLink>

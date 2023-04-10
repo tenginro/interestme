@@ -9,6 +9,9 @@ const REMOVE_PIN = "pins/delete";
 const CLEAR_PIN_DETAIL = "pins/clear_pin_state";
 const CLEAR_PINS = "pins/clear_pins_state";
 
+// const SAVE_PIN_USER = 'pins/save/user';
+// const SAVE_PIN_BOARD = 'pins/save/board';
+
 export const actionLoadAllPins = (pins) => ({
   type: LOAD_PINS,
   pins,
@@ -41,6 +44,13 @@ export const actionClearPins = () => ({
 export const actionClearPin = () => ({
   type: CLEAR_PIN_DETAIL,
 });
+
+// export const actionSavePinUser = () => ({
+//   type: SAVE_PIN_USER
+// })
+// export const actionSavePinBoard = () => ({
+//   type:SAVE_PIN_BOARD
+// })
 
 export const getAllPins = () => async (dispatch) => {
   const response = await fetch("/api/pins");
@@ -112,6 +122,42 @@ export const deletePin = (pin) => async (dispatch) => {
   }
   return await response.json();
 };
+
+export const savePinThunk = (pin, board) => async (dispatch) => {
+  const response = await fetch(`/api/pins/${pin.id}/save`, {
+    method:'PATCH',
+    body: board
+  })
+  if(response.ok) {
+    await dispatch(actionUpdatePin(pin));
+    return await response.json();
+  }
+  return await response.json();
+}
+
+export const unSavePinThunk = (pin, board) => async (dispatch) => {
+  const response = await fetch(`/api/pins/${pin.id}/save`, {
+    method:'PATCH',
+    body: board
+  })
+  if(response.ok) {
+    await dispatch(actionUpdatePin(pin));
+    return await response.json();
+  }
+  return await response.json();
+}
+
+// export const savePinUserThunk = (pin) => async (dispatch) => {
+//   const response = await fetch(`/api/pins/${pin.id}/save`, {
+//     method:'PATCH',
+//     body: pin
+//   })
+//   if(response.ok) {
+//     await dispatch(actionUpdatePin(pin));
+//     return await response.json();
+//   }
+//   return await response.json();
+// }
 
 const initialState = {
   allPins: {},
