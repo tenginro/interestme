@@ -45,7 +45,7 @@ def create_pin():
         return new_pin.to_dict()
     if form.errors:
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
-    return {"message": 'Bad Data', "statusCode": 400, "errors": "Bad Data"}
+    return {"message": 'Bad Data', "statusCode": 400}
 
 @pin.route("pins/<int:id>", methods=["PUT"])
 def update_pin(id):
@@ -65,7 +65,7 @@ def update_pin(id):
             return updated_pin.to_dict()
         if form.errors:
             return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
-    return {"message": 'User does not own this pin', "statusCode": 400, "errors": 'User does not own this pin'}
+    return {"message": 'User does not own this pin', "statusCode": 400}
 
 @pin.route("pins/<int:id>", methods=["DELETE"])
 def delete_pin(id):
@@ -74,6 +74,6 @@ def delete_pin(id):
         db.session.delete(pin)
         db.session.commit()
         return {"message":'Pin Deleted!'}
-    return {"message": 'Pin not found', "statusCode": 404, "errors": "Pin not found"}
+    return {"message": 'Pin not found', "statusCode": 404}
 
 
