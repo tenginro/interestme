@@ -40,7 +40,7 @@ def create_pin():
             user_id = user["id"],
             name = form.data["name"],
             description = form.data["description"],
-            category_id = form.data["category_id"],
+            category = form.data["category"],
             url = form.data["url"]
         )
         db.session.add(new_pin)

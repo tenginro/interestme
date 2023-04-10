@@ -18,9 +18,9 @@ class Pin(db.Model):
     # )
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255))
-    category_id = db.Column(
-        db.Integer, db.ForeignKey(add_prefix_for_prod("categories.id"))
-    )
+    category = db.Column(
+        db.String(100))
+    
     url = db.Column(db.String(255))
 
     # relationship attributed
@@ -34,14 +34,12 @@ class Pin(db.Model):
         "User", secondary=user_pins, back_populates="saved_pins"
     )
 
-    category = db.relationship("Category", back_populates="pin")
-
     def to_dict(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
             "name": self.name,
             "description": self.description,
-            "category_id": self.category_id,
+            "category": self.category,
             "url": self.url,
         }

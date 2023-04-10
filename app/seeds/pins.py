@@ -10,7 +10,7 @@ def seed_pins(all_boards, all_users):
         user_id=1,
         name="Fruit",
         description="Food Fruit",
-        category_id=1,
+        category='Food',
         url="https://as2.ftcdn.net/v2/jpg/00/82/91/29/1000_F_82912936_VKERwIHOojNPjQLXfdeBPrqCIy3q1GHM.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -20,7 +20,7 @@ def seed_pins(all_boards, all_users):
         user_id=1,
         name="Color",
         description="Monet",
-        category_id=3,
+        category='Art',
         url="https://as1.ftcdn.net/v2/jpg/05/76/43/74/1000_F_576437402_gKJQCzFNw9Ev8cfuz1180FBg9l86RPx6.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -30,7 +30,7 @@ def seed_pins(all_boards, all_users):
         user_id=1,
         name="Technology",
         description="Tech Tech Tech",
-        category_id=3,
+        category='Tech',
         url="https://as1.ftcdn.net/v2/jpg/01/52/61/36/1000_F_152613619_kaNluqI3oUjvIhEQDcDfuksXknNJ45lf.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -40,7 +40,7 @@ def seed_pins(all_boards, all_users):
         user_id=2,
         name="Soda",
         description="Food Soda",
-        category_id=1,
+        category='Food',
         url="https://i.pinimg.com/564x/bf/ab/78/bfab7840c6e176178b94d2aabe7ce703.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -50,7 +50,7 @@ def seed_pins(all_boards, all_users):
         user_id=2,
         name="Sun",
         description="Sun Picture",
-        category_id=2,
+        category='Art',
         url="https://as1.ftcdn.net/v2/jpg/03/15/85/90/1000_F_315859031_5mqyTgkmJYO8J1ig5jxuQDIXJE48Q9zL.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -60,7 +60,7 @@ def seed_pins(all_boards, all_users):
         user_id=2,
         name="Technology",
         description="Tech Tech Tech",
-        category_id=3,
+        category='Tech',
         url="https://as1.ftcdn.net/v2/jpg/05/34/74/20/1000_F_534742003_R9oC0ejK0a2UXmtVLV2hFKbA0sjKP79g.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -70,7 +70,7 @@ def seed_pins(all_boards, all_users):
         user_id=3,
         name="Soda",
         description="Food Soda",
-        category_id=1,
+        category='Food',
         url="https://i.pinimg.com/564x/bf/ab/78/bfab7840c6e176178b94d2aabe7ce703.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -80,7 +80,7 @@ def seed_pins(all_boards, all_users):
         user_id=3,
         name="Sun",
         description="Sun Picture",
-        category_id=2,
+        category='Art',
         url="https://as2.ftcdn.net/v2/jpg/03/30/37/83/1000_F_330378374_FJ0SNG7Wiz97PXlDL9Y7F9JENVFldZLj.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -90,7 +90,7 @@ def seed_pins(all_boards, all_users):
         user_id=3,
         name="Technology",
         description="Tech Tech Tech",
-        category_id=3,
+        category='Tech',
         url="https://as1.ftcdn.net/v2/jpg/05/34/74/20/1000_F_534742003_R9oC0ejK0a2UXmtVLV2hFKbA0sjKP79g.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -100,7 +100,7 @@ def seed_pins(all_boards, all_users):
         user_id=4,
         name="Salad",
         description="Food Salad",
-        category_id=1,
+        category='Food',
         url="https://as1.ftcdn.net/v2/jpg/03/21/34/26/1000_F_321342613_tX7IK69S1SK3XD3ZzWQUnaaDW36jR2nA.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -110,7 +110,7 @@ def seed_pins(all_boards, all_users):
         user_id=4,
         name="Sunflower",
         description="SunFlower Picture",
-        category_id=2,
+        category='Art',
         url="https://as2.ftcdn.net/v2/jpg/03/30/37/83/1000_F_330378374_FJ0SNG7Wiz97PXlDL9Y7F9JENVFldZLj.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -120,7 +120,7 @@ def seed_pins(all_boards, all_users):
         user_id=4,
         name="Technology",
         description="Tech Tech Tech",
-        category_id=3,
+        category='Tech',
         url="https://as1.ftcdn.net/v2/jpg/05/34/74/20/1000_F_534742003_R9oC0ejK0a2UXmtVLV2hFKbA0sjKP79g.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
