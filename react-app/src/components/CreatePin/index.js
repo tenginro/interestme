@@ -14,6 +14,7 @@ const CreatePin = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    
     useEffect(()=>{
         const err = [];
         if(!name.length) err.name = 'Name is required'
