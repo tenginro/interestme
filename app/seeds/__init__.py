@@ -21,14 +21,12 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_category()
-        # undo_follows()
         undo_pins()
         undo_boards()
         undo_users()
     all_users = seed_users()
     all_boards = seed_boards()
     seed_pins(all_boards, all_users)
-    # seed_follows()
     seed_category()
     # Add other seed functions here
 
@@ -37,7 +35,6 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_category()
-    # undo_follows()
     undo_pins()
     undo_boards()
     undo_users()
