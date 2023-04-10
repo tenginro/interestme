@@ -1,8 +1,8 @@
-"""creating tables
+"""create tables
 
-Revision ID: 26bb99cc3554
-Revises:
-Create Date: 2023-04-09 00:20:46.781602
+Revision ID: 920c0c00a7af
+Revises: 
+Create Date: 2023-04-10 08:57:56.077903
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '26bb99cc3554'
+revision = '920c0c00a7af'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,6 +49,12 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('follows',
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('following_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['following_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
+    )
     op.create_table('pins',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -73,12 +79,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'pin_id')
     )
-    op.create_table('follows',
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('following_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['following_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
-    )
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
@@ -89,8 +89,8 @@ def downgrade():
     op.drop_table('user_pins')
     op.drop_table('board_pins')
     op.drop_table('pins')
+    op.drop_table('follows')
     op.drop_table('boards')
     op.drop_table('users')
     op.drop_table('categories')
-    op.drop_table('follows')
     # ### end Alembic commands ###

@@ -75,7 +75,7 @@ export const getUserPins = () => async (dispatch) => {
 export const createPin = (pin, user) => async (dispatch) => {
   const { name, description, category_id, url } = pin;
 
-  const response = await fetch("/api/pin", {
+  const response = await fetch("/api/pins", {
     method: "POST",
     body: JSON.stringify({
       name,
@@ -88,10 +88,11 @@ export const createPin = (pin, user) => async (dispatch) => {
 
   if (response.ok) {
     const newPin = await response.json();
+    console.log(newPin);
     await dispatch(actionCreatePin(newPin));
     return newPin;
   }
-  return response;
+  return response.json();
 };
 
 export const updatePin = (pin) => async (dispatch) => {

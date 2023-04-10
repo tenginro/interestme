@@ -16,7 +16,7 @@ const CreatePin = () => {
 
     const categories = ['Art', 'Food', 'Tech']
     const currentUser = useSelector(state=>state.session.user)
-    
+    //for errors
     useEffect(()=>{
         const err = [];
         if(!name.length) err.name = 'Name is required'
@@ -40,6 +40,7 @@ const CreatePin = () => {
         if(!Boolean(Object.values(errors).length)){
             const createdRes = await dispatch(pinsAction.createPin(newPin,currentUser))
             if(!createdRes.errors) {
+                console.log(createdRes)
                 history.push(`/pins/${createdRes.id}`)
                 await reset()
             } else {
