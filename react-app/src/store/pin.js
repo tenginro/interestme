@@ -73,14 +73,14 @@ export const getUserPins = () => async (dispatch) => {
 };
 
 export const createPin = (pin, user) => async (dispatch) => {
-  const { name, description, category_id, url } = pin;
+  const { name, description, category, url } = pin;
 
   const response = await fetch("/api/pins", {
     method: "POST",
     body: JSON.stringify({
       name,
       description,
-      category_id,
+      category,
       url,
       user_id: user.id,
     }),
