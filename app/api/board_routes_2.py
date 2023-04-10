@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import current_user, login_required
 
 from ..models import db, Board, User, Pin
-from ..forms import PinForm
+from ..forms import PinForm, BoardForm 
 
 
 board_routes = Blueprint("boards", __name__)
@@ -15,13 +15,12 @@ def update_board(id):
     board = board.query.get(id)
 
     if board.user_id == user["id"]:
-        form = boardForm()
+        form = BoardForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         if form.validate_on_submit():
             board.name = form.data["name"]
             board.description = form.data["description"]
-            board.category = form.data["category"]
-            # board.url = form.data["url"]
+            board.secret = form.data['secret']
             db.session.commit()
             updated_board = board.query.get(id)
             return {"board": updated_board.to_dict()}
