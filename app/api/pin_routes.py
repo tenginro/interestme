@@ -5,22 +5,22 @@ from ..models import db, Pin, User
 from ..forms import PinForm
 
 
-pin = Blueprint("pins", __name__)
+pin_routes = Blueprint("pins", __name__)
 
 
-@pin.route("/pins")
+@pin_routes.route("/pins")
 def get_all_pins():
     pins = Pin.query.all()
     all_pins = [pin.to_dict() for pin in pins]
     return all_pins
 
-@pin.route("/pins/<int:id>")
+@pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
     single_pin = Pin.query.get(id)
     return single_pin.to_dict()
 
 
-@pin.route("/pins/current")
+@pin_routes.route("/pins/current")
 def get_user_pins():
     user = current_user.to_dict()
     user_pins = Pin.query.filter(Pin.user_id == user["id"])
@@ -29,7 +29,7 @@ def get_user_pins():
 
 # saved pins
 
-@pin.route("/pins", methods=["POST"])
+@pin_routes.route("/pins", methods=["POST"])
 @login_required
 def create_pin():
     user = current_user.to_dict()
@@ -51,7 +51,7 @@ def create_pin():
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
     return {"message": 'Bad Data', "statusCode": 400}
 
-@pin.route("pins/<int:id>", methods=["PATCH","PUT"])
+@pin_routes.route("pins/<int:id>", methods=["PATCH","PUT"])
 @login_required
 def update_pin(id):
     user = current_user.to_dict()
@@ -67,13 +67,12 @@ def update_pin(id):
             # pin.url = form.data["url"]
             db.session.commit()
             updated_pin = Pin.query.get(id)
-            print("******************************************************************************************************updated in backend", updated_pin.to_dict())
             return {"pin": updated_pin.to_dict()}
         if form.errors:
             return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
     return {"message": 'User does not own this pin', "statusCode": 400}
 
-@pin.route("pins/<int:id>", methods=["DELETE"])
+@pin_routes.route("pins/<int:id>", methods=["DELETE"])
 @login_required
 def delete_pin(id):
     pin = Pin.query.get(id)

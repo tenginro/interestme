@@ -21,3 +21,13 @@ class Board(db.Model):
         secondary=board_pins,
         back_populates='boards'
     )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
+            "description": self.description,
+            "board_cover": self.board_cover,
+            "secret": self.secret,
+        }
