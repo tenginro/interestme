@@ -35,6 +35,7 @@ def create_pin():
     user = current_user.to_dict()
     form = PinForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
+    
     if form.validate_on_submit():
         new_pin = Pin(
             user_id = user["id"],
@@ -45,6 +46,8 @@ def create_pin():
         )
         db.session.add(new_pin)
         db.session.commit()
+        # newPin = Pin.query.filter(name=form.data["name"], user_id=user["id"]).first()
+        # return {"pin": newPin.to_dict()}
         return {"pin": new_pin.to_dict()}
     if form.errors:
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}

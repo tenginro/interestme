@@ -28,8 +28,8 @@ const CreatePin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await setHasSubmitted(true);
-    await setResErrors({});
+    setHasSubmitted(true);
+    setResErrors({});
 
     const formData = new FormData();
     formData.append("name", name);
@@ -37,11 +37,6 @@ const CreatePin = () => {
     formData.append("url", url);
     formData.append("category", category);
     formData.append("user_id", currentUser.id);
-    console.log("formData", formData);
-    dispatch(pinsAction.createPin(formData)).then(() => {
-      return history.push("/pins");
-    });
-    console.log("after thunk");
 
     // const newPin = {
     //   name,
@@ -50,21 +45,19 @@ const CreatePin = () => {
     //   category,
     // };
 
-    // if (!Boolean(Object.values(errors).length)) {
-    //   const createdRes = await dispatch(
-    //     // pinsAction.createPin(newPin, currentUser)
-    //     pinsAction.createPin(formData)
-    //   );
-    //   console.log("createdRes", createdRes);
-    //   if (!createdRes.errors) {
-    //     console.log(createdRes);
-    //     // history.push(`/pins`);
-    //     history.push(`/pins/${createdRes.id}`);
-    //     await reset();
-    //   } else {
-    //     await setResErrors(createdRes.errors);
-    //   }
-    // }
+    if (!Boolean(Object.values(errors).length)) {
+      const createdRes = await dispatch(
+        // pinsAction.createPin(newPin, currentUser)
+        pinsAction.createPin(formData)
+      );
+      if (!createdRes.errors) {
+        // history.push(`/pins`);
+        history.push(`/pins/${createdRes.id}`);
+        await reset();
+      } else {
+        await setResErrors(createdRes.errors);
+      }
+    }
   };
 
   const reset = () => {
@@ -99,11 +92,16 @@ const CreatePin = () => {
         <div className="rightSide">
           <div>
             <select
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                // console.log("before setCategory", e.target.value);
+                setCategory(e.target.value);
+                // console.log("after setCategory", category);
+              }}
               value={category}
               name="category"
               placeholder="Choose a category"
             >
+              <option value=""></option>
               {categories.map((c) => (
                 <option value={c}>{c}</option>
               ))}
