@@ -57,7 +57,7 @@ def update_pin(id):
     user = current_user.to_dict()
     pin = Pin.query.get(id)
 
-    if pin["user_id"] == user["id"]:
+    if pin.user_id == user["id"]:
         form = PinForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         if form.validate_on_submit():
