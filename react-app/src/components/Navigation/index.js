@@ -1,8 +1,9 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import ProfileButton from "./ProfileButton";
+import "./Navigation.css";
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
@@ -12,11 +13,16 @@ function Navigation({ isLoaded }){
 	}
 
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/pins">Home</NavLink>
-			</li>
-			<div>
+    <ul className="nav ul">
+      <li className="home li">
+        <NavLink exact to="/pins">
+          <div className="logoLine">
+            <img className="logo" src={require("./icon.png")} alt="logo"></img>
+            Tinterest
+          </div>
+        </NavLink>
+      </li>
+	  <div>
 				{sessionUser ? 
 				(
 					<button onClick={clickCreate}>
@@ -24,13 +30,13 @@ function Navigation({ isLoaded }){
 					</button>
 				) : (null)}
 			</div>
-			{isLoaded && (
-				<li>
-					<ProfileButton user={sessionUser} />
-				</li>
-			)}
-		</ul>
-	);
+      {isLoaded && (
+        <li className="profile li">
+          <ProfileButton user={sessionUser} />
+        </li>
+      )}
+    </ul>
+  );
 }
 
 export default Navigation;

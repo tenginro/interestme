@@ -2,15 +2,16 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllPins } from "../../store/pin";
+import { actionClearPins, getAllPins } from "../../store/pin";
 function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
 
   useEffect(() => {
     dispatch(getAllPins());
+    return () => dispatch(actionClearPins());
   }, [dispatch]);
-  
+
   if (!pinsObj) return null;
   const pins = Object.values(pinsObj);
 
