@@ -83,35 +83,28 @@ def delete_pin(id):
     return {"message": 'Pin not found'}
 
 
-@pin_routes.route('pins/<int:id>/save', methods=['PATCH','PUT'])
-@login_required
-def save_pin(id):
-    user = current_user.to_dict()
-    pin = Pin.query.get(id)
-    if request.body.boardId:
-        board = Board.query.get(request.body.board.id)
-        pin.boards.append(board)   
-    pin.user_saved.append(user)
-    return {**pin.to_dict()}
+
 
 @pin_routes.route('pins/<int:id>/save', methods=['PATCH','PUT'])
 @login_required
 def save_pin(id):
     user = current_user.to_dict()
     pin = Pin.query.get(id)
-    if request.body.boardId:
-        board = Board.query.get(request.body.boardId)
+    boardId = request.get_json()["boardId"]
+    print("boardId", boardId)
+    if boardId:
+        board = Board.query.get(boardId)
         pin.boards.append(board)   
     pin.user_saved.append(user)
-    return {**pin.to_dict()}
+    return {**pin.to_dict(), "boards": pin.boards, "user_saved": pin.user_saved}
 
 @pin_routes.route('pins/<int:id>/unsave', methods=['PATCH','PUT'])
 @login_required
 def unsave_pin(id):
     user = current_user.to_dict()
     pin = Pin.query.get(id)
-    if request.body.boardId:
-        board = Board.query.get(request.body.board.id)
+    if request.boardId:
+        board = Board.query.get(request.board.id)
         pin.boards.pop(board.id)   
     pin.user_saved.pop(user.id)
     return {**pin.to_dict()}
