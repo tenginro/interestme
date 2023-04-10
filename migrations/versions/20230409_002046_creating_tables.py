@@ -1,7 +1,7 @@
 """creating tables
 
 Revision ID: 26bb99cc3554
-Revises: 
+Revises:
 Create Date: 2023-04-09 00:20:46.781602
 
 """
@@ -73,7 +73,12 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'pin_id')
     )
-    
+    op.create_table('follows',
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('following_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['following_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
+    )
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
@@ -87,4 +92,5 @@ def downgrade():
     op.drop_table('boards')
     op.drop_table('users')
     op.drop_table('categories')
+    op.drop_table('follows')
     # ### end Alembic commands ###

@@ -6,4 +6,4 @@ from .board import Board
 from .board_pins import board_pins
 from .category import Category
 from .user_pin import user_pins
-# from .follow import Follow
+from .follow import follows
