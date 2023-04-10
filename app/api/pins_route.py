@@ -51,7 +51,7 @@ def create_pin():
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
     return {"message": 'Bad Data', "statusCode": 400}
 
-@pin.route("pins/<int:id>", methods=["PUT"])
+@pin.route("pins/<int:id>", methods=["PATCH"])
 @login_required
 def update_pin(id):
     user = current_user.to_dict()
@@ -64,10 +64,11 @@ def update_pin(id):
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]
-            pin.url = form.data["url"]
+            # pin.url = form.data["url"]
             db.session.commit()
             updated_pin = Pin.query.get(id)
-            return updated_pin.to_dict()
+            print("******************************************************************************************************updated in backend", updated_pin.to_dict())
+            return {"pin": updated_pin.to_dict()}
         if form.errors:
             return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
     return {"message": 'User does not own this pin', "statusCode": 400}

@@ -8,7 +8,7 @@ import AllPins from "./components/AllPins";
 import SinglePin from "./components/SinglePin";
 import CurrentPins from "./components/ManagePins";
 import CreatePin from "./components/CreatePin";
-import EditPin from "./components/ManagePins/EditPin";
+import EditPin from "./components/EditPin";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 

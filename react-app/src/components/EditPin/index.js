@@ -23,6 +23,9 @@ const EditPin = () => {
   const [resErrors, setResErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
+  const categories = ["Art", "Food", "Tech"];
+  const currentUser = useSelector((state) => state.session.user);
+
   useEffect(() => {
     if (pin) {
       setName(pin.name);
@@ -47,19 +50,28 @@ const EditPin = () => {
   // },[name, description, url, category])
 
   const handleSubmit = async (e) => {
+    console.log("hitting submit");
     e.preventDefault();
-    await setHasSubmitted(true);
-    await setResErrors({});
+    setHasSubmitted(true);
+    setResErrors({});
 
-    const payload = {
-      ...pin,
-      name,
-      description,
-      url,
-      category,
-    };
+    // const payload = {
+    //   ...pin,
+    //   name,
+    //   description,
+    //   url,
+    //   category,
+    // };
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("category", category);
+    formData.append("id", pinId);
+    console.log("pinId", pinId);
+
     if (!Boolean(Object.values(errors).length)) {
-      const updatedRes = await dispatch(pinsAction.updatePin(payload));
+      const updatedRes = await dispatch(pinsAction.updatePin(formData, pinId));
       if (!updatedRes.errors) {
         history.push(`/pins/${updatedRes.id}`);
         await setHasSubmitted(false);
@@ -75,6 +87,7 @@ const EditPin = () => {
   };
 
   if (!pin) return <h1>No pins found</h1>;
+
   return (
     <div>
       <h1>Edit this Pin</h1>
@@ -93,13 +106,19 @@ const EditPin = () => {
           </div>
           <div>
             <label>Category</label>
-            <input
-              type="text"
-              onChange={updateCategory}
+            <select
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
               value={category}
-              placeholder="Choose a category"
               name="category"
-            ></input>
+              placeholder="Choose a category"
+            >
+              <option value=""></option>
+              {categories.map((c) => (
+                <option value={c}>{c}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label>Description</label>
@@ -118,6 +137,7 @@ const EditPin = () => {
         <div className="rightSide">
           <img src={pin.url} alt="pin.url" />
         </div>
+        <button type="submit">Submit</button>
       </form>
       <div className="bottom">
         <OpenModalButton
@@ -126,7 +146,7 @@ const EditPin = () => {
         />
         <div>
           <button onClick={cancelClick}>Cancel</button>
-          <button type="Submit">Save</button>
+          <button type="submit">Save</button>
         </div>
       </div>
     </div>
