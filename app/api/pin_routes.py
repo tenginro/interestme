@@ -11,13 +11,14 @@ pin_routes = Blueprint("pins", __name__)
 @pin_routes.route("/pins")
 def get_all_pins():
     pins = Pin.query.all()
-    all_pins = [pin.to_dict() for pin in pins]
+    all_pins = [{**pin.to_dict(), "User":pin.user.to_dict()} for pin in pins]
+    
     return all_pins
 
 @pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
-    single_pin = Pin.query.get(id)
-    return single_pin.to_dict()
+    pin = Pin.query.get(id)
+    return {**pin.to_dict(), "User": pin.user.to_dict()}
 
 
 @pin_routes.route("/pins/current")
@@ -48,8 +49,8 @@ def create_pin():
         db.session.commit()
         return {"pin": new_pin.to_dict()}
     if form.errors:
-        return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
-    return {"message": 'Bad Data', "statusCode": 400}
+        return {"message": "form errors", "errors": f"{form.errors}"}
+    return {"message": 'Bad Data'}
 
 @pin_routes.route("pins/<int:id>", methods=["PATCH","PUT"])
 @login_required
@@ -64,13 +65,12 @@ def update_pin(id):
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]
-            # pin.url = form.data["url"]
             db.session.commit()
             updated_pin = Pin.query.get(id)
             return {"pin": updated_pin.to_dict()}
         if form.errors:
             return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
-    return {"message": 'User does not own this pin', "statusCode": 400}
+    return {"message": 'User does not own this pin'}
 
 @pin_routes.route("pins/<int:id>", methods=["DELETE"])
 @login_required
@@ -80,6 +80,6 @@ def delete_pin(id):
         db.session.delete(pin)
         db.session.commit()
         return {"message":'Pin Deleted!'}
-    return {"message": 'Pin not found', "statusCode": 404}
+    return {"message": 'Pin not found'}
 
 

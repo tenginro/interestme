@@ -21,12 +21,14 @@ def get_user_boards():
 def get_boards_by_id(id):
     user = current_user.to_dict()
     board = Board.query.get(id)
-    if board.user_id == user["id"]:
-        pins = [pin.to_dict() for pin in board.pins]
-        return {**board.to_dict(), "Pins": pins}
+    if board:
+        if board.user_id == user["id"]:
+            pins = [pin.to_dict() for pin in board.pins]
+            return {**board.to_dict(), "Pins": pins}
+        else:
+            return {"message": 'User does not own this board'}
     else:
-        return {"message": 'the board is not owned by you'}
-
+        return {"message": 'Board not found'}
 
 @board_routes.route("/boards", methods=["POST"])
 @login_required
@@ -36,7 +38,7 @@ def create_board():
     form["csrf_token"].data = request.cookies["csrf_token"]
     
     if form.validate_on_submit():
-        new_board = form(
+        new_board = Board(
             user_id = user["id"],
             name = form.data["name"],
             description = form.data["description"],
@@ -46,6 +48,6 @@ def create_board():
         db.session.commit()
         return {"board": new_board.to_dict()}
     if form.errors:
-        return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
-    return {"message": 'Bad Data', "statusCode": 400}
+        return {"message": "form errors", "errors": f"{form.errors}"}
+    return {"message": 'Bad Data'}
 
