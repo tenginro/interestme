@@ -14,6 +14,8 @@ const CreatePin = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const categories = ['Art', 'Food', 'Tech']
+    const currentUser = useSelector(state=>state.session.user)
     
     useEffect(()=>{
         const err = [];
@@ -36,7 +38,7 @@ const CreatePin = () => {
             category
         };
         if(!Boolean(Object.values(errors).length)){
-            const createdRes = await dispatch(pinsAction.createPin(newPin))
+            const createdRes = await dispatch(pinsAction.createPin(newPin,currentUser))
             if(!createdRes.errors) {
                 history.push(`/pins/${createdRes.id}`)
                 await reset()
@@ -76,13 +78,16 @@ const CreatePin = () => {
                 </div>
                 <div className='rightSide'>
                     <div>
-                        <input
-                        type='text'
+                        <select
                         onChange={(e)=>setCategory(e.target.value)}
-                        value={category}
-                        placeholder='Choose a category'
+                        value = {category}
                         name='category'
-                        ></input>
+                        placeholder='Choose a category'
+                        >
+                            {categories.map((c)=>(
+                            <option value={c}>{c}</option>
+                        ))}
+                        </select>
                         <button 
                         type='submit'
                         >Save</button>

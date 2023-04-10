@@ -6,7 +6,7 @@ import { actionClearPins, getAllPins } from "../../store/pin";
 function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
-
+  
   useEffect(() => {
     dispatch(getAllPins());
     return () => dispatch(actionClearPins());
