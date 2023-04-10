@@ -29,6 +29,8 @@ const CreatePin = () => {
         await setHasSubmitted(true);
         await setResErrors({})
 
+        
+
         const newPin ={
             name,
             description,
