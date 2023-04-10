@@ -101,7 +101,6 @@ export const deleteBoard = (boardId) => async (dispatch) => {
     })
     if(res.ok){
         await dispatch(actionDeleteBoard(boardId))
-        return boards
     }
     return res
 }
@@ -115,18 +114,21 @@ const initialState = {
 // Reducer
 const boardReducer = (state = initialState, action) => {
     let newState = {...state}
-    switch(action.type){
-        case LOAD_BOARD_DETAIL:
-            return {...state, singleBoard: {...action.board}}
-        case LOAD_USER_BOARDS:
-            const boards = normalizingData(action.boards)
-            newState.userBoards = {...action.boards}
-        case CREATE_BOARD:
-            fsdfdsf
-        case UPDATE_BOARD:
-            fsdfdsf
-        case DELETE_BOARD:
-            dasda
+    switch (action.type) {
+      case LOAD_BOARD_DETAIL:
+        return { ...state, singleBoard: { ...action.board } };
+      case LOAD_USER_BOARDS:
+        const boards = normalizingData(action.boards);
+        newState.userBoards = { ...boards };
+        return newState;
+      case CREATE_BOARD:
+        return newState;
+      case UPDATE_BOARD:
+        return newState;
+      case DELETE_BOARD:
+        return newState;
+      default:
+        return state;
     }
 }
 
@@ -138,3 +140,4 @@ export const normalizingData = (data) => {
     data.forEach((ele) => (obj[ele.id] = ele));
     return obj;
   };
+export default boardReducer;

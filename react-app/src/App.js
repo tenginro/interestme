@@ -11,6 +11,10 @@ import CreatePin from "./components/CreatePin";
 import EditPin from "./components/EditPin";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import CreateBoard from "./components/CreateBoard";
+import BoardGallery from "./components/BoardGallery";
+import EditBoard from "./components/EditBoard";
+import BoardDetails from "./components/BoardDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +51,18 @@ function App() {
           </Route>
           <Route exact path="/pins/:pinId">
             <SinglePin />
+          </Route>
+          <Route exact path="/boards/current">
+            <BoardGallery />
+          </Route>
+          <Route exact path="/boards/:boardId">
+            <BoardDetails />
+          </Route>
+          <Route exact path="/boards/new">
+            <CreateBoard />
+          </Route>
+          <Route exact path="/boards/edit">
+            <EditBoard />
           </Route>
         </Switch>
       )}
