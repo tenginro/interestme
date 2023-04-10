@@ -135,10 +135,10 @@ export const savePinThunk = (pin, board) => async (dispatch) => {
   return await response.json();
 }
 
-export const savePinUserThunk = (pin) => async (dispatch) => {
+export const unSavePinThunk = (pin, board) => async (dispatch) => {
   const response = await fetch(`/api/pins/${pin.id}/save`, {
     method:'PATCH',
-    body: pin
+    body: board
   })
   if(response.ok) {
     await dispatch(actionUpdatePin(pin));
@@ -146,6 +146,18 @@ export const savePinUserThunk = (pin) => async (dispatch) => {
   }
   return await response.json();
 }
+
+// export const savePinUserThunk = (pin) => async (dispatch) => {
+//   const response = await fetch(`/api/pins/${pin.id}/save`, {
+//     method:'PATCH',
+//     body: pin
+//   })
+//   if(response.ok) {
+//     await dispatch(actionUpdatePin(pin));
+//     return await response.json();
+//   }
+//   return await response.json();
+// }
 
 const initialState = {
   allPins: {},
