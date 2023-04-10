@@ -50,7 +50,6 @@ const EditPin = () => {
   // },[name, description, url, category])
 
   const handleSubmit = async (e) => {
-    console.log("hitting submit");
     e.preventDefault();
     setHasSubmitted(true);
     setResErrors({});
@@ -68,7 +67,9 @@ const EditPin = () => {
     formData.append("description", description);
     formData.append("category", category);
     formData.append("id", pinId);
-    console.log("pinId", pinId);
+
+    formData.append("url", url);
+    formData.append("user_id", currentUser.id);
 
     if (!Boolean(Object.values(errors).length)) {
       const updatedRes = await dispatch(pinsAction.updatePin(formData, pinId));

@@ -88,17 +88,14 @@ export const createPin = (pin) => async (dispatch) => {
 };
 
 export const updatePin = (pin, pinId) => async (dispatch) => {
-  console.log("pin.id in the thunk", pinId);
   const response = await fetch(`/api/pins/${pinId}`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
     body: pin,
   });
-  console.log("response", response);
+
   if (response.ok) {
     const updatedPin = await response.json();
     const updated_pin = updatedPin.pin;
-    console.log("updated_pin from backend", updated_pin);
     await dispatch(actionUpdatePin(updated_pin));
     return updated_pin;
   }

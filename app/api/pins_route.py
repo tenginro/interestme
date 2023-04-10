@@ -51,7 +51,7 @@ def create_pin():
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
     return {"message": 'Bad Data', "statusCode": 400}
 
-@pin.route("pins/<int:id>", methods=["PATCH"])
+@pin.route("pins/<int:id>", methods=["PATCH","PUT"])
 @login_required
 def update_pin(id):
     user = current_user.to_dict()
