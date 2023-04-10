@@ -93,9 +93,7 @@ const CreatePin = () => {
           <div>
             <select
               onChange={(e) => {
-                // console.log("before setCategory", e.target.value);
                 setCategory(e.target.value);
-                // console.log("after setCategory", category);
               }}
               value={category}
               name="category"

@@ -46,8 +46,6 @@ def create_pin():
         )
         db.session.add(new_pin)
         db.session.commit()
-        # newPin = Pin.query.filter(name=form.data["name"], user_id=user["id"]).first()
-        # return {"pin": newPin.to_dict()}
         return {"pin": new_pin.to_dict()}
     if form.errors:
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
