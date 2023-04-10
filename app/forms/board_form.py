@@ -5,6 +5,6 @@ from app.models import board
 
 class BoardForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    secret = BooleanField('secret', validators=[DataRequired()])
+    secret = BooleanField('secret')
     description = StringField('description')
     submit = SubmitField('Create Board')
