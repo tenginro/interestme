@@ -43,7 +43,8 @@ const CreatePin = () => {
             const createdRes = await dispatch(pinsAction.createPin(newPin,currentUser))
             if(!createdRes.errors) {
                 console.log(createdRes)
-                history.push(`/pins/${createdRes.id}`)
+                history.push(`/pins`)
+                // history.push(`/pins/${createdRes.id}`)
                 await reset()
             } else {
                 await setResErrors(createdRes.errors);

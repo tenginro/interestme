@@ -45,7 +45,7 @@ def create_pin():
         )
         db.session.add(new_pin)
         db.session.commit()
-        return new_pin.to_dict()
+        # return new_pin.to_dict()
     if form.errors:
         return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
     return {"message": 'Bad Data', "statusCode": 400}
