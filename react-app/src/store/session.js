@@ -1,10 +1,10 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const GET_USER_FOLLOWING = "session/GET_USER_FOLLOWING"
-const GET_USER_FOLLOWERS = "session/GET_USER_FOLLOWERS"
-// const ADD_USER_FOLLOW = "session/ADD_USER_FOLLOW"
-// const REMOVE_USER_FOLLOW = 'session/REMOVE_USER_FOLLOW'
+// const GET_USER_FOLLOWING = "session/GET_USER_FOLLOWING";
+// const GET_USER_FOLLOWERS = "session/GET_USER_FOLLOWERS";
+const ADD_USER_FOLLOW = "session/ADD_USER_FOLLOW";
+const REMOVE_USER_FOLLOW = "session/REMOVE_USER_FOLLOW";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -15,74 +15,73 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-const actionGetFollowing = (following) => ({
-  type: GET_USER_FOLLOWING,
-  payload: following
-})
+// const actionGetFollowing = (following) => ({
+//   type: GET_USER_FOLLOWING,
+//   payload: following,
+// });
 
-const actionGetFollowers = (follower) => ({
-  type: GET_USER_FOLLOWERS,
-  payload: follower
-})
+// const actionGetFollowers = (follower) => ({
+//   type: GET_USER_FOLLOWERS,
+//   payload: follower,
+// });
 
-// const actionAddFollow = (user) => ({
-//   type: ADD_USER_FOLLOW,
-//   payload: user
-// })
+const actionAddFollow = (user) => ({
+  type: ADD_USER_FOLLOW,
+  user,
+});
 
-// const actionRemoveFollow = () => ({
-//   type: REMOVE_USER_FOLLOW
-// })
+const actionRemoveFollow = () => ({
+  type: REMOVE_USER_FOLLOW,
+});
 
 const initialState = { user: null };
 
-export const getFollowingThunk = (user) => async (dispatch) => {
-  const response = await fetch(`/api/users/${user.id}`);
-  if(response.ok) {
-    const userRes = await response.json();
-    console.log('following inside thunk', userRes);
-    const following = userRes.following;
-    await dispatch(actionGetFollowing(following));
-    return following;
-  }
-}
+// export const getFollowingThunk = (user) => async (dispatch) => {
+//   const response = await fetch(`/api/users/${user.id}`);
+//   if (response.ok) {
+//     const userRes = await response.json();
+//     const following = userRes.following;
+//     await dispatch(actionGetFollowing(following));
+//     return following;
+//   }
+// };
 
-export const getFollowerThunk = (user) => async (dispatch) => {
-  const response = await fetch(`/api/users/${user.id}`);
-  if(response.ok) {
-    const userRes = await response.json();
-    const followers = userRes.followers;
-    await dispatch(actionGetFollowers(followers));
-    return followers;
-  }
-}
+// export const getFollowerThunk = (user) => async (dispatch) => {
+//   const response = await fetch(`/api/users/${user.id}`);
+//   if (response.ok) {
+//     const userRes = await response.json();
+//     const followers = userRes.followers;
+//     await dispatch(actionGetFollowers(followers));
+//     return followers;
+//   }
+// };
 
-export const addFollowThunk = (user, followingId) => async (dispatch) => {
-  console.log('hitting add thunk')
+export const addFollowThunk = (followingId) => async (dispatch) => {
   const response = await fetch(`/api/users/${followingId}/follow`, {
-    method:'POST',
+    method: "POST",
   });
-  if(response.ok) {
-    
+
+  if (response.ok) {
     const userRes = await response.json();
-    console.log('inside add thunk ', response)
-    const following = userRes.following;
-    await dispatch(actionGetFollowing(following));
-    return following;
+    // const following = userRes.following;
+    // await dispatch(actionGetFollowing(following));
+    await dispatch(setUser(userRes));
+    return userRes;
   }
-}
+};
 
 export const removeFollowThunk = (user, followingId) => async (dispatch) => {
   const response = await fetch(`/api/users/${followingId}/follow`, {
-    method:'DELETE',
+    method: "DELETE",
   });
-  if(response.ok) {
+  if (response.ok) {
     const userRes = await response.json();
-    const following = userRes.following;
-    await dispatch(actionGetFollowing(following));
-    return following;
+    // const following = userRes.following;
+    // await dispatch(actionGetFollowing(following));
+    await dispatch(setUser(userRes));
+    return userRes;
   }
-}
+};
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -92,6 +91,7 @@ export const authenticate = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+
     if (data.errors) {
       return;
     }
@@ -114,7 +114,6 @@ export const login = (email, password) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log('inside login thunk', data)
     dispatch(setUser(data));
     return null;
   } else if (response.status < 500) {
@@ -178,21 +177,21 @@ export default function reducer(state = initialState, action) {
       return { user: action.payload };
     case REMOVE_USER:
       return { user: null };
-    case GET_USER_FOLLOWING:
-      const allFollowing = {};
-      if (action.following===undefined) return {...state}
+    // case GET_USER_FOLLOWING:
+    //   const allFollowing = {};
+    //   if (action.following === undefined) return { ...state };
 
-      action.following.forEach((f)=>{
-        allFollowing[f.id] = f;
-      })
-      return { ...state, following: {...allFollowing}};
-    case GET_USER_FOLLOWERS:
-      const allFollowers = {};
-      if (action.followers.length===undefined) return {...state}
-      action.followers.forEach((f)=>{
-        allFollowers[f.id] = f;
-      })
-      return { ...state, followers: {...allFollowers}};
+    //   action.following.forEach((f) => {
+    //     allFollowing[f.id] = f;
+    //   });
+    //   return { ...state, following: { ...allFollowing } };
+    // case GET_USER_FOLLOWERS:
+    //   const allFollowers = {};
+    //   if (action.followers.length === undefined) return { ...state };
+    //   action.followers.forEach((f) => {
+    //     allFollowers[f.id] = f;
+    //   });
+    //   return { ...state, followers: { ...allFollowers } };
     // case ADD_USER_FOLLOW:
     //   return {
     //     ...state,
