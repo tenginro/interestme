@@ -37,9 +37,10 @@ const actionGetFollowers = (follower) => ({
 const initialState = { user: null };
 
 export const getFollowingThunk = (user) => async (dispatch) => {
-  const response = await fetch(`/${user.id}`);
+  const response = await fetch(`/api/users/${user.id}`);
   if(response.ok) {
     const userRes = await response.json();
+    console.log('following inside thunk', userRes);
     const following = userRes.following;
     await dispatch(actionGetFollowing(following));
     return following;
@@ -47,7 +48,7 @@ export const getFollowingThunk = (user) => async (dispatch) => {
 }
 
 export const getFollowerThunk = (user) => async (dispatch) => {
-  const response = await fetch(`/${user.id}`);
+  const response = await fetch(`/api/users/${user.id}`);
   if(response.ok) {
     const userRes = await response.json();
     const followers = userRes.followers;
@@ -57,11 +58,12 @@ export const getFollowerThunk = (user) => async (dispatch) => {
 }
 
 export const addFollowThunk = (user, followingId) => async (dispatch) => {
-  const response = await fetch(`/api/${followingId}/follow`, {
+  const response = await fetch(`/api/users/${followingId}/follow`, {
     method:'POST',
   });
   if(response.ok) {
     const userRes = await response.json();
+    console.log('inside add thunk ', response)
     const following = userRes.following;
     await dispatch(actionGetFollowing(following));
     return following;
@@ -69,7 +71,7 @@ export const addFollowThunk = (user, followingId) => async (dispatch) => {
 }
 
 export const removeFollowThunk = (user, followingId) => async (dispatch) => {
-  const response = await fetch(`/api/${followingId}/follow`, {
+  const response = await fetch(`/api/users/${followingId}/follow`, {
     method:'DELETE',
   });
   if(response.ok) {
@@ -110,6 +112,7 @@ export const login = (email, password) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    console.log('inside login thunk', data)
     dispatch(setUser(data));
     return null;
   } else if (response.status < 500) {
@@ -175,16 +178,19 @@ export default function reducer(state = initialState, action) {
       return { user: null };
     case GET_USER_FOLLOWING:
       const allFollowing = {};
+      if (action.following===undefined) return {...state}
+
       action.following.forEach((f)=>{
         allFollowing[f.id] = f;
       })
-      return { ...state, user: {...allFollowing}};
+      return { ...state, following: {...allFollowing}};
     case GET_USER_FOLLOWERS:
       const allFollowers = {};
+      if (action.followers.length===undefined) return {...state}
       action.followers.forEach((f)=>{
         allFollowers[f.id] = f;
       })
-      return { ...state, user: {...allFollowers}};
+      return { ...state, followers: {...allFollowers}};
     // case ADD_USER_FOLLOW:
     //   return {
     //     ...state,

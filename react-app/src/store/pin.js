@@ -67,6 +67,7 @@ export const getPinDetail = (id) => async (dispatch) => {
 
   if (response.ok) {
     const pin = await response.json();
+    console.log('singlePin inside thunk before dispatch', pin)
     await dispatch(actionLoadPinDetail(pin));
     return pin;
   }
