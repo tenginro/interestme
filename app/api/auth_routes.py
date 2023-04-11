@@ -26,7 +26,15 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        id = current_user.to_dict().id
+        this_user=User.query.get(id)
+        following = [followingUser.to_dict() for followingUser in this_user.following]
+        
+        allUsers = User.query.all()
+        followers = [user for user in allUsers if this_user in user.following]
+
+        return {**this_user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+        # return current_user.to_dict()
     return {'errors': ['Unauthorized']}
 
 
@@ -82,7 +90,13 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        
+        following = [followingUser.to_dict() for followingUser in user.following]
+        
+        followers = User.query.filter(User.following.any(id=user.id)).all()
+        
+        return {**user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+        # return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

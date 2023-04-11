@@ -58,10 +58,12 @@ export const getFollowerThunk = (user) => async (dispatch) => {
 }
 
 export const addFollowThunk = (user, followingId) => async (dispatch) => {
+  console.log('hitting add thunk')
   const response = await fetch(`/api/users/${followingId}/follow`, {
     method:'POST',
   });
   if(response.ok) {
+    
     const userRes = await response.json();
     console.log('inside add thunk ', response)
     const following = userRes.following;
