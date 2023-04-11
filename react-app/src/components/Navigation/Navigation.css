@@ -53,3 +53,9 @@
   border-radius: 40px;
   color: white;
 }
+
+
+.create-new_board {
+  color: blue;
+  text-decoration: underline;
+}

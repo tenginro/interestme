@@ -47,51 +47,81 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
+  const createBoadClick = (e) => {
+     e.preventDefault();
+     history.push("/boards/new");
+     closeMenu();
+  }
+  const editBoadClick = (e) => {
+    e.preventDefault();
+    history.push("/boards/edit");
+    closeMenu();
+  };
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
   return (
     <>
-    {user ?  <button className="main_page_login_btn" onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-    </button>
-      :
-      <button
-        className="main_page_login_btn"
-        onClick={() => setModalContent(<LoginFormPage />)}
-      >
-        Log in
-      </button>}
+      {user ? (
+        <button className="main_page_login_btn" onClick={openMenu}>
+          <i className="fas fa-user-circle" />
+        </button>
+      ) : (
+        <button
+          className="main_page_login_btn"
+          onClick={() => setModalContent(<LoginFormPage />)}
+        >
+          Log in
+        </button>
+      )}
       <ul className={ulClassName} ref={ulRef}>
-        {user && (
-          <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={managePinsClick} className="dropDown-Button">
-                Manage Pins
-              </button>
-            </li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
-        )
-        // : (
-        //   <>
-        //     <OpenModalButton
-        //       buttonText="Log In"
-        //       onItemClick={closeMenu}
-        //       modalComponent={<LoginFormModal />}
-        //     />
+        {
+          user && (
+            <>
+              <li>{user.username}</li>
+              <li>{user.email}</li>
+              <li>
+                <button onClick={managePinsClick} className="dropDown-Button">
+                  Manage Pins
+                </button>
+              </li>
+              <li>
+                <div
+                  className="create-new_board"
+                  onClick={createBoadClick}
+                  type="submit"
+                >
+                  Create Board
+                </div>
+                <div
+                  className="create-new_board"
+                  onClick={editBoadClick}
+                  type="submit"
+                >
+                  Edit Board
+                </div>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Log Out</button>
+              </li>
+            </>
+          )
+          // : (
+          //   <>
+          //     <OpenModalButton
+          //       buttonText="Log In"
+          //       onItemClick={closeMenu}
+          //       modalComponent={<LoginFormModal />}
+          //     />
 
-        //     <OpenModalButton
-        //       buttonText="Sign Up"
-        //       onItemClick={closeMenu}
-        //       modalComponent={<SignupFormModal />}
-        //     />
-        //   </>
-        // )
+          //     <OpenModalButton
+          //       buttonText="Sign Up"
+          //       onItemClick={closeMenu}
+          //       modalComponent={<SignupFormModal />}
+          //     />
+          //   </>
+          // )
         }
       </ul>
     </>
