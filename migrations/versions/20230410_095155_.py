@@ -80,7 +80,7 @@ def upgrade():
         op.execute(f"ALTER TABLE follows SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE board_pins SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_pin SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_pins SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
