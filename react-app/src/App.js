@@ -57,11 +57,11 @@ function App() {
           <Route exact path="/boards/current">
             <BoardGallery />
           </Route>
-          <Route exact path="/boards/:boardId">
-            <BoardDetails />
-          </Route>
           <Route exact path="/boards/new">
             <CreateBoard />
+          </Route>
+          <Route exact path="/boards/:boardId">
+            <BoardDetails />
           </Route>
           <Route exact path="/boards/edit">
             <EditBoard />
