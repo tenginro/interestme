@@ -1,5 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
+from sqlalchemy.orm import joinedload
+
 
 from ..models import db, Pin, User, Board
 from ..forms import PinForm
@@ -25,7 +27,7 @@ def get_pins_by_id(id):
 def get_user_pins():
     user = current_user.to_dict()
     user_pins = Pin.query.filter(Pin.user_id == user["id"])
-    pins = [pin.to_dict() for pin in user_pins]
+    pins = [{**pin.to_dict(), "User":pin.user.to_dict()} for pin in user_pins]
     return pins
 
 # saved pins
@@ -88,31 +90,45 @@ def delete_pin(id):
 @pin_routes.route('pins/<int:id>/save', methods=['PATCH','PUT'])
 @login_required
 def save_pin(id):
-    user = current_user.to_dict()
-    pin = Pin.query.get(id)
+    user = current_user
+    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
     request_obj = request.get_json()
     boardId = request_obj["boardId"]
-    print("*****************pin.boards", pin.boards)
-    
+        
     if boardId:
         board = Board.query.get(boardId)
-        if pin.boards:
-            pin.boards.append(board)   
+        if board.user_id == user.id:
+            if pin.boards:
+                if board not in pin.boards:
+                    pin.boards.append(board)   
+            else:
+                pin.boards = []
+                pin.boards.append(board)
         else:
-            pin.boards = []
-            pin.boards.append(board)
-            
-    pin.user_saved.append(user)
+            return {"message": 'User does not own this board' }
+    if pin.user_saved:
+        if user not in pin.user_saved:
+            pin.user_saved.append(user)
+    else:
+        pin.user_saved=[]
+        pin.user_saved.append(user)
     db.session.commit()
+    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
     return {**pin.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+
 
 @pin_routes.route('pins/<int:id>/unsave', methods=['PATCH','PUT'])
 @login_required
 def unsave_pin(id):
     user = current_user.to_dict()
-    pin = Pin.query.get(id)
-    if request.boardId:
-        board = Board.query.get(request.board.id)
-        pin.boards.pop(board.id)   
-    pin.user_saved.pop(user.id)
-    return {**pin.to_dict()}
+    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    if pin.boards:
+        boards_to_remove = [board for board in pin.boards if board.user_id == user['id']]
+        for board in boards_to_remove:
+            pin.boards.remove(board)
+    if pin.user_saved:
+        user_to_remove = User.query.get(user['id'])
+        pin.user_saved.remove(user_to_remove)
+    db.session.commit()
+    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    return {**pin.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
