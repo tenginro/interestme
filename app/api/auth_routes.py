@@ -26,8 +26,8 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        id = current_user.to_dict().id
-        this_user=User.query.get(id)
+        user = current_user.to_dict()
+        this_user=User.query.get(user["id"])
         following = [followingUser.to_dict() for followingUser in this_user.following]
         
         allUsers = User.query.all()
