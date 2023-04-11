@@ -89,6 +89,7 @@ export const authenticate = () => async (dispatch) => {
       "Content-Type": "application/json",
     },
   });
+
   if (response.ok) {
     const data = await response.json();
 
@@ -98,6 +99,7 @@ export const authenticate = () => async (dispatch) => {
 
     dispatch(setUser(data));
   }
+  return response;
 };
 
 export const login = (email, password) => async (dispatch) => {
