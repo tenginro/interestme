@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import OpenModalMenuItem from '../OpenModalMenuItem'
 import './DropdownMenuButton.css'
 
 function DropdownMenuButton(){
@@ -38,12 +39,8 @@ function DropdownMenuButton(){
         <div className='dropdown-menu-container' onClick={openMenu}>
             <h3>Icon Goes Here</h3>
             <ul className={showMenu ? 'dropdown-menu' : 'hidden'} ref={ulRef}>
-                <li>
-                    <p>Edit</p>
-                </li>
-                <li>
-                    <p>Delete</p>
-                </li>
+                <OpenModalMenuItem itemText='Edit' onItemClick={closeMenu} modalComponent={<h1>Edit Board Modal Component Goes Here</h1>} />
+                <OpenModalMenuItem itemText='Delete' onItemClick={closeMenu} modalComponent={<h1>Delete Board Modal Component Goes Here</h1>} />
             </ul>
         </div>
     )
