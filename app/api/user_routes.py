@@ -43,7 +43,7 @@ def following(id):
     # currentUser is the user logged in
     currentUser = current_user
     curr_user = User.query.get(currentUser.id)
-    
+    if curr_user.following.
     curr_user.following.append(user_to_follow)
     db.session.commit()
     
