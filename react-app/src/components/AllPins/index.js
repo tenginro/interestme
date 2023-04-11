@@ -8,15 +8,17 @@ import * as pinsAction from "../../store/pin";
 function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
-  const boardObj = useSelector((state) => state.boards.allBoards);
+  // const boardObj = useSelector((state) => state.boards.allBoards);
   const [board, setBoard] = useState("profile");
   const [save, setSave] = useState(false);
   const user = useSelector((state)=>state.session.user);
 
   console.log('before getting userSaved', pinsObj)
   const userSaved = pinsObj.user_saved
+  const userBoards = user.boards //array
+  console.log('board from user', userBoards )
   console.log('insde all pins component', userSaved)
-
+  
   ///////////////////////////////////////
   const isSaved = () => {
     console.log('inside isSaved')
@@ -34,8 +36,8 @@ function AllPins() {
 
   if (!pinsObj) return null;
   const pins = Object.values(pinsObj);
-  if(!boardObj) return <div>Loading</div>
-  const boards = Object.values(boardObj)
+  // if(!boardObj) return <div>Loading</div>
+  // const boards = Object.values(boardObj)
 
   return (
     <div>
@@ -52,11 +54,13 @@ function AllPins() {
               value={board}
               name="board"
               placeholder="Choose a board"
-            >
-              <option value="Profile">Profile</option>
-              {boards.map((c) => (
-                <option value={c}>{c}</option>
-              ))}
+            >{
+              userBoards.length > 0 ? (
+              {userBoards.map((c) => (
+                (<option value={c.name}>{c.name}</option>)
+              ))}):
+              (<option value="Profile">Profile</option>)
+            }
             </select>
             {save ? (
               <button
