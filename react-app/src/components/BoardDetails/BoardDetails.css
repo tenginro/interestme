@@ -1,0 +1,19 @@
+.info-container{
+    border: 3px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.manage-board-buttons-container{
+    border: 3px solid lime;
+}
+
+.board-cover-container{
+    border: 3px solid purple;
+}
+
+.secret{
+    border: 3px solid gray;
+}

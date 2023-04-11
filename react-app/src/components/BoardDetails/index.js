@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getBoardDetail } from '../../store/board'
 import PinGalleryCard from '../PinGalleryCard'
 import {useModal} from "../../context/Modal"
+import DropdownMenuButton from '../DropdownMenuButton'
+import './BoardDetails.css'
 
 function BoardDetails() {
     // Extract parameter variables from parameter object
@@ -30,22 +32,30 @@ function BoardDetails() {
 
     return (
       <div className="whole-container">
-        <h1>{board.name}</h1>
-        <img src={board.board_cover} alt="board-cover-pic" />
-        <p>Secret Board? {board.secret}</p>
-
-        <div className="update-delete-board-btn">
-          <span>
-            <button className='edit-board-btn'>
-              Edit
-            </button>
-          </span>
-          <span>
-            <button className="edit-user-board-btnn">
-              DELETE
-            </button>
-          </span>
+        <div className='info-container'>
+            <h1>{board.name}</h1>
+            <div className='manage-board-buttons-container'>
+                {/* <span>
+                    <button className='edit-board-btn'>
+                    Edit
+                    </button>
+                </span>
+                <span>
+                    <button className="edit-user-board-btnn">
+                    DELETE
+                    </button>
+                </span> */}
+                <DropdownMenuButton />
+            </div>
+            <div className='board-cover-container'>
+                <img src={board.board_cover} alt="board-cover-pic" />
+            </div>
+            <p className='secret'>Secret Board? {board.secret}</p>
         </div>
+
+
+
+
         <h3>Pin Gallery</h3>
         <p>{board.Pins?.length} pins</p>
         {board.Pins &&
