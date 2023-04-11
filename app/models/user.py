@@ -52,15 +52,6 @@ class User(db.Model, UserMixin):
         # A dynamic mode to sets up the query to not run until specifically requested
     )
     
-    # followers = db.relationship(
-    #     'User',
-    #     secondary=follows,
-    #     primaryjoin=(follows.c.following_id == id),
-    #     secondaryjoin=(follows.c.user_id == id),
-    #     backref='following',
-    #     lazy='dynamic'
-    # )
-    
     @property
     def password(self):
         return self.hashed_password

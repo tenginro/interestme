@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from ..models import User
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, subqueryload
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,6 +23,9 @@ def user(id):
     Query for a user by id and returns that user in a dictionary
     """
     user = User.query.options(joinedload(User.following)).get(id)
+    
     following = [followingUser.to_dict() for followingUser in user.following]
-    followers = [followerUser.to_dict() for followerUser in user.followers]
-    return {**user.to_dict(), "following": following, "followers": followers}
+    
+    followers = User.query.options(subqueryload(User.following)).filter(User.following.any(id=id)).all()
+    
+    return {**user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
