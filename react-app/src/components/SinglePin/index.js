@@ -7,12 +7,7 @@ const Pin = () => {
   const { pinId } = useParams();
   const dispatch = useDispatch();
   const pin = useSelector((state) => state.pins.singlePin);
-  console.log('pin inside component', pin)
-  const author = pin.User;
-  console.log('author', author);
-  const authorUsername = author["username"];
-  console.log('authorusername', authorUsername)
-
+  
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     // return () => dispatch(actionClearPin());
