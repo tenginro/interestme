@@ -2,7 +2,7 @@
     display: flex;
     /* height: 55vh;
     width: 22vw; */
-    border-radius: 40%;
+    /* border-radius: 40%; */
     height: 25rem;
     width: 20rem;
     flex-direction: column;
@@ -29,7 +29,17 @@
     padding-bottom: 5px;
 }
 
-.log_in-input{
+.log_in-input {
     height: 25px;
     border-radius: 5px;
+}
+
+#sign_up_submit_btn {
+    background-color: gray;
+    padding: 0;
+    border: none;
+    width: 50%;
+    height: 2.5rem;
+    border-radius: 40px;
+    color: white;
 }

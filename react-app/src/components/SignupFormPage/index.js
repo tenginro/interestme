@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
+import logo from '../Navigation/icon.png'
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -44,89 +45,100 @@ function SignupFormPage() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="sign_up-form">
+      <img id="logo_in_logo" src={logo} alt="Logo" />
+      <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+        <label>Email</label>
+        <div>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Username
+        </div>
+
+        <label>Username</label>
+        <div>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        <label>
-          First Name
+        </div>
+        <label>First Name</label>
+        <div>
           <input
             type="text"
             value={first_name}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Last Name
+        </div>
+
+        <label>Last Name</label>
+        <div>
           <input
             type="text"
             value={last_name}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Profile Picture
+        </div>
+
+        <label>Profile Picture</label>
+        <div>
           <input
             type="text"
             value={profile_pic}
             onChange={(e) => setProfilePic(e.target.value)}
             required
           />
-        </label>
-        <label>
-          About
+        </div>
+
+        <label>About</label>
+        <div>
           <textarea
             type="text"
             value={about}
             onChange={(e) => setAbout(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+        </div>
+
+        <label>Password</label>
+        <div>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Confirm Password
+        </div>
+
+        <label>Confirm Password</label>
+        <div>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Sign Up</button>
+        </div>
+        <div style={{ paddingTop: "4px" }}>
+          <button id="continue_submit_btn" type="submit">
+            Continue
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

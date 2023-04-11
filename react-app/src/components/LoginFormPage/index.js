@@ -71,7 +71,12 @@ function LoginFormPage() {
         </button>
       </form>
       <div className="OR">OR</div>
-      <button onClick={()=> setModalContent(<SignupFormPage/>)}>Sign Up</button>
+      <button
+        id="sign_up_submit_btn"
+        onClick={() => setModalContent(<SignupFormPage />)}
+      >
+        Sign Up
+      </button>
     </div>
   );
 }
