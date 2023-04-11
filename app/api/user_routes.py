@@ -26,6 +26,6 @@ def user(id):
     
     following = [followingUser.to_dict() for followingUser in user.following]
     
-    followers = User.query.options(subqueryload(User.following)).filter(User.following.any(id=id)).all()
+    followers = User.query.filter(User.following.any(id=id)).all()
     
     return {**user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
