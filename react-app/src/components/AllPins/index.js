@@ -26,8 +26,8 @@ function AllPins() {
     <div>
       <nav>
         {pins.map((pin) => (
-          <div>
-            <NavLink key={pin.id} to={`/pins/${pin.id}`}>
+          <div key={pin.id}>
+            <NavLink to={`/pins/${pin.id}`}>
               <img src={pin.url} alt={pin.name} />
             </NavLink>
             <select

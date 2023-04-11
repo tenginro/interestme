@@ -11,8 +11,8 @@ const BoardForm = ({ newBoard, submitType, formType }) => {
 
 const [name, setName] = useState(newBoard.name)
 const [description, setDescription] = useState(newBoard.description);
-
-
+const currentUser = useSelector(state=> state)
+console.log("current user::::", currentUser)
 const submitNewBoardHandler = async (e) => {
     e.preventDefault();
     if (submitType === "Create") {
