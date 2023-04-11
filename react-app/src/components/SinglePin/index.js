@@ -8,14 +8,25 @@ const Pin = () => {
   const { pinId } = useParams();
   const dispatch = useDispatch();
   const pin = useSelector((state) => state.pins.singlePin);
+  const [follow, setFollow] = useState(false);
   console.log('singlePin', pin)
   const user = useSelector((state) => state.session.user);
-  const [follow, setFollow] = useState(false);
+  const checkFollow = () => {
+    const pinAuthorId = pin.user_id
+    const following = user.following;
+    following?.forEach((f)=> {
+      if(f.id === pinAuthorId) setFollow(true)
+    })
+  }
+
   useEffect(() => {
     dispatch(getPinDetail(pinId));
+    checkFollow()
     return () => dispatch(actionClearPin());
   }, [dispatch, pinId]);
+  console.log('singlePin', pin.User)
 
+  if(!pin.User) return  <div>Loading</div>
 
   return (
     <div>
@@ -31,7 +42,7 @@ const Pin = () => {
         <h2>{pin.name}</h2>
         <p>{pin.description}</p>
         <div>
-          {/* <h4>{pin.User.username}</h4>   */}
+          <h4>{pin.User.username}</h4>  
           {/* bugs coming from here.... singlePin state got cleared up */}
           {follow ? (
             <button
