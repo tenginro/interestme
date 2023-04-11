@@ -36,6 +36,7 @@ function BoardDetails() {
       history.push("/boards/current");
     });
   };
+  
 
   if (!board) return null;
 
