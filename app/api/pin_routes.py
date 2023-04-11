@@ -90,13 +90,21 @@ def delete_pin(id):
 def save_pin(id):
     user = current_user.to_dict()
     pin = Pin.query.get(id)
-    boardId = request.get_json()["boardId"]
-    print("boardId", boardId)
+    request_obj = request.get_json()
+    boardId = request_obj["boardId"]
+    print("*****************pin.boards", pin.boards)
+    
     if boardId:
         board = Board.query.get(boardId)
-        pin.boards.append(board)   
+        if pin.boards:
+            pin.boards.append(board)   
+        else:
+            pin.boards = []
+            pin.boards.append(board)
+            
     pin.user_saved.append(user)
-    return {**pin.to_dict(), "boards": pin.boards, "user_saved": pin.user_saved}
+    db.session.commit()
+    return {**pin.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 @pin_routes.route('pins/<int:id>/unsave', methods=['PATCH','PUT'])
 @login_required
