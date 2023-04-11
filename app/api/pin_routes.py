@@ -16,21 +16,24 @@ def get_all_pins():
     # allUsers = User.query.all()
     # userSaved = [user for user in allUsers if user in pin.user_saved]
 
-    all_pins = [{**pin.to_dict(), "User":pin.user.to_dict()} for pin in pins]
-    # , "UserSaved":pin.user_saved.to_dict()
+    all_pins = [{**pin.to_dict(), 
+                 "User":pin.user.to_dict(), 
+                 "boards":[board.to_dict() for board in pin.boards],
+                 "user_saved": [user.to_dict() for user in pin.user_saved]
+                 } for pin in pins]
     return all_pins
 
 @pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
     pin = Pin.query.get(id)
-    return {**pin.to_dict(), "User": pin.user.to_dict()}
+    return {**pin.to_dict(), "User": pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
 @pin_routes.route("/pins/current")
 def get_user_pins():
     user = current_user.to_dict()
     user_pins = Pin.query.filter(Pin.user_id == user["id"])
-    pins = [{**pin.to_dict(), "User":pin.user.to_dict()} for pin in user_pins]
+    pins = [{**pin.to_dict(), "User":pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in user_pins]
     return pins
 
 # saved pins
@@ -52,7 +55,7 @@ def create_pin():
         )
         db.session.add(new_pin)
         db.session.commit()
-        return {"pin": new_pin.to_dict()}
+        return {"pin": new_pin.to_dict(), "User":new_pin.user.to_dict()}
     if form.errors:
         return {"message": "form errors", "errors": f"{form.errors}"}
     return {"message": 'Bad Data'}
@@ -66,15 +69,18 @@ def update_pin(id):
     if pin.user_id == user["id"]:
         form = PinForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
+        
         if form.validate_on_submit():
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]
             db.session.commit()
             updated_pin = Pin.query.get(id)
-            return {"pin": updated_pin.to_dict()}
+            return {"pin": updated_pin.to_dict(), "User": pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+        
         if form.errors:
             return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
+        
     return {"message": 'User does not own this pin'}
 
 @pin_routes.route("pins/<int:id>", methods=["DELETE"])
@@ -109,15 +115,18 @@ def save_pin(id):
                 pin.boards.append(board)
         else:
             return {"message": 'User does not own this board' }
+        
     if pin.user_saved:
         if user not in pin.user_saved:
             pin.user_saved.append(user)
     else:
         pin.user_saved=[]
         pin.user_saved.append(user)
+        
     db.session.commit()
+    
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    return {**pin.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+    return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
 @pin_routes.route('pins/<int:id>/unsave', methods=['PATCH','PUT'])
@@ -132,6 +141,8 @@ def unsave_pin(id):
     if pin.user_saved:
         user_to_remove = User.query.get(user['id'])
         pin.user_saved.remove(user_to_remove)
+        
     db.session.commit()
+    
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    return {**pin.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+    return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
