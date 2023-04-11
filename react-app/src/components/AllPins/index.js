@@ -14,7 +14,7 @@ function AllPins() {
 
   useEffect(() => {
     dispatch(getAllPins());
-    return () => dispatch(actionClearPins());
+    // return () => dispatch(actionClearPins());
   }, [dispatch]);
 
   if (!pinsObj) return null;
