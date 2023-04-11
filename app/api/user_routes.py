@@ -38,14 +38,18 @@ def user(id):
 @user_routes.route('/<int:id>/follow', methods=["POST"])
 @login_required
 def following(id):
+    print('****************************')
+    print('****************************')
+    print('hitting backend add route')
     user_to_follow = User.query.get(id)
     
     # currentUser is the user logged in
     currentUser = current_user
     curr_user = User.query.get(currentUser.id)
-    if curr_user.following.
-    curr_user.following.append(user_to_follow)
-    db.session.commit()
+    if user_to_follow not in curr_user["following"]:
+        curr_user.following.append(user_to_follow)
+        db.session.commit()
+        
     
     currUser = User.query.get(currentUser.id)
     following = [followingUser.to_dict() for followingUser in currUser.following]
