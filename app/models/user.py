@@ -36,12 +36,6 @@ class User(db.Model, UserMixin):
         back_populates='user_saved'
     )
 
-    # following = db.relationship(
-    #     'User', secondary=follows,
-    #     primaryjoin=lambda: User.id == follows.c.user_id,
-    #     secondaryjoin=lambda: User.id == follows.c.following_id,
-    #     back_populates='followers'
-    # )
     following = db.relationship(
         # this is our left side table and we named it following
         # the right side table is the *follows*
@@ -57,6 +51,16 @@ class User(db.Model, UserMixin):
         lazy='dynamic'
         # A dynamic mode to sets up the query to not run until specifically requested
     )
+    
+    # followers = db.relationship(
+    #     'User',
+    #     secondary=follows,
+    #     primaryjoin=(follows.c.following_id == id),
+    #     secondaryjoin=(follows.c.user_id == id),
+    #     backref='following',
+    #     lazy='dynamic'
+    # )
+    
     @property
     def password(self):
         return self.hashed_password
