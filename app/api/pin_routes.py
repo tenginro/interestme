@@ -97,13 +97,16 @@ def delete_pin(id):
 
 
 
-@pin_routes.route('pins/<int:id>/save', methods=['PATCH','PUT'])
+@pin_routes.route('pins/<int:id>/save', methods=['PATCH'])
 @login_required
 def save_pin(id):
     user = current_user
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    
     request_obj = request.get_json()
-    boardId = request_obj["boardId"]
+    boardId = request_obj["id"]
+    
+    print("________________________________________________________________________________request_obj_____________________________", request_obj)
         
     if boardId:
         board = Board.query.get(boardId)
@@ -115,7 +118,7 @@ def save_pin(id):
                 pin.boards = []
                 pin.boards.append(board)
         else:
-            return {"message": 'User does not own this board' }
+            return {"message": "User does not own this board"}
         
     if pin.user_saved:
         if user not in pin.user_saved:
@@ -127,15 +130,19 @@ def save_pin(id):
     db.session.commit()
     
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+    
+    return {**pin.to_dict(), 
+            "User": pin.user.to_dict(), 
+            "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
 
-@pin_routes.route('pins/<int:id>/unsave', methods=['PATCH','PUT'])
+@pin_routes.route('pins/<int:id>/unsave', methods=['PATCH'])
 @login_required
 def unsave_pin(id):
     user = current_user.to_dict()
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    
     if pin.boards:
         boards_to_remove = [board for board in pin.boards if board.user_id == user['id']]
         for board in boards_to_remove:

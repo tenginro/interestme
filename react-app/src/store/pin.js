@@ -67,7 +67,7 @@ export const getPinDetail = (id) => async (dispatch) => {
 
   if (response.ok) {
     const pin = await response.json();
-    console.log('singlePin inside thunk before dispatch', pin)
+    // console.log('singlePin inside thunk before dispatch', pin)
     await dispatch(actionLoadPinDetail(pin));
     return pin;
   }
@@ -124,29 +124,38 @@ export const deletePin = (pin) => async (dispatch) => {
   return await response.json();
 };
 
-export const savePinThunk = (pin, board) => async (dispatch) => {
-  const response = await fetch(`/api/pins/${pin.id}/save`, {
-    method:'PATCH',
-    body: board
-  })
-  if(response.ok) {
-    await dispatch(actionUpdatePin(pin));
-    return await response.json();
-  }
-  return await response.json();
-}
+export const savePinThunk = (pin, boardId) => async (dispatch) => {
+  const boardResponse = await fetch(`/api/boards/${boardId}`);
+  const board = await boardResponse.json();
 
-export const unSavePinThunk = (pin, board) => async (dispatch) => {
   const response = await fetch(`/api/pins/${pin.id}/save`, {
-    method:'PATCH',
-    body: board
-  })
-  if(response.ok) {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(board),
+  });
+
+  if (response.ok) {
     await dispatch(actionUpdatePin(pin));
     return await response.json();
   }
   return await response.json();
-}
+};
+
+export const unSavePinThunk = (pin, boardId) => async (dispatch) => {
+  const response = await fetch(`/api/pins/${pin.id}/unsave`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    await dispatch(actionUpdatePin(pin));
+    return await response.json();
+  }
+  return await response.json();
+};
 
 // export const savePinUserThunk = (pin) => async (dispatch) => {
 //   const response = await fetch(`/api/pins/${pin.id}/save`, {
