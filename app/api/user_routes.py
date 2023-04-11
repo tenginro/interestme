@@ -64,7 +64,6 @@ def unfollow(id):
     # currentUser is the user logged in
     currentUser = current_user
     curr_user = User.query.get(currentUser.id)
-    print("______________________________curr_user______________________________", curr_user)
     
     curr_user.following=[user for user in curr_user.following if user.id != user_to_unfollow.id]
     
