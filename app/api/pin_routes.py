@@ -13,8 +13,11 @@ pin_routes = Blueprint("pins", __name__)
 @pin_routes.route("/pins")
 def get_all_pins():
     pins = Pin.query.all()
+    # allUsers = User.query.all()
+    # userSaved = [user for user in allUsers if user in pin.user_saved]
+
     all_pins = [{**pin.to_dict(), "User":pin.user.to_dict()} for pin in pins]
-    
+    # , "UserSaved":pin.user_saved.to_dict()
     return all_pins
 
 @pin_routes.route("/pins/<int:id>")

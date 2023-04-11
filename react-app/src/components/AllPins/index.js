@@ -11,7 +11,13 @@ function AllPins() {
   const boardObj = useSelector((state) => state.boards.allBoards);
   const [board, setBoard] = useState("profile");
   const [save, setSave] = useState(false);
+  console.log('before getting userSaved', pinsObj)
 
+  // const userSaved = pinsObj.UserSaved
+  // console.log('insde all pins component', userSaved)
+  // const isSaved = () => {
+  //   if 
+  // }
   useEffect(() => {
     dispatch(getAllPins());
     return () => dispatch(actionClearPins());
