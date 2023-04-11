@@ -77,7 +77,7 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE follow SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE follows SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE board_pins SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_pin SET SCHEMA {SCHEMA};")
