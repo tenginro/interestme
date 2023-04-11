@@ -1,8 +1,9 @@
 // Necessary imports
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoardDetail } from '../../store/board'
+import * as boardsActions from '../../store/board'
 import PinGalleryCard from '../PinGalleryCard'
 import DropdownMenuButton from '../DropdownMenuButton'
 import './BoardDetails.css'
@@ -14,6 +15,9 @@ function BoardDetails() {
 
     // Create dispatch method
     const dispatch = useDispatch()
+
+    // Create history method
+    const history = useHistory()
    
     // Subscribe to single board slice of state
     const board = useSelector(state => state.boards.singleBoard)
@@ -42,7 +46,7 @@ function BoardDetails() {
         <div className='info-container'>
             <h1>{board.name}</h1>
             <div className='manage-board-buttons-container'>
-                {/* <span>
+                <span>
                     <button className='edit-board-btn'>
                     Edit
                     </button>
@@ -51,7 +55,7 @@ function BoardDetails() {
                     <button className="edit-user-board-btnn">
                     DELETE
                     </button>
-                </span> */}
+                </span>
                 <DropdownMenuButton />
             </div>
             <div className='board-cover-container'>
@@ -65,8 +69,10 @@ function BoardDetails() {
 
         <h3>Pin Gallery</h3>
         <p>{board.Pins?.length} pins</p>
-        {board.Pins &&
-          board.Pins.map((pin) => <PinGalleryCard key={pin.id} pin={pin} />)}
+        <div className='pin-gallery-grid'>
+            {board.Pins &&
+            board.Pins.map((pin) => <PinGalleryCard key={pin.id} pin={pin} />)}
+        </div>
       </div>
     );
 }
