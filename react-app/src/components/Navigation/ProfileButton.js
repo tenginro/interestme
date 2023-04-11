@@ -54,7 +54,7 @@ function ProfileButton({ user }) {
   }
   const editBoadClick = (e) => {
     e.preventDefault();
-    history.push("/boards/edit");
+    history.push("/boards/current");
     closeMenu();
   };
 
@@ -99,7 +99,7 @@ function ProfileButton({ user }) {
                   onClick={editBoadClick}
                   type="submit"
                 >
-                  Edit Board
+                  Manage Board
                 </div>
               </li>
               <li>
