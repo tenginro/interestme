@@ -16,6 +16,7 @@ const Pin = () => {
     return () => dispatch(actionClearPin());
   }, [dispatch, pinId]);
 
+
   return (
     <div>
       <div className="leftSide">
@@ -30,7 +31,7 @@ const Pin = () => {
         <h2>{pin.name}</h2>
         <p>{pin.description}</p>
         <div>
-          <h4>{pin.User.username}</h4>  
+          {/* <h4>{pin.User.username}</h4>   */}
           {/* bugs coming from here.... singlePin state got cleared up */}
           {follow ? (
             <button

@@ -57,7 +57,7 @@ export const getFollowerThunk = (user) => async (dispatch) => {
 }
 
 export const addFollowThunk = (user, followingId) => async (dispatch) => {
-  const response = await fetch(`/${followingId}/follow`, {
+  const response = await fetch(`/api/${followingId}/follow`, {
     method:'POST',
   });
   if(response.ok) {
@@ -69,7 +69,7 @@ export const addFollowThunk = (user, followingId) => async (dispatch) => {
 }
 
 export const removeFollowThunk = (user, followingId) => async (dispatch) => {
-  const response = await fetch(`/${followingId}/follow`, {
+  const response = await fetch(`/api/${followingId}/follow`, {
     method:'DELETE',
   });
   if(response.ok) {
