@@ -9,25 +9,26 @@ function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
   // const boardObj = useSelector((state) => state.boards.allBoards);
-  const [board, setBoard] = useState("profile");
+  const [board, setBoard] = useState(1);
   const [save, setSave] = useState(false);
-  const user = useSelector((state)=>state.session.user);
+  const user = useSelector((state) => state.session.user);
 
-  console.log('before getting userSaved', pinsObj)
-  const userSaved = pinsObj.user_saved
-  const userBoards = user.boards //array
-  console.log('board from user', userBoards )
-  console.log('insde all pins component', userSaved)
-  
+  // console.log("before getting userSaved", pinsObj);
+  const userSaved = pinsObj.user_saved;
+  const userBoards = user.boards; //array
+  // console.log("board from user", userBoards);
+  // console.log("insde all pins component", userSaved);
+
   ///////////////////////////////////////
   const isSaved = () => {
-    console.log('inside isSaved')
-    if(userSaved!==undefined){
-      userSaved.forEach((s)=>{
-        if(s.id === user.id) setSave(true);
-      })
+    // console.log("inside isSaved");
+    if (userSaved !== undefined) {
+      userSaved.forEach((s) => {
+        if (s.id === user.id) setSave(true);
+      });
     }
-  }
+  };
+
   useEffect(() => {
     dispatch(getAllPins());
     isSaved();
@@ -49,13 +50,15 @@ function AllPins() {
             </NavLink>
             <select
               onChange={(e) => {
+                console.log("e.target.value", e.target.value);
                 setBoard(e.target.value);
               }}
               value={board}
               name="board"
               placeholder="Choose a board"
-            >{userBoards.length > 0 ? (
-                userBoards.map((c) => <option value={c.name}>{c.name}</option>)
+            >
+              {userBoards.length > 0 ? (
+                userBoards.map((c) => <option value={c.id}>{c.name}</option>)
               ) : (
                 <option value="Profile">Profile</option>
               )}
@@ -64,9 +67,8 @@ function AllPins() {
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  const SaveRes = await dispatch(
-                    pinsAction.unSavePinThunk(pin, board)
-                  );
+                  console.log("click to unsave");
+                  await dispatch(pinsAction.unSavePinThunk(pin, board));
                   setSave(false);
                 }}
               >
@@ -76,10 +78,9 @@ function AllPins() {
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  const SaveRes = await dispatch(
-                    pinsAction.savePinThunk(pin, board)
-                    );
-                    setSave(true);
+                  console.log("click to save");
+                  await dispatch(pinsAction.savePinThunk(pin, board));
+                  setSave(true);
                 }}
               >
                 Save
