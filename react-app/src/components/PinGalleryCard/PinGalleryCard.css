@@ -1,0 +1,40 @@
+.pin-gallery-card-container{
+    /* border: 3px solid lime; */
+    min-height: 150px;
+    height: fit-content;
+    max-height: fit-content;
+    min-width: 70px;
+    width: 210px;
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+    border-radius: 10px;
+    transition: 0.3s;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pin-gallery-card-container:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
+
+.pin-image-container{
+    /* border: 2px solid purple; */
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: inherit;
+}

@@ -5,3 +5,51 @@
 .hidden {
   display: none;
 }
+
+.nav.ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+  align-items: center;
+  list-style-type: none;
+  margin-left: 50px;
+  margin-right: 80px;
+}
+
+.logo {
+  height: 45px;
+  width: 45px;
+}
+
+.profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: none;
+  cursor: pointer;
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid rgb(221, 221, 221);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  border-radius: 12px;
+}
+
+.profile-dropdown.hidden {
+  display: None;
+}
+
+.profile-dropdown li {
+  margin-left: 0;
+}
+
+.main_page_login_btn {
+  background-color: red;
+  padding: 0;
+  border: none;
+  width: 4.5rem;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
+}
