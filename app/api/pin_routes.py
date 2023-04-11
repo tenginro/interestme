@@ -29,11 +29,13 @@ def get_pins_by_id(id):
     return {**pin.to_dict(), "User": pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
+
 @pin_routes.route("/pins/current")
 def get_user_pins():
     user = current_user.to_dict()
     user_pins = Pin.query.filter(Pin.user_id == user["id"])
     pins = [{**pin.to_dict(), "User":pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in user_pins]
+
     return pins
 
 # saved pins
@@ -77,7 +79,6 @@ def update_pin(id):
             db.session.commit()
             updated_pin = Pin.query.get(id)
             return {"pin": updated_pin.to_dict(), "User": pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
-        
         if form.errors:
             return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
         
@@ -129,6 +130,7 @@ def save_pin(id):
     return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
+
 @pin_routes.route('pins/<int:id>/unsave', methods=['PATCH','PUT'])
 @login_required
 def unsave_pin(id):
@@ -146,3 +148,4 @@ def unsave_pin(id):
     
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
     return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+
