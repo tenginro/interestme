@@ -22,14 +22,23 @@ const submitNewBoardHandler = async (e) => {
     e.preventDefault();
 
 if (submitType === "Edit") {
-  await dispatch(boardsActions.updateBoard({
-            name,
-            description,
-          }, newBoard.id))
-          .then(()=> {
-            dispatch(boardsActions.getBoardDetail(newBoard.id))
-            closeModal()
-          })
+  await dispatch(
+    boardsActions.updateBoard(
+      {
+        name,
+        description,
+      },
+      newBoard.id
+    )
+  )
+    .then(() => {
+      dispatch(boardsActions.getBoardDetail(newBoard.id));
+      closeModal();
+    })
+    .catch(async (response) => {
+      const data = await response.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
 }
 
     if (submitType === "Create") {
