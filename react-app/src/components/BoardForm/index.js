@@ -36,6 +36,7 @@ const submitNewBoardHandler = async (e) => {
           });
     }
 }
+if (!newBoard) return null
 
   return (
     <div>

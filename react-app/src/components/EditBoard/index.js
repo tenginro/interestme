@@ -6,7 +6,7 @@ import * as boardsActions from "../../store/board";
 const EditBoard = ()=> {
  const dispatch = useDispatch();
 
-const user_board = useSelector(state=> state)
+const user_board = useSelector(state=> state.boards.userBoards)
 console.log("user board:::===> ", user_board)
 
 useEffect(()=> {
@@ -16,7 +16,7 @@ useEffect(()=> {
   return (
     <div>
         <h1>Hello From edit</h1>
-      {/* <BoardForm formType="Create board" submitType="Create" /> */}
+      <BoardForm formType="Create board" submitType="Create" newBoard={user_board} />
     </div>
   );
 }
