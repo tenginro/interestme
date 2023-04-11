@@ -5,6 +5,7 @@ const CreateBoard = () => {
         name: "",
         description: ""
     }
+    
     return (<div>
         <BoardForm
     newBoard={newBoard}

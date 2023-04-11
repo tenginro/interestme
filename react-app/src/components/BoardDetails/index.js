@@ -13,33 +13,19 @@ function BoardDetails() {
     // Create dispatch method
     const dispatch = useDispatch()
 
-    // Upon component render, dispatch the action to load the single board into the redux store for retrieval
-    // let board 
-    // useEffect(async () => {
-    //     console.log('board details useEffect')
-    //     board = await dispatch(getBoardDetail(boardId))
-    //     console.log('after dispatch')
-    //     console.log('board inside useEffect: ', board)
-    // })
+    // Subscribe to single board slice of state
+    const board = useSelector(state => state.boards.singleBoard)
 
     // Subscribe to user session slice of state
     const currentUser = useSelector(state => state.session.user)
 
-    // Subscribe to single board slice of state
-    const board = useSelector(state => state.boards.singleBoard)
-
-    // console.log('before')
-    console.log('singleBoard: ', board)
-    // console.log('after')
+    // Upon component render, dispatch the action to load the single board into the redux store for retrieval
+    // let board 
+    useEffect(() => {
+        dispatch(getBoardDetail(boardId))
+    }, [dispatch, boardId])
     
-    // const correctBoard = board?.id === boardId
-    
-    // console.log('correctBoard: ', correctBoard)
-    
-    if(!board) return <h1>Null</h1>
-    // if(!correctBoard) return null
-
-    // if(Object.values(board).length === 0) return null
+    if(!board) return null
 
     return (
         <div className='whole-container'>

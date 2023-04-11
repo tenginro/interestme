@@ -72,15 +72,16 @@ export const getUserBoards = () => async (dispatch) => {
 
 export const createBoard = (board) => async (dispatch) => {
     const res = await fetch(`/api/boards`, {
-        method: "POST",
-        body: JSON.stringify(board)
-    })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(board),
+    });
     if(res.ok){
         const board = await res.json()
         await dispatch(actionCreateBoard(board))
         return board
     }
-    return res
+    // return res
 }
 
 export const updateBoard = (board, boardId) => async (dispatch) => {

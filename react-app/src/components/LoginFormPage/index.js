@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session"
 import './LoginForm.css';
 import logo from '../Navigation/icon.png'
 import SignupFormPage from "../SignupFormPage";
@@ -25,6 +26,19 @@ function LoginFormPage() {
     if (data) {
       setErrors(data);
     }
+  };
+
+  const demoUserSubmitHandler = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(
+      sessionActions.login( "demouser@aa.io", "password" )
+    )
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
   };
 
   return (
@@ -71,11 +85,20 @@ function LoginFormPage() {
         </button>
       </form>
       <div className="OR">OR</div>
+
       <button
         id="sign_up_submit_btn"
         onClick={() => setModalContent(<SignupFormPage />)}
       >
         Sign Up
+      </button>
+
+      <button
+        className="demo-user-btn-container"
+        onClick={demoUserSubmitHandler}
+        type="submit"
+      >
+        Demo User
       </button>
     </div>
   );
