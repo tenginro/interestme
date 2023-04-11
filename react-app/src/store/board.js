@@ -1,5 +1,5 @@
 // Type Variables
-const LOAD_BOARDS = "boards/load_all_boards"
+// const LOAD_BOARDS = "boards/load_all_boards"
 const LOAD_BOARD_DETAIL = "boards/load_one_board"
 const LOAD_USER_BOARDS = "boards/load_user_boards"
 const CREATE_BOARD = "boards/create_board"
@@ -7,19 +7,19 @@ const UPDATE_BOARD = "boards/update_board"
 const DELETE_BOARD = "boards/delete_board"
 
 // Action Creators
-export const actionLoadAllBoards = (boards) => ({
-    type: LOAD_BOARDS,
-    boards
-})
+// export const actionLoadAllBoards = (boards) => ({
+//     type: LOAD_BOARDS,
+//     boards
+// })
 
 export const actionLoadBoardDetail = (board) => ({
     type: LOAD_BOARD_DETAIL,
     board
 })
 
-export const actionLoadUserBoards = (board) => ({
+export const actionLoadUserBoards = (boards) => ({
     type: LOAD_USER_BOARDS,
-    board
+    boards
 })
 
 export const actionCreateBoard = (board) => ({
@@ -38,20 +38,22 @@ export const actionDeleteBoard = (board) => ({
 })
 
 // Thunks
-export const getAllBoards = () => async (dispatch) => {
-    const res = await fetch("/api/boards")
-    if(res.ok){
-        const boards = await res.json()
-        await dispatch(actionLoadAllBoards(boards))
-        return boards
-    }
-    return res
-}
+// export const getAllBoards = () => async (dispatch) => {
+//     const res = await fetch("/api/boards")
+//     if(res.ok){
+//         const boards = await res.json()
+//         await dispatch(actionLoadAllBoards(boards))
+//         return boards
+//     }
+//     return res
+// }
 
 export const getBoardDetail = (id) => async (dispatch) => {
+    console.log('getBoardDetail thunk running')
     const res = await fetch(`/api/boards/${id}`)
     if(res.ok){
         const board = await res.json()
+        console.log('thunk board res: ', board)
         await dispatch(actionLoadBoardDetail(board))
         return board
     }
@@ -59,7 +61,7 @@ export const getBoardDetail = (id) => async (dispatch) => {
 }
 
 export const getUserBoards = () => async (dispatch) => {
-    const res = await fetch(`/api/boards/current`)
+    const res = await fetch('/api/boards')
     if(res.ok){
         const boards = await res.json()
         await dispatch(actionLoadUserBoards(boards))

@@ -1,0 +1,14 @@
+.board-gallery-container {
+    /* border: 3px solid red; */
+}
+
+.board-gallery-list {
+    /* border: 3px solid purple; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+li {
+    list-style: none;
+}
