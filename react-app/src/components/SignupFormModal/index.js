@@ -88,7 +88,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <label>
+        {/* <label>
           Profile Picture
           <input
             type="text"
@@ -96,7 +96,7 @@ function SignupFormModal() {
             onChange={(e) => setProfilePic(e.target.value)}
             required
           />
-        </label>
+        </label> */}
         <label>
           About
           <textarea
