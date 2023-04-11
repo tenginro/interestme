@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
 import { useHistory, useParams, Redirect} from "react-router-dom";
-
+import { useModal } from "../../context/Modal";
 const BoardForm = ({ newBoard, submitType, formType }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [errors, setErrors] = useState({});
-
+  const { closeModal } = useModal();
 
 const [name, setName] = useState(newBoard.name)
 const [description, setDescription] = useState(newBoard.description);
@@ -20,6 +20,18 @@ if (!currentUser) return <Redirect to="/" />;
 
 const submitNewBoardHandler = async (e) => {
     e.preventDefault();
+
+if (submitType === "Edit") {
+  await dispatch(boardsActions.updateBoard({
+            name,
+            description,
+          }, newBoard.id))
+          .then(()=> {
+            dispatch(boardsActions.getBoardDetail(newBoard.id))
+            closeModal()
+          })
+}
+
     if (submitType === "Create") {
         newBoard = await dispatch(
           boardsActions.createBoard({
