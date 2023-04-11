@@ -10,28 +10,35 @@ function AllPins() {
   const pinsObj = useSelector((state) => state.pins.allPins);
   // const boardObj = useSelector((state) => state.boards.allBoards);
   const [board, setBoard] = useState(1);
-  const [save, setSave] = useState(false);
+  // const [save, setSave] = useState(false);
   const user = useSelector((state) => state.session.user);
 
   // console.log("before getting userSaved", pinsObj);
   const userSaved = pinsObj.user_saved;
-  const userBoards = user.boards; //array
+  const userBoards = user?.boards || []; //array
   // console.log("board from user", userBoards);
   // console.log("insde all pins component", userSaved);
 
   ///////////////////////////////////////
-  const isSaved = () => {
+  let saveOrNot = false;
+  const isSaved = (pin) => {
     // console.log("inside isSaved");
-    if (userSaved !== undefined) {
-      userSaved.forEach((s) => {
-        if (s.id === user.id) setSave(true);
+    // console.log("pin in isSaved", pin);
+    if (pin?.user_saved !== undefined) {
+      pin?.user_saved.forEach((s) => {
+        // console.log("s.id", s.id);
+        // console.log("user.id", user.id);
+        if (s.id === user.id) {
+          saveOrNot = true;
+        }
       });
     }
+    return saveOrNot;
   };
 
   useEffect(() => {
     dispatch(getAllPins());
-    isSaved();
+    // isSaved();
     return () => dispatch(actionClearPins());
   }, [dispatch]);
 
@@ -63,13 +70,13 @@ function AllPins() {
                 <option value="Profile">Profile</option>
               )}
             </select>
-            {save ? (
+            {isSaved(pin) ? (
               <button
                 onClick={async (e) => {
                   e.preventDefault();
                   console.log("click to unsave");
                   await dispatch(pinsAction.unSavePinThunk(pin, board));
-                  setSave(false);
+                  // setSave(false);
                 }}
               >
                 Unsave
@@ -80,7 +87,7 @@ function AllPins() {
                   e.preventDefault();
                   console.log("click to save");
                   await dispatch(pinsAction.savePinThunk(pin, board));
-                  setSave(true);
+                  // setSave(true);
                 }}
               >
                 Save
