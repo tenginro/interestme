@@ -29,7 +29,7 @@ function BoardGalleryCard({ board }) {
             <div className='board-card-container'>
                 <NavLink exact to={`/boards/${board.id}`} onClick={onClick}>
                     <div className='board-image-container'>
-                        <img src={board.board_cover} />
+                        <img style={{ height: '160px', width: '250px' }} src={board.board_cover} />
                     </div>
                     <div className='board-card-content-container'>
                         <h2 className='item'>{board.name}</h2>
