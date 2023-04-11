@@ -13,7 +13,7 @@ board_routes = Blueprint("boards", __name__)
 def get_user_boards():
     user = current_user.to_dict()
     user_boards = Board.query.filter(Board.user_id == user["id"])
-    boards = [{**board.to_dict(), "Pins": [pin.to_dict() for pin in board.pins]} for board in user_boards]
+    boards = [{**board.to_dict(), "User":board.user.to_dict(), "Pins": [pin.to_dict() for pin in board.pins]} for board in user_boards]
     return boards
 
 @board_routes.route("/boards/<int:id>")
@@ -24,7 +24,7 @@ def get_boards_by_id(id):
     if board:
         if board.user_id == user["id"]:
             pins = [pin.to_dict() for pin in board.pins]
-            return {**board.to_dict(), "Pins": pins}
+            return {**board.to_dict(), "User":board.user.to_dict(), "Pins": pins}
         else:
             return {"message": 'User does not own this board'}
     else:
@@ -46,7 +46,7 @@ def create_board():
         )
         db.session.add(new_board)
         db.session.commit()
-        return {"board": new_board.to_dict()}
+        return {"board": new_board.to_dict(), "User":new_board.user.to_dict(),}
     if form.errors:
         return {"message": "form errors", "errors": f"{form.errors}"}
     return {"message": 'Bad Data'}
@@ -66,7 +66,8 @@ def update_board(id):
             board.secret = form.data['secret']
             db.session.commit()
             updated_board = board.query.get(id)
-            return {"board": updated_board.to_dict()}
+            return {"board": updated_board.to_dict(), "User": board.user.to_dict(), 
+            "Pins": [pin.to_dict() for pin in board.pins]}
         if form.errors:
             return {"message": "form errors", "errors": f"{form.errors}"}
     return {"message": 'User does not own this board'}
