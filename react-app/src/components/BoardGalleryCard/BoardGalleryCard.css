@@ -1,0 +1,45 @@
+.board-card-container {
+    /* border: 3px solid lime; */
+    min-height: 250px;
+    height: 250px;
+    max-height: fit-content;
+    width: 250px;
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+    border-radius: 10px;
+    transition: 0.8s;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-card-container:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+}
+
+.board-image-container{
+    /* border: 3px solid pink; */
+    border-radius: 10px;
+    height: 160px;
+}
+
+.board-card-content-container{
+    /* border: 3px solid brown; */
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item{
+    /* border: 2px solid black; */
+    margin: 2px 0;
+    padding-left: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: inherit;
+}
