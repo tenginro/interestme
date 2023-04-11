@@ -52,17 +52,17 @@ function App() {
           <Route exact path="/pins/:pinId">
             <SinglePin />
           </Route>
-          <Route exact path="/boards/new">
-            <CreateBoard />
-          </Route>
           <Route exact path="/boards/current">
             <BoardGallery />
           </Route>
-          <Route exact path="/boards/edit">
-            <EditBoard />
-          </Route>
           <Route exact path="/boards/:boardId">
             <BoardDetails />
+          </Route>
+          <Route exact path="/boards/new">
+            <CreateBoard />
+          </Route>
+          <Route exact path="/boards/edit">
+            <EditBoard />
           </Route>
         </Switch>
       )}
