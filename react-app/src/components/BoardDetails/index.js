@@ -22,24 +22,10 @@ function BoardDetails() {
     // Upon component render, dispatch the action to load the single board into the redux store for retrieval
     // let board 
     useEffect(() => {
-        console.log('board details useEffect')
         dispatch(getBoardDetail(boardId))
-        console.log('after dispatch')
-        console.log('board inside useEffect: ', board)
     }, [dispatch, boardId])
     
-    // console.log('before')
-    console.log('singleBoard: ', board)
-    // console.log('after')
-    
-    // const correctBoard = board?.id === boardId
-    
-    // console.log('correctBoard: ', correctBoard)
-    
-    if(!board) return <h1>Null</h1>
-    // if(!correctBoard) return null
-
-    // if(Object.values(board).length === 0) return null
+    if(!board) return null
 
     return (
         <div className='whole-container'>
