@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoardDetail } from '../../store/board'
 import PinGalleryCard from '../PinGalleryCard'
-import {useModal} from "../../context/Modal"
 import DropdownMenuButton from '../DropdownMenuButton'
 import './BoardDetails.css'
 
@@ -15,7 +14,7 @@ function BoardDetails() {
 
     // Create dispatch method
     const dispatch = useDispatch()
-    const { setModalContent } = useModal();
+   
     // Subscribe to single board slice of state
     const board = useSelector(state => state.boards.singleBoard)
 
@@ -50,7 +49,7 @@ function BoardDetails() {
             <div className='board-cover-container'>
                 <img src={board.board_cover} alt="board-cover-pic" />
             </div>
-            <p className='secret'>Secret Board? {board.secret}</p>
+            <p className='secret'>{board.secret ? 'Secret Board! Shhh!' : 'Public Board'}</p>
         </div>
 
 

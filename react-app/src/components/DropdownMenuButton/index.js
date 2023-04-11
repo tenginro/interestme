@@ -11,6 +11,7 @@ function DropdownMenuButton(){
 
     // Create useRef hook
     const ulRef = useRef()
+    const eleRef = useRef()
 
     // Function to open dropdown menu
     const openMenu = () => {
@@ -37,7 +38,12 @@ function DropdownMenuButton(){
 
     return (
         <div className='dropdown-menu-container' onClick={openMenu}>
-            <h3>Icon Goes Here</h3>
+            <h3 className={showMenu ? 'active pointer' : 'pointer'}>Icon Goes Here</h3>
+            {showMenu && ( 
+                <>
+                    <p className='dropdown-header'>Board Options</p>
+                </>
+             )}
             <ul className={showMenu ? 'dropdown-menu' : 'hidden'} ref={ulRef}>
                 <OpenModalMenuItem itemText='Edit' onItemClick={closeMenu} modalComponent={<h1>Edit Board Modal Component Goes Here</h1>} />
                 <OpenModalMenuItem itemText='Delete' onItemClick={closeMenu} modalComponent={<h1>Delete Board Modal Component Goes Here</h1>} />

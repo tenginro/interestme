@@ -1,5 +1,8 @@
 .info-container{
-    border: 3px solid gray;
+    /* border: 3px solid gray; */
+    min-height: 300px;
+    height: fit-content;
+    max-height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,13 +10,14 @@
 }
 
 .manage-board-buttons-container{
-    border: 3px solid lime;
+    /* border: 3px solid lime; */
 }
 
 .board-cover-container{
-    border: 3px solid purple;
+    /* border: 3px solid purple; */
 }
 
 .secret{
-    border: 3px solid gray;
+    /* border: 3px solid gray; */
+    color: lightgray;
 }
