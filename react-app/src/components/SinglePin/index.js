@@ -13,9 +13,9 @@ const Pin = () => {
   const checkFollow = () => {
     const pinAuthorId = pin.user_id;
 
-    console.log("user.following", user.following);
+    // console.log("user.following", user.following);
 
-    if (user.following) {
+    if (user?.following) {
       const following = user.following;
       following.forEach((f) => {
         if (f.id === pinAuthorId) setFollow(true);
