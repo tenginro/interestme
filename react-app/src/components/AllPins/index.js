@@ -8,26 +8,17 @@ import * as pinsAction from "../../store/pin";
 function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
-  // const boardObj = useSelector((state) => state.boards.allBoards);
   const [board, setBoard] = useState(1);
-  // const [save, setSave] = useState(false);
+  const [save, setSave] = useState(false);
   const user = useSelector((state) => state.session.user);
 
-  // console.log("before getting userSaved", pinsObj);
   const userSaved = pinsObj.user_saved;
-  const userBoards = user?.boards || []; //array
-  // console.log("board from user", userBoards);
-  // console.log("insde all pins component", userSaved);
+  const userBoards = user?.boards || [];
 
-  ///////////////////////////////////////
-  let saveOrNot = false;
   const isSaved = (pin) => {
-    // console.log("inside isSaved");
-    // console.log("pin in isSaved", pin);
+    let saveOrNot = false;
     if (pin?.user_saved !== undefined) {
       pin?.user_saved.forEach((s) => {
-        // console.log("s.id", s.id);
-        // console.log("user.id", user.id);
         if (s.id === user.id) {
           saveOrNot = true;
         }
@@ -38,14 +29,11 @@ function AllPins() {
 
   useEffect(() => {
     dispatch(getAllPins());
-    // isSaved();
     return () => dispatch(actionClearPins());
-  }, [dispatch]);
+  }, [dispatch, save]);
 
   if (!pinsObj) return null;
   const pins = Object.values(pinsObj);
-  // if(!boardObj) return <div>Loading</div>
-  // const boards = Object.values(boardObj)
 
   return (
     <div>
@@ -74,9 +62,12 @@ function AllPins() {
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  console.log("click to unsave");
-                  await dispatch(pinsAction.unSavePinThunk(pin, board));
-                  // setSave(false);
+                  await dispatch(pinsAction.unSavePinThunk(pin, board)).then(
+                    () => {
+                      if (save === false) setSave(true);
+                      else setSave(false);
+                    }
+                  );
                 }}
               >
                 Unsave
@@ -85,9 +76,12 @@ function AllPins() {
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  console.log("click to save");
-                  await dispatch(pinsAction.savePinThunk(pin, board));
-                  // setSave(true);
+                  await dispatch(pinsAction.savePinThunk(pin, board)).then(
+                    () => {
+                      if (save === false) setSave(true);
+                      else setSave(false);
+                    }
+                  );
                 }}
               >
                 Save
