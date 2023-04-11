@@ -1,0 +1,33 @@
+.main_page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.page1-image {
+    background-image: url(Assets/image1.jpeg) no-repeat center center fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.page2-image {
+    background-image: url(Assets/image1.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.page3-image {
+    background-image: url("Assets/image1.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
