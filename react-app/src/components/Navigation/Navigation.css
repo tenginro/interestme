@@ -43,3 +43,13 @@
 .profile-dropdown li {
   margin-left: 0;
 }
+
+.main_page_login_btn {
+  background-color: red;
+  padding: 0;
+  border: none;
+  width: 4.5rem;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
+}

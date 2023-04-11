@@ -1,0 +1,35 @@
+#login_form_page {
+    display: flex;
+    /* height: 55vh;
+    width: 22vw; */
+    border-radius: 40%;
+    height: 25rem;
+    width: 20rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+#logo_in_logo {
+    height: 50px;
+}
+
+
+#log_in_submit_btn {
+    background-color: red;
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 40px;
+    color: white;
+}
+
+.OR {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.log_in-input{
+    height: 25px;
+    border-radius: 5px;
+}
