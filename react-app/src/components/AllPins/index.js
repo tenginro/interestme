@@ -54,13 +54,11 @@ function AllPins() {
               value={board}
               name="board"
               placeholder="Choose a board"
-            >{
-              userBoards.length > 0 ? (
-              {userBoards.map((c) => (
-                (<option value={c.name}>{c.name}</option>)
-              ))}):
-              (<option value="Profile">Profile</option>)
-            }
+            >{userBoards.length > 0 ? (
+                userBoards.map((c) => <option value={c.name}>{c.name}</option>)
+              ) : (
+                <option value="Profile">Profile</option>
+              )}
             </select>
             {save ? (
               <button
