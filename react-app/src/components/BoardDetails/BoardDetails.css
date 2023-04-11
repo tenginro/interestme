@@ -21,3 +21,10 @@
     /* border: 3px solid gray; */
     color: lightgray;
 }
+
+.pin-gallery-grid{
+    border: 3px solid red;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
