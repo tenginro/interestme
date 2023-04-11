@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
-from ..models import User
+from ..models import User, db
 from sqlalchemy.orm import joinedload, subqueryload
 from sqlalchemy.sql import exists
 
@@ -34,19 +34,46 @@ def user(id):
     return {**this_user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
 
 
+# please note the int:id here is other user's id
 @user_routes.route('/<int:id>/follow', methods=["POST"])
 @login_required
 def following(id):
-    user_to_follow = User.query.options(joinedload(User.following)).get(id)
+    user_to_follow = User.query.get(id)
     
-    currentUser = current_user.to_dict()
-    user = User.query.options(joinedload(User.following)).get(currentUser.id)
-    following = [followingUser.to_dict() for followingUser in user.following]
-    user.following.append(user_to_follow.to_dict())
+    # currentUser is the user logged in
+    currentUser = current_user
+    curr_user = User.query.get(currentUser.id)
+    
+    curr_user.following.append(user_to_follow)
+    db.session.commit()
+    
+    currUser = User.query.get(currentUser.id)
+    following = [followingUser.to_dict() for followingUser in currUser.following]
+    allUsers = User.query.all()
+    followers = [user for user in allUsers if currUser in user.following]
+    
+    # will return the current user's info
+    return {**currUser.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+
+# please note the int:id here is other user's id
+@user_routes.route('/<int:id>/follow', methods=["DELETE"])
+@login_required
+def unfollow(id):
+    user_to_unfollow = User.query.get(id)
+    
+    # currentUser is the user logged in
+    currentUser = current_user
+    curr_user = User.query.get(currentUser.id)
+    print("______________________________curr_user______________________________", curr_user)
+    
+    curr_user.following=[user for user in curr_user.following if user.id != user_to_unfollow.id]
     
     db.session.commit()
-    user = User.query.options(joinedload(User.following)).get(currentUser.id)
-    following = [followingUser.to_dict() for followingUser in user.following]
-    followers = User.query.filter(User.following.any(id=id)).all()
-
-    return {**user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+    
+    currUser = User.query.get(currentUser.id)
+    following = [followingUser.to_dict() for followingUser in currUser.following]
+    allUsers = User.query.all()
+    followers = [user for user in allUsers if currUser in user.following]
+    
+    # will return the current user's info
+    return {**currUser.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
