@@ -125,7 +125,10 @@ export const deletePin = (pin) => async (dispatch) => {
 };
 
 export const savePinThunk = (pin, boardId) => async (dispatch) => {
-  if (boardId) {
+  console.log("hitting the thunk, boardId", boardId);
+
+  if (boardId !== 0) {
+    console.log("boardId exists");
     const boardResponse = await fetch(`/api/boards/${boardId}`);
     const board = await boardResponse.json();
 
@@ -142,16 +145,23 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
       return await response.json();
     }
     return await response.json();
-  }
-  const response = await fetch(`/api/pins/${pin.id}/save`, {
-    method: "PATCH",
-  });
+  } else {
+    console.log("boardId not exists");
+    console.log("pin.id", pin.id);
+    const response = await fetch(`/api/pins/${pin.id}/save`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(0),
+    });
 
-  if (response.ok) {
-    await dispatch(actionUpdatePin(pin));
+    console.log("response from backend", response);
+
+    if (response.ok) {
+      await dispatch(actionUpdatePin(pin));
+      return await response.json();
+    }
     return await response.json();
   }
-  return await response.json();
 };
 
 export const unSavePinThunk = (pin) => async (dispatch) => {

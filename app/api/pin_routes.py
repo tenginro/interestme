@@ -100,24 +100,28 @@ def delete_pin(id):
 @pin_routes.route('pins/<int:id>/save', methods=['PATCH'])
 @login_required
 def save_pin(id):
+    print("---------------hitting the savepin route-------------")
     user = current_user
-    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    pin = Pin.query.get(id)
+    print("---------------requestbody-------------", request.get_json())
     
     request_obj = request.get_json()
     if request_obj:
         boardId = request_obj["id"]
-            
-    if boardId:
-        board = Board.query.get(boardId)
-        if board.user_id == user.id:
-            if pin.boards:
-                if board not in pin.boards:
-                    pin.boards.append(board)   
+        print("---------------boardId-------------", boardId)
+
+        if boardId:
+            board = Board.query.get(boardId)
+            if board.user_id == user.id:
+                if pin.boards:
+                    if board not in pin.boards:
+                        pin.boards.append(board)   
+                else:
+                    pin.boards = []
+                    pin.boards.append(board)
             else:
-                pin.boards = []
-                pin.boards.append(board)
-        else:
-            return {"message": "User does not own this board"}
+                return {"message": "User does not own this board"}
         
     if pin.user_saved:
         if user not in pin.user_saved:
@@ -128,8 +132,9 @@ def save_pin(id):
         
     db.session.commit()
     
-    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    
+    # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    pin = Pin.query.get(id)
+
     return {**pin.to_dict(), 
             "User": pin.user.to_dict(), 
             "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
