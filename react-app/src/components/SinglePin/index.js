@@ -118,7 +118,6 @@ const Pin = () => {
             <button
               onClick={async (e) => {
                 e.preventDefault();
-                console.log("click to unfollow");
                 await dispatch(
                   sessionAction.removeFollowThunk(user, pin.user_id)
                 );
@@ -131,7 +130,6 @@ const Pin = () => {
             <button
               onClick={async (e) => {
                 e.preventDefault();
-                console.log("click to follow");
                 await dispatch(sessionAction.addFollowThunk(pin.user_id));
                 setFollow(true);
               }}

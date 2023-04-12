@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./Navigation.css";
 import LoginFormPage from "../LoginFormPage";
-import SignupFormPage from "../SignupFormPage";
+import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ function ProfileButton({ user }) {
           </button>
           <button
             className="main_page_signup_btn"
-            onClick={() => setModalContent(<SignupFormPage />)}
+            onClick={() => setModalContent(<SignupFormModal />)}
           >
             Sign up
           </button>
