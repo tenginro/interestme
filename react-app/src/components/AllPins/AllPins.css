@@ -1,0 +1,58 @@
+.allPins {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pinIndexItem {
+  margin: 0.5em;
+  display: block;
+  position: relative;
+}
+
+.boardNSave {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.pinImg {
+  -webkit-filter: brightness(100%);
+}
+
+.pinIndexItem .boardNSave {
+  visibility: hidden;
+}
+
+.pinIndexItem:hover .pinImg {
+  -webkit-filter: brightness(70%);
+}
+
+.pinIndexItem:hover .boardNSave {
+  visibility: visible;
+  -webkit-filter: brightness(100%);
+}
+
+.saveButton {
+  background-color: red;
+  color: white;
+  border-radius: 30px;
+  padding: 1em;
+  border: 0;
+}
+
+.saveButton:hover {
+  -webkit-filter: brightness(70%);
+}
+
+.boardOption {
+  border: 0;
+  background-color: transparent;
+  color: white;
+  width: 40%;
+}

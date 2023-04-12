@@ -30,7 +30,7 @@ const EditPin = () => {
     if (pin) {
       setName(pin.name);
       setDescription(pin.description);
-      setCategory(pin.category_id);
+      setCategory(pin.category);
       setUrl(pin.url);
     }
   }, [pin]);
@@ -53,14 +53,6 @@ const EditPin = () => {
     e.preventDefault();
     setHasSubmitted(true);
     setResErrors({});
-
-    // const payload = {
-    //   ...pin,
-    //   name,
-    //   description,
-    //   url,
-    //   category,
-    // };
 
     const formData = new FormData();
     formData.append("name", name);
@@ -108,16 +100,14 @@ const EditPin = () => {
           <div>
             <label>Category</label>
             <select
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
+              onChange={updateCategory}
               value={category}
               name="category"
               placeholder="Choose a category"
             >
               <option value=""></option>
               {categories.map((c) => (
-                <option value={c}>{c}</option>
+                <option value={c} key={c}>{c}</option>
               ))}
             </select>
           </div>
@@ -138,7 +128,8 @@ const EditPin = () => {
         <div className="rightSide">
           <img src={pin.url} alt="pin.url" />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Update</button>
+        <button onClick={cancelClick}>Cancel</button>
       </form>
       <div className="bottom">
         <OpenModalButton
@@ -146,8 +137,6 @@ const EditPin = () => {
           modalComponent={<DeleteModal pin={pin} />}
         />
         <div>
-          <button onClick={cancelClick}>Cancel</button>
-          <button type="submit">Save</button>
         </div>
       </div>
     </div>

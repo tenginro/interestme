@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
+import * as pinsAction from "../../store/pin";
+import { whichBoard, isSaved } from "../AllPins/PinIndexItem";
+import './PinDetail.css'
+
 
 const Pin = () => {
   const { pinId } = useParams();
@@ -10,10 +14,21 @@ const Pin = () => {
   const pin = useSelector((state) => state.pins.singlePin);
   const [follow, setFollow] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const [board, setBoard] = useState(whichBoard(pin, user));
+  const [save, setSave] = useState(false);
+
+  console.log('inside single Pin user.id', user.id);
+  console.log('inside single Pin pin.user_saved', pin.user_saved)
+
+  const userBoards = user?.boards || [];
+
+  let changingBoardId = board;
+  const changeBoard = (id) => {
+    changingBoardId = id;
+    setBoard(id);
+  };
   const checkFollow = () => {
     const pinAuthorId = pin.user_id;
-
-    // console.log("user.following", user.following);
 
     if (user?.following) {
       const following = user.following;
@@ -26,29 +41,81 @@ const Pin = () => {
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     checkFollow();
-    return () => dispatch(actionClearPin());
-  }, [dispatch, pinId]);
+    // isSaved();
+    // return () => dispatch(actionClearPin());
+  }, [dispatch, pinId, save]);
+  //when hitting save button, it will reload the whole page
 
-  if (!pin.User) return <div>Loading</div>;
+  console.log('above loading', pin)
+  console.log('above loading pin.User', pin?.User)
+  console.log('user.id', user?.id)
+  console.log('pin.id', pin?.id)
+  // if(!pin) return null;
+  if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
-    <div>
+    <div className="single-pin_container">
       <div className="leftSide">
-        <img src={pin.url} alt="pin.url" />
+        <img class="single_pin_image" src={pin.url} alt="pin.url" />
       </div>
       <div className="rightSide">
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
+
+        <div className="profile_saved-container">
+           <select
+          onChange={(e) => {
+            changeBoard(Number(e.target.value));
           }}
+          value={changingBoardId}
+          name="board"
+          placeholder="Choose a board"
         >
-          Save
-        </button>
-        <h2>{pin.name}</h2>
+          <option value="0">Profile</option>
+          {userBoards.length > 0 &&
+            userBoards.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+        </select>
+        {isSaved(pin, user) ? (
+          <button
+          className="unsaved_btn"
+            onClick={async (e) => {
+              e.preventDefault();
+              changeBoard(0);
+              await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
+                if (save === false) setSave(true);
+                else setSave(false);
+              });
+            }}
+          >
+            Unsave
+          </button>
+        ) : (
+          <button
+          className="saved_btn_"
+            onClick={async (e) => {
+              e.preventDefault();
+              changeBoard(changingBoardId);
+              await dispatch(
+                pinsAction.savePinThunk(pin, changingBoardId)
+              ).then(() => {
+                if (save === false) setSave(true);
+                else setSave(false);
+              });
+            }}
+          >
+            Save
+          </button>
+        )}
+        </div>
+<div>
+   <p id='name_tag'>{pin.name}</p>
         <p>{pin.description}</p>
-        <div>
-          <h4>{pin.User.username}</h4>
-          {/* bugs coming from here.... singlePin state got cleared up */}
+</div>
+
+        <div className="single-pin_user-foloow_container" >
+          <h4>{pin.User?.username}</h4>
           {follow ? (
             <button
               onClick={async (e) => {

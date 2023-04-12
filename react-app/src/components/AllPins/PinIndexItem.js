@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import './AllPins.css'
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
-const whichBoard = (pin, user) => {
+export const whichBoard = (pin, user) => {
   let board_info = [0, "Profile"];
   // console.log("user.boards", user.boards);
   if (user?.boards) {
@@ -24,7 +24,7 @@ const whichBoard = (pin, user) => {
   return board_info[0];
 };
 
-const isSaved = (pin, user) => {
+export const isSaved = (pin, user) => {
   let saveOrNot = false;
   // console.log("pin.user_saved", pin.user_saved);
   // console.log("user.id", user.id);
@@ -55,55 +55,61 @@ const PinIndexItem = ({ pin, user }) => {
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
-    <div key={pin.id}>
+    <div key={pin.id} className="pinIndexItem">
       <NavLink to={`/pins/${pin.id}`}>
-        <img src={pin.url} alt={pin.name} />
+        <img src={pin.url} alt={pin.name} className="pinImg"/>
       </NavLink>
-      <select
-        onChange={(e) => {
-          changeBoard(Number(e.target.value));
-        }}
-        value={changingBoardId}
-        name="board"
-        placeholder="Choose a board"
-      >
-        <option value="0">Profile</option>
-        {userBoards.length > 0 &&
-          userBoards.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-      </select>
-      {save ? (
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            changeBoard(0);
-            await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
-              if (save === false) setSave(true);
-              else setSave(false);
-            });
+      <div className="boardNSave">
+        <select
+          className="boardOption"
+          onChange={(e) => {
+            changeBoard(Number(e.target.value));
           }}
+          value={changingBoardId}
+          name="board"
+          placeholder="Choose a board"
         >
-          Unsave
-        </button>
-      ) : (
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            changeBoard(changingBoardId);
-            await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(
-              () => {
+          <option value="0" className="option">Profile</option>
+          {userBoards.length > 0 &&
+            userBoards.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+        </select>
+        {save ? (
+          <button
+            className="saveButton"
+            onClick={async (e) => {
+              e.preventDefault();
+              changeBoard(0);
+              console.log('clicked unsave')
+              await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
                 if (save === false) setSave(true);
                 else setSave(false);
-              }
-            );
-          }}
-        >
-          Save
-        </button>
-      )}
+              });
+            }}
+          >
+            Unsave
+          </button>
+        ) : (
+          <button
+            className="saveButton"
+            onClick={async (e) => {
+              e.preventDefault();
+              changeBoard(changingBoardId);
+              await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(
+                () => {
+                  if (save === false) setSave(true);
+                  else setSave(false);
+                }
+              );
+            }}
+          >
+            Save
+          </button>
+        )}
+      </div>
     </div>
   );
 };
