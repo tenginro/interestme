@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import './AllPins.css'
 import { useDispatch, useSelector } from "react-redux";
 import { actionClearPins, getAllPins } from "../../store/pin";
 import PinIndexItem from "./PinIndexItem";
@@ -20,8 +20,8 @@ function AllPins() {
   const pins = Object.values(pinsObj);
 
   return (
-    <div>
-      <nav>
+    <div >
+      <nav className="allPins">
         {pins.map((pin) => (
           <PinIndexItem pin={pin} key={pin.id} user={user} />
         ))}
