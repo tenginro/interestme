@@ -1,7 +1,6 @@
 .main_page-container {
     display: flex;
     flex-direction: column;
-    scroll-snap-stop: normal;
     scroll-snap-stop: always;
 }
 
@@ -39,30 +38,30 @@
     scroll-snap-type: y mandatory;
 } */
 
-div>div {
+/* div>div {
     scroll-snap-align: center;
-}
+} */
 
-.normal-stop>div {
+/* .normal-stop>div {
     scroll-snap-stop: normal;
-}
+} */
 
 
-.x.mandatory-scroll-snapping {
+/* .x.mandatory-scroll-snapping {
     scroll-snap-type: x mandatory;
-}
+} */
 
-.y.mandatory-scroll-snapping {
+/* .y.mandatory-scroll-snapping {
     scroll-snap-type: y mandatory;
-}
+} */
 
 /* defining scroll-snap alignment on children */
-div>div {
+/* div>div {
     scroll-snap-align: center;
-}
+} */
 
 /* defining scroll-snap stop on children */
-.always-stop>div {
+/* .always-stop>div {
     scroll-snap-stop: always;
 }
 
@@ -76,4 +75,4 @@ div>div {
 
 .normal-stop>div {
     scroll-snap-stop: normal;
-}
+} */
