@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
-const whichBoard = (pin, user) => {
+export const whichBoard = (pin, user) => {
   let board_info = [0, "Profile"];
   // console.log("user.boards", user.boards);
   if (user?.boards) {
@@ -24,7 +24,7 @@ const whichBoard = (pin, user) => {
   return board_info[0];
 };
 
-const isSaved = (pin, user) => {
+export const isSaved = (pin, user) => {
   let saveOrNot = false;
   // console.log("pin.user_saved", pin.user_saved);
   // console.log("user.id", user.id);
@@ -80,6 +80,7 @@ const PinIndexItem = ({ pin, user }) => {
           onClick={async (e) => {
             e.preventDefault();
             changeBoard(0);
+            console.log('clicked unsave')
             await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
               if (save === false) setSave(true);
               else setSave(false);

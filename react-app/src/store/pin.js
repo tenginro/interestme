@@ -157,14 +157,19 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     console.log("response from backend", response);
 
     if (response.ok) {
-      await dispatch(actionUpdatePin(pin));
-      return await response.json();
+      const newPinres = await response.json()
+      console.log("inside thunkkkkkkkkkk", newPinres)
+      await dispatch(actionUpdatePin(newPinres));
+      // return await response.json();
+      return newPinres;
     }
     return await response.json();
+    
   }
 };
 
 export const unSavePinThunk = (pin) => async (dispatch) => {
+  console.log('inside unsavethunk')
   const response = await fetch(`/api/pins/${pin.id}/unsave`, {
     method: "PATCH",
     headers: {
@@ -172,10 +177,12 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
     },
   });
   if (response.ok) {
-    await dispatch(actionUpdatePin(pin));
-    return await response.json();
+    const newPinres = await response.json()
+    console.log("inside unsave thunkkkkkkkkkk", newPinres)
+    await dispatch(actionUpdatePin(newPinres));
+    // return await response.json();
   }
-  return await response.json();
+  // return await response.json();
 };
 
 // export const savePinUserThunk = (pin) => async (dispatch) => {
