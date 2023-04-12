@@ -3,12 +3,13 @@
     min-height: 150px;
     height: fit-content;
     max-height: fit-content;
-    min-width: 70px;
+    min-width: fit-content;
     width: 210px;
+    max-width: 210px;
     /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
     border-radius: 10px;
     transition: 0.3s;
-    margin: 15px;
+    margin: 3px;
     display: flex;
     flex-direction: column;
 }
@@ -18,8 +19,9 @@
 }
 
 img {
-    width: 200px;
+    width: 205px;
     height: 200px;
+    border-radius: 5px;
 }
 
 .pin-image-container{

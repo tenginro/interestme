@@ -67,8 +67,7 @@ function BoardDetails() {
 
 
 
-        <h3>Pin Gallery</h3>
-        <p>{board.Pins?.length} pins</p>
+        <h2>{board.Pins?.length} pins</h2>
         <div className='pin-gallery-grid'>
             {board.Pins &&
             board.Pins.map((pin) => <PinGalleryCard key={pin.id} pin={pin} />)}

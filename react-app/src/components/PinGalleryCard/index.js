@@ -4,7 +4,7 @@ import './PinGalleryCard.css'
 
 function PinGalleryCard({ pin }){
     return (
-        <li className="pin-gallery-card-container">
+        <div className="pin-gallery-card-container">
             <NavLink exact to={`/pins/${pin.id}`}>
                 <div className='pin-image-container'>
                     <img src={pin.url} alt='' />
@@ -13,7 +13,7 @@ function PinGalleryCard({ pin }){
                     <h4>{pin.name}</h4>
                 </div>
             </NavLink>
-        </li>
+        </div>
     )
 }
 
