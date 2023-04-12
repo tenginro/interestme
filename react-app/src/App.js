@@ -15,6 +15,7 @@ import CreateBoard from "./components/CreateBoard";
 import BoardGallery from "./components/BoardGallery";
 import EditBoard from "./components/EditBoard";
 import BoardDetails from "./components/BoardDetails";
+import MainPage from "./components/LandingPage/MainPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <AllPins />
+            <MainPage />
           </Route>
           <Route exact path="/pins">
             <AllPins />
@@ -53,17 +54,17 @@ function App() {
           <Route exact path="/pins/:pinId">
             <SinglePin />
           </Route>
-          <Route exact path="/boards/new">
-            <CreateBoard />
-          </Route>
           <Route exact path="/boards/current">
             <BoardGallery />
           </Route>
-          <Route exact path="/boards/edit">
-            <EditBoard />
+          <Route exact path="/boards/new">
+            <CreateBoard />
           </Route>
           <Route exact path="/boards/:boardId">
             <BoardDetails />
+          </Route>
+          <Route exact path="/boards/edit">
+            <EditBoard />
           </Route>
         </Switch>
       )}

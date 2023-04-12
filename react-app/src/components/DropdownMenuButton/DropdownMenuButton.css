@@ -1,0 +1,40 @@
+.dropdown-menu-container{
+    /* border: 3px solid lime; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+.dropdown-menu{
+    /* border: 3px solid red; */
+    margin: 2px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+ul.dropdown-menu > li{
+    margin-left: -35%;
+    margin-top: 2px;
+    padding: 0;
+}
+
+ul.dropdown-menu > li:hover {
+    color: gray;
+    cursor: pointer;
+}
+
+.active{
+    color: red;
+}
+
+.dropdown-header{
+    /* border: 1px solid purple; */
+    border-bottom: 1px solid lightgray;
+    margin: 0;
+}
+
+.pointer{
+    cursor: pointer;
+}

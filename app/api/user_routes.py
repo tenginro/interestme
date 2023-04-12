@@ -29,26 +29,25 @@ def user(id):
     following = [followingUser.to_dict() for followingUser in this_user.following]
     
     allUsers = User.query.all()
-    followers = [user for user in allUsers if this_user in user.following]
+    followers = [user.to_dict() for user in allUsers if this_user in user.following]
 
-    return {**this_user.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+    return {**this_user.to_dict(), 
+            "pins":[pin.to_dict() for pin in this_user.pins], 
+            "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in this_user.boards],
+            "saved_pins":[pin.to_dict() for pin in this_user.saved_pins],  
+            "following": following, 
+            "followers": followers}
 
 
 # please note the int:id here is other user's id
 @user_routes.route('/<int:id>/follow', methods=["POST"])
 @login_required
 def following(id):
-    print('****************************')
-    print('****************************')
-    print('hitting backend add route')
     user_to_follow = User.query.get(id)
     
     # currentUser is the user logged in
     currentUser = current_user
     curr_user = User.query.get(currentUser.id)
-    print('****************************')
-    print('****************************')
-    print('curr_user.following', curr_user.following)
     
     if user_to_follow not in curr_user.following:
         curr_user.following.append(user_to_follow)
@@ -58,10 +57,15 @@ def following(id):
     currUser = User.query.get(currentUser.id)
     following = [followingUser.to_dict() for followingUser in currUser.following]
     allUsers = User.query.all()
-    followers = [user for user in allUsers if currUser in user.following]
+    followers = [user.to_dict() for user in allUsers if currUser in user.following]
     
     # will return the current user's info
-    return {**currUser.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+    return {**currUser.to_dict(), 
+            "pins":[pin.to_dict() for pin in currUser.pins], 
+            "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in currUser.boards],
+            "saved_pins":[pin.to_dict() for pin in currUser.saved_pins], 
+            "following": following, 
+            "followers": followers}
 
 # please note the int:id here is other user's id
 @user_routes.route('/<int:id>/follow', methods=["DELETE"])
@@ -80,7 +84,12 @@ def unfollow(id):
     currUser = User.query.get(currentUser.id)
     following = [followingUser.to_dict() for followingUser in currUser.following]
     allUsers = User.query.all()
-    followers = [user for user in allUsers if currUser in user.following]
+    followers = [user.to_dict() for user in allUsers if currUser in user.following]
     
     # will return the current user's info
-    return {**currUser.to_dict(), "following": following, "followers": [follower.to_dict() for follower in followers]}
+    return {**currUser.to_dict(), 
+            "pins":[pin.to_dict() for pin in currUser.pins], 
+            "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in currUser.boards],
+            "saved_pins":[pin.to_dict() for pin in currUser.saved_pins], 
+            "following": following, 
+            "followers": followers}

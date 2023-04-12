@@ -1,0 +1,79 @@
+.main_page-container {
+    display: flex;
+    flex-direction: column;
+    scroll-snap-stop: normal;
+    scroll-snap-stop: always;
+}
+
+
+/* .page1-image {
+    background-image: url("Assets/image1.jpeg") no-repeat center center fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.page2-image {
+    background-image: url(Assets/image1.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.page3-image {
+    background-image: url("Assets/image1.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+} */
+
+.y.mandatory-scroll-snapping {
+    scroll-snap-type: y mandatory;
+}
+
+div>div {
+    scroll-snap-align: center;
+}
+
+.normal-stop>div {
+    scroll-snap-stop: normal;
+}
+
+
+.x.mandatory-scroll-snapping {
+    scroll-snap-type: x mandatory;
+}
+
+.y.mandatory-scroll-snapping {
+    scroll-snap-type: y mandatory;
+}
+
+/* defining scroll-snap alignment on children */
+div>div {
+    scroll-snap-align: center;
+}
+
+/* defining scroll-snap stop on children */
+.always-stop>div {
+    scroll-snap-stop: always;
+}
+
+.always-stop-odd>div:nth-of-type(odd) {
+    scroll-snap-stop: always;
+}
+
+.always-stop-even>div:nth-of-type(even) {
+    scroll-snap-stop: always;
+}
+
+.normal-stop>div {
+    scroll-snap-stop: normal;
+}

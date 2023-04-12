@@ -38,18 +38,18 @@ def seed_pins(all_boards, all_users):
 
     pin4 = Pin(
         user_id=2,
-        name="Soda",
-        description="Food Soda",
+        name="Pot",
+        description="Food Hot Pot",
         category='Food',
-        url="https://i.pinimg.com/564x/bf/ab/78/bfab7840c6e176178b94d2aabe7ce703.jpg",
+        url="https://as1.ftcdn.net/v2/jpg/03/65/52/78/1000_F_365527811_NX6tfX4sbloqPlzVO3J2ArD92rIT4HoH.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
     )
 
     pin5 = Pin(
         user_id=2,
-        name="Sun",
-        description="Sun Picture",
+        name="SunDay",
+        description="Sun Day Picture",
         category='Art',
         url="https://as1.ftcdn.net/v2/jpg/03/15/85/90/1000_F_315859031_5mqyTgkmJYO8J1ig5jxuQDIXJE48Q9zL.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
@@ -61,7 +61,7 @@ def seed_pins(all_boards, all_users):
         name="Technology",
         description="Tech Tech Tech",
         category='Tech',
-        url="https://as1.ftcdn.net/v2/jpg/05/34/74/20/1000_F_534742003_R9oC0ejK0a2UXmtVLV2hFKbA0sjKP79g.jpg",
+        url="https://as1.ftcdn.net/v2/jpg/02/11/09/58/1000_F_211095871_r74aavHAmiLk8xeCuL3SBfnOivgsj0ZQ.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
     )
@@ -78,19 +78,19 @@ def seed_pins(all_boards, all_users):
 
     pin8 = Pin(
         user_id=3,
-        name="Sun",
-        description="Sun Picture",
-        category='Art',
-        url="https://as2.ftcdn.net/v2/jpg/03/30/37/83/1000_F_330378374_FJ0SNG7Wiz97PXlDL9Y7F9JENVFldZLj.jpg",
+        name="Technology",
+        description="Tech Picture",
+        category='Tech',
+        url="https://as1.ftcdn.net/v2/jpg/02/98/00/02/1000_F_298000277_BGQ5Xde9HKvc3aRji8PoBHWV14RDBxxC.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
     )
 
     pin9 = Pin(
         user_id=3,
-        name="Technology",
-        description="Tech Tech Tech",
-        category='Tech',
+        name="Sky",
+        description="Sky Sky Star",
+        category='Art',
         url="https://as1.ftcdn.net/v2/jpg/05/34/74/20/1000_F_534742003_R9oC0ejK0a2UXmtVLV2hFKbA0sjKP79g.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
@@ -118,10 +118,10 @@ def seed_pins(all_boards, all_users):
 
     pin12 = Pin(
         user_id=4,
-        name="Technology",
-        description="Tech Tech Tech",
-        category='Tech',
-        url="https://as1.ftcdn.net/v2/jpg/05/34/74/20/1000_F_534742003_R9oC0ejK0a2UXmtVLV2hFKbA0sjKP79g.jpg",
+        name="Flower",
+        description="Flower Flower Flower",
+        category='Art',
+        url="https://as1.ftcdn.net/v2/jpg/05/17/11/02/1000_F_517110230_pP1pTKZtmv7ZRWaKa0GNMCJBHS454S5W.jpg",
         boards=sample(all_boards, randint(0, len(all_boards))),
         user_saved=sample(all_users, randint(0, len(all_users)))
     )
