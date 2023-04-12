@@ -36,6 +36,7 @@ function Navigation({ isLoaded }) {
         <div className="searchBar">
           <i className="fas fa-solid fa-magnifying-glass"></i>
           <input
+            className="searchInput"
             onClick={() => alert("Feature Coming Soon...")}
             placeholder="Search"
           ></input>

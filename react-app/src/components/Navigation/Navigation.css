@@ -54,8 +54,28 @@
   color: white;
 }
 
-
 .create-new_board {
   color: blue;
   text-decoration: underline;
+}
+
+.searchBar {
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  align-items: center;
+  position: relative;
+  background-color: lightgray;
+}
+
+.searchInput {
+  background-color: transparent;
+  border: none;
+  margin-left: 5px;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  outline: line;
 }
