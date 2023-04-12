@@ -6,21 +6,28 @@ import * as pinsAction from "../../store/pin";
 
 const whichBoard = (pin, user) => {
   let board_info = [0, "Profile"];
-  if (pin?.boards) {
+  // console.log("user.boards", user.boards);
+  if (user?.boards) {
     let the_board;
-    pin?.boards.forEach((b) => {
-      if (b.user_id === user.id) the_board = b;
+    user?.boards.forEach((b) => {
+      // console.log("b", b);
+      b?.Pins.forEach((p) => {
+        if (p.id === pin.id) the_board = b;
+      });
     });
 
     if (the_board) {
       board_info = [the_board.id, the_board.name];
     }
   }
+  console.log("board_info", board_info);
   return board_info[0];
 };
 
 const isSaved = (pin, user) => {
   let saveOrNot = false;
+  // console.log("pin.user_saved", pin.user_saved);
+  // console.log("user.id", user.id);
   if (pin?.user_saved !== undefined) {
     pin?.user_saved.forEach((s) => {
       if (s.id === user.id) {
@@ -28,6 +35,7 @@ const isSaved = (pin, user) => {
       }
     });
   }
+  console.log("saveornot", saveOrNot);
   return saveOrNot;
 };
 
@@ -44,7 +52,7 @@ const PinIndexItem = ({ pin, user }) => {
     setBoard(id);
   };
 
-  if (!user.id) return <div>Loading</div>;
+  if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div key={pin.id}>
@@ -84,6 +92,7 @@ const PinIndexItem = ({ pin, user }) => {
         <button
           onClick={async (e) => {
             e.preventDefault();
+            changeBoard(changingBoardId);
             await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(
               () => {
                 if (save === false) setSave(true);

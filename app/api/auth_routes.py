@@ -33,7 +33,12 @@ def authenticate():
         allUsers = User.query.all()
         followers = [user.to_dict() for user in allUsers if this_user in user.following]
 
-        return {**this_user.to_dict(), "pins":[pin.to_dict() for pin in this_user.pins], "boards":[board.to_dict() for board in this_user.boards],"saved_pins":[pin.to_dict() for pin in this_user.saved_pins],"following": following, "followers": followers}
+        return {**this_user.to_dict(), 
+                "pins":[pin.to_dict() for pin in this_user.pins], 
+                "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in this_user.boards],
+                "saved_pins":[pin.to_dict() for pin in this_user.saved_pins],
+                "following": following, 
+                "followers": followers}
         
         # return current_user.to_dict()
     return {'errors': ['Unauthorized']}
@@ -58,7 +63,7 @@ def login():
         
         return {**user.to_dict(), 
             "pins":[pin.to_dict() for pin in user.pins], 
-            "boards":[board.to_dict() for board in user.boards],
+            "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in user.boards],
             "saved_pins":[pin.to_dict() for pin in user.saved_pins],
             "following": following, 
             "followers": [follower.to_dict() for follower in followers]}
@@ -103,7 +108,7 @@ def sign_up():
         
         return {**user.to_dict(),     
             "pins":[pin.to_dict() for pin in user.pins], 
-            "boards":[board.to_dict() for board in user.boards],
+            "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in user.boards],
             "saved_pins":[pin.to_dict() for pin in user.saved_pins],"following": following, 
             "followers": [follower.to_dict() for follower in followers]}
         # return user.to_dict()
