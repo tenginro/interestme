@@ -7,7 +7,20 @@
   padding: 30px;
   margin-bottom: 30px;
 }
+#loginModal h1 {
+  font-weight: 600;
+  font-size: 32px;
+  color: black;
+  letter-spacing: -1px;
+  padding-left: 16px;
+  padding-right: 16px;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
 
+#loginModal .errorListing {
+  color: red;
+}
 #loginForm {
   display: flex;
   flex-direction: column;
@@ -38,17 +51,35 @@
   height: 30px;
   background-color: red;
   color: white;
-  border-radius: 16px;
   font-size: 18px;
+  border-radius: 20px;
+  border: 0px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.loginSubmitButton.disabled {
+  background-color: pink;
+}
+
+.loginSubmitButton:hover,
+.demoUserButton:hover {
+  -webkit-filter: brightness(90%);
 }
 
 .demoUserButton {
-  background-color: rgb(245, 189, 189);
+  background-color: red;
   color: white;
   width: 200px;
   height: 30px;
-  border-radius: 16px;
   font-size: 18px;
+  border-radius: 20px;
+  border: 0px;
+  -webkit-filter: brightness(100%);
+  font-size: 15px;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
 }
 
 #loginForm input {
