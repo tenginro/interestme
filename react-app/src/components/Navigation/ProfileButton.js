@@ -65,7 +65,7 @@ function ProfileButton({ user }) {
       {user ? (
         <div className="profileDropDownButtons">
           <button className="main_page_login_btn login">
-            {user.username[0]}
+            {user?.username[0]}
           </button>
           <button className="profileDownButton" onClick={openMenu}>
             <i className="fas fa-solid fa-angle-down"></i>
