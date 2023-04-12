@@ -38,3 +38,80 @@ ul.dropdown-menu > li:hover {
 .pointer{
     cursor: pointer;
 }
+
+
+
+.container {
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    background-color: #e6e2e0;
+    width: 20rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 5;
+    border: black 5px solid;
+    align-items: center;
+    /* Higher than the z-index of the background */
+}
+
+.title_text {
+    display: flex;
+    margin: 0rem 0 0rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.confirmation-text {
+    display: flex;
+    margin: 0rem 0 0rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1rem;
+}
+
+.button-container {
+    display: flex;
+    margin-top: auto;
+    justify-content: space-between;
+}
+
+.confirmation-button {
+    display: inline-flex;
+    background-color: #cc0000;
+    color: white;
+    padding: 0.7rem 4.4rem;
+    border: black 2px solid;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    margin: .3rem 0 1rem;
+
+}
+
+.cancel-button {
+    background-color: #5f5b5b;
+    color: white;
+    padding: 0.7rem 4.8rem;
+    border: black 2px solid;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+}
+
+.confirmation-button:hover {
+    background-color: red;
+    color: white;
+
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #b2b2b2;
+
+    cursor: pointer;
+}

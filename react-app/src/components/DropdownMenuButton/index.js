@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import OpenModalMenuItem from '../OpenModalMenuItem'
+import DeleteConfirmForm from './DeleteConfirmForm'
 import './DropdownMenuButton.css'
 
-function DropdownMenuButton(){
+function DropdownMenuButton({board}){
     // Create state variables
     const [ showMenu, setShowMenu ] = useState('')
 
@@ -39,14 +40,14 @@ function DropdownMenuButton(){
     return (
         <div className='dropdown-menu-container' onClick={openMenu}>
             <h3 className={showMenu ? 'active pointer' : 'pointer'}>Icon Goes Here</h3>
-            {showMenu && ( 
+            {showMenu && (
                 <>
                     <p className='dropdown-header'>Board Options</p>
                 </>
              )}
             <ul className={showMenu ? 'dropdown-menu' : 'hidden'} ref={ulRef}>
                 <OpenModalMenuItem itemText='Edit' onItemClick={closeMenu} modalComponent={<h1>Edit Board Modal Component Goes Here</h1>} />
-                <OpenModalMenuItem itemText='Delete' onItemClick={closeMenu} modalComponent={<h1>Delete Board Modal Component Goes Here</h1>} />
+                <OpenModalMenuItem itemText='Delete' onItemClick={closeMenu} modalComponent={<DeleteConfirmForm board={board} />} />
             </ul>
         </div>
     )

@@ -18,7 +18,7 @@ function BoardDetails() {
 
     // Create history method
     const history = useHistory()
-   
+
     // Subscribe to single board slice of state
     const board = useSelector(state => state.boards.singleBoard)
 
@@ -37,7 +37,7 @@ function BoardDetails() {
       history.push("/boards/current");
     });
   };
-  
+
 
   if (!board) return null;
 
@@ -46,7 +46,7 @@ function BoardDetails() {
         <div className='info-container'>
             <h1>{board.name}</h1>
             <div className='manage-board-buttons-container'>
-                <span>
+                {/* <span>
                     <button className='edit-board-btn'>
                     Edit
                     </button>
@@ -55,8 +55,8 @@ function BoardDetails() {
                     <button className="edit-user-board-btnn">
                     DELETE
                     </button>
-                </span>
-                <DropdownMenuButton />
+                </span> */}
+                <DropdownMenuButton board={board} />
             </div>
             <div className='board-cover-container'>
                 <img src={board.board_cover} alt="board-cover-pic" />
