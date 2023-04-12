@@ -55,11 +55,12 @@ const Pin = () => {
   return (
     <div className="single-pin_container">
       <div className="leftSide">
-        <img class="single_pin_image" src={pin.url} alt="pin.url" />
+        <img className="single_pin_image" src={pin.url} alt="pin.url" />
       </div>
       <div className="rightSide">
         <div className="profile_saved-container">
           <select
+            id="profile_dropdown-menu"
             onChange={(e) => {
               changeBoard(Number(e.target.value));
             }}
@@ -112,10 +113,11 @@ const Pin = () => {
           <p>{pin.description}</p>
         </div>
 
-        <div className="single-pin_user-foloow_container">
+        <div className="single-pin_user-follow_container">
           <h4>{pin.User?.username}</h4>
           {follow ? (
             <button
+              className="unfollow_btn"
               onClick={async (e) => {
                 e.preventDefault();
                 await dispatch(
@@ -128,6 +130,7 @@ const Pin = () => {
             </button>
           ) : (
             <button
+              className="follow_btn"
               onClick={async (e) => {
                 e.preventDefault();
                 await dispatch(sessionAction.addFollowThunk(pin.user_id));
