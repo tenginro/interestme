@@ -74,11 +74,11 @@ const CreatePin = () => {
     <div>
       <h1>Create a New Pin</h1>
       <form onSubmit={handleSubmit}>
-        {/* <ul>
+        <ul>
           {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
             <li>{Object.values(resErrors)}</li>
           ) : null}
-        </ul> */}
+        </ul>
         <div className="leftSide">
           <label>Upload an Image</label>
           <input
@@ -102,7 +102,7 @@ const CreatePin = () => {
             >
               <option value=""></option>
               {categories.map((c) => (
-                <option value={c}>{c}</option>
+                <option value={c} key={c}>{c}</option>
                 // add a key prop here
               ))}
             </select>

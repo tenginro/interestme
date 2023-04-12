@@ -107,7 +107,7 @@ const EditPin = () => {
             >
               <option value=""></option>
               {categories.map((c) => (
-                <option value={c}>{c}</option>
+                <option value={c} key={c}>{c}</option>
               ))}
             </select>
           </div>

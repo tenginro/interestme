@@ -41,13 +41,17 @@ const Pin = () => {
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     checkFollow();
-    return () => dispatch(actionClearPin());
+    // isSaved();
+    // return () => dispatch(actionClearPin());
   }, [dispatch, pinId, save]);
   //when hitting save button, it will reload the whole page
 
   console.log('above loading', pin)
+  console.log('above loading pin.User', pin?.User)
+  console.log('user.id', user?.id)
+  console.log('pin.id', pin?.id)
   // if(!pin) return null;
-  if (!pin.User||!user.id || !pin.id) return <div>Loading</div>;
+  if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div>
