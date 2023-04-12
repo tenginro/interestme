@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
           <NavLink exact to="/pins">
             <div className="logoLine">
               <img className="logo" src={logo} alt="logo" />
-              Tinterest
+              <p>Tinterest</p>
             </div>
           </NavLink>
         )}
@@ -27,21 +27,31 @@ function Navigation({ isLoaded }) {
           <NavLink exact to="/">
             <div className="logoLine">
               <img className="logo" src={logo} alt="logo" />
-              Tinterest
+              <div className="projectName">Tinterest</div>
             </div>
           </NavLink>
         )}
       </li>
-      <div>
+      <div className="createPin">
         {sessionUser ? (
-          <button onClick={clickCreate}>
+          <button className="createPinButton" onClick={clickCreate}>
             <NavLink exact to="/pins/new">
-              {" "}
-              Create{" "}
+              <div className="createWord"> Create </div>
             </NavLink>
           </button>
         ) : null}
       </div>
+      {sessionUser && (
+        <div className="searchBar">
+          <i className="fas fa-solid fa-magnifying-glass"></i>
+          <input
+            className="searchInput"
+            onClick={() => alert("Feature Coming Soon...")}
+            placeholder="Search"
+          ></input>
+        </div>
+      )}
+
       {isLoaded && (
         <li className="profile li">
           <ProfileButton user={sessionUser} />
