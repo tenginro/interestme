@@ -12,10 +12,13 @@ function Navigation({ isLoaded }) {
     e.preventDefault();
   };
 
+  console.log(sessionUser);
+  console.log(isLoaded);
+
   return (
     <ul className="nav ul">
       <li className="home li">
-        {sessionUser?.id && (
+        {sessionUser && (
           <NavLink exact to="/pins">
             <div className="logoLine">
               <img className="logo" src={logo} alt="logo" />
@@ -23,8 +26,8 @@ function Navigation({ isLoaded }) {
             </div>
           </NavLink>
         )}
-        {!sessionUser?.id && (
-          <NavLink exact to="/pins">
+        {sessionUser === null && (
+          <NavLink exact to="/">
             <div className="logoLine">
               <img className="logo" src={logo} alt="logo" />
               Tinterest
