@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
-const whichBoard = (pin, userId) => {
+const whichBoard = (pin, user) => {
   let board_info = [0, "Profile"];
   if (pin?.boards) {
     let the_board;
     pin?.boards.forEach((b) => {
-      if (b.user_id === userId) the_board = b;
+      if (b.user_id === user.id) the_board = b;
     });
 
     if (the_board) {
@@ -19,11 +19,11 @@ const whichBoard = (pin, userId) => {
   return board_info[0];
 };
 
-const isSaved = (pin, userId) => {
+const isSaved = (pin, user) => {
   let saveOrNot = false;
   if (pin?.user_saved !== undefined) {
     pin?.user_saved.forEach((s) => {
-      if (s.id === userId) {
+      if (s.id === user.id) {
         saveOrNot = true;
       }
     });
@@ -33,8 +33,8 @@ const isSaved = (pin, userId) => {
 
 const PinIndexItem = ({ pin, user }) => {
   const dispatch = useDispatch();
-  const [board, setBoard] = useState(whichBoard(pin, user?.id));
-  const [save, setSave] = useState(isSaved(pin, user?.id));
+  const [board, setBoard] = useState(whichBoard(pin, user));
+  const [save, setSave] = useState(isSaved(pin, user));
 
   const userBoards = user?.boards || [];
 
@@ -43,6 +43,8 @@ const PinIndexItem = ({ pin, user }) => {
     changingBoardId = id;
     setBoard(id);
   };
+
+  if (!user.id) return <div>Loading</div>;
 
   return (
     <div key={pin.id}>
