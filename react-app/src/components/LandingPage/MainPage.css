@@ -35,9 +35,9 @@
     width: 100%;
 } */
 
-.y.mandatory-scroll-snapping {
+/* .y.mandatory-scroll-snapping {
     scroll-snap-type: y mandatory;
-}
+} */
 
 div>div {
     scroll-snap-align: center;
