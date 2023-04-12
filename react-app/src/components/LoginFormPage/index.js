@@ -1,28 +1,32 @@
 import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import * as sessionActions from "../../store/session"
-import './LoginForm.css';
-import logo from '../Navigation/icon.png'
+import * as sessionActions from "../../store/session";
+import "./LoginForm.css";
+import logo from "../Navigation/icon.png";
 import SignupFormPage from "../SignupFormPage";
 
 function LoginFormPage() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-   const { setModalContent } = useModal();
-   const { closeModal } = useModal();
+  const { setModalContent } = useModal();
+  const { closeModal } = useModal();
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/pins" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password))
-    .then(()=>closeModal())
+    .then(() => {
+
+      closeModal();
+    });
     if (data) {
       setErrors(data);
     }
@@ -31,9 +35,7 @@ function LoginFormPage() {
   const demoUserSubmitHandler = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(
-      sessionActions.login( "demouser@aa.io", "password" )
-    )
+    return dispatch(sessionActions.login("demouser@aa.io", "password"))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
