@@ -74,11 +74,11 @@ const CreatePin = () => {
     <div>
       <h1>Create a New Pin</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
+        {/* <ul>
           {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
             <li>{Object.values(resErrors)}</li>
           ) : null}
-        </ul>
+        </ul> */}
         <div className="leftSide">
           <label>Upload an Image</label>
           <input
@@ -91,6 +91,7 @@ const CreatePin = () => {
         </div>
         <div className="rightSide">
           <div>
+            <label>Choose a category</label>
             <select
               onChange={(e) => {
                 setCategory(e.target.value);
@@ -102,6 +103,7 @@ const CreatePin = () => {
               <option value=""></option>
               {categories.map((c) => (
                 <option value={c}>{c}</option>
+                // add a key prop here
               ))}
             </select>
             <button type="submit">Save</button>
@@ -114,7 +116,7 @@ const CreatePin = () => {
               placeholder="Add your title"
               name="name"
             ></input>
-            {hasSubmitted ? <p className="error">{errors.name}</p> : null}
+            {hasSubmitted ? <p className="error">* {errors.name}</p> : null}
           </div>
           <div>
             <input
@@ -125,7 +127,7 @@ const CreatePin = () => {
               name="description"
             ></input>
             {hasSubmitted ? (
-              <p className="error">{errors.description}</p>
+              <p className="error">* {errors.description}</p>
             ) : null}
           </div>
         </div>
