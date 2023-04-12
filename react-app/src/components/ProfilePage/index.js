@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import OpenModalMenuItem from '../OpenModalMenuItem'
+import FollowGallery from '../FollowGallery'
 import './ProfilePage.css'
 
 function ProfilePage(){
@@ -30,8 +31,8 @@ function ProfilePage(){
                 <h2>{user.username}</h2>
             </div>
             <ul className='followers-container'>
-                <OpenModalMenuItem itemText={`${user.following.length} following`} modalComponent={<h1>Following List</h1>} />
-                <OpenModalMenuItem itemText={`${user.followers.length} followers`} modalComponent={<h1>Followers List</h1>} />
+                <OpenModalMenuItem itemText={`${user.following.length} following`} modalComponent={<FollowGallery follows={user.following} />} />
+                <OpenModalMenuItem itemText={`${user.followers.length} followers`} modalComponent={<FollowGallery follows={user.followers} />} />
             </ul>
             <div className='created-saved-container'>
                 <button className={!saved ? 'activated' : ''} onClick={() => setSaved(false)}>Created</button>

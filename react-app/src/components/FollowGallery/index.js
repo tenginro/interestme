@@ -1,6 +1,12 @@
-function FollowGallery(){
+// Necessary imports
+import { useSelector } from "react-redux"
+
+function FollowGallery({ follows }){
+    
+
+
     return (
-        null
+        <h1>Follow Gallery</h1>
     )
 }
 
