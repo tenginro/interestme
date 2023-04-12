@@ -41,8 +41,6 @@ const Pin = () => {
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     checkFollow();
-    // setSave(isSaved(pin,user))
-    
     return () => dispatch(actionClearPin());
   }, [dispatch, pinId, save]);
   //when hitting save button, it will reload the whole page
@@ -73,7 +71,7 @@ const Pin = () => {
             </option>
           ))}
       </select>
-      {save ? (
+      {isSaved(pin, user) ? (
         <button
           onClick={async (e) => {
             e.preventDefault();
