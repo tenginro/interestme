@@ -12,9 +12,6 @@ function Navigation({ isLoaded }) {
     e.preventDefault();
   };
 
-  console.log(sessionUser);
-  console.log(isLoaded);
-
   return (
     <ul className="nav ul">
       <li className="home li">
