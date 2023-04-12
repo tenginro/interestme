@@ -1,7 +1,8 @@
 .follow-gallery-container{
     /* border: 3px solid lime; */
-    min-width: 600px;
-    width: 600px;
+    padding: 10px;
+    min-width: 550px;
+    width: 550px;
     height: fit-content;
     display: flex;
     flex-direction: column;

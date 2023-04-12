@@ -1,11 +1,16 @@
 // Necessary imports
 import { NavLink, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useModal } from '../../context/Modal'
+import { addFollowThunk, removeFollowThunk } from '../../store/session'
+import { authenticate } from '../../store/session'
 import './FollowGalleryCard.css'
 
 function FollowGalleryCard({ follow, flag }){
+    // Create a reference to the current user
+    const user = useSelector(state => state.session.user)
+
     // Create dispatch method
     const dispatch = useDispatch()
 
@@ -18,13 +23,15 @@ function FollowGalleryCard({ follow, flag }){
     }
 
     // follow function
-    const dispatchFollow = () => {
+    const dispatchFollow = (id) => {
         alert('follow feature')
+        dispatch(addFollowThunk(id))
     }
 
     // unfollow function
-    const dispatchUnfollow = () => {
+    const dispatchUnfollow = (currentUser, id) => {
         alert('unfollow feature')
+        dispatch(removeFollowThunk(currentUser, id))
     }
 
 
@@ -40,12 +47,8 @@ function FollowGalleryCard({ follow, flag }){
                             </div>
                             <div className='follow-card-follow-button-container'>
                                 {/* <button onClick={dispatchFollow} className='follow-button'>Follow</button> */}
-                                {flag ? ( <button onClick={dispatchFollow} className='follow-button'>Follow</button> ) : ( <button onClick={dispatchUnfollow} className='follow-button'>Unfollow</button> )}
+                                {flag ? ( <button onClick={() => dispatchFollow(follow.id)} className='follow-button'>Follow</button> ) : ( <button onClick={() => dispatchUnfollow(user, follow.id)} className='follow-button'>Unfollow</button> )}
                             </div>
-
-
-                            
-
                     </div>
     )
 }
