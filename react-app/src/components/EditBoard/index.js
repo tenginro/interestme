@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
 
-const EditBoard = ({boardId})=> {
+const EditBoard = ({board})=> {
  const dispatch = useDispatch();
 
-const user_board = useSelector((state) => state.boards.userBoards[+boardId]);
+const user_board = useSelector((state) => state.boards.userBoards[board.id]);
 console.log("user board:::===> ", user_board)
 
 useEffect(()=> {
@@ -16,7 +16,6 @@ useEffect(()=> {
 if (!user_board) return null
   return (
     <div>
-        <h1>Hello From edit</h1>
       <BoardForm formType="Edit board" submitType="Edit" newBoard={user_board} />
     </div>
   );
