@@ -32,7 +32,7 @@ function ProfilePage(){
             </div>
             <ul className='followers-container'>
                 <OpenModalMenuItem itemText={`${user.following.length} following`} modalComponent={<FollowGallery follows={user.following} />} />
-                <OpenModalMenuItem itemText={`${user.followers.length} followers`} modalComponent={<FollowGallery follows={user.followers} />} />
+                <OpenModalMenuItem itemText={`${user.followers.length} followers`} modalComponent={<FollowGallery follows={user.followers} flag={true} />} />
             </ul>
             <div className='created-saved-container'>
                 <button className={!saved ? 'activated' : ''} onClick={() => setSaved(false)}>Created</button>

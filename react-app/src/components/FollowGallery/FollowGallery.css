@@ -1,0 +1,15 @@
+.follow-gallery-container{
+    /* border: 3px solid lime; */
+    min-width: 600px;
+    width: 600px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.follows-ul-container{
+    /* border: 3px solid brown; */
+    width: 100%;
+}
