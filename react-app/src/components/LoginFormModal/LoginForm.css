@@ -1,0 +1,54 @@
+#loginModal {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo_in_logo {
+  height: 45px;
+  width: 45px;
+}
+
+.loginSubmitButtonContainer {
+  margin: 0 auto;
+}
+
+.loginSubmitButton {
+  width: 200px;
+  height: 30px;
+  background-color: red;
+  color: white;
+  border-radius: 16px;
+  font-size: 18px;
+}
+
+#loginForm input {
+  width: 200px;
+  height: 40px;
+  border-color: lightgray;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+}

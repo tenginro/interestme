@@ -4,7 +4,7 @@ import { logout } from "../../store/session";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./Navigation.css";
-import LoginFormPage from "../LoginFormPage";
+import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
@@ -75,7 +75,7 @@ function ProfileButton({ user }) {
         <div className="loginSignUpButtons">
           <button
             className="main_page_login_btn notLogIn"
-            onClick={() => setModalContent(<LoginFormPage />)}
+            onClick={() => setModalContent(<LoginFormModal />)}
           >
             Log in
           </button>
