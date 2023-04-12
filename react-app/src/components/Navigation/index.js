@@ -32,6 +32,15 @@ function Navigation({ isLoaded }) {
           </NavLink>
         )}
       </li>
+      {sessionUser && (
+        <div className="searchBar">
+          <i className="fas fa-solid fa-magnifying-glass"></i>
+          <input
+            onClick={() => alert("Feature Coming Soon...")}
+            placeholder="Search"
+          ></input>
+        </div>
+      )}
       <div>
         {sessionUser ? (
           <button onClick={clickCreate}>

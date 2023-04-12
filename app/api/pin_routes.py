@@ -26,7 +26,10 @@ def get_all_pins():
 @pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
     pin = Pin.query.get(id)
-    return {**pin.to_dict(), "User": pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+    return {**pin.to_dict(), 
+            "User": pin.user.to_dict(), 
+            "boards":[board.to_dict() for board in pin.boards], 
+            "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
 
