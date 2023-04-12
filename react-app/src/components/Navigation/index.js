@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import logo from "../LandingPage/Assets/icon.png";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
@@ -17,13 +17,13 @@ function Navigation({ isLoaded }){
       <li className="home li">
         <NavLink exact to="/pins">
           <div className="logoLine">
-            <img className="logo" src={require("./icon.png")} alt="logo" />
+            <img className="logo" src={logo} alt="logo" />
             Tinterest
           </div>
         </NavLink>
       </li>
 	  <div>
-				{sessionUser ? 
+				{sessionUser ?
 				(
 					<button onClick={clickCreate}>
 						<NavLink exact to='/pins/new'> Create </NavLink>

@@ -5,7 +5,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import "./LoginForm.css";
-import logo from "../Navigation/icon.png";
+import logo from "../LandingPage/Assets/icon.png"
 import SignupFormPage from "../SignupFormPage";
 
 function LoginFormPage() {
