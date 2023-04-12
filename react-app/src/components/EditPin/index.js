@@ -30,7 +30,7 @@ const EditPin = () => {
     if (pin) {
       setName(pin.name);
       setDescription(pin.description);
-      setCategory(pin.category_id);
+      setCategory(pin.category);
       setUrl(pin.url);
     }
   }, [pin]);
