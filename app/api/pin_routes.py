@@ -104,10 +104,9 @@ def save_pin(id):
     pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
     
     request_obj = request.get_json()
-    boardId = request_obj["id"]
-    
-    print("________________________________________________________________________________request_obj_____________________________", request_obj)
-        
+    if request_obj:
+        boardId = request_obj["id"]
+            
     if boardId:
         board = Board.query.get(boardId)
         if board.user_id == user.id:

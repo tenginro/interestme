@@ -8,7 +8,7 @@ import * as pinsAction from "../../store/pin";
 function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
-  const [board, setBoard] = useState(1);
+  const [board, setBoard] = useState(0);
   const [save, setSave] = useState(false);
   const user = useSelector((state) => state.session.user);
 
@@ -27,10 +27,39 @@ function AllPins() {
     return saveOrNot;
   };
 
+  const whichBoard = (pin) => {
+    let board_info = [0, "Profile"];
+    if (pin?.boards) {
+      let the_board = pin.boards[0];
+      if (the_board) board_info = [the_board.id, the_board.name];
+    }
+    return board_info;
+  };
+
+  let board_ID;
+  const changeBoard = (id) => {
+    board_ID = id;
+    return board_ID;
+  };
+
+  let settedBoardId;
+  const settingBoard = (id) => {
+    settedBoardId = id;
+    return settedBoardId;
+  };
+
   useEffect(() => {
     dispatch(getAllPins());
     return () => dispatch(actionClearPins());
-  }, [dispatch, save]);
+  }, [dispatch, save, settedBoardId]);
+
+  useEffect(() => {
+    if (userBoards.length > 0) {
+      setBoard(userBoards[0].id);
+    } else {
+      setBoard(0);
+    }
+  }, [userBoards]);
 
   if (!pinsObj) return null;
   const pins = Object.values(pinsObj);
@@ -45,29 +74,30 @@ function AllPins() {
             </NavLink>
             <select
               onChange={(e) => {
-                console.log("e.target.value", e.target.value);
-                setBoard(e.target.value);
+                changeBoard(Number(e.target.value));
+                console.log(board_ID);
               }}
-              value={board}
+              value={board_ID || whichBoard(pin)[0]}
               name="board"
               placeholder="Choose a board"
             >
-              {userBoards.length > 0 ? (
-                userBoards.map((c) => <option value={c.id}>{c.name}</option>)
-              ) : (
-                <option value="Profile">Profile</option>
-              )}
+              <option value="0">Profile</option>
+              {userBoards.length > 0 &&
+                userBoards.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
             </select>
             {isSaved(pin) ? (
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  await dispatch(pinsAction.unSavePinThunk(pin, board)).then(
-                    () => {
-                      if (save === false) setSave(true);
-                      else setSave(false);
-                    }
-                  );
+                  settingBoard(0);
+                  await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
+                    if (save === false) setSave(true);
+                    else setSave(false);
+                  });
                 }}
               >
                 Unsave
@@ -76,12 +106,13 @@ function AllPins() {
               <button
                 onClick={async (e) => {
                   e.preventDefault();
-                  await dispatch(pinsAction.savePinThunk(pin, board)).then(
-                    () => {
-                      if (save === false) setSave(true);
-                      else setSave(false);
-                    }
-                  );
+                  settingBoard(board_ID);
+                  await dispatch(
+                    pinsAction.savePinThunk(pin, settedBoardId)
+                  ).then(() => {
+                    if (save === false) setSave(true);
+                    else setSave(false);
+                  });
                 }}
               >
                 Save
