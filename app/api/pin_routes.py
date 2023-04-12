@@ -100,16 +100,13 @@ def delete_pin(id):
 @pin_routes.route('pins/<int:id>/save', methods=['PATCH'])
 @login_required
 def save_pin(id):
-    print("---------------hitting the savepin route-------------")
     user = current_user
     # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
     pin = Pin.query.get(id)
-    print("---------------requestbody-------------", request.get_json())
     
     request_obj = request.get_json()
     if request_obj:
         boardId = request_obj["id"]
-        print("---------------boardId-------------", boardId)
 
         if boardId:
             board = Board.query.get(boardId)
