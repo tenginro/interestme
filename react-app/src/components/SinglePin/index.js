@@ -5,7 +5,7 @@ import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
 import * as pinsAction from "../../store/pin";
 import { whichBoard, isSaved } from "../AllPins/PinIndexItem";
-
+import './PinDetail.css'
 
 
 const Pin = () => {
@@ -54,58 +54,67 @@ const Pin = () => {
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
-    <div>
+    <div className="single-pin_container">
       <div className="leftSide">
-        <img src={pin.url} alt="pin.url" />
+        <img class="single_pin_image" src={pin.url} alt="pin.url" />
       </div>
       <div className="rightSide">
-        <select
-        onChange={(e) => {
-          changeBoard(Number(e.target.value));
-        }}
-        value={changingBoardId}
-        name="board"
-        placeholder="Choose a board"
-      >
-        <option value="0">Profile</option>
-        {userBoards.length > 0 &&
-          userBoards.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-      </select>
-      {isSaved(pin, user) ? (
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            changeBoard(0);
-            await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
-              if (save === false) setSave(true);
-              else setSave(false);
-            });
-            
+
+        <div className="profile_saved-container">
+           <select
+          onChange={(e) => {
+            changeBoard(Number(e.target.value));
           }}
+          value={changingBoardId}
+          name="board"
+          placeholder="Choose a board"
         >
-          Unsave
-        </button>
-      ) : (
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            changeBoard(changingBoardId);
-            await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(() => {
-              if (save === false) setSave(true);
-              else setSave(false);
-            });
-          }}
-        >
-          Save
-        </button>
-      )}
-        <h2>{pin.name}</h2>
+          <option value="0">Profile</option>
+          {userBoards.length > 0 &&
+            userBoards.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+        </select>
+        {isSaved(pin, user) ? (
+          <button
+          className="unsaved_btn"
+            onClick={async (e) => {
+              e.preventDefault();
+              changeBoard(0);
+              await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
+                if (save === false) setSave(true);
+                else setSave(false);
+              });
+            }}
+          >
+            Unsave
+          </button>
+        ) : (
+          <button
+          className="saved_btn_"
+            onClick={async (e) => {
+              e.preventDefault();
+              changeBoard(changingBoardId);
+              await dispatch(
+                pinsAction.savePinThunk(pin, changingBoardId)
+              ).then(() => {
+                if (save === false) setSave(true);
+                else setSave(false);
+              });
+            }}
+          >
+            Save
+          </button>
+        )}
+        </div>
+<div>
+   <p id='name_tag'>{pin.name}</p>
         <p>{pin.description}</p>
-        <div>
+</div>
+
+        <div className="single-pin_user-foloow_container" >
           <h4>{pin.User?.username}</h4>
           {follow ? (
             <button
