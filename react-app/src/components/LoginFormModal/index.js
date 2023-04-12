@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import logo from "../LandingPage/Assets/icon.png";
+import * as sessionActions from "../../store/session";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -20,6 +21,16 @@ function LoginFormModal() {
     } else {
       closeModal();
     }
+  };
+  const demoUserSubmitHandler = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login("demouser@aa.io", "password"))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
   };
 
   return (
@@ -64,6 +75,15 @@ function LoginFormModal() {
           <div className="loginSubmitButtonContainer">
             <button className="loginSubmitButton" type="submit">
               <div>Log In</div>
+            </button>
+          </div>
+          <div className="demo-user-btn-container">
+            <button
+              className="demoUserButton"
+              onClick={demoUserSubmitHandler}
+              type="submit"
+            >
+              Demo User
             </button>
           </div>
         </form>

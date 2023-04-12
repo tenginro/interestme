@@ -42,6 +42,15 @@
   font-size: 18px;
 }
 
+.demoUserButton {
+  background-color: rgb(245, 189, 189);
+  color: white;
+  width: 200px;
+  height: 30px;
+  border-radius: 16px;
+  font-size: 18px;
+}
+
 #loginForm input {
   width: 200px;
   height: 40px;
