@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
           <NavLink exact to="/pins">
             <div className="logoLine">
               <img className="logo" src={logo} alt="logo" />
-              <p>Tinterest</p>
+              <div className="projectName">Home</div>
             </div>
           </NavLink>
         )}
@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
           <NavLink exact to="/">
             <div className="logoLine">
               <img className="logo" src={logo} alt="logo" />
-              <div className="projectName">Tinterest</div>
+              <div className="projectName">Home</div>
             </div>
           </NavLink>
         )}
@@ -36,7 +36,10 @@ function Navigation({ isLoaded }) {
         {sessionUser ? (
           <button className="createPinButton" onClick={clickCreate}>
             <NavLink exact to="/pins/new">
-              <div className="createWord"> Create </div>
+              <div className="createWord">
+                Create{"  "}
+                <i className="fas fa-solid fa-angle-down"></i>
+              </div>
             </NavLink>
           </button>
         ) : null}

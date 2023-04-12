@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-// import OpenModalButton from "../OpenModalButton";
-// import LoginFormModal from "../LoginFormModal";
-// import SignupFormModal from "../SignupFormModal";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./Navigation.css";
 import LoginFormPage from "../LoginFormPage";
+import SignupFormPage from "../SignupFormPage";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -38,8 +36,8 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    history.push('/')
-    closeMenu()
+    history.push("/");
+    closeMenu();
   };
 
   const managePinsClick = (e) => {
@@ -48,12 +46,12 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
-  const createBoadClick = (e) => {
-     e.preventDefault();
-     history.push("/boards/new");
-     closeMenu();
-  }
-  const editBoadClick = (e) => {
+  const createBoardClick = (e) => {
+    e.preventDefault();
+    history.push("/boards/new");
+    closeMenu();
+  };
+  const editBoardClick = (e) => {
     e.preventDefault();
     history.push("/boards/current");
     closeMenu();
@@ -65,16 +63,29 @@ function ProfileButton({ user }) {
   return (
     <>
       {user ? (
-        <button className="main_page_login_btn" onClick={openMenu}>
-          <i className="fas fa-user-circle" />
-        </button>
+        <div className="profileDropDownButtons">
+          <button className="main_page_login_btn login">
+            {user.username[0]}
+          </button>
+          <button className="profileDownButton" onClick={openMenu}>
+            <i className="fas fa-solid fa-angle-down"></i>
+          </button>
+        </div>
       ) : (
-        <button
-          className="main_page_login_btn"
-          onClick={() => setModalContent(<LoginFormPage />)}
-        >
-          Log in
-        </button>
+        <div className="loginSignUpButtons">
+          <button
+            className="main_page_login_btn notLogIn"
+            onClick={() => setModalContent(<LoginFormPage />)}
+          >
+            Log in
+          </button>
+          <button
+            className="main_page_signup_btn"
+            onClick={() => setModalContent(<SignupFormPage />)}
+          >
+            Sign up
+          </button>
+        </div>
       )}
       <ul className={ulClassName} ref={ulRef}>
         {
@@ -90,14 +101,14 @@ function ProfileButton({ user }) {
               <li>
                 <div
                   className="create-new_board"
-                  onClick={createBoadClick}
+                  onClick={createBoardClick}
                   type="submit"
                 >
                   Create Board
                 </div>
                 <div
                   className="create-new_board"
-                  onClick={editBoadClick}
+                  onClick={editBoardClick}
                   type="submit"
                 >
                   Manage Board
