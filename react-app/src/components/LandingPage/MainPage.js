@@ -6,14 +6,16 @@ import "./MainPage.css";
 const MainPage = () => {
   return (
     <div className="main_page-container">
+      {/* <div className="page2-image"></div> */}
       <div>
+        <MainPage1 src={`./Assets/image1.jpeg`} layout={"fill"} />
       </div>
-      <div className="page2-image"></div>
-      <MainPage1 src={`./Assets/image1.jpeg`} layout={'fill'}/>
-      <MainPage2 />
-
+      <div>
+        <MainPage2 />
+      </div>
+      <div>
         <MainPage3 />
-
+      </div>
     </div>
   );
 };

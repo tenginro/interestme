@@ -93,7 +93,7 @@ function SignupFormPage() {
           />
         </div>
 
-        <label>Profile Picture</label>
+        {/* <label>Profile Picture</label>
         <div>
           <input
             type="text"
@@ -101,7 +101,7 @@ function SignupFormPage() {
             onChange={(e) => setProfilePic(e.target.value)}
             required
           />
-        </div>
+        </div> */}
 
         <label>About</label>
         <div>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./Navigation.css";
-import LoginFormPage from "../LoginFormPage";
-import SignupFormPage from "../SignupFormPage";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -64,9 +64,11 @@ function ProfileButton({ user }) {
     <>
       {user ? (
         <div className="profileDropDownButtons">
-          <button className="main_page_login_btn login">
-            {user?.username[0]}
-          </button>
+          <NavLink exact to="/user">
+            <button className="main_page_login_btn login">
+              {user?.username[0]}
+            </button>
+          </NavLink>
           <button className="profileDownButton" onClick={openMenu}>
             <i className="fas fa-solid fa-angle-down"></i>
           </button>
@@ -75,13 +77,13 @@ function ProfileButton({ user }) {
         <div className="loginSignUpButtons">
           <button
             className="main_page_login_btn notLogIn"
-            onClick={() => setModalContent(<LoginFormPage />)}
+            onClick={() => setModalContent(<LoginFormModal />)}
           >
             Log in
           </button>
           <button
             className="main_page_signup_btn"
-            onClick={() => setModalContent(<SignupFormPage />)}
+            onClick={() => setModalContent(<SignupFormModal />)}
           >
             Sign up
           </button>

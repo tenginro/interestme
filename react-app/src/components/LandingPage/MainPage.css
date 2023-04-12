@@ -1,9 +1,14 @@
 .main_page-container {
-    display: flex;
-    flex-direction: column;
-    scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  /* scroll-snap-stop: always; */
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
 }
-
+.main_page-container > * {
+  scroll-snap-align: start;
+}
 
 /* .page1-image {
     background-image: url("Assets/image1.jpeg") no-repeat center center fixed;
@@ -46,7 +51,6 @@
     scroll-snap-stop: normal;
 } */
 
-
 /* .x.mandatory-scroll-snapping {
     scroll-snap-type: x mandatory;
 } */
@@ -76,3 +80,22 @@
 .normal-stop>div {
     scroll-snap-stop: normal;
 } */
+
+.signupPartInLanding {
+  background-color: white;
+  width: 500px;
+  height: 800px;
+  margin-right: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+
+.main-page3-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}

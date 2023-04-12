@@ -41,9 +41,9 @@ class User(db.Model, UserMixin):
         # the right side table is the *follows*
         'User',
         secondary=follows,
-        # secondary configures the association table that is used for this relationship
+        # primaryjoin indicates the condition that links the left side entity, primaryjoin is this user
         primaryjoin=(follows.c.user_id == id),
-        # primaryjoin indicates the condition that links the left side entity
+        # secondary configures the association table that is used for this relationship, secondaryjoin is the following
         secondaryjoin=(follows.c.following_id == id),
         # secondaryjoin indicates the condition that links the right side entity (the followed user) with the association table
         backref='follows',

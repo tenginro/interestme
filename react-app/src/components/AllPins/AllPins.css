@@ -6,16 +6,19 @@
   align-items: center;
 }
 
+/* parent */
 .pinIndexItem {
   margin: 0.5em;
   display: block;
   position: relative;
 }
 
+/* children */
 .boardNSave {
   display: flex;
   justify-content: space-between;
   position: absolute;
+  width:90%;
   top: 10px;
   left: 10px;
   z-index: 2;
