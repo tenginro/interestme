@@ -37,14 +37,16 @@ function LoginFormModal() {
     <div id="loginModal">
       <div className="logoTitle">
         <img id="logo_in_logo" src={logo} alt="Logo" />
-        <h1>Log In</h1>
+        <h1>Welcome to Tinterest</h1>
       </div>
       <div>
         <form id="loginForm" onSubmit={handleSubmit}>
           <div>
             <ul>
               {errors.map((error, idx) => (
-                <li key={idx}>{error}</li>
+                <li className="errorListing" key={idx}>
+                  {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -73,7 +75,15 @@ function LoginFormModal() {
             </label>
           </div>
           <div className="loginSubmitButtonContainer">
-            <button className="loginSubmitButton" type="submit">
+            <button
+              className={
+                email.length < 4 || password.length < 6
+                  ? "loginSubmitButton disabled"
+                  : "loginSubmitButton"
+              }
+              type="submit"
+              disabled={email.length < 4 || password.length < 6}
+            >
               <div>Log In</div>
             </button>
           </div>
