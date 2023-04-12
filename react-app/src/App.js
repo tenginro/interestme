@@ -16,6 +16,7 @@ import BoardGallery from "./components/BoardGallery";
 import EditBoard from "./components/EditBoard";
 import BoardDetails from "./components/BoardDetails";
 import MainPage from "./components/LandingPage/MainPage";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <MainPage />
+          </Route>
+          <Route exact path="/user">
+            <ProfilePage />
           </Route>
           <Route exact path="/pins">
             <AllPins />
