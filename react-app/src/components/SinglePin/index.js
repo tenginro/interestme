@@ -15,7 +15,10 @@ const Pin = () => {
   const [follow, setFollow] = useState(false);
   const user = useSelector((state) => state.session.user);
   const [board, setBoard] = useState(whichBoard(pin, user));
-  const [save, setSave] = useState(isSaved(pin, user));
+  const [save, setSave] = useState(false);
+
+  console.log('inside single Pin user.id', user.id);
+  console.log('inside single Pin pin.user_saved', pin.user_saved)
 
   const userBoards = user?.boards || [];
 
@@ -26,8 +29,6 @@ const Pin = () => {
   };
   const checkFollow = () => {
     const pinAuthorId = pin.user_id;
-
-    // console.log("user.following", user.following);
 
     if (user?.following) {
       const following = user.following;
@@ -40,10 +41,15 @@ const Pin = () => {
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     checkFollow();
+    // setSave(isSaved(pin,user))
+    
     return () => dispatch(actionClearPin());
-  }, [dispatch, pinId]);
+  }, [dispatch, pinId, save]);
+  //when hitting save button, it will reload the whole page
 
-  if (!pin.User) return <div>Loading</div>;
+  console.log('above loading', pin)
+  // if(!pin) return null;
+  if (!pin.User||!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div>
@@ -76,6 +82,7 @@ const Pin = () => {
               if (save === false) setSave(true);
               else setSave(false);
             });
+            
           }}
         >
           Unsave
@@ -85,12 +92,10 @@ const Pin = () => {
           onClick={async (e) => {
             e.preventDefault();
             changeBoard(changingBoardId);
-            await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(
-              () => {
-                if (save === false) setSave(true);
-                else setSave(false);
-              }
-            );
+            await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(() => {
+              if (save === false) setSave(true);
+              else setSave(false);
+            });
           }}
         >
           Save
@@ -99,8 +104,7 @@ const Pin = () => {
         <h2>{pin.name}</h2>
         <p>{pin.description}</p>
         <div>
-          <h4>{pin.User.username}</h4>
-          {/* bugs coming from here.... singlePin state got cleared up */}
+          <h4>{pin.User?.username}</h4>
           {follow ? (
             <button
               onClick={async (e) => {
