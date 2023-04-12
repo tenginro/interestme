@@ -77,7 +77,8 @@ function SignupFormModal() {
   return (
     <div className="sign_up_modal">
       <img id="logo" src={logo} alt="Logo" />
-      <h1>Sign Up</h1>
+      <h1 className="welcome">Welcome to Tinterest</h1>
+      <h3>Find new ideas to try</h3>
       <form onSubmit={handleSubmit} className="signUpForm">
         {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
             <li>{Object.values(resErrors)}</li>
@@ -181,7 +182,7 @@ function SignupFormModal() {
           
           className={SignUpButtonClassName}
           disabled={Boolean(Object.values(errors).length)}
-          >Sign Up</button>
+          >Continue</button>
         </div>
       </form>
     </div>
