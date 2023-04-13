@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useModal } from "../../context/Modal";
 import { addFollowThunk, removeFollowThunk } from "../../store/session";
-import { authenticate } from "../../store/session";
 import "./FollowGalleryCard.css";
 
 function FollowGalleryCard({ follow, flag, reload, variable }) {
@@ -17,7 +16,6 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
 
   useEffect(() => {
     checkFollow();
-    console.log("followOrNot in useEffect", followOrNot);
   }, [dispatch, followOrNot]);
 
   const checkFollow = () => {
@@ -30,8 +28,6 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
     return followOrNot;
   };
 
-  console.log("flag: ", flag);
-
   // Consume modal for desired function
   const { closeModal } = useModal();
 
@@ -42,18 +38,14 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
 
   // follow function
   const dispatchFollow = (id) => {
-    console.log("follow feature");
     dispatch(addFollowThunk(id));
     reload(!variable);
-    console.log("after dispatch");
   };
 
   // unfollow function
   const dispatchUnfollow = (id) => {
-    console.log("unfollow feature");
     dispatch(removeFollowThunk(user, id));
     reload(!variable);
-    console.log("after dispatch");
   };
 
   return (
@@ -70,30 +62,35 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
       <div className="follow-card-content-container">
         <p>{follow.username}</p>
       </div>
-      <div className="follow-card-follow-button-container">
-        {/* <button onClick={dispatchFollow} className='follow-button'>Follow</button> */}
-        {!followOrNot ? (
-          <button
-            onClick={async () => {
-              await dispatchFollow(follow.id);
-              setFollowOrNot(true);
-            }}
-            className="follow-button"
-          >
-            Follow
-          </button>
-        ) : (
-          <button
-            onClick={async () => {
-              await dispatchUnfollow(follow.id);
-              setFollowOrNot(false);
-            }}
-            className="follow-button"
-          >
-            Unfollow
-          </button>
-        )}
-      </div>
+      {follow.id !== user.id ? (
+        <div className="follow-card-follow-button-container">
+          {!followOrNot ? (
+            <button
+              onClick={async () => {
+                await dispatchFollow(follow.id);
+                setFollowOrNot(true);
+              }}
+              className="follow-button"
+            >
+              Follow
+            </button>
+          ) : (
+            <button
+              onClick={async () => {
+                await dispatchUnfollow(follow.id);
+                setFollowOrNot(false);
+              }}
+              className="unfollow-button"
+            >
+              Unfollow
+            </button>
+          )}
+        </div>
+      ) : (
+        <div>
+          <button className="you-button">You</button>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,8 +5,7 @@ import { useModal } from "../../context/Modal";
 import FollowGalleryCard from "../FollowGalleryCard";
 import "./FollowGallery.css";
 
-function FollowGallery({ follows, flag }) {
-  console.log("follows: ", follows);
+function FollowGallery({ follows, flag, profile }) {
   // Consume useModal for desired function
   const { closeModal } = useModal();
 

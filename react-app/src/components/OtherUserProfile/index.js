@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { getProfile } from "../../store/profile";
+import { actionClearProfile, getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
@@ -9,6 +9,7 @@ import CurrentPins from "../ManagePins";
 import PinGalleryCard from "../PinGalleryCard";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
+import { login } from "../../store/session";
 
 export default function OtherUserProfile() {
   const { userId } = useParams();
@@ -30,10 +31,10 @@ export default function OtherUserProfile() {
 
   useEffect(() => {
     dispatch(getProfile(userId));
+    return () => dispatch(actionClearProfile());
   }, [dispatch, userId]);
 
   if (!user.username) return <div>Loading</div>;
-  if (user.id === LogInUser) return history.push(`/user`);
 
   return (
     <div className="profile-page-container">
@@ -50,12 +51,18 @@ export default function OtherUserProfile() {
       <ul className="followers-container">
         <OpenModalMenuItem
           itemText={`${user.following.length} following`}
-          modalComponent={<FollowGallery follows={user.following} />}
+          modalComponent={
+            <FollowGallery profile={user} follows={user.following} />
+          }
         />
         <OpenModalMenuItem
           itemText={`${user.followers.length} followers`}
           modalComponent={
-            <FollowGallery follows={user.followers} flag={true} />
+            <FollowGallery
+              profile={user}
+              follows={user.followers}
+              flag={true}
+            />
           }
         />
       </ul>
@@ -73,40 +80,42 @@ export default function OtherUserProfile() {
           Saved
         </button>
       </div>
-      <div className="plus-sign-container">
-        <div className="icons">
-          <i
-            style={{ cursor: "pointer" }}
-            onClick={() => alert("feature coming soon")}
-            className="fa-solid fa-sliders"
-          />
-        </div>
-        <div className="icons" onClick={openMenu}>
-          <button className={showMenu ? "active pointer" : "pointer"}>
+      {user.id === LogInUser.id && (
+        <div className="plus-sign-container">
+          <div className="icons">
             <i
-              className="fa-solid fa-plus"
-              onClick={() => setShowMenu(true)}
-            ></i>
-          </button>
-          {showMenu && (
-            <>
-              <p className="dropdown-header">Create</p>
-            </>
-          )}
-          <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
-            <OpenModalMenuItem
-              itemText="Pin"
-              onItemClick={closeMenu}
-              modalComponent={<CreatePin />}
+              style={{ cursor: "pointer" }}
+              onClick={() => alert("feature coming soon")}
+              className="fa-solid fa-sliders"
             />
-            <OpenModalMenuItem
-              itemText="Board"
-              onItemClick={closeMenu}
-              modalComponent={<CreateBoard />}
-            />
-          </ul>
+          </div>
+          <div className="icons" onClick={openMenu}>
+            <button className={showMenu ? "active pointer" : "pointer"}>
+              <i
+                className="fa-solid fa-plus"
+                onClick={() => setShowMenu(true)}
+              ></i>
+            </button>
+            {showMenu && (
+              <>
+                <p className="dropdown-header">Create</p>
+              </>
+            )}
+            <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
+              <OpenModalMenuItem
+                itemText="Pin"
+                onItemClick={closeMenu}
+                modalComponent={<CreatePin />}
+              />
+              <OpenModalMenuItem
+                itemText="Board"
+                onItemClick={closeMenu}
+                modalComponent={<CreateBoard />}
+              />
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
       <div className="profile-boards-container">
         {!saved && <CurrentPins />}
         {saved && (

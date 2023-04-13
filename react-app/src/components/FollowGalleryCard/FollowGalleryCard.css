@@ -1,41 +1,61 @@
-.follow-card-container{
-    /* border: 3px solid orange; */
-    margin: 5px auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.follow-card-container {
+  /* border: 3px solid orange; */
+  margin: 5px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.follow-card-container > div{
-    margin: 0 5px;
+.follow-card-container > div {
+  margin: 0 5px;
 }
 
-.follow-image-container{
-    /* border: 3px solid red; */
-    height: fit-content;
-    width: fit-content;
+.follow-image-container {
+  /* border: 3px solid red; */
+  height: fit-content;
+  width: fit-content;
 }
 
-.follow-card-content-container{
-    /* border: 3px solid blue; */
-    min-width: fit-content;
-    width: 400px;
+.follow-card-content-container {
+  /* border: 3px solid blue; */
+  min-width: fit-content;
+  width: 400px;
 }
 
-.follow-card-follow-button-container{
-    /* border: 3px solid pink; */
-    width: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.follow-card-follow-button-container {
+  /* border: 3px solid pink; */
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.follow-button{
-    background-color: red;
-    padding: 0;
-    border: none;
-    width: 70px;
-    height: 2.5rem;
-    border-radius: 40px;
-    color: white;
+.follow-button {
+  background-color: red;
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
+}
+
+.unfollow-button {
+  background-color: gray;
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
+}
+
+.you-button {
+  background-color: gray;
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
 }

@@ -6,7 +6,7 @@ const actionReadProfile = (profile) => ({
   profile,
 });
 
-const actionClearProfile = () => ({
+export const actionClearProfile = () => ({
   type: CLEAR_PROFILE,
 });
 
@@ -20,6 +20,7 @@ export const getProfile = (id) => async (dispatch) => {
     await dispatch(actionReadProfile(profile));
     return profile;
   }
+  return response.json();
 };
 
 const profileReducer = (state = initialState, action) => {
