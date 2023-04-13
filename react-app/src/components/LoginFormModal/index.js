@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { useHistory } from "react-router-dom";
+
 import "./LoginForm.css";
 import logo from "../LandingPage/Assets/icon.png";
 import * as sessionActions from "../../store/session";
@@ -12,6 +14,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +23,16 @@ function LoginFormModal() {
       setErrors(data);
     } else {
       closeModal();
+      return history.push(`/pins`);
     }
   };
+
   const demoUserSubmitHandler = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login("demouser@aa.io", "password"))
       .then(closeModal)
+      .then(() => history.push(`/pins`))
       .catch(async (res) => {
         const data = await res.json();
         console.log(data);
