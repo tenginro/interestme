@@ -41,17 +41,6 @@ export const actionClearBoard = () => ({
   type: CLEAR_BOARD,
 });
 
-// Thunks
-// export const getAllBoards = () => async (dispatch) => {
-//     const res = await fetch("/api/boards")
-//     if(res.ok){
-//         const boards = await res.json()
-//         await dispatch(actionLoadAllBoards(boards))
-//         return boards
-//     }
-//     return res
-// }
-
 export const getBoardDetail = (id) => async (dispatch) => {
   console.log("getBoardDetail thunk running");
   const res = await fetch(`/api/boards/${id}`);

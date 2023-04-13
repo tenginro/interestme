@@ -66,6 +66,8 @@ function BoardDetails() {
             pin={pin}
             user={currentUser}
             inThisBoard={true}
+            thisBoardId={board.id}
+            thisBoardName={board.name}
           />
         ))}
       </div>
