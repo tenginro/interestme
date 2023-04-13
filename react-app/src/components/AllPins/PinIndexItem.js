@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AllPins.css";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
@@ -41,12 +41,14 @@ const PinIndexItem = ({
   inThisBoard,
   thisBoardId,
   thisBoardName,
+  page,
 }) => {
   const dispatch = useDispatch();
   const [save, setSave] = useState(isSaved(pin, user, inThisBoard));
   const [board, setBoard] = useState(
     whichBoard(pin, user, thisBoardId, thisBoardName)
   );
+  const history = useHistory();
 
   const userBoards = user?.boards || [];
 
@@ -89,10 +91,15 @@ const PinIndexItem = ({
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
-              await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
-                if (save === false) setSave(true);
-                else setSave(false);
-              });
+              await dispatch(pinsAction.unSavePinThunk(pin))
+                .then(() => {
+                  if (save === false) setSave(true);
+                  else setSave(false);
+                })
+                .then(() => {
+                  if (page === "AllPins") history.push(`/pins`);
+                  if (page === "BoardDetail") history.push(`/user`);
+                });
             }}
           >
             Unsave

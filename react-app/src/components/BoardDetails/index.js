@@ -25,7 +25,6 @@ function BoardDetails() {
   const currentUser = useSelector((state) => state.session.user);
 
   const pinLength = board.Pins?.length;
-  console.log(pinLength);
   // Upon component render, dispatch the action to load the single board into the redux store for retrieval
   // let board
   useEffect(() => {
@@ -68,6 +67,7 @@ function BoardDetails() {
             inThisBoard={true}
             thisBoardId={board.id}
             thisBoardName={board.name}
+            page="BoardDetail"
           />
         ))}
       </div>
