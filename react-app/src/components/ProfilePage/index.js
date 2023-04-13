@@ -21,9 +21,6 @@ function ProfilePage(){
 
     return (
         <div className='profile-page-container'>
-            <div className='profile-header-container'>
-                <h1>Profile Page</h1>
-            </div>
             <div className='profile-picture-container'>
                 <img style={{height: '150px', width: '150px', borderRadius: '45px' }} src='https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg' alt='' />
             </div>
@@ -39,8 +36,12 @@ function ProfilePage(){
                 <button className={saved ? 'activated' : ''} onClick={() => setSaved(true)}>Saved</button>
             </div>
             <div className='plus-sign-container'>
-                <p>Slider Icon Goes Here</p>
-                <p>Plus Sign Icon Goes Here</p>
+                <div className='icons'>
+                    <i style={{ cursor: 'pointer' }} onClick={() => alert('click')} className='fa-solid fa-sliders' />
+                </div>
+                <div className='icons'>
+                    <i style={{ cursor: 'pointer' }} onClick={() => alert('click')} className='fa-solid fa-plus' />
+                </div>
             </div>
             <div className='profile-boards-container'>
                 {saved && (

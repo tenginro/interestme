@@ -7,9 +7,11 @@ import { addFollowThunk, removeFollowThunk } from '../../store/session'
 import { authenticate } from '../../store/session'
 import './FollowGalleryCard.css'
 
-function FollowGalleryCard({ follow, flag }){
+function FollowGalleryCard({ follow, flag, reload, variable }){
     // Create a reference to the current user
     const user = useSelector(state => state.session.user)
+
+    console.log('flag: ', flag)
 
     // Create dispatch method
     const dispatch = useDispatch()
@@ -24,14 +26,18 @@ function FollowGalleryCard({ follow, flag }){
 
     // follow function
     const dispatchFollow = (id) => {
-        alert('follow feature')
+        console.log('follow feature')
         dispatch(addFollowThunk(id))
+        reload(!variable)
+        console.log('after dispatch')
     }
 
     // unfollow function
     const dispatchUnfollow = (currentUser, id) => {
-        alert('unfollow feature')
+        console.log('unfollow feature')
         dispatch(removeFollowThunk(currentUser, id))
+        reload(!variable)
+        console.log('after dispatch')
     }
 
 

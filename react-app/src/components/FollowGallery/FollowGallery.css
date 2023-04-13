@@ -14,3 +14,12 @@
     /* border: 3px solid brown; */
     width: 100%;
 }
+
+.follow-header-container{
+    /* border: 3px solid palegoldenrod; */
+    width: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 100px;
+}
