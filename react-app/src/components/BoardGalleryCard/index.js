@@ -37,10 +37,10 @@ function BoardGalleryCard({ board }) {
           </div>
           <div className="board-card-content-container">
             <h2 className="item">{board.name}</h2>
-            {board.Pins?.length && (
+            {board.Pins && (
               <p className="item">
                 {board.Pins?.length}
-                {board.Pins?.length === 1 ? " pin" : " pins"}
+                {board.Pins?.length <= 1 ? " pin" : " pins"}
               </p>
             )}
           </div>

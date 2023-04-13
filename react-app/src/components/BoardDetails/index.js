@@ -57,7 +57,9 @@ function BoardDetails() {
         </p>
       </div>
 
-      <h2>{board.Pins?.length} pins</h2>
+      <h2>
+        {board.Pins?.length} {board.Pins <= 1 ? " pin" : " pins"}
+      </h2>
       <div className="pin-gallery-grid">
         {board.Pins?.map((pin) => (
           <PinIndexItem
