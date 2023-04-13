@@ -117,7 +117,9 @@ function ProfileButton({ user }) {
                 </div>
               </li> */}
               <li>
-                <button onClick={handleLogout}>Log Out</button>
+                <button 
+                className="logoutButton"
+                onClick={handleLogout}>Log Out</button>
               </li>
             </>
           )
