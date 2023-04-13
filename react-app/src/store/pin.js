@@ -67,7 +67,6 @@ export const getPinDetail = (id) => async (dispatch) => {
 
   if (response.ok) {
     const pin = await response.json();
-    // console.log('singlePin inside thunk before dispatch', pin)
     await dispatch(actionLoadPinDetail(pin));
     return pin;
   }
@@ -125,10 +124,7 @@ export const deletePin = (pin) => async (dispatch) => {
 };
 
 export const savePinThunk = (pin, boardId) => async (dispatch) => {
-  console.log("hitting the thunk, boardId", boardId);
-
   if (boardId !== 0) {
-    console.log("boardId exists");
     const boardResponse = await fetch(`/api/boards/${boardId}`);
     const board = await boardResponse.json();
 
@@ -146,30 +142,23 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     }
     return await response.json();
   } else {
-    console.log("boardId not exists");
-    console.log("pin.id", pin.id);
     const response = await fetch(`/api/pins/${pin.id}/save`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(0),
     });
 
-    console.log("response from backend", response);
-
     if (response.ok) {
-      const newPinres = await response.json()
-      console.log("inside thunkkkkkkkkkk", newPinres)
+      const newPinres = await response.json();
       await dispatch(actionUpdatePin(newPinres));
       // return await response.json();
       return newPinres;
     }
     return await response.json();
-    
   }
 };
 
 export const unSavePinThunk = (pin) => async (dispatch) => {
-  console.log('inside unsavethunk')
   const response = await fetch(`/api/pins/${pin.id}/unsave`, {
     method: "PATCH",
     headers: {
@@ -177,25 +166,10 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
     },
   });
   if (response.ok) {
-    const newPinres = await response.json()
-    console.log("inside unsave thunkkkkkkkkkk", newPinres)
+    const newPinres = await response.json();
     await dispatch(actionUpdatePin(newPinres));
-    // return await response.json();
   }
-  // return await response.json();
 };
-
-// export const savePinUserThunk = (pin) => async (dispatch) => {
-//   const response = await fetch(`/api/pins/${pin.id}/save`, {
-//     method:'PATCH',
-//     body: pin
-//   })
-//   if(response.ok) {
-//     await dispatch(actionUpdatePin(pin));
-//     return await response.json();
-//   }
-//   return await response.json();
-// }
 
 const initialState = {
   allPins: {},

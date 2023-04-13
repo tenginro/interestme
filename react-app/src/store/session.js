@@ -179,26 +179,6 @@ export default function reducer(state = initialState, action) {
       return { user: action.payload };
     case REMOVE_USER:
       return { user: null };
-    // case GET_USER_FOLLOWING:
-    //   const allFollowing = {};
-    //   if (action.following === undefined) return { ...state };
-
-    //   action.following.forEach((f) => {
-    //     allFollowing[f.id] = f;
-    //   });
-    //   return { ...state, following: { ...allFollowing } };
-    // case GET_USER_FOLLOWERS:
-    //   const allFollowers = {};
-    //   if (action.followers.length === undefined) return { ...state };
-    //   action.followers.forEach((f) => {
-    //     allFollowers[f.id] = f;
-    //   });
-    //   return { ...state, followers: { ...allFollowers } };
-    // case ADD_USER_FOLLOW:
-    //   return {
-    //     ...state,
-    //     allFollowing: {...state.users, }
-    //   }
     default:
       return state;
   }

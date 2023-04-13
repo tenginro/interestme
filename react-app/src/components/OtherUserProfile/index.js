@@ -1,31 +1,27 @@
-// Necessary imports
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
-import "./ProfilePage.css";
 import CurrentPins from "../ManagePins";
 import PinGalleryCard from "../PinGalleryCard";
-import OpenModalicon from "../OpenModalicon";
-import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
+import CreateBoard from "../CreateBoard";
 
-function ProfilePage() {
-  // Create a reference to the session user
-  const user = useSelector((state) => state.session.user);
-
+export default function OtherUserProfile() {
+  const { userId } = useParams();
+  const LogInUser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.profile);
+  const [saved, setSaved] = useState(true);
+  const [showMenu, setShowMenu] = useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
   const ulRef = useRef();
   const boards = user?.boards;
 
   const pins_saved = user?.saved_pins;
-
-  const [saved, setSaved] = useState(true);
-  const [showMenu, setShowMenu] = useState("");
-
-  // let boards = created ? user.pins : user.saved_pins
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -33,18 +29,11 @@ function ProfilePage() {
   const closeMenu = () => setShowMenu(false);
 
   useEffect(() => {
-    if (!showMenu) return;
+    dispatch(getProfile(userId));
+  }, [dispatch, userId]);
 
-    const closeMenu = (e) => {
-      if (!ulRef.current?.contains(e.target)) setShowMenu(false);
-    };
-
-    document.addEventListener("click", closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-
-  if (!user) return null;
+  if (!user.username) return <div>Loading</div>;
+  if (user.id === LogInUser) return history.push(`/user`);
 
   return (
     <div className="profile-page-container">
@@ -139,5 +128,3 @@ function ProfilePage() {
     </div>
   );
 }
-
-export default ProfilePage;
