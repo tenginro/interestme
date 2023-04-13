@@ -146,8 +146,12 @@ const EditPin = ({pin}) => {
             />
           </div>
           <div>
-            <button onClick={cancelClick}>Cancel</button>
-            <button type="submit">Update</button>
+            <button 
+            className="cancelButton"
+            onClick={cancelClick}>Cancel</button>
+            <button 
+            className="submitButtonEdit"
+            type="submit">Update</button>
           </div>
         </div>
       </form>
