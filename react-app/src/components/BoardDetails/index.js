@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoardDetail } from '../../store/board'
 import * as boardsActions from '../../store/board'
-import PinGalleryCard from '../PinGalleryCard'
 import DropdownMenuButton from '../DropdownMenuButton'
+import PinIndexItem from '../AllPins/PinIndexItem'
 import './BoardDetails.css'
 
 function BoardDetails() {
@@ -70,7 +70,7 @@ function BoardDetails() {
         <h2>{board.Pins?.length} pins</h2>
         <div className='pin-gallery-grid'>
             {board.Pins &&
-            board.Pins.map((pin) => <PinGalleryCard key={pin.id} pin={pin} />)}
+            board.Pins.map((pin) => <PinIndexItem key={pin.id} pin={pin} user={currentUser} />)}
         </div>
       </div>
     );
