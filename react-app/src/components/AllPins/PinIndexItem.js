@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./AllPins.css";
 import { useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
   if (thisBoardId && thisBoardName) board_info = [thisBoardId, thisBoardName];
+  
   else if (user?.boards) {
     let the_board;
     user?.boards.forEach((b) => {
@@ -44,6 +45,8 @@ const PinIndexItem = ({
   page,
 }) => {
   const dispatch = useDispatch();
+  const savedBoardId = pin?.boards?.filter((b)=> b.user_id === user?.id)[0]?.id
+  const savedBoardName = pin?.boards?.filter((b)=>b.user_id === user?.id)[0]?.name
   const [save, setSave] = useState(isSaved(pin, user, inThisBoard));
   const [board, setBoard] = useState(
     whichBoard(pin, user, thisBoardId, thisBoardName)
@@ -62,16 +65,24 @@ const PinIndexItem = ({
 
   return (
     <div key={pin.id} className="pinIndexItem">
-      <NavLink to={`/pins/${pin.id}`}>
+      {/* <Link to={{
+            pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
+  
         <img src={pin.url} alt={pin.name} className="pinImg" />
-      </NavLink>
+      </Link> */}
+      <Link to={`/pins/${pin.id}`}>
+        <img src={pin.url} alt={pin.name} className="pinImg" />
+      </Link>
       <div className="boardNSave">
         <select
           className="boardOption"
-          onChange={(e) => {
-            changeBoard(Number(e.target.value));
-          }}
-          value={changingBoardId}
+          onSubmit={(e) => {
+              setBoard(Number(e.target.value));
+            }}
+            onChange={(e) => {
+              changeBoard(Number(e.target.value));
+            }}
+          value={savedBoardId||changingBoardId}
           name="board"
           placeholder="Choose a board"
         >
