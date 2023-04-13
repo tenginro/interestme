@@ -46,6 +46,7 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
   const dispatchUnfollow = (id) => {
     dispatch(removeFollowThunk(user, id));
     reload(!variable);
+    window.location.reload();
   };
 
   return (

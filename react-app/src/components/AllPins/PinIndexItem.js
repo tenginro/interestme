@@ -98,7 +98,7 @@ const PinIndexItem = ({
                 })
                 .then(() => {
                   if (page === "AllPins") history.push(`/pins`);
-                  if (page === "BoardDetail") history.push(`/user`);
+                  if (page === "BoardDetail") window.location.reload();
                 });
             }}
           >
