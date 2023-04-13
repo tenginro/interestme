@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import './AllPins.css'
+import "./AllPins.css";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
 export const whichBoard = (pin, user) => {
   let board_info = [0, "Profile"];
-  // console.log("user.boards", user.boards);
   if (user?.boards) {
     let the_board;
     user?.boards.forEach((b) => {
@@ -20,29 +19,26 @@ export const whichBoard = (pin, user) => {
       board_info = [the_board.id, the_board.name];
     }
   }
-  console.log("board_info", board_info);
   return board_info[0];
 };
 
-export const isSaved = (pin, user) => {
+export const isSaved = (pin, user, inThisBoard) => {
   let saveOrNot = false;
-  // console.log("pin.user_saved", pin.user_saved);
-  // console.log("user.id", user.id);
-  if (pin?.user_saved !== undefined) {
+  if (inThisBoard) saveOrNot = true;
+  else if (pin?.user_saved !== undefined) {
     pin?.user_saved.forEach((s) => {
       if (s.id === user.id) {
         saveOrNot = true;
       }
     });
   }
-  console.log("saveornot", saveOrNot);
   return saveOrNot;
 };
 
-const PinIndexItem = ({ pin, user }) => {
+const PinIndexItem = ({ pin, user, inThisBoard }) => {
   const dispatch = useDispatch();
   const [board, setBoard] = useState(whichBoard(pin, user));
-  const [save, setSave] = useState(isSaved(pin, user));
+  const [save, setSave] = useState(isSaved(pin, user, inThisBoard));
 
   const userBoards = user?.boards || [];
 
@@ -57,7 +53,7 @@ const PinIndexItem = ({ pin, user }) => {
   return (
     <div key={pin.id} className="pinIndexItem">
       <NavLink to={`/pins/${pin.id}`}>
-        <img src={pin.url} alt={pin.name} className="pinImg"/>
+        <img src={pin.url} alt={pin.name} className="pinImg" />
       </NavLink>
       <div className="boardNSave">
         <select
@@ -69,7 +65,9 @@ const PinIndexItem = ({ pin, user }) => {
           name="board"
           placeholder="Choose a board"
         >
-          <option value="0" className="option">Profile</option>
+          <option value="0" className="option">
+            Profile
+          </option>
           {userBoards.length > 0 &&
             userBoards.map((c) => (
               <option key={c.id} value={c.id}>
@@ -83,7 +81,6 @@ const PinIndexItem = ({ pin, user }) => {
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
-              console.log('clicked unsave')
               await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
                 if (save === false) setSave(true);
                 else setSave(false);
@@ -98,12 +95,12 @@ const PinIndexItem = ({ pin, user }) => {
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(changingBoardId);
-              await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(
-                () => {
-                  if (save === false) setSave(true);
-                  else setSave(false);
-                }
-              );
+              await dispatch(
+                pinsAction.savePinThunk(pin, changingBoardId)
+              ).then(() => {
+                if (save === false) setSave(true);
+                else setSave(false);
+              });
             }}
           >
             Save
