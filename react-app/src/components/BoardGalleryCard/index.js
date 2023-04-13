@@ -9,7 +9,7 @@ import { useState } from "react";
 function BoardGalleryCard({ board }) {
   // Create dispatch method
   const dispatch = useDispatch();
-  const this_board = useSelector((state) => state.boards.singleBoard);
+  // const this_board = useSelector((state) => state.boards.singleBoard);
   // Create history method
   const history = useHistory();
 
@@ -37,10 +37,10 @@ function BoardGalleryCard({ board }) {
           </div>
           <div className="board-card-content-container">
             <h2 className="item">{board.name}</h2>
-            {this_board.Pins?.length && (
+            {board.Pins?.length && (
               <p className="item">
-                {this_board.Pins?.length}
-                {this_board.Pins?.length === 1 ? " pin" : " pins"}
+                {board.Pins?.length}
+                {board.Pins?.length === 1 ? " pin" : " pins"}
               </p>
             )}
           </div>
