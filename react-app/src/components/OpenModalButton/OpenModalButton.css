@@ -1,0 +1,11 @@
+.deleteButton {
+    background-color: rgb(220, 218, 218);
+    color: black;
+    border-radius: 30px;
+    padding: 1em;
+    border: 0;
+}
+
+.deleteButton:hover {
+    -webkit-filter: brightness(70%);
+}
