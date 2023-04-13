@@ -14,9 +14,9 @@ const EditPin = ({pin}) => {
   const {closeModal} = useModal();
   // const pin = useSelector((state) => state.pins.singlePin);
 
-  useEffect(() => {
-    dispatch(pinsAction.getPinDetail(pinId));
-  }, [dispatch, pinId]);
+  // useEffect(() => {
+  //   dispatch(pinsAction.getPinDetail(pinId));
+  // }, [dispatch, pinId]);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -43,14 +43,14 @@ const EditPin = ({pin}) => {
   const updateCategory = (e) => setCategory(e.target.value);
   const updateUrl = (e) => setUrl(e.target.value);
 
-  // useEffect(()=>{
-  //     const err = [];
-  //     if(!name.length) err.name = 'Name is required'
-  //     if(!description.length) err.description='Description is required'
-  //     if(!url.length) err.url='Image is required'
-  //     if(!category.length) err.category = 'Category is required'
-  //     setErrors(err)
-  // },[name, description, url, category])
+  useEffect(()=>{
+      const err = {};
+      if(!name.length) err.name = 'Name is required'
+      if(!description.length) err.description='Description is required'
+      if(!url.length) err.url='Image is required'
+      if(!category.length) err.category = 'Category is required'
+      setErrors(err)
+  },[name, description, url, category])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,44 +94,53 @@ const EditPin = ({pin}) => {
         <div className="leftSideEdit">
           <div className="labelNinput">
             <label>Title</label>
-            <input
-              className="input"
-              type="text"
-              onChange={updateName}
-              value={name}
-              placeholder="Add your title"
-              name="name"
-              ></input>
-            {hasSubmitted ? <p className="error">{errors.name}</p> : null}
+            <div className="inputFieldEdit">
+              <input
+                className="input"
+                type="text"
+                onChange={updateName}
+                value={name}
+                placeholder="Add your title"
+                name="name"
+                ></input>
+              {hasSubmitted ? <p className="error">{errors.name}</p> : null}
+            </div>
           </div>
           <div className="labelNinput">
             <label>Category</label>
-            <select
-              className="select"
-              onChange={updateCategory}
-              value={category}
-              name="category"
-              placeholder="Choose a category"
-              >
-              <option value=""></option>
-              {categories.map((c) => (
-                <option value={c} key={c}>{c}</option>
-                ))}
-            </select>
+            <div className="inputFieldEdit">
+              <select
+                className="select"
+                onChange={updateCategory}
+                value={category}
+                name="category"
+                placeholder="Choose a category"
+                >
+                <option value=""></option>
+                {categories.map((c) => (
+                  <option value={c} key={c}>{c}</option>
+                  ))}
+              </select>
+              {hasSubmitted ? (
+                  <p className="error">{errors.category}</p>
+                  ) : null}
+            </div>
           </div>
           <div className="labelNinput">
             <label>Description</label>
-            <textarea
-              className="input"
-              type="text"
-              onChange={updateDescription}
-              value={description}
-              placeholder="Tell everyone what your Pin is about"
-              name="description"
-              ></textarea>
-            {hasSubmitted ? (
-              <p className="error">{errors.description}</p>
-              ) : null}
+            <div className="inputFieldEdit">
+              <textarea
+                className="input"
+                type="text"
+                onChange={updateDescription}
+                value={description}
+                placeholder="Tell everyone what your Pin is about"
+                name="description"
+                ></textarea>
+              {hasSubmitted ? (
+                <p className="error">{errors.description}</p>
+                ) : null}
+            </div>
           </div>
         </div>
         <div className="rightSideEdit">
