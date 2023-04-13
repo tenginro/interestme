@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { actionClearPins, getUserPins } from "../../store/pin";
-import './ManagePins.css'
+import "./ManagePins.css";
 import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
+
 function CurrentPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
@@ -27,17 +28,16 @@ function CurrentPins() {
               <img className="pinImg" src={pin.url} alt={pin.name} />
             </NavLink>
             <div className="boardNSaveEdit">
-                {/* <button className="editButton">
+              {/* <button className="editButton">
                   <Link key={pin.id} to={`/pins/${pin.id}/edit`}>
                     <i class="fa-solid fa-pen"></i>
                   </Link>
                 </button> */}
-                <OpenModalicon 
-                  modalComponent={<EditPin pin={pin}/>}
-                  iconType={'editPen'}
-                  pin= {pin}
-
-                />
+              <OpenModalicon
+                modalComponent={<EditPin pin={pin} />}
+                iconType={"editPen"}
+                pin={pin}
+              />
             </div>
           </div>
         ))}

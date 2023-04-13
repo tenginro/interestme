@@ -26,6 +26,7 @@ const Pin = () => {
     changingBoardId = id;
     setBoard(id);
   };
+
   const checkFollow = () => {
     const pinAuthorId = pin.user_id;
 
