@@ -1,110 +1,107 @@
 .single-pin_container {
-    display: flex;
-    align-items: center;
-    height: 34rem;
-    width: 50rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
-    margin: 0 auto;
-    border-radius: 20px;
-    /* position: relative; */
+  display: flex;
+  align-items: center;
+  height: 34rem;
+  width: 50rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  border-radius: 20px;
+  /* position: relative; */
 }
-
-
 
 .single_pin_image {
-    height: 30rem;
-    width: 400px;
-    object-fit: fill;
-    padding: 15px;
-    border-radius: 30px;
+  height: 30rem;
+  width: 400px;
+  object-fit: fill;
+  padding: 15px;
+  border-radius: 30px;
 }
 
-
-
 .rightSide {
-    display: flex;
-    height: 34rem;
-    width: 400px;
-    flex-direction: column;
-    align-items: baseline;
-    padding: 20px;
-    /* justify-content: space-evenly; */
-    /* padding-left: 20px;
+  display: flex;
+  height: 34rem;
+  width: 400px;
+  flex-direction: column;
+  align-items: baseline;
+  padding: 20px;
+  /* justify-content: space-evenly; */
+  /* padding-left: 20px;
     padding-right: 25px; */
-
 }
 
 .profile_saved-container {
-    display: flex;
-    flex-direction: row;
-    width: 45%;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 30px;
-    padding-left: 150px;
+  display: flex;
+  flex-direction: row;
+  width: 45%;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  padding-left: 150px;
 }
 
 #profile_dropdown-menu {
-    border: none;
-    height: 35px;
-    font-size: 18px;
-    margin-right: 10px;
-
+  border: none;
+  height: 35px;
+  font-size: 18px;
+  margin-right: 10px;
 }
 
-
 .unsaved_btn {
-    background-color: black;
-    padding: 0;
-    border: none;
-    width: 70px;
-    height: 2.5rem;
-    border-radius: 40px;
-    color: white;
+  background-color: black;
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
 }
 
 .saved_btn_ {
-    background-color: red;
-    padding: 0;
-    border: none;
-    width: 70px;
-    height: 2.5rem;
-    border-radius: 40px;
-    color: white;
+  background-color: red;
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
 }
 
 #name_tag {
-    font: 20px sans-serif;
-    font-weight: bold;
+  font: 20px sans-serif;
+  font-weight: bold;
 }
 
 .single-pin_user-follow_container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  padding-top: 20px;
 }
-
 
 .follow_btn {
-    background-color: rgb(239, 233, 233);
-    padding: 0;
-    border: none;
-    width: 70px;
-    height: 2.5rem;
-    border-radius: 40px;
-    color: black;
+  background-color: rgb(239, 233, 233);
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: black;
 }
 
-
 .unfollow_btn {
-    background-color: black;
-    padding: 0;
-    border: none;
-    width: 70px;
-    height: 2.5rem;
-    border-radius: 40px;
-    color: white;
+  background-color: black;
+  padding: 0;
+  border: none;
+  width: 70px;
+  height: 2.5rem;
+  border-radius: 40px;
+  color: white;
+}
+
+.pinOwnerProfile {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2px;
 }

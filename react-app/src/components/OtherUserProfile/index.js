@@ -35,7 +35,7 @@ export default function OtherUserProfile() {
   }, [dispatch, userId]);
 
   if (!user.username) return <div>Loading</div>;
-
+  
   return (
     <div className="profile-page-container">
       <div className="profile-picture-container">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useParams } from "react-router-dom";
+import { NavLink, Redirect, useParams } from "react-router-dom";
 import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
 import * as pinsAction from "../../store/pin";
@@ -41,16 +41,10 @@ const Pin = () => {
   useEffect(() => {
     dispatch(getPinDetail(pinId));
     checkFollow();
-    // isSaved();
-    // return () => dispatch(actionClearPin());
+    return () => dispatch(actionClearPin());
   }, [dispatch, pinId, save]);
   //when hitting save button, it will reload the whole page
 
-  console.log("above loading", pin);
-  console.log("above loading pin.User", pin?.User);
-  console.log("user.id", user?.id);
-  console.log("pin.id", pin?.id);
-  // if(!pin) return null;
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
@@ -115,7 +109,16 @@ const Pin = () => {
         </div>
 
         <div className="single-pin_user-follow_container">
-          <h4>{pin.User?.username}</h4>
+          <NavLink exact to={`/users/${pin.User?.id}`}>
+            <div className="pinOwnerProfile">
+              <img
+                style={{ height: "50px", width: "50px", borderRadius: "45px" }}
+                src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                alt=""
+              />
+              <h4>{pin.User?.username}</h4>
+            </div>
+          </NavLink>
           {pin.User?.username === user.username ? (
             <div></div>
           ) : follow ? (
