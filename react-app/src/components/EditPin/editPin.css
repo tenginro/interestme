@@ -33,6 +33,7 @@
 .rightSideEdit img{
     height: 300px;
 }
+
 .formBottom {
     display: flex;
     justify-content: space-between;
@@ -47,18 +48,44 @@
     width: 100%;
     border-bottom: 1px solid gray;
     padding-bottom:1em;
+    position: relative;
+}
+
+.inputFieldEdit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width:100%;
+    
+}
+.inputFieldEdit p {
+    position: absolute;
+    bottom: 0;
+    font-size: 13px;
+    color:red;
 }
 
 .input {
     width:180px;
     padding:1em;
-    border-radius: 15px;
+    border-radius: 10px;
+    border:2px solid rgb(193, 191, 191);
 }
-
 .select {
     width: 210px;
     padding: 1em;
-    border-radius: 15px;
+    border-radius: 10px;
+    border:2px solid rgb(193, 191, 191);
+}
+.input:hover {
+    border: 2px solid grey;
+    border-radius: 10px;
+}
+
+.select:hover {
+    border: 2px solid grey;
+    border-radius: 10px;
 }
 
 .submitButtonEdit {
@@ -85,3 +112,5 @@
 .cancelButton:hover {
     -webkit-filter: brightness(70%);
 }
+
+
