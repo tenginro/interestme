@@ -82,8 +82,9 @@
   height: 40px;
   width: 40px;
   border-radius: 40px;
-  color: white;
-  background-color: gray;
+  color: black;
+  font-weight: bolder;
+  background-color: rgb(203, 202, 202);
 }
 
 .main_page_login_btn.notLogIn {
@@ -143,6 +144,7 @@
   outline: line;
 }
 
+
 .createPinButton {
   border: none;
   background: none;
@@ -167,4 +169,16 @@
   flex-direction: row;
   justify-content: center;
   margin-left: 0;
+}
+
+.logoutButton {
+  background-color: rgb(220, 218, 218);
+  color: black;
+  border-radius: 30px;
+  padding: 1em;
+  border: 0;
+}
+
+.logoutButton:hover {
+  -webkit-filter: brightness(70%);
 }
