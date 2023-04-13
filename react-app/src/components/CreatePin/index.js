@@ -5,19 +5,21 @@ import * as pinsAction from "../../store/pin";
 import "./CreatePin.css";
 
 const CreatePin = () => {
+  const categories = ["Art", "Food", "Tech"];
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(categories[0]);
+  // const [board, setBoard] = useState("")
   const [errors, setErrors] = useState({});
   const [resErrors, setResErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const categories = ["Art", "Food", "Tech"];
   const currentUser = useSelector((state) => state.session.user);
   //for errors
+
   useEffect(() => {
     const err = [];
     if (!name.length) err.name = "Name is required";
@@ -26,6 +28,7 @@ const CreatePin = () => {
     if (!category.length) err.category = "Category is required";
     setErrors(err);
   }, [name, description, url, category]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +41,7 @@ const CreatePin = () => {
     formData.append("url", url);
     formData.append("category", category);
     formData.append("user_id", currentUser.id);
+
 
     // const newPin = {
     //   name,
@@ -83,20 +87,42 @@ const CreatePin = () => {
         <div className="create_new-pin-form">
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
+            <div className="file-image_input-field-container">
+              <input
+                id="file-image_input-field"
+                type="text"
+                placeholder=" Drag and drop an image file"
+                name="url"
+                onClick={() => window.alert("Feature coming soon!")}
+              ></input>
+            </div>
 
             <input
-              id="image_input-field"
+              id="create-pin-url_input"
               type="text"
-              onChange={(e) => setUrl(e.target.value)}
               value={url}
-              placeholder=" Drag and drop an image url to upload"
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Enter URL"
               name="url"
             ></input>
           </div>
           <div className="right-Side">
             <div className="category-save_container">
-              {/* <label>Choose a category</label> */}
-
+              {/* <select
+                id="select-create_pin-board"
+                onChange={(e) => setBoard(e.target.value)}
+                value={board}
+                name="board"
+                placeholder="Choose a Board"
+              >
+                {currentUser.boards ? (
+                  currentUser.boards.map((board) => (
+                    <option key={board.id}>{board.name}</option>
+                  ))
+                ) : (
+                  <option>None</option>
+                )}
+              </select> */}
               <button id="save-create_btn" type="submit">
                 Create
               </button>
@@ -111,7 +137,10 @@ const CreatePin = () => {
                 placeholder="Add your title"
                 name="name"
               ></input>
-              {hasSubmitted ? <p className="error">* {errors.name}</p> : null}
+              {hasSubmitted ? <p className="error"> {errors.name}</p> : null}
+            </div>
+            <div>
+              <label>Choose a category: </label>
               <select
                 id="select-create_pin-category"
                 onChange={(e) => {
@@ -130,6 +159,7 @@ const CreatePin = () => {
                 ))}
               </select>
             </div>
+            <br />
             <div>
               <input
                 id="description-input_"
@@ -140,7 +170,7 @@ const CreatePin = () => {
                 name="description"
               ></input>
               {hasSubmitted ? (
-                <p className="error">* {errors.description}</p>
+                <p className="error"> {errors.description}</p>
               ) : null}
             </div>
           </div>
