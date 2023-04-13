@@ -14,38 +14,22 @@ function SignupFormModal() {
   const [last_name, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [showErrors, setShowErrors] = useState({});
-  // const [resErrors, setResErrors] = useState({});
   const [about, setAbout] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
    const history = useHistory();
-  // useEffect(() => {
-  //   const err = [];
-  //   if (!email.length || !email.includes("@")) err.push("Invalid email");
-  //   if (!first_name.length) err.push("First name is required");
-  //   if (!last_name.length) err.push("Last name is required");
-  //   if (!username.length)
-  //     err.push("username needs to be at least 4 characters.");
-  //   if (!password.length)
-  //     err.push("password needs to be at least 6 characters.");
-  //   if (password !== confirmPassword)
-  //     err.push("Confirm Password field must be the same as the Password field");
-  //   setErrors(err);
-  // }, [email, first_name, last_name, username, password, confirmPassword]);
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
     setErrors([]);
-    // setResErrors({});
+   
     if (password === confirmPassword) {
       const data = await dispatch(
         signUp(username, email, password, first_name, last_name, about)
       );
       if (data) {
-        // setErrors(data.errors);
         setErrors(data);
       } else {
         closeModal();
@@ -56,22 +40,7 @@ function SignupFormModal() {
         "Confirm Password field must be the same as the Password field",
       ]);
     }}
-    ////////////////////////////////////////////////////////////////////////////
-  //   if(password===confirmPassword){
-  //     dispatch(signUp({ email, username, first_name, last_name, password, about }))
-  //     .then(closeModal)
-  //     .catch(async (res) => {
-  //         const data = await res.json();
-  //         //console.log('catch', data)
-  //         if (data && data.errors) {
-  //           //console.log('data.errors', data.errors)
-  //           setErrors(data.errors);
-  //         }
-  //       });
-  //   } else {
-  //     setErrors(['Confirm Password field must be the same as the Password field'])
-  //   }
-  // };
+
   const SignUpButtonClassName =
     "SubmitButton" + (email.length < 4|| 
               !username.length ||
@@ -104,7 +73,7 @@ function SignupFormModal() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          {/* {hasSubmitted ? <p className="error">* {errors.email}</p> : null} */}
+     
         </div>
         <div className="inputField">
           <label>Username</label>
@@ -115,7 +84,7 @@ function SignupFormModal() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          {/* {hasSubmitted ? <p className="error">* {errors.username}</p> : null} */}
+  
         </div>
         <div className="inputField">
           <label>First Name</label>
@@ -126,7 +95,7 @@ function SignupFormModal() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-          {/* {hasSubmitted ? <p className="error">* {errors.first_name}</p> : null} */}
+
         </div>
         <div className="inputField">
           <label>Last Name</label>
@@ -137,7 +106,7 @@ function SignupFormModal() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-          {/* {hasSubmitted ? <p className="error">* {errors.last_name}</p> : null} */}
+        
         </div>
         <div className="inputField">
           <label>About</label>
@@ -157,7 +126,7 @@ function SignupFormModal() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {/* {hasSubmitted ? <p className="error">* {errors.password}</p> : null} */}
+         
         </div>
         <div className="inputField">
           <label>Confirm Password</label>
@@ -168,7 +137,7 @@ function SignupFormModal() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          {/* {hasSubmitted ? <p className="error">* {errors.confirmPassword}</p> : null} */}
+     
         </div>
         <div className="inputField">
           <button
