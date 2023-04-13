@@ -1,0 +1,94 @@
+#loginModal {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+#loginModal h1 {
+  font-weight: 600;
+  font-size: 32px;
+  color: black;
+  letter-spacing: -1px;
+  padding-left: 16px;
+  padding-right: 16px;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+#loginModal .errorListing {
+  color: red;
+}
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo_in_logo {
+  height: 45px;
+  width: 45px;
+}
+
+.loginSubmitButtonContainer {
+  margin: 0 auto;
+}
+
+.loginSubmitButton {
+  width: 200px;
+  height: 30px;
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  border-radius: 20px;
+  border: 0px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.loginSubmitButton.disabled {
+  background-color: pink;
+}
+
+.loginSubmitButton:hover,
+.demoUserButton:hover {
+  -webkit-filter: brightness(90%);
+}
+
+.demoUserButton {
+  background-color: red;
+  color: white;
+  width: 200px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 20px;
+  border: 0px;
+  -webkit-filter: brightness(100%);
+  font-size: 15px;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#loginForm input {
+  width: 200px;
+  height: 40px;
+  border-color: lightgray;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+}

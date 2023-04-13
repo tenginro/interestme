@@ -3,6 +3,8 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import logo from "../LandingPage/Assets/icon.png";
+import * as sessionActions from "../../store/session";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -17,40 +19,86 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal();
     }
+  };
+  const demoUserSubmitHandler = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login("demouser@aa.io", "password"))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
-      </form>
-    </>
+    <div id="loginModal">
+      <div className="logoTitle">
+        <img id="logo_in_logo" src={logo} alt="Logo" />
+        <h1>Welcome to Tinterest</h1>
+      </div>
+      <div>
+        <form id="loginForm" onSubmit={handleSubmit}>
+          <div>
+            <ul>
+              {errors.map((error, idx) => (
+                <li className="errorListing" key={idx}>
+                  {error}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <label>
+              <div>Email</div>
+              <input
+                type="text"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              <div>Password</div>
+              <input
+                type="password"
+                value={password}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className="loginSubmitButtonContainer">
+            <button
+              className={
+                email.length < 4 || password.length < 6
+                  ? "loginSubmitButton disabled"
+                  : "loginSubmitButton"
+              }
+              type="submit"
+              disabled={email.length < 4 || password.length < 6}
+            >
+              <div>Log In</div>
+            </button>
+          </div>
+          <div className="demo-user-btn-container">
+            <button
+              className="demoUserButton"
+              onClick={demoUserSubmitHandler}
+              type="submit"
+            >
+              Demo User
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 
