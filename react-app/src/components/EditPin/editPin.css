@@ -1,18 +1,62 @@
-.editPin{
-    height: 60%;
-    width: 60%;
-    border: 2px solid black;
-    border-radius: 30px;
-    padding:1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
+.editPinModal{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding:1em;
+    height:600px;
+    width: 650px;
 }
 
 .editForm{
+    
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    padding:1em;
+    height:100%;
+    width:90%;
+}
+
+.formTop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+}
+
+.leftSideEdit div{
+    margin:1em;
+}
+.rightSideEdit img{
+    height: 300px;
+}
+.formBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.labelNinput {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    padding-bottom:1em;
+}
+
+.input {
+    width:180px;
+    padding:1em;
+    border-radius: 15px;
+}
+
+.select {
+    width: 210px;
+    padding: 1em;
+    border-radius: 15px;
 }

@@ -21,12 +21,12 @@ function OpenModalicon({ modalComponent, onItemClick, onModalClose, iconType, pi
         className="editButton"
         onClick={onClick}
         >
-            <Link key={pin.id} to={`/pins/${pin.id}/edit`}>
-            <i class="fa-solid fa-pen"></i>
-            </Link>
+            <i class="fa-solid fa-pen"></i>   
         </button>
         )
     }
 }
 
 export default OpenModalicon
+
+{/* <Link key={pin.id} to={`/pins/${pin.id}/edit`}></Link> */}

@@ -6,12 +6,13 @@ import OpenModalButton from "../OpenModalButton/index";
 import DeleteModal from "../DeletePinModal";
 import { useModal } from "../../context/Modal";
 import "./editPin.css"
-const EditPin = () => {
-  const { pinId } = useParams();
+const EditPin = ({pin}) => {
+  // const { pinId } = useParams();
+  const pinId = pin.id;
   const dispatch = useDispatch();
   const history = useHistory();
   const {closeModal} = useModal();
-  const pin = useSelector((state) => state.pins.singlePin);
+  // const pin = useSelector((state) => state.pins.singlePin);
 
   useEffect(() => {
     dispatch(pinsAction.getPinDetail(pinId));
@@ -68,6 +69,7 @@ const EditPin = () => {
     if (!Boolean(Object.values(errors).length)) {
       const updatedRes = await dispatch(pinsAction.updatePin(formData, pinId));
       if (!updatedRes.errors) {
+        await closeModal();
         history.push(`/pins/${updatedRes.id}`);
         await setHasSubmitted(false);
       } else {
@@ -78,69 +80,78 @@ const EditPin = () => {
 
   const cancelClick = (e) => {
     e.preventDefault();
-    history.push(`/pins/current`);
+    // history.push(`/pins/current`);
+    closeModal();
   };
 
   if (!pin) return <h1>No pins found</h1>;
 
   return (
-    <div className="editPin">
+    <div className="editPinModal">
       <h1>Edit this Pin</h1>
       <form onSubmit={handleSubmit} className="editForm">
-        <div className="leftSide">
-          <div>
+        <div className="formTop">  
+        <div className="leftSideEdit">
+          <div className="labelNinput">
             <label>Title</label>
             <input
+              className="input"
               type="text"
               onChange={updateName}
               value={name}
               placeholder="Add your title"
               name="name"
-            ></input>
+              ></input>
             {hasSubmitted ? <p className="error">{errors.name}</p> : null}
           </div>
-          <div>
+          <div className="labelNinput">
             <label>Category</label>
             <select
+              className="select"
               onChange={updateCategory}
               value={category}
               name="category"
               placeholder="Choose a category"
-            >
+              >
               <option value=""></option>
               {categories.map((c) => (
                 <option value={c} key={c}>{c}</option>
-              ))}
+                ))}
             </select>
           </div>
-          <div>
+          <div className="labelNinput">
             <label>Description</label>
-            <input
+            <textarea
+              className="input"
               type="text"
               onChange={updateDescription}
               value={description}
               placeholder="Tell everyone what your Pin is about"
               name="description"
-            ></input>
+              ></textarea>
             {hasSubmitted ? (
               <p className="error">{errors.description}</p>
-            ) : null}
+              ) : null}
           </div>
         </div>
-        <div className="rightSide">
+        <div className="rightSideEdit">
           <img src={pin.url} alt="pin.url" />
         </div>
-        <button type="submit">Update</button>
-        <button onClick={cancelClick}>Cancel</button>
-      </form>
-      <div className="bottom delete button">
-        <OpenModalButton
-          buttonText="Delete"
-          modalComponent={<DeleteModal pin={pin} />}
-        />
-        <div>
         </div>
-      </div>
+        <div className="formBottom">
+          <div className="bottomLeft">
+            <OpenModalButton
+              buttonText="Delete"
+              modalComponent={<DeleteModal pin={pin} />}
+            />
+          </div>
+          <div>
+            <button onClick={cancelClick}>Cancel</button>
+            <button type="submit">Update</button>
+          </div>
+        </div>
+      </form>
+    
     </div>
   );
 };
