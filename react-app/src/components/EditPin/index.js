@@ -4,11 +4,13 @@ import { NavLink, Link, useHistory, useParams } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import OpenModalButton from "../OpenModalButton/index";
 import DeleteModal from "../DeletePinModal";
-
+import { useModal } from "../../context/Modal";
+import "./editPin.css"
 const EditPin = () => {
   const { pinId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const {closeModal} = useModal();
   const pin = useSelector((state) => state.pins.singlePin);
 
   useEffect(() => {
@@ -82,9 +84,9 @@ const EditPin = () => {
   if (!pin) return <h1>No pins found</h1>;
 
   return (
-    <div>
+    <div className="editPin">
       <h1>Edit this Pin</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="editForm">
         <div className="leftSide">
           <div>
             <label>Title</label>
@@ -131,7 +133,7 @@ const EditPin = () => {
         <button type="submit">Update</button>
         <button onClick={cancelClick}>Cancel</button>
       </form>
-      <div className="bottom">
+      <div className="bottom delete button">
         <OpenModalButton
           buttonText="Delete"
           modalComponent={<DeleteModal pin={pin} />}
