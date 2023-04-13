@@ -44,7 +44,10 @@ function BoardDetails() {
     return (
       <div className="whole-container">
         <div className='info-container'>
-            <h1>{board.name}</h1>
+            <div className='board-detail-name-container'>
+              <h1>{board.name}</h1>
+              <DropdownMenuButton board={board} />
+            </div>
             <div className='manage-board-buttons-container'>
                 {/* <span>
                     <button className='edit-board-btn'>
@@ -56,7 +59,6 @@ function BoardDetails() {
                     DELETE
                     </button>
                 </span> */}
-                <DropdownMenuButton board={board} />
             </div>
             <div className='board-cover-container'>
                 <img src={board.board_cover} alt="board-cover-pic" />
