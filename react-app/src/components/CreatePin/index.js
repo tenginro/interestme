@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
+import './CreatePin.css'
 
 const CreatePin = () => {
   const [name, setName] = useState("");
@@ -71,64 +72,75 @@ const CreatePin = () => {
   };
 
   return (
-    <div>
-      <h1>Create a New Pin</h1>
+    <div className="create-new_pin-container">
+      {/* <h1>Create a New Pin</h1> */}
       <form onSubmit={handleSubmit}>
         <ul>
           {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
             <li>{Object.values(resErrors)}</li>
           ) : null}
         </ul>
-        <div className="leftSide">
-          <label>Upload an Image</label>
-          <input
-            type="text"
-            onChange={(e) => setUrl(e.target.value)}
-            value={url}
-            placeholder="Drag and drop an image url to upload"
-            name="url"
-          ></input>
-        </div>
-        <div className="rightSide">
-          <div>
-            <label>Choose a category</label>
-            <select
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-              value={category}
-              name="category"
-              placeholder="Choose a category"
-            >
-              <option value=""></option>
-              {categories.map((c) => (
-                <option value={c} key={c}>{c}</option>
-                // add a key prop here
-              ))}
-            </select>
-            <button type="submit">Save</button>
-          </div>
-          <div>
+        <div className="create_new-pin-form">
+          <div className="left-Side">
+            {/* <label>Upload an Image</label> */}
             <input
+              id="image_input-field"
               type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              placeholder="Add your title"
-              name="name"
+              onChange={(e) => setUrl(e.target.value)}
+              value={url}
+              placeholder=" Drag and drop an image url to upload"
+              name="url"
             ></input>
-            {hasSubmitted ? <p className="error">* {errors.name}</p> : null}
           </div>
-          <div>
-            <input
-              type="text"
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-              placeholder="Tell everyone what your Pin is about"
-              name="description"
-            ></input>
-            {hasSubmitted ? (
-              <p className="error">* {errors.description}</p>
-            ) : null}
+          <div className="right-Side">
+            <div className="category-save_container">
+              {/* <label>Choose a category</label> */}
+              <select
+                id="select-create_pin-category"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                value={category}
+                name="category"
+                placeholder="Choose a category"
+              >
+                {/* <option value=""></option> */}
+                {categories.map((c) => (
+                  <option value={c} key={c}>
+                    {c}
+                  </option>
+                  // add a key prop here
+                ))}
+              </select>
+              <button id="save-create_btn" type="submit">
+                Save
+              </button>
+            </div>
+
+            <div className="add-your_title">
+              <input
+                id="ad-your_title-input"
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                placeholder="Add your title"
+                name="name"
+              ></input>
+              {hasSubmitted ? <p className="error">* {errors.name}</p> : null}
+            </div>
+            <div>
+              <input
+                id="description-input_"
+                type="text"
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+                placeholder="Tell everyone what your Pin is about             😃"
+                name="description"
+              ></input>
+              {hasSubmitted ? (
+                <p className="error">* {errors.description}</p>
+              ) : null}
+            </div>
           </div>
         </div>
       </form>

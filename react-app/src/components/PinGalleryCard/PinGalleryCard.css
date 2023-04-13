@@ -21,7 +21,8 @@
 img {
     width: 205px;
     height: 200px;
-    border-radius: 5px;
+    border-radius: 15px;
+    object-fit: cover;
 }
 
 .pin-image-container{

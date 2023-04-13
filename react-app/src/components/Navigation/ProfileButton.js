@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./Navigation.css";
 import LoginFormModal from "../LoginFormModal";
@@ -64,9 +64,11 @@ function ProfileButton({ user }) {
     <>
       {user ? (
         <div className="profileDropDownButtons">
-          <button className="main_page_login_btn login">
-            {user?.username[0]}
-          </button>
+          <NavLink exact to="/user">
+            <button className="main_page_login_btn login">
+              {user?.username[0]}
+            </button>
+          </NavLink>
           <button className="profileDownButton" onClick={openMenu}>
             <i className="fas fa-solid fa-angle-down"></i>
           </button>

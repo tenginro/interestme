@@ -16,7 +16,7 @@ useEffect(()=> {
 if (!user_board) return null
   return (
     <div>
-      <BoardForm formType="Edit board" submitType="Edit" newBoard={user_board} />
+      <BoardForm formType="Edit your board" submitType="Edit" newBoard={user_board} />
     </div>
   );
 }

@@ -115,7 +115,9 @@ const Pin = () => {
 
         <div className="single-pin_user-follow_container">
           <h4>{pin.User?.username}</h4>
-          {follow ? (
+          {pin.User?.username === user.username ? (
+            <div></div>
+          ) : follow ? (
             <button
               className="unfollow_btn"
               onClick={async (e) => {

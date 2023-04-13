@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { actionClearPins, getUserPins } from "../../store/pin";
-
+import './ManagePins.css'
 function CurrentPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
@@ -18,19 +18,18 @@ function CurrentPins() {
 
   return (
     <div>
-      <nav>
+      <nav className="allPins">
         {pins.map((pin) => (
-          <div key={pin.id}>
+          <div key={pin.id} className="pinIndexItem">
             <NavLink key={pin.id} to={`/pins/${pin.id}`}>
-              <img src={pin.url} alt={pin.name} />
+              <img className="pinImg" src={pin.url} alt={pin.name} />
             </NavLink>
-            <button>Save</button>
-            <div>
-              <button>
-                <Link key={pin.id} to={`/pins/${pin.id}/edit`}>
-                  Update
-                </Link>
-              </button>
+            <div className="boardNSaveEdit">
+                <button className="editButton">
+                  <Link key={pin.id} to={`/pins/${pin.id}/edit`}>
+                    <i class="fa-solid fa-pen"></i>
+                  </Link>
+                </button>
             </div>
           </div>
         ))}

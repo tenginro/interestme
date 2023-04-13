@@ -18,6 +18,7 @@
   display: flex;
   justify-content: space-between;
   position: absolute;
+  width:90%;
   top: 10px;
   left: 10px;
   z-index: 2;
