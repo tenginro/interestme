@@ -39,26 +39,28 @@ function DropdownMenuButton({ board }) {
 
   return (
     <div className="dropdown-menu-container" onClick={openMenu}>
-      <h3 className={showMenu ? "active pointer" : "pointer"}>
+      <h2 className={showMenu ? "active pointer" : "pointer"}>
         <i className="fa-solid fa-ellipsis"></i>
-      </h3>
-      {showMenu && (
-        <>
-          <p className="dropdown-header">Board Options</p>
-        </>
-      )}
-      <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
-        <OpenModalMenuItem
-          itemText="Edit"
-          onItemClick={closeMenu}
-          modalComponent={<EditBoard board={board} />}
-        />
-        <OpenModalMenuItem
-          itemText="Delete"
-          onItemClick={closeMenu}
-          modalComponent={<DeleteBoard board={board} />}
-        />
-      </ul>
+      </h2>
+      <div className={showMenu ? "absolute-container" : "hidden"}>
+        {showMenu && (
+          <>
+            <p className="dropdown-header">Board Options</p>
+          </>
+        )}
+        <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
+          <OpenModalMenuItem
+            itemText="Edit"
+            onItemClick={closeMenu}
+            modalComponent={<EditBoard board={board} />}
+          />
+          <OpenModalMenuItem
+            itemText="Delete"
+            onItemClick={closeMenu}
+            modalComponent={<DeleteBoard board={board} />}
+          />
+        </ul>
+      </div>
     </div>
   );
 }

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoardDetail } from '../../store/board'
 import * as boardsActions from '../../store/board'
-import PinGalleryCard from '../PinGalleryCard'
 import DropdownMenuButton from '../DropdownMenuButton'
+import PinIndexItem from '../AllPins/PinIndexItem'
 import './BoardDetails.css'
 
 function BoardDetails() {
@@ -44,7 +44,10 @@ function BoardDetails() {
     return (
       <div className="whole-container">
         <div className='info-container'>
-            <h1>{board.name}</h1>
+            <div className='board-detail-name-container'>
+              <h1>{board.name}</h1>
+              <DropdownMenuButton board={board} />
+            </div>
             <div className='manage-board-buttons-container'>
                 {/* <span>
                     <button className='edit-board-btn'>
@@ -56,7 +59,6 @@ function BoardDetails() {
                     DELETE
                     </button>
                 </span> */}
-                <DropdownMenuButton board={board} />
             </div>
             <div className='board-cover-container'>
                 <img src={board.board_cover} alt="board-cover-pic" />
@@ -70,7 +72,7 @@ function BoardDetails() {
         <h2>{board.Pins?.length} pins</h2>
         <div className='pin-gallery-grid'>
             {board.Pins &&
-            board.Pins.map((pin) => <PinGalleryCard key={pin.id} pin={pin} />)}
+            board.Pins.map((pin) => <PinIndexItem key={pin.id} pin={pin} user={currentUser} />)}
         </div>
       </div>
     );
