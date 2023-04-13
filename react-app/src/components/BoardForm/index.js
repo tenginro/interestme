@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
 import { useHistory, useParams, Redirect} from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import './BoardForm.css'
 const BoardForm = ({ newBoard, submitType, formType }) => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -60,27 +61,36 @@ if (submitType === "Edit") {
 if (!newBoard) return null
 
   return (
-    <div>
+    <div className="board-form_container">
       <form onSubmit={submitNewBoardHandler}>
-        <h1>{formType}</h1>
-        <label>Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        ></input>
-        <br />
-        <label>Description</label>
-        <textarea
-          type="text"
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        ></textarea>
-        <button type="submit">Submit</button>
+        <div id="board-form">
+          <h1 id="board-form_title">{formType}</h1>
+          <label>Name</label>
+          <input
+            className="board-form_input-field"
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          ></input>
+          <br />
+          <label>Description</label>
+          <textarea
+            className="board-form_input-field"
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          ></textarea>
+          <br />
+          <div className="create_board-btn-div">
+            <button className="create_board-btn" type="submit">
+              Create
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
