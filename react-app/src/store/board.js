@@ -38,7 +38,7 @@ export const actionDeleteBoard = (board) => ({
 });
 
 export const actionClearBoard = () => ({
-  typ: CLEAR_BOARD,
+  type: CLEAR_BOARD,
 });
 
 // Thunks

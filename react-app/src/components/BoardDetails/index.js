@@ -29,10 +29,9 @@ function BoardDetails() {
   // Upon component render, dispatch the action to load the single board into the redux store for retrieval
   // let board
   useEffect(() => {
-    console.log("hitting the useEffect");
     dispatch(boardsActions.getBoardDetail(boardId));
     return () => dispatch(boardsActions.actionClearBoard());
-  }, [dispatch, boardId, pinLength]);
+  }, [dispatch, boardId]);
 
   const deleteBoardClick = (e) => {
     e.preventDefault();
