@@ -95,12 +95,12 @@ function ProfileButton({ user }) {
             <>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <li>
+              {/* <li>
                 <button onClick={managePinsClick} className="dropDown-Button">
                   Manage Pins
                 </button>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <div
                   className="create-new_board"
                   onClick={createBoardClick}
@@ -115,7 +115,7 @@ function ProfileButton({ user }) {
                 >
                   Manage Board
                 </div>
-              </li>
+              </li> */}
               <li>
                 <button onClick={handleLogout}>Log Out</button>
               </li>

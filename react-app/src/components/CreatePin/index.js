@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
-import './CreatePin.css'
+import "./CreatePin.css";
 
 const CreatePin = () => {
   const [name, setName] = useState("");
@@ -83,6 +83,7 @@ const CreatePin = () => {
         <div className="create_new-pin-form">
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
+
             <input
               id="image_input-field"
               type="text"
@@ -95,6 +96,22 @@ const CreatePin = () => {
           <div className="right-Side">
             <div className="category-save_container">
               {/* <label>Choose a category</label> */}
+
+              <button id="save-create_btn" type="submit">
+                Create
+              </button>
+            </div>
+
+            <div className="add-your_title">
+              <input
+                id="ad-your_title-input"
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                placeholder="Add your title"
+                name="name"
+              ></input>
+              {hasSubmitted ? <p className="error">* {errors.name}</p> : null}
               <select
                 id="select-create_pin-category"
                 onChange={(e) => {
@@ -112,21 +129,6 @@ const CreatePin = () => {
                   // add a key prop here
                 ))}
               </select>
-              <button id="save-create_btn" type="submit">
-                Save
-              </button>
-            </div>
-
-            <div className="add-your_title">
-              <input
-                id="ad-your_title-input"
-                type="text"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                placeholder="Add your title"
-                name="name"
-              ></input>
-              {hasSubmitted ? <p className="error">* {errors.name}</p> : null}
             </div>
             <div>
               <input

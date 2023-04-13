@@ -40,7 +40,7 @@ function DropdownMenuButton({ board }) {
   return (
     <div className="dropdown-menu-container" onClick={openMenu}>
       <h3 className={showMenu ? "active pointer" : "pointer"}>
-        Icon Goes Here
+        <i className="fa-solid fa-ellipsis"></i>
       </h3>
       {showMenu && (
         <>

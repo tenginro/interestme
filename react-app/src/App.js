@@ -46,7 +46,7 @@ function App() {
           <Route exact path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/pins/current/created">
+          <Route exact path="/pins/current">
             <CurrentPins />
           </Route>
           <Route exact path="/pins/new">
