@@ -52,8 +52,9 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           newBoard.id
         )
       )
-        .then((res) => {
-          history.push(`/boards/${res.board.id}`);
+        .then(async(res) => {
+          history.push(`/boards/${res.board.id}`)
+          closeModal();
         })
         .catch(async (response) => {
           const data = await response.json();

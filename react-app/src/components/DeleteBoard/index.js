@@ -12,6 +12,7 @@ console.log("board id", board.id)
 
   const deleteBoardClick = async () => {
     await dispatch(boardsActions.deleteBoard(board.id)).then(() => {
+      dispatch(boardsActions.getUserBoards())
       history.push("/boards/current");
       closeModal();
     });
