@@ -24,13 +24,13 @@ function ProfilePage() {
   const boardsObj = useSelector((state) => state.boards.userBoards);
   const boards = Object.values(boardsObj);
 
-  const savedPinsObj = useSelector((state) => state.pins.saved_pins);
-  console.log("savedPinsObj", savedPinsObj);
+  const savedPinsObj = useSelector((state) => state.pins.savedPins);
+  // console.log("savedPinsObj", savedPinsObj);
   // const savedPinsArr = user.saved_pins;
   let savedPinsArr = [];
   if (savedPinsObj !== null && savedPinsObj !== undefined) {
     savedPinsArr = Object.values(savedPinsObj);
-    console.log("savedPinsArr", savedPinsArr);
+    // console.log("savedPinsArr", savedPinsArr);
   }
 
   const [saved, setSaved] = useState(true);
@@ -46,13 +46,13 @@ function ProfilePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserBoards(user.id));
     dispatch(getSavedPins(user.id));
-    return () => {
-      dispatch(actionClearBoards());
-      dispatch(actionClearBoard());
-      dispatch(actionClearSavedPins());
-    };
+    dispatch(getUserBoards(user.id));
+    // return () => {
+    //   dispatch(actionClearBoards());
+    //   dispatch(actionClearBoard());
+    //   dispatch(actionClearSavedPins());
+    // };
   }, [dispatch, user.id]);
 
   useEffect(() => {

@@ -3,6 +3,8 @@ import "./AllPins.css";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
+import { getBoardDetail, getUserBoards } from "../../store/board";
+import { defaultImage } from "../SinglePin";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
@@ -61,18 +63,24 @@ const PinIndexItem = ({
     changingBoardId = id;
     setBoard(id);
   };
-
+  // console.log(`inside pinIndex item pinId ${pin.id} savedBoardId`, savedBoardId )
+  // console.log(`inside pinIndex item pinId ${pin.id} changingBoardId`, changingBoardId )
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div key={pin.id} className="pinIndexItem">
       {/* <Link to={{
             pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
-  
+
         <img src={pin.url} alt={pin.name} className="pinImg" />
       </Link> */}
       <Link to={`/pins/${pin.id}`}>
-        <img src={pin.url} alt={pin.name} className="pinImg" />
+        <img
+          src={pin.url}
+          alt={pin.name}
+          className="pinImg"
+          onError={defaultImage}
+        />
       </Link>
       <div className="boardNSave">
         <select
@@ -103,15 +111,18 @@ const PinIndexItem = ({
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
+              // console.log('unsaving from board detail before thunk')
               await dispatch(pinsAction.unSavePinThunk(pin))
                 .then(() => {
                   if (save === false) setSave(true);
                   else setSave(false);
+                  changeBoard(0);
                 })
                 .then(() => {
-                  if (page === "AllPins") history.push(`/pins`);
-                  if (page === "BoardDetail") window.location.reload();
-                  if (page === "ProfilePage") window.location.reload();
+                  // if (page === "AllPins") history.push(`/pins`);
+                  if (page === "BoardDetail")
+                    dispatch(getBoardDetail(thisBoardId));
+                  if (page === "ProfilePage") dispatch(getUserBoards());
                 });
             }}
           >

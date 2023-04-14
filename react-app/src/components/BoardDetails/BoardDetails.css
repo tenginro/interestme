@@ -12,7 +12,9 @@
 .manage-board-buttons-container {
   /* border: 3px solid lime; */
 }
-
+.pinsCountNumber {
+  margin-left: 150px;
+}
 .board-cover-container {
   /* border: 3px solid purple; */
 }
@@ -56,4 +58,11 @@
 .board-detail-name-container {
   /* border: 3px solid red; */
   position: relative;
+}
+
+.boardDescription {
+    width: 500px;
+    height: 60px;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
 }

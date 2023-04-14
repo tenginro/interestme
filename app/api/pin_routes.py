@@ -133,11 +133,17 @@ def save_pin(id):
     db.session.commit()
     
     # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    pin = Pin.query.get(id)
-
-    return {**pin.to_dict(), 
+    # pin = Pin.query.get(id)
+    user = User.query.get(user.id)
+    savedPins = user.saved_pins
+    return [{**pin.to_dict(), 
             "User": pin.user.to_dict(), 
-            "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+            "boards": [board.to_dict() for board in pin.boards], 
+            "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in savedPins
+            ]
+    # return {**pin.to_dict(), 
+    #         "User": pin.user.to_dict(), 
+    #         "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 
 
 
@@ -156,7 +162,14 @@ def unsave_pin(id):
         pin.user_saved.remove(user_to_remove)
         
     db.session.commit()
-    
-    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+
+    user = User.query.get(user['id'])
+    savedPins = user.saved_pins
+    return [{**pin.to_dict(), 
+            "User": pin.user.to_dict(), 
+            "boards": [board.to_dict() for board in pin.boards], 
+            "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in savedPins
+            ]
+    # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
+    # return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
 

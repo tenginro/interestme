@@ -17,7 +17,7 @@ function BoardGallery() {
 
     // Create a reference to the spots state slice
     const boards = useSelector(state => Object.values(state.boards.userBoards))
-    console.log('BoardGallery boards: ', boards)
+    // console.log('BoardGallery boards: ', boards)
     if(Object.values(boards).length === 0) return null
 
     return (

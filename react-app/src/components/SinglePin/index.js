@@ -5,7 +5,14 @@ import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
 import * as pinsAction from "../../store/pin";
 import { whichBoard, isSaved } from "../AllPins/PinIndexItem";
+import defaultPinPic from "../LandingPage/Assets/default-pin-pic.png";
 import "./PinDetail.css";
+
+
+export const defaultImage = (e) => {
+  e.target.onerror = null;
+  e.target.src = defaultPinPic
+};
 
 const Pin = () => {
   // const location = useLocation();
@@ -18,13 +25,16 @@ const Pin = () => {
   const pin = useSelector((state) => state.pins.singlePin);
   const [follow, setFollow] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const thisBoardId = pin?.boards?.filter((b)=> b.user_id === user?.id)[0]?.id
-  const thisBoardName = pin?.boards?.filter((b)=>b.user_id === user?.id)[0]?.name
-  const [board, setBoard] = useState(whichBoard(pin, user,thisBoardId,thisBoardName ));
+  const thisBoardId = pin?.boards?.filter((b) => b.user_id === user?.id)[0]?.id;
+  const thisBoardName = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
+    ?.name;
+  const [board, setBoard] = useState(
+    whichBoard(pin, user, thisBoardId, thisBoardName)
+  );
   const [save, setSave] = useState(false);
 
-  console.log("inside single Pin thisBoardId", thisBoardId);
-  console.log("inside single Pin thisBoardName", thisBoardName);
+  // console.log("inside single Pin thisBoardId", thisBoardId);
+  // console.log("inside single Pin thisBoardName", thisBoardName);
 
   const userBoards = user?.boards || [];
 
@@ -52,12 +62,19 @@ const Pin = () => {
   }, [dispatch, pinId, save]);
   //when hitting save button, it will reload the whole page
 
+
+
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div className="single-pin_container">
       <div className="leftSide">
-        <img className="single_pin_image" src={pin.url} alt="pin.url" />
+        <img
+          className="single_pin_image"
+          src={pin.url}
+          alt="pin.url"
+          onError={defaultImage}
+        />
       </div>
       <div className="rightSide">
         <div className="profile_saved-container">
@@ -69,7 +86,7 @@ const Pin = () => {
             onChange={(e) => {
               changeBoard(Number(e.target.value));
             }}
-            value={thisBoardId||changingBoardId}
+            value={thisBoardId || changingBoardId}
             name="board"
             placeholder="Choose a board"
           >
@@ -115,7 +132,7 @@ const Pin = () => {
         </div>
         <div>
           <p id="name_tag">{pin.name}</p>
-          <p>{pin.description}</p>
+          <p className="pinDescription">{pin.description}</p>
         </div>
 
         <div className="single-pin_user-follow_container">
