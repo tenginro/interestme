@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import "./CreatePin.css";
+import { useModal } from "../../context/Modal";
 
 const CreatePin = () => {
   const categories = ["Art", "Food", "Tech"];
@@ -16,6 +17,7 @@ const CreatePin = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  const { closeModal } = useModal();
 
   const currentUser = useSelector((state) => state.session.user);
   //for errors
@@ -29,7 +31,6 @@ const CreatePin = () => {
     setErrors(err);
   }, [name, description, url, category]);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
@@ -41,7 +42,6 @@ const CreatePin = () => {
     formData.append("url", url);
     formData.append("category", category);
     formData.append("user_id", currentUser.id);
-
 
     // const newPin = {
     //   name,
@@ -57,6 +57,7 @@ const CreatePin = () => {
       );
       if (!createdRes.errors) {
         // history.push(`/pins`);
+        closeModal();
         history.push(`/pins/${createdRes.id}`);
         await reset();
       } else {

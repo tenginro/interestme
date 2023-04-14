@@ -23,20 +23,22 @@ function DeleteModal({ pin }) {
   };
 
   return (
-    <div className="deleteModal">
-      <h1>Are you sure?</h1>
-      <h4>Once you delete a Pin, you can't undo it!</h4>
-      <div>
-        <div className="submitDiv de">
-          <button onClick={ClickYes} className="createSubmit">
-            Delete
-          </button>
-        </div>
-        <div className="submitDiv de">
-          <button onClick={ClickNo} className="createSubmit">
-            Cancel
-          </button>
-        </div>
+    <div className="container">
+      <h1 className="title_text">Are you sure?</h1>
+      <h4 className="confirmation-text">
+        Once you delete a Pin, you can't undo it!
+      </h4>
+      <div className="button-container">
+        {/* <div className="submitDiv de"> */}
+        <button onClick={ClickYes} className="confirmation-button">
+          Yes Delete Pin!
+        </button>
+        {/* </div> */}
+      </div>
+      <div className="submitDiv de">
+        <button onClick={ClickNo} className="cancel-button">
+          No Keep Pin!
+        </button>
       </div>
     </div>
   );

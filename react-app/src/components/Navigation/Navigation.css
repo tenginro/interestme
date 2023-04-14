@@ -184,3 +184,11 @@
 .logoutButton:hover {
   -webkit-filter: brightness(70%);
 }
+
+.main_page_login_btn.notLogIn,
+.main_page_signup_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: fit-content;
+}

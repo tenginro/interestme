@@ -45,7 +45,9 @@ function BoardDetails() {
       <div className="info-container">
         <div className="board-detail-name-container">
           <h1>{board.name}</h1>
-          <DropdownMenuButton board={board} />
+          <div>
+            <DropdownMenuButton board={board} />
+          </div>
         </div>
         <div className="manage-board-buttons-container"></div>
         <div className="board-cover-container">
