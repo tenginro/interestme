@@ -26,7 +26,7 @@
     background-color: white;
 }
 
-.dropdown-menu{
+.dropdown-menu-2{
     /* position: absolute; */
     /* border: 3px solid red; */
     margin: 12px 0;
@@ -36,13 +36,13 @@
     align-items: center;
 }
 
-ul.dropdown-menu > li{
+ul.dropdown-menu-2 > li{
     margin-left: -35%;
     margin-top: 2px;
     padding: 0;
 }
 
-ul.dropdown-menu > li:hover {
+ul.dropdown-menu-2 > li:hover {
     color: gray;
     cursor: pointer;
 }

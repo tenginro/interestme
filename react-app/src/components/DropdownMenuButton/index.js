@@ -48,7 +48,7 @@ function DropdownMenuButton({ board }) {
             <p className="dropdown-header">Board Options</p>
           </>
         )}
-        <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
+        <ul className={showMenu ? "dropdown-menu-2" : "hidden"} ref={ulRef}>
           <OpenModalMenuItem
             itemText="Edit"
             onItemClick={closeMenu}
