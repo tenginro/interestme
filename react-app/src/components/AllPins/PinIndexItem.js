@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import { getBoardDetail, getUserBoards } from "../../store/board";
+import { defaultImage } from "../SinglePin";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
@@ -56,7 +57,7 @@ const PinIndexItem = ({
   const history = useHistory();
 
   const userBoards = user?.boards || [];
-  
+
   let changingBoardId = board;
   const changeBoard = (id) => {
     changingBoardId = id;
@@ -70,11 +71,16 @@ const PinIndexItem = ({
     <div key={pin.id} className="pinIndexItem">
       {/* <Link to={{
             pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
-  
+
         <img src={pin.url} alt={pin.name} className="pinImg" />
       </Link> */}
       <Link to={`/pins/${pin.id}`}>
-        <img src={pin.url} alt={pin.name} className="pinImg" />
+        <img
+          src={pin.url}
+          alt={pin.name}
+          className="pinImg"
+          onError={defaultImage}
+        />
       </Link>
       <div className="boardNSave">
         <select
@@ -114,7 +120,8 @@ const PinIndexItem = ({
                 })
                 .then(() => {
                   // if (page === "AllPins") history.push(`/pins`);
-                  if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId))
+                  if (page === "BoardDetail")
+                    dispatch(getBoardDetail(thisBoardId));
                   if (page === "ProfilePage") dispatch(getUserBoards());
                 });
             }}
