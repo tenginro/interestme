@@ -14,11 +14,11 @@ function BoardGalleryCard({ board }) {
   const history = useHistory();
 
   const pins = board.Pins?.length;
-console.log("im src:::", board.board_cover);
+
   // onClick function
-  const onClick = () => {
-    dispatch(getBoardDetail(board.id));
-  };
+  // const onClick = () => {
+  //   dispatch(getBoardDetail(board.id));
+  // };
 
   useEffect(() => {
     dispatch(getBoardDetail(board.id));

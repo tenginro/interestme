@@ -8,7 +8,6 @@ const DeleteBoard = ({ board }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-console.log("board id", board.id)
 
   const deleteBoardClick = async () => {
     await dispatch(boardsActions.deleteBoard(board.id)).then(() => {

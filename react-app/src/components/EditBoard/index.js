@@ -7,7 +7,6 @@ const EditBoard = ({ board }) => {
   const dispatch = useDispatch();
 
   const user_board = useSelector((state) => state.boards.userBoards[board.id]);
-  console.log("user board:::===> ", user_board);
 
   useEffect(() => {
     dispatch(boardsActions.getUserBoards());

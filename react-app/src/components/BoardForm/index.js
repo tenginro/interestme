@@ -14,8 +14,6 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const [description, setDescription] = useState(newBoard.description);
   const currentUser = useSelector((state) => state.session.user);
 
-  // const boardById = useSelector(state=> state.boards)
-  // console.log("board by id::::", boardById);
 
   if (!currentUser) return <Redirect to="/" />;
 
