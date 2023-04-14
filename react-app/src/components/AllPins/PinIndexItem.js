@@ -62,8 +62,8 @@ const PinIndexItem = ({
     changingBoardId = id;
     setBoard(id);
   };
-  console.log(`inside pinIndex item pinId ${pin.id} savedBoardId`, savedBoardId )
-  console.log(`inside pinIndex item pinId ${pin.id} changingBoardId`, changingBoardId )
+  // console.log(`inside pinIndex item pinId ${pin.id} savedBoardId`, savedBoardId )
+  // console.log(`inside pinIndex item pinId ${pin.id} changingBoardId`, changingBoardId )
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
@@ -105,11 +105,12 @@ const PinIndexItem = ({
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
-              console.log('unsaving from board detail before thunk')
+              // console.log('unsaving from board detail before thunk')
               await dispatch(pinsAction.unSavePinThunk(pin))
                 .then(() => {
                   if (save === false) setSave(true);
                   else setSave(false);
+                  changeBoard(0);
                 })
                 .then(() => {
                   // if (page === "AllPins") history.push(`/pins`);
