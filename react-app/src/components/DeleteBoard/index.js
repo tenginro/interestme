@@ -2,18 +2,18 @@ import { useModal } from "../../context/Modal";
 import * as boardsActions from "../../store/board";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import './DeleteBoard.css'
+import "./DeleteBoard.css";
 
 const DeleteBoard = ({ board }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-console.log("board id", board.id)
+  console.log("board id", board.id);
 
   const deleteBoardClick = async () => {
     await dispatch(boardsActions.deleteBoard(board.id)).then(() => {
-      dispatch(boardsActions.getUserBoards())
-      history.push("/boards/current");
+      dispatch(boardsActions.getUserBoards());
+      history.push("/user");
       closeModal();
     });
   };
