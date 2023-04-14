@@ -6,7 +6,6 @@ import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
 import "./ProfilePage.css";
 import CurrentPins from "../ManagePins";
-import PinGalleryCard from "../PinGalleryCard";
 import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
 import {
@@ -14,11 +13,7 @@ import {
   actionClearBoards,
   getUserBoards,
 } from "../../store/board";
-import {
-  actionClearPins,
-  actionClearSavedPins,
-  getSavedPins,
-} from "../../store/pin";
+import { actionClearSavedPins, getSavedPins } from "../../store/pin";
 import PinIndexItem from "../AllPins/PinIndexItem";
 
 function ProfilePage() {
@@ -31,6 +26,7 @@ function ProfilePage() {
 
   const savedPinsObj = useSelector((state) => state.pins.saved_pins);
   console.log(savedPinsObj);
+  const savedPinsArr = user.saved_pins;
 
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
@@ -151,15 +147,14 @@ function ProfilePage() {
             </ul>
             <ul className="saved_pins-gallery-list">
               <div>All pins saved</div>
-              {savedPinsObj &&
-                Object.values(savedPinsObj).map((pin) => (
-                  <PinIndexItem
-                    key={pin.id}
-                    pin={pin}
-                    user={user}
-                    page="ProfilePage"
-                  />
-                ))}
+              {savedPinsArr?.map((pin) => (
+                <PinIndexItem
+                  key={pin.id}
+                  pin={pin}
+                  user={user}
+                  page="ProfilePage"
+                />
+              ))}
             </ul>
           </div>
         )}
