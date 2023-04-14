@@ -40,10 +40,10 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
-  const managePinsClick = (e) => {
-    e.preventDefault();
-    history.push("/pins/current");
-    closeMenu();
+  const clickToUserProfile = (e) => {
+   
+    history.push("/user");
+    window.location.reload(false);
   };
 
   const createBoardClick = (e) => {
@@ -64,11 +64,14 @@ function ProfileButton({ user }) {
     <>
       {user ? (
         <div className="profileDropDownButtons">
-          <NavLink exact to="/user">
-            <button className="main_page_login_btn login">
-              {user?.username[0]}
-            </button>
-          </NavLink>
+          {/* <NavLink exact to="/user"> */}
+          <button
+            className="main_page_login_btn login"
+            onClick={()=>{clickToUserProfile()}}
+          >
+            {user?.username[0]}
+          </button>
+          {/* </NavLink> */}
           <button className="profileDownButton" onClick={openMenu}>
             <i className="fas fa-solid fa-angle-down"></i>
           </button>
@@ -117,9 +120,9 @@ function ProfileButton({ user }) {
                 </div>
               </li> */}
               <li>
-                <button 
-                className="logoutButton"
-                onClick={handleLogout}>Log Out</button>
+                <button className="logoutButton" onClick={handleLogout}>
+                  Log Out
+                </button>
               </li>
             </>
           )
