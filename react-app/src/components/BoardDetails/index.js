@@ -55,20 +55,20 @@ function BoardDetails() {
             <img src={board.board_cover} alt="board-cover-pic" />
           ) : (
             <img
-              src={"https://i.stack.imgur.com/34AD2.jpg"}
+              src={
+                "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+              }
               alt="board-cover-pic"
             />
           )}
         </div>
-        {board.description && ( 
-          <div>{board.description}</div>
-         )}
+        {board.description && <div className="boardDescription">{board.description}</div>}
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
         </p>
       </div>
 
-      <h2>
+      <h2 className="pinsCountNumber">
         {board.Pins?.length} {board.Pins?.length < 2 ? " pin" : " pins"}
       </h2>
       <div className="pin-gallery-grid">

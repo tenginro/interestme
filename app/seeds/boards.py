@@ -6,31 +6,31 @@ from sqlalchemy.sql import text
 def seed_boards():
     board1 = Board(
         user_id=1,
-        name="Board1",
+        name="Dinner",
         description="A small description about this board",
-        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
+        board_cover="https://i.pinimg.com/564x/c0/d9/03/c0d903836aa56019868e5f494cbccfea.jpg",
         secret=False,
     )
 
     board2 = Board(
         user_id=2,
-        name="Board2",
+        name="Art Inspiration",
         description="A small description about this board",
-        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
+        board_cover="https://i.pinimg.com/564x/fc/a7/d6/fca7d61e33ddd7b42adea06281516910.jpg",
         secret=False,
     )
     board3 = Board(
         user_id=3,
-        name="Board3",
+        name="Technology",
         description="A small description about this board",
-        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
+        board_cover="https://as2.ftcdn.net/v2/jpg/00/51/49/07/1000_F_51490712_YGjCvUhtV970HAB6KeB8jgyZbkPLKGvj.jpg",
         secret=True,
     )
     board4 = Board(
         user_id=4,
-        name="Board4",
+        name="Interior Design",
         description="A small description about this board",
-        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
+        board_cover="https://as2.ftcdn.net/v2/jpg/02/77/47/57/1000_F_277475734_5s6TFy58PAKIkvGjp6YXkU1tg7MC8cr3.jpg",
         secret=True,
     )
 
