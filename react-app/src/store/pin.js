@@ -150,10 +150,11 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     });
 
     if (response.ok) {
-      await dispatch(actionUpdatePin(pin));
-      return await response.json();
+      const updatedPin = await response.json();
+      await dispatch(actionUpdatePin(updatedPin));
+      return updatedPin;
     }
-    return await response.json();
+    // return await response.json();
   } else {
     const response = await fetch(`/api/pins/${pin.id}/save`, {
       method: "PATCH",
@@ -162,9 +163,9 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     });
 
     if (response.ok) {
-      const newPinres = await response.json();
-      await dispatch(actionUpdatePin(newPinres));
-      return newPinres;
+      const newPinRes = await response.json();
+      await dispatch(actionUpdatePin(newPinRes));
+      return newPinRes;
     }
     return await response.json();
   }
@@ -178,8 +179,9 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
     },
   });
   if (response.ok) {
-    const newPinres = await response.json();
-    await dispatch(actionUpdatePin(newPinres));
+    const newPinRes = await response.json();
+    await dispatch(actionUpdatePin(newPinRes));
+    return newPinRes;
   }
 };
 

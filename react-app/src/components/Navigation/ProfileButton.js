@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
 
   const clickToUserProfile = (e) => {
     history.push("/user");
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   const createBoardClick = (e) => {
