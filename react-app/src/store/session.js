@@ -1,8 +1,6 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-// const GET_USER_FOLLOWING = "session/GET_USER_FOLLOWING";
-// const GET_USER_FOLLOWERS = "session/GET_USER_FOLLOWERS";
 const ADD_USER_FOLLOW = "session/ADD_USER_FOLLOW";
 const REMOVE_USER_FOLLOW = "session/REMOVE_USER_FOLLOW";
 
@@ -15,16 +13,6 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-// const actionGetFollowing = (following) => ({
-//   type: GET_USER_FOLLOWING,
-//   payload: following,
-// });
-
-// const actionGetFollowers = (follower) => ({
-//   type: GET_USER_FOLLOWERS,
-//   payload: follower,
-// });
-
 const actionAddFollow = (user) => ({
   type: ADD_USER_FOLLOW,
   user,
@@ -35,26 +23,6 @@ const actionRemoveFollow = () => ({
 });
 
 const initialState = { user: null };
-
-// export const getFollowingThunk = (user) => async (dispatch) => {
-//   const response = await fetch(`/api/users/${user.id}`);
-//   if (response.ok) {
-//     const userRes = await response.json();
-//     const following = userRes.following;
-//     await dispatch(actionGetFollowing(following));
-//     return following;
-//   }
-// };
-
-// export const getFollowerThunk = (user) => async (dispatch) => {
-//   const response = await fetch(`/api/users/${user.id}`);
-//   if (response.ok) {
-//     const userRes = await response.json();
-//     const followers = userRes.followers;
-//     await dispatch(actionGetFollowers(followers));
-//     return followers;
-//   }
-// };
 
 export const addFollowThunk = (followingId) => async (dispatch) => {
   const response = await fetch(`/api/users/${followingId}/follow`, {
@@ -70,14 +38,12 @@ export const addFollowThunk = (followingId) => async (dispatch) => {
   }
 };
 
-export const removeFollowThunk = (user, followingId) => async (dispatch) => {
+export const removeFollowThunk = (followingId) => async (dispatch) => {
   const response = await fetch(`/api/users/${followingId}/follow`, {
     method: "DELETE",
   });
   if (response.ok) {
     const userRes = await response.json();
-    // const following = userRes.following;
-    // await dispatch(actionGetFollowing(following));
     await dispatch(setUser(userRes));
     return userRes;
   }

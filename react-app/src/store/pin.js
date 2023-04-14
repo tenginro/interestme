@@ -1,6 +1,7 @@
 const LOAD_PINS = "pins/load_all";
 const LOAD_PIN_DETAIL = "pins/load_one";
 const LOAD_USER_PINS = "pins/load_user_pins";
+const LOAD_SAVED_PINS = "pins/load_saved_pins";
 
 const CREATE_PIN = "pins/create";
 const UPDATE_PIN = "pins/update";
@@ -8,9 +9,6 @@ const REMOVE_PIN = "pins/delete";
 
 const CLEAR_PIN_DETAIL = "pins/clear_pin_state";
 const CLEAR_PINS = "pins/clear_pins_state";
-
-// const SAVE_PIN_USER = 'pins/save/user';
-// const SAVE_PIN_BOARD = 'pins/save/board';
 
 export const actionLoadAllPins = (pins) => ({
   type: LOAD_PINS,
@@ -38,19 +36,17 @@ export const actionRemovePin = (id) => ({
   id,
 });
 
+export const actionLoadSavedPins = (pins) => ({
+  type: LOAD_SAVED_PINS,
+  pins,
+});
+
 export const actionClearPins = () => ({
   type: CLEAR_PINS,
 });
 export const actionClearPin = () => ({
   type: CLEAR_PIN_DETAIL,
 });
-
-// export const actionSavePinUser = () => ({
-//   type: SAVE_PIN_USER
-// })
-// export const actionSavePinBoard = () => ({
-//   type:SAVE_PIN_BOARD
-// })
 
 export const getAllPins = () => async (dispatch) => {
   const response = await fetch("/api/pins");
@@ -79,6 +75,18 @@ export const getUserPins = () => async (dispatch) => {
     const pins = await response.json();
     await dispatch(actionLoadUserPins(pins));
     return pins;
+  }
+};
+
+export const getSavedPins = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}`);
+
+  if (response.ok) {
+    const user = await response.json();
+    const saved_pins = user.saved_pins;
+    console.log(saved_pins);
+    await dispatch(actionLoadSavedPins(saved_pins));
+    return saved_pins;
   }
 };
 
@@ -151,7 +159,6 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     if (response.ok) {
       const newPinres = await response.json();
       await dispatch(actionUpdatePin(newPinres));
-      // return await response.json();
       return newPinres;
     }
     return await response.json();
@@ -174,6 +181,7 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
 const initialState = {
   allPins: {},
   singlePin: {},
+  savedPins: {},
 };
 
 const pinReducer = (state = initialState, action) => {
@@ -192,6 +200,12 @@ const pinReducer = (state = initialState, action) => {
         allUserPins[pin.id] = pin;
       });
       return { ...state, allPins: { ...allUserPins } };
+    case LOAD_SAVED_PINS:
+      const allSavedPins = {};
+      action.pins.forEach((pin) => {
+        allSavedPins[pin.id] = pin;
+      });
+      return { ...state, savedPins: { ...allSavedPins } };
     case CREATE_PIN:
       return {
         ...state,

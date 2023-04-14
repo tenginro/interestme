@@ -7,7 +7,6 @@ import * as pinsAction from "../../store/pin";
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
   if (thisBoardId && thisBoardName) board_info = [thisBoardId, thisBoardName];
-  
   else if (user?.boards) {
     let the_board;
     user?.boards.forEach((b) => {
@@ -45,8 +44,10 @@ const PinIndexItem = ({
   page,
 }) => {
   const dispatch = useDispatch();
-  const savedBoardId = pin?.boards?.filter((b)=> b.user_id === user?.id)[0]?.id
-  const savedBoardName = pin?.boards?.filter((b)=>b.user_id === user?.id)[0]?.name
+  const savedBoardId = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
+    ?.id;
+  const savedBoardName = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
+    ?.name;
   const [save, setSave] = useState(isSaved(pin, user, inThisBoard));
   const [board, setBoard] = useState(
     whichBoard(pin, user, thisBoardId, thisBoardName)
@@ -77,12 +78,12 @@ const PinIndexItem = ({
         <select
           className="boardOption"
           onSubmit={(e) => {
-              setBoard(Number(e.target.value));
-            }}
-            onChange={(e) => {
-              changeBoard(Number(e.target.value));
-            }}
-          value={savedBoardId||changingBoardId}
+            setBoard(Number(e.target.value));
+          }}
+          onChange={(e) => {
+            changeBoard(Number(e.target.value));
+          }}
+          value={savedBoardId || changingBoardId}
           name="board"
           placeholder="Choose a board"
         >

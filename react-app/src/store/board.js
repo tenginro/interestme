@@ -6,11 +6,7 @@ const CREATE_BOARD = "boards/create_board";
 const UPDATE_BOARD = "boards/update_board";
 const DELETE_BOARD = "boards/delete_board";
 const CLEAR_BOARD = "boards/clear_board";
-// Action Creators
-// export const actionLoadAllBoards = (boards) => ({
-//     type: LOAD_BOARDS,
-//     boards
-// })
+const CLEAR_BOARDS = "boards/clear_boards";
 
 export const actionLoadBoardDetail = (board) => ({
   type: LOAD_BOARD_DETAIL,
@@ -39,6 +35,10 @@ export const actionDeleteBoard = (board) => ({
 
 export const actionClearBoard = () => ({
   type: CLEAR_BOARD,
+});
+
+export const actionClearBoards = () => ({
+  type: CLEAR_BOARDS,
 });
 
 export const getBoardDetail = (id) => async (dispatch) => {
@@ -123,6 +123,8 @@ const boardReducer = (state = initialState, action) => {
       return newState;
     case DELETE_BOARD:
       return newState;
+    case CLEAR_BOARDS:
+      return { ...state, userBoards: {} };
     case CLEAR_BOARD:
       return { ...state, singleBoard: {} };
     default:

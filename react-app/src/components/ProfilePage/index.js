@@ -1,26 +1,31 @@
 // Necessary imports
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 import BoardGalleryCard from "../BoardGalleryCard";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
 import "./ProfilePage.css";
 import CurrentPins from "../ManagePins";
 import PinGalleryCard from "../PinGalleryCard";
-import OpenModalicon from "../OpenModalicon";
 import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
+import {
+  actionClearBoard,
+  actionClearBoards,
+  getUserBoards,
+} from "../../store/board";
+import { actionClearPins, getSavedPins } from "../../store/pin";
 
 function ProfilePage() {
   // Create a reference to the session user
   const user = useSelector((state) => state.session.user);
-
   const ulRef = useRef();
-  const boards = user?.boards;
 
-  const pins_saved = user?.saved_pins;
+  const boardsObj = useSelector((state) => state.boards.userBoards);
+  const boards = Object.values(boardsObj);
+
+  // const savedPinsObj = useSelector((state) => state.pins.saved_pins);
+  const savedPinsArr = user?.saved_pins;
 
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
@@ -31,6 +36,17 @@ function ProfilePage() {
     setShowMenu(true);
   };
   const closeMenu = () => setShowMenu(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserBoards(user.id));
+    dispatch(getSavedPins(user.id));
+    return () => {
+      dispatch(actionClearBoards());
+      dispatch(actionClearBoard());
+    };
+  }, [dispatch, user.id]);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -129,7 +145,7 @@ function ProfilePage() {
             </ul>
             <ul className="saved_pins-gallery-list">
               <div>All pins saved</div>
-              {pins_saved.map((pin) => (
+              {savedPinsArr?.map((pin) => (
                 <PinGalleryCard key={pin.id} pin={pin} />
               ))}
             </ul>
