@@ -10,6 +10,7 @@ import PinGalleryCard from "../PinGalleryCard";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
 import { login } from "../../store/session";
+import PinIndexItem from "../AllPins/PinIndexItem";
 
 export default function OtherUserProfile() {
   const { userId } = useParams();
@@ -35,7 +36,7 @@ export default function OtherUserProfile() {
   }, [dispatch, userId]);
 
   if (!user.username) return <div>Loading</div>;
-  
+
   return (
     <div className="profile-page-container">
       <div className="profile-picture-container">
@@ -128,7 +129,7 @@ export default function OtherUserProfile() {
             <ul className="saved_pins-gallery-list">
               <div>All pins saved</div>
               {pins_saved.map((pin) => (
-                <PinGalleryCard key={pin.id} pin={pin} />
+                <PinIndexItem key={pin.id} pin={pin} user={LogInUser} />
               ))}
             </ul>
           </div>
