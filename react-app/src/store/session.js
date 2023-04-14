@@ -39,7 +39,7 @@ export const addFollowThunk = (followingId) => async (dispatch) => {
 };
 
 export const removeFollowThunk = (followingId) => async (dispatch) => {
-  console.log("followingId", followingId);
+  // console.log("followingId", followingId);
   const response = await fetch(`/api/users/${followingId}/follow`, {
     method: "DELETE",
   });

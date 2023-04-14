@@ -23,8 +23,8 @@ const Pin = () => {
   const [board, setBoard] = useState(whichBoard(pin, user,thisBoardId,thisBoardName ));
   const [save, setSave] = useState(false);
 
-  console.log("inside single Pin thisBoardId", thisBoardId);
-  console.log("inside single Pin thisBoardName", thisBoardName);
+  // console.log("inside single Pin thisBoardId", thisBoardId);
+  // console.log("inside single Pin thisBoardName", thisBoardName);
 
   const userBoards = user?.boards || [];
 

@@ -3,7 +3,7 @@ import "./AllPins.css";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
-import { getBoardDetail } from "../../store/board";
+import { getBoardDetail, getUserBoards } from "../../store/board";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
@@ -56,13 +56,14 @@ const PinIndexItem = ({
   const history = useHistory();
 
   const userBoards = user?.boards || [];
-
+  
   let changingBoardId = board;
   const changeBoard = (id) => {
     changingBoardId = id;
     setBoard(id);
   };
-
+  console.log(`inside pinIndex item pinId ${pin.id} savedBoardId`, savedBoardId )
+  console.log(`inside pinIndex item pinId ${pin.id} changingBoardId`, changingBoardId )
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
@@ -104,6 +105,7 @@ const PinIndexItem = ({
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
+              console.log('unsaving from board detail before thunk')
               await dispatch(pinsAction.unSavePinThunk(pin))
                 .then(() => {
                   if (save === false) setSave(true);
@@ -112,7 +114,7 @@ const PinIndexItem = ({
                 .then(() => {
                   // if (page === "AllPins") history.push(`/pins`);
                   if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId))
-                  // if (page === "ProfilePage") window.location.reload();
+                  if (page === "ProfilePage") dispatch(getUserBoards());
                 });
             }}
           >

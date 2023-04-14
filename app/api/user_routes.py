@@ -34,7 +34,7 @@ def user(id):
     return {**this_user.to_dict(), 
             "pins":[pin.to_dict() for pin in this_user.pins], 
             "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in this_user.boards],
-            "saved_pins":[pin.to_dict() for pin in this_user.saved_pins],  
+            "saved_pins":[{**pin.to_dict(), "boards":[board.to_dict() for board in pin.boards]} for pin in this_user.saved_pins],  
             "following": following, 
             "followers": followers}
 

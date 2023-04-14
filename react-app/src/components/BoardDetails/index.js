@@ -69,7 +69,7 @@ function BoardDetails() {
       </div>
 
       <h2>
-        {board.Pins?.length} {board.Pins <= 1 ? " pin" : " pins"}
+        {board.Pins?.length} {board.Pins?.length < 2 ? " pin" : " pins"}
       </h2>
       <div className="pin-gallery-grid">
         {board.Pins?.map((pin) => (
