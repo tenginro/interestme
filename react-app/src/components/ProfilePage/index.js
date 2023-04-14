@@ -15,6 +15,7 @@ import {
   getUserBoards,
 } from "../../store/board";
 import { actionClearPins, getSavedPins } from "../../store/pin";
+import PinIndexItem from "../AllPins/PinIndexItem";
 
 function ProfilePage() {
   // Create a reference to the session user
@@ -146,7 +147,13 @@ function ProfilePage() {
             <ul className="saved_pins-gallery-list">
               <div>All pins saved</div>
               {savedPinsArr?.map((pin) => (
-                <PinGalleryCard key={pin.id} pin={pin} />
+                // <PinGalleryCard key={pin.id} pin={pin} />
+                <PinIndexItem
+                  key={pin.id}
+                  pin={pin}
+                  user={user}
+                  page="ProfilePage"
+                />
               ))}
             </ul>
           </div>
