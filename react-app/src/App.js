@@ -18,6 +18,7 @@ import BoardDetails from "./components/BoardDetails";
 import MainPage from "./components/LandingPage/MainPage";
 import ProfilePage from "./components/ProfilePage";
 import OtherUserProfile from "./components/OtherUserProfile";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
