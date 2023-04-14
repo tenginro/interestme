@@ -28,6 +28,7 @@ function BoardDetails() {
   // let board
   useEffect(() => {
     dispatch(boardsActions.getBoardDetail(boardId));
+    dispatch(boardsActions.getUserBoards());
     return () => dispatch(boardsActions.actionClearBoard());
   }, [dispatch, boardId]);
 
@@ -62,7 +63,9 @@ function BoardDetails() {
             />
           )}
         </div>
-        {board.description && <div className="boardDescription">{board.description}</div>}
+        {board.description && (
+          <div className="boardDescription">{board.description}</div>
+        )}
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
         </p>

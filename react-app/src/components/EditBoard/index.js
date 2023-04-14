@@ -6,8 +6,9 @@ import * as boardsActions from "../../store/board";
 const EditBoard = ({ board }) => {
   const dispatch = useDispatch();
 
-  const user_board = useSelector((state) => state.boards.userBoards[board.id]);
+  const user_board = useSelector((state) => state.boards.singleBoard);
 
+  console.log("user_board", user_board);
   useEffect(() => {
     dispatch(boardsActions.getUserBoards());
   }, [dispatch]);

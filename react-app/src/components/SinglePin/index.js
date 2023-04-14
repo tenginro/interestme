@@ -8,10 +8,9 @@ import { whichBoard, isSaved } from "../AllPins/PinIndexItem";
 import defaultPinPic from "../LandingPage/Assets/default-pin-pic.png";
 import "./PinDetail.css";
 
-
 export const defaultImage = (e) => {
   e.target.onerror = null;
-  e.target.src = defaultPinPic
+  e.target.src = defaultPinPic;
 };
 
 const Pin = () => {
@@ -36,7 +35,10 @@ const Pin = () => {
   // console.log("inside single Pin thisBoardId", thisBoardId);
   // console.log("inside single Pin thisBoardName", thisBoardName);
 
-  const userBoards = user?.boards || [];
+  // const userBoards = user?.boards || [];
+  const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
+  // const userBoards = user?.boards || [];
+  const userBoards = Object.values(allUserBoardsObj);
 
   let changingBoardId = board;
   const changeBoard = (id) => {
@@ -61,8 +63,6 @@ const Pin = () => {
     return () => dispatch(actionClearPin());
   }, [dispatch, pinId, save]);
   //when hitting save button, it will reload the whole page
-
-
 
   if (!user.id || !pin.id) return <div>Loading</div>;
 

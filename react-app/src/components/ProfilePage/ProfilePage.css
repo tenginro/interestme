@@ -76,6 +76,8 @@ ul.followers-container > li:hover {
 
 .activated {
   font-weight: 900;
+  /* border-bottom: 2px solid black; */
+  text-decoration: underline;
 }
 
 .icons {
@@ -139,4 +141,8 @@ ul.followers-container > li:hover {
   display: flex;
   flex-direction: row;
   row-gap: 50px;
+}
+
+.created-saved-container button {
+  font-size: 20px;
 }

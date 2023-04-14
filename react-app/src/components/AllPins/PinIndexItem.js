@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AllPins.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import { getBoardDetail, getUserBoards } from "../../store/board";
@@ -56,7 +56,9 @@ const PinIndexItem = ({
   );
   const history = useHistory();
 
-  const userBoards = user?.boards || [];
+  const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
+  // const userBoards = user?.boards || [];
+  const userBoards = Object.values(allUserBoardsObj);
 
   let changingBoardId = board;
   const changeBoard = (id) => {
