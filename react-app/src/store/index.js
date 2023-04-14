@@ -5,12 +5,14 @@ import session from "./session";
 import pinReducer from "./pin";
 import boardReducer from "./board";
 import profileReducer from "./profile";
+import followReducer from "./follow";
 
 const rootReducer = combineReducers({
   session,
   pins: pinReducer,
   boards: boardReducer,
   profile: profileReducer,
+  follows: followReducer,
 });
 
 let enhancer;

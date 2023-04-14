@@ -110,8 +110,11 @@ ul.followers-container > li:hover {
   border-radius: 12px;
   font-size: 18px;
   right: 170px;
+  z-index: 7;
 }
-
+.toAddCursor {
+  cursor: pointer;
+}
 .boardsAndPins {
   display: flex;
   flex-direction: column;

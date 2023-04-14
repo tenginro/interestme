@@ -97,7 +97,7 @@ const PinIndexItem = ({
               </option>
             ))}
         </select>
-        {save ? (
+        {save || page === "ProfilePage" ? (
           <button
             className="saveButton"
             onClick={async (e) => {

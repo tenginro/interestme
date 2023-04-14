@@ -51,7 +51,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="subtitle-container">
         <div className="followers-container">
-          <div>
+          <div className="toAddCursor">
             <OpenModalMenuItem
               itemText={`${user.following.length} following`}
               modalComponent={
@@ -59,7 +59,7 @@ export default function OtherUserProfile() {
               }
             />
           </div>
-          <div>
+          <div className="toAddCursor">
             <OpenModalMenuItem
               itemText={`${user.followers.length} followers`}
               modalComponent={
