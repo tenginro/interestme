@@ -49,37 +49,44 @@ export default function OtherUserProfile() {
       <div className="username-container">
         <h2>{user.username}</h2>
       </div>
-      <ul className="followers-container">
-        <OpenModalMenuItem
-          itemText={`${user.following.length} following`}
-          modalComponent={
-            <FollowGallery profile={user} follows={user.following} />
-          }
-        />
-        <OpenModalMenuItem
-          itemText={`${user.followers.length} followers`}
-          modalComponent={
-            <FollowGallery
-              profile={user}
-              follows={user.followers}
-              flag={true}
+      <div className="subtitle-container">
+        <div className="followers-container">
+          <div>
+            <OpenModalMenuItem
+              itemText={`${user.following.length} following`}
+              modalComponent={
+                <FollowGallery profile={user} follows={user.following} />
+              }
             />
-          }
-        />
-      </ul>
-      <div className="created-saved-container">
-        <button
-          className={!saved ? "activated" : ""}
-          onClick={() => setSaved(false)}
-        >
-          Created
-        </button>
-        <button
-          className={saved ? "activated" : ""}
-          onClick={() => setSaved(true)}
-        >
-          Saved
-        </button>
+          </div>
+          <div>
+            <OpenModalMenuItem
+              itemText={`${user.followers.length} followers`}
+              modalComponent={
+                <FollowGallery
+                  profile={user}
+                  follows={user.followers}
+                  flag={true}
+                />
+              }
+            />
+          </div>
+        </div>
+
+        <div className="created-saved-container">
+          <button
+            className={!saved ? "activated" : ""}
+            onClick={() => setSaved(false)}
+          >
+            Created
+          </button>
+          <button
+            className={saved ? "activated" : ""}
+            onClick={() => setSaved(true)}
+          >
+            Saved
+          </button>
+        </div>
       </div>
       {user.id === LogInUser.id && (
         <div className="plus-sign-container">
@@ -90,29 +97,24 @@ export default function OtherUserProfile() {
               className="fa-solid fa-sliders"
             />
           </div>
-          <div className="icons" onClick={openMenu}>
-            <button className={showMenu ? "active pointer" : "pointer"}>
-              <i
-                className="fa-solid fa-plus"
-                onClick={() => setShowMenu(true)}
-              ></i>
-            </button>
-            {showMenu && (
-              <>
-                <p className="dropdown-header">Create</p>
-              </>
-            )}
+          <div className="plusIcon">
+            <i className="fa-solid fa-plus" onClick={openMenu}></i>
             <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
-              <OpenModalMenuItem
-                itemText="Pin"
-                onItemClick={closeMenu}
-                modalComponent={<CreatePin />}
-              />
-              <OpenModalMenuItem
-                itemText="Board"
-                onItemClick={closeMenu}
-                modalComponent={<CreateBoard />}
-              />
+              <p className="dropdown-header">Create</p>
+              <div>
+                <OpenModalMenuItem
+                  itemText="Pin"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreatePin />}
+                />
+              </div>
+              <div>
+                <OpenModalMenuItem
+                  itemText="Board"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreateBoard />}
+                />
+              </div>
             </ul>
           </div>
         </div>
@@ -120,18 +122,20 @@ export default function OtherUserProfile() {
       <div className="profile-boards-container">
         {!saved && <CurrentPins />}
         {saved && (
-          <div>
-            <ul className="board-gallery-list">
+          <div className="boardsAndPins">
+            <div className="board-gallery-list">
               {boards.map((board) => (
                 <BoardGalleryCard key={board.id} board={board} />
               ))}
-            </ul>
-            <ul className="saved_pins-gallery-list">
-              <div>All pins saved</div>
-              {pins_saved.map((pin) => (
-                <PinIndexItem key={pin.id} pin={pin} user={LogInUser} />
-              ))}
-            </ul>
+            </div>
+            <div className="saved_pins-gallery-list">
+              <h4>All pins saved</h4>
+              <div className="pinsDisplay">
+                {pins_saved.map((pin) => (
+                  <PinIndexItem key={pin.id} pin={pin} user={LogInUser} />
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
