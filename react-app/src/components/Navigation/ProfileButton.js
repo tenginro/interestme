@@ -38,10 +38,10 @@ function ProfileButton({ user }) {
     dispatch(logout());
     history.push("/");
     closeMenu();
-  };
+  }; 
 
   const clickToUserProfile = (e) => {
-   
+
     history.push("/user");
     window.location.reload(false);
   };
