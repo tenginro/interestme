@@ -14,7 +14,11 @@ import {
   actionClearBoards,
   getUserBoards,
 } from "../../store/board";
-import { actionClearPins, getSavedPins } from "../../store/pin";
+import {
+  actionClearPins,
+  actionClearSavedPins,
+  getSavedPins,
+} from "../../store/pin";
 import PinIndexItem from "../AllPins/PinIndexItem";
 
 function ProfilePage() {
@@ -25,8 +29,8 @@ function ProfilePage() {
   const boardsObj = useSelector((state) => state.boards.userBoards);
   const boards = Object.values(boardsObj);
 
-  // const savedPinsObj = useSelector((state) => state.pins.saved_pins);
-  const savedPinsArr = user?.saved_pins;
+  const savedPinsObj = useSelector((state) => state.pins.saved_pins);
+  console.log(savedPinsObj);
 
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
@@ -45,7 +49,8 @@ function ProfilePage() {
     dispatch(getSavedPins(user.id));
     return () => {
       dispatch(actionClearBoards());
-      // dispatch(actionClearBoard());
+      dispatch(actionClearBoard());
+      dispatch(actionClearSavedPins());
     };
   }, [dispatch, user.id]);
 
@@ -61,7 +66,7 @@ function ProfilePage() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  if (!user) return null;
+  if (!user) return <div>Loading</div>;
 
   return (
     <div className="profile-page-container">
@@ -146,15 +151,15 @@ function ProfilePage() {
             </ul>
             <ul className="saved_pins-gallery-list">
               <div>All pins saved</div>
-              {savedPinsArr?.map((pin) => (
-                // <PinGalleryCard key={pin.id} pin={pin} />
-                <PinIndexItem
-                  key={pin.id}
-                  pin={pin}
-                  user={user}
-                  page="ProfilePage"
-                />
-              ))}
+              {savedPinsObj &&
+                Object.values(savedPinsObj).map((pin) => (
+                  <PinIndexItem
+                    key={pin.id}
+                    pin={pin}
+                    user={user}
+                    page="ProfilePage"
+                  />
+                ))}
             </ul>
           </div>
         )}

@@ -9,11 +9,13 @@ const REMOVE_PIN = "pins/delete";
 
 const CLEAR_PIN_DETAIL = "pins/clear_pin_state";
 const CLEAR_PINS = "pins/clear_pins_state";
+const CLEAR_SAVED_PINS = "pins/clear_saved_pins";
 
 export const actionLoadAllPins = (pins) => ({
   type: LOAD_PINS,
   pins,
 });
+
 export const actionLoadPinDetail = (pin) => ({
   type: LOAD_PIN_DETAIL,
   pin,
@@ -46,6 +48,9 @@ export const actionClearPins = () => ({
 });
 export const actionClearPin = () => ({
   type: CLEAR_PIN_DETAIL,
+});
+export const actionClearSavedPins = () => ({
+  type: CLEAR_SAVED_PINS,
 });
 
 export const getAllPins = () => async (dispatch) => {
@@ -226,6 +231,8 @@ const pinReducer = (state = initialState, action) => {
       return { ...state, allPins: {} };
     case CLEAR_PIN_DETAIL:
       return { ...state, singlePin: {} };
+    case CLEAR_SAVED_PINS:
+      return { ...state, savedPins: {} };
     default:
       return state;
   }

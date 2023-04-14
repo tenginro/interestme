@@ -111,6 +111,7 @@ const PinIndexItem = ({
                 .then(() => {
                   if (page === "AllPins") history.push(`/pins`);
                   if (page === "BoardDetail") window.location.reload();
+                  if (page === "ProfilePage") window.location.reload();
                 });
             }}
           >
