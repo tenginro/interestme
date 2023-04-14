@@ -1,57 +1,166 @@
 // Necessary imports
-import React, { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import OpenModalMenuItem from '../OpenModalMenuItem'
-import FollowGallery from '../FollowGallery'
-import './ProfilePage.css'
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import BoardGalleryCard from "../BoardGalleryCard";
+import OpenModalMenuItem from "../OpenModalMenuItem";
+import FollowGallery from "../FollowGallery";
+import "./ProfilePage.css";
+import CurrentPins from "../ManagePins";
+import CreateBoard from "../CreateBoard";
+import CreatePin from "../CreatePin";
+import {
+  actionClearBoard,
+  actionClearBoards,
+  getUserBoards,
+} from "../../store/board";
+import { actionClearSavedPins, getSavedPins } from "../../store/pin";
+import PinIndexItem from "../AllPins/PinIndexItem";
 
-function ProfilePage(){
-    // Create a reference to the session user 
-    const user = useSelector(state => state.session.user)
+function ProfilePage() {
+  // Create a reference to the session user
+  const user = useSelector((state) => state.session.user);
+  const ulRef = useRef();
 
-    console.log('currentUser: ', user)
+  const boardsObj = useSelector((state) => state.boards.userBoards);
+  const boards = Object.values(boardsObj);
 
-    
-    const [ saved, setSaved ] = useState(true)
-    
-    // let boards = created ? user.pins : user.saved_pins
-    
-    if(!user) return null
+  const savedPinsObj = useSelector((state) => state.pins.saved_pins);
+  console.log(savedPinsObj);
+  const savedPinsArr = user.saved_pins;
 
-    return (
-        <div className='profile-page-container'>
-            <div className='profile-header-container'>
-                <h1>Profile Page</h1>
-            </div>
-            <div className='profile-picture-container'>
-                <img style={{height: '150px', width: '150px', borderRadius: '45px' }} src='https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg' alt='' />
-            </div>
-            <div className='username-container'>
-                <h2>{user.username}</h2>
-            </div>
-            <ul className='followers-container'>
-                <OpenModalMenuItem itemText={`${user.following.length} following`} modalComponent={<FollowGallery follows={user.following} />} />
-                <OpenModalMenuItem itemText={`${user.followers.length} followers`} modalComponent={<FollowGallery follows={user.followers} flag={true} />} />
-            </ul>
-            <div className='created-saved-container'>
-                <button className={!saved ? 'activated' : ''} onClick={() => setSaved(false)}>Created</button>
-                <button className={saved ? 'activated' : ''} onClick={() => setSaved(true)}>Saved</button>
-            </div>
-            <div className='plus-sign-container'>
-                <p>Slider Icon Goes Here</p>
-                <p>Plus Sign Icon Goes Here</p>
-            </div>
-            <div className='profile-boards-container'>
-                {saved && (
-                    <h2>Boards You Created And The Pins You Saved</h2>
-                )}
-                {!saved && (
-                    <h2>Pins You Created</h2>
-                )}
-            </div>
+  const [saved, setSaved] = useState(true);
+  const [showMenu, setShowMenu] = useState("");
+
+  // let boards = created ? user.pins : user.saved_pins
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+  const closeMenu = () => setShowMenu(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserBoards(user.id));
+    dispatch(getSavedPins(user.id));
+    return () => {
+      dispatch(actionClearBoards());
+      dispatch(actionClearBoard());
+      dispatch(actionClearSavedPins());
+    };
+  }, [dispatch, user.id]);
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current?.contains(e.target)) setShowMenu(false);
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  if (!user) return <div>Loading</div>;
+
+  return (
+    <div className="profile-page-container">
+      <div className="profile-picture-container">
+        <img
+          style={{ height: "150px", width: "150px", borderRadius: "45px" }}
+          src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+          alt=""
+        />
+      </div>
+      <div className="username-container">
+        <h2>{user.username}</h2>
+      </div>
+      <ul className="followers-container">
+        <OpenModalMenuItem
+          itemText={`${user.following.length} following`}
+          modalComponent={<FollowGallery follows={user.following} />}
+        />
+        <OpenModalMenuItem
+          itemText={`${user.followers.length} followers`}
+          modalComponent={
+            <FollowGallery follows={user.followers} flag={true} />
+          }
+        />
+      </ul>
+      <div className="created-saved-container">
+        <button
+          className={!saved ? "activated" : ""}
+          onClick={() => setSaved(false)}
+        >
+          Created
+        </button>
+        <button
+          className={saved ? "activated" : ""}
+          onClick={() => setSaved(true)}
+        >
+          Saved
+        </button>
+      </div>
+      <div className="plus-sign-container">
+        <div className="icons">
+          <i
+            style={{ cursor: "pointer" }}
+            onClick={() => alert("feature coming soon")}
+            className="fa-solid fa-sliders"
+          />
         </div>
-    )
+        <div className="icons" onClick={openMenu}>
+          <button className={showMenu ? "active pointer" : "pointer"}>
+            <i
+              className="fa-solid fa-plus"
+              onClick={() => setShowMenu(true)}
+            ></i>
+          </button>
+          {showMenu && (
+            <>
+              <p className="dropdown-header">Create</p>
+            </>
+          )}
+          <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
+            <OpenModalMenuItem
+              itemText="Pin"
+              onItemClick={closeMenu}
+              modalComponent={<CreatePin />}
+            />
+            <OpenModalMenuItem
+              itemText="Board"
+              onItemClick={closeMenu}
+              modalComponent={<CreateBoard />}
+            />
+          </ul>
+        </div>
+      </div>
+      <div className="profile-boards-container">
+        {!saved && <CurrentPins />}
+        {saved && (
+          <div>
+            <ul className="board-gallery-list">
+              {boards.map((board) => (
+                <BoardGalleryCard key={board.id} board={board} />
+              ))}
+            </ul>
+            <ul className="saved_pins-gallery-list">
+              <div>All pins saved</div>
+              {savedPinsArr?.map((pin) => (
+                <PinIndexItem
+                  key={pin.id}
+                  pin={pin}
+                  user={user}
+                  page="ProfilePage"
+                />
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

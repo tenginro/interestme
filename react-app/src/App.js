@@ -17,6 +17,7 @@ import EditBoard from "./components/EditBoard";
 import BoardDetails from "./components/BoardDetails";
 import MainPage from "./components/LandingPage/MainPage";
 import ProfilePage from "./components/ProfilePage";
+import OtherUserProfile from "./components/OtherUserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/user">
             <ProfilePage />
+          </Route>
+          <Route exact path="/users/:userId">
+            <OtherUserProfile />
           </Route>
           <Route exact path="/pins">
             <AllPins />

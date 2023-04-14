@@ -23,7 +23,7 @@ function AllPins() {
     <div >
       <nav className="allPins">
         {pins.map((pin) => (
-          <PinIndexItem pin={pin} key={pin.id} user={user} />
+          <PinIndexItem pin={pin} key={pin.id} user={user} page="AllPins"/>
         ))}
       </nav>
     </div>

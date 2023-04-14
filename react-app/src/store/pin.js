@@ -1,6 +1,7 @@
 const LOAD_PINS = "pins/load_all";
 const LOAD_PIN_DETAIL = "pins/load_one";
 const LOAD_USER_PINS = "pins/load_user_pins";
+const LOAD_SAVED_PINS = "pins/load_saved_pins";
 
 const CREATE_PIN = "pins/create";
 const UPDATE_PIN = "pins/update";
@@ -8,14 +9,13 @@ const REMOVE_PIN = "pins/delete";
 
 const CLEAR_PIN_DETAIL = "pins/clear_pin_state";
 const CLEAR_PINS = "pins/clear_pins_state";
-
-// const SAVE_PIN_USER = 'pins/save/user';
-// const SAVE_PIN_BOARD = 'pins/save/board';
+const CLEAR_SAVED_PINS = "pins/clear_saved_pins";
 
 export const actionLoadAllPins = (pins) => ({
   type: LOAD_PINS,
   pins,
 });
+
 export const actionLoadPinDetail = (pin) => ({
   type: LOAD_PIN_DETAIL,
   pin,
@@ -38,19 +38,20 @@ export const actionRemovePin = (id) => ({
   id,
 });
 
+export const actionLoadSavedPins = (pins) => ({
+  type: LOAD_SAVED_PINS,
+  pins,
+});
+
 export const actionClearPins = () => ({
   type: CLEAR_PINS,
 });
 export const actionClearPin = () => ({
   type: CLEAR_PIN_DETAIL,
 });
-
-// export const actionSavePinUser = () => ({
-//   type: SAVE_PIN_USER
-// })
-// export const actionSavePinBoard = () => ({
-//   type:SAVE_PIN_BOARD
-// })
+export const actionClearSavedPins = () => ({
+  type: CLEAR_SAVED_PINS,
+});
 
 export const getAllPins = () => async (dispatch) => {
   const response = await fetch("/api/pins");
@@ -67,7 +68,6 @@ export const getPinDetail = (id) => async (dispatch) => {
 
   if (response.ok) {
     const pin = await response.json();
-    // console.log('singlePin inside thunk before dispatch', pin)
     await dispatch(actionLoadPinDetail(pin));
     return pin;
   }
@@ -80,6 +80,18 @@ export const getUserPins = () => async (dispatch) => {
     const pins = await response.json();
     await dispatch(actionLoadUserPins(pins));
     return pins;
+  }
+};
+
+export const getSavedPins = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}`);
+
+  if (response.ok) {
+    const user = await response.json();
+    const saved_pins = user.saved_pins;
+    console.log(saved_pins);
+    await dispatch(actionLoadSavedPins(saved_pins));
+    return saved_pins;
   }
 };
 
@@ -125,10 +137,7 @@ export const deletePin = (pin) => async (dispatch) => {
 };
 
 export const savePinThunk = (pin, boardId) => async (dispatch) => {
-  console.log("hitting the thunk, boardId", boardId);
-
   if (boardId !== 0) {
-    console.log("boardId exists");
     const boardResponse = await fetch(`/api/boards/${boardId}`);
     const board = await boardResponse.json();
 
@@ -146,30 +155,22 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     }
     return await response.json();
   } else {
-    console.log("boardId not exists");
-    console.log("pin.id", pin.id);
     const response = await fetch(`/api/pins/${pin.id}/save`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(0),
     });
 
-    console.log("response from backend", response);
-
     if (response.ok) {
-      const newPinres = await response.json()
-      console.log("inside thunkkkkkkkkkk", newPinres)
+      const newPinres = await response.json();
       await dispatch(actionUpdatePin(newPinres));
-      // return await response.json();
       return newPinres;
     }
     return await response.json();
-    
   }
 };
 
 export const unSavePinThunk = (pin) => async (dispatch) => {
-  console.log('inside unsavethunk')
   const response = await fetch(`/api/pins/${pin.id}/unsave`, {
     method: "PATCH",
     headers: {
@@ -177,29 +178,15 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
     },
   });
   if (response.ok) {
-    const newPinres = await response.json()
-    console.log("inside unsave thunkkkkkkkkkk", newPinres)
+    const newPinres = await response.json();
     await dispatch(actionUpdatePin(newPinres));
-    // return await response.json();
   }
-  // return await response.json();
 };
-
-// export const savePinUserThunk = (pin) => async (dispatch) => {
-//   const response = await fetch(`/api/pins/${pin.id}/save`, {
-//     method:'PATCH',
-//     body: pin
-//   })
-//   if(response.ok) {
-//     await dispatch(actionUpdatePin(pin));
-//     return await response.json();
-//   }
-//   return await response.json();
-// }
 
 const initialState = {
   allPins: {},
   singlePin: {},
+  savedPins: {},
 };
 
 const pinReducer = (state = initialState, action) => {
@@ -218,6 +205,12 @@ const pinReducer = (state = initialState, action) => {
         allUserPins[pin.id] = pin;
       });
       return { ...state, allPins: { ...allUserPins } };
+    case LOAD_SAVED_PINS:
+      const allSavedPins = {};
+      action.pins.forEach((pin) => {
+        allSavedPins[pin.id] = pin;
+      });
+      return { ...state, savedPins: { ...allSavedPins } };
     case CREATE_PIN:
       return {
         ...state,
@@ -238,6 +231,8 @@ const pinReducer = (state = initialState, action) => {
       return { ...state, allPins: {} };
     case CLEAR_PIN_DETAIL:
       return { ...state, singlePin: {} };
+    case CLEAR_SAVED_PINS:
+      return { ...state, savedPins: {} };
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 .pin-gallery-card-container{
-    /* border: 3px solid lime; */
+    border: 3px solid lime;
     min-height: 150px;
     height: fit-content;
     max-height: fit-content;

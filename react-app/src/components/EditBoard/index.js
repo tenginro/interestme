@@ -3,22 +3,26 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
 
-const EditBoard = ({board})=> {
- const dispatch = useDispatch();
+const EditBoard = ({ board }) => {
+  const dispatch = useDispatch();
 
-const user_board = useSelector((state) => state.boards.userBoards[board.id]);
-console.log("user board:::===> ", user_board)
+  const user_board = useSelector((state) => state.boards.userBoards[board.id]);
 
-useEffect(()=> {
-    dispatch(boardsActions.getUserBoards())
-},[dispatch])
+  useEffect(() => {
+    dispatch(boardsActions.getUserBoards());
+  }, [dispatch]);
 
-if (!user_board) return null
+  if (!user_board) return null;
   return (
     <div>
-      <BoardForm formType="Edit board" submitType="Edit" newBoard={user_board} />
+      <BoardForm
+        formType="Edit your board"
+        submitType="Edit"
+        newBoard={user_board}
+        existing={true}
+      />
     </div>
   );
-}
+};
 
 export default EditBoard;

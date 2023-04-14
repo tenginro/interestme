@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import './AllPins.css'
+import "./AllPins.css";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
-export const whichBoard = (pin, user) => {
+export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
-  // console.log("user.boards", user.boards);
-  if (user?.boards) {
+  if (thisBoardId && thisBoardName) board_info = [thisBoardId, thisBoardName];
+  else if (user?.boards) {
     let the_board;
     user?.boards.forEach((b) => {
-      // console.log("b", b);
       b?.Pins.forEach((p) => {
         if (p.id === pin.id) the_board = b;
       });
@@ -20,29 +19,40 @@ export const whichBoard = (pin, user) => {
       board_info = [the_board.id, the_board.name];
     }
   }
-  console.log("board_info", board_info);
   return board_info[0];
 };
 
-export const isSaved = (pin, user) => {
+export const isSaved = (pin, user, inThisBoard) => {
   let saveOrNot = false;
-  // console.log("pin.user_saved", pin.user_saved);
-  // console.log("user.id", user.id);
-  if (pin?.user_saved !== undefined) {
+  if (inThisBoard) saveOrNot = true;
+  else if (pin?.user_saved !== undefined) {
     pin?.user_saved.forEach((s) => {
       if (s.id === user.id) {
         saveOrNot = true;
       }
     });
   }
-  console.log("saveornot", saveOrNot);
   return saveOrNot;
 };
 
-const PinIndexItem = ({ pin, user }) => {
+const PinIndexItem = ({
+  pin,
+  user,
+  inThisBoard,
+  thisBoardId,
+  thisBoardName,
+  page,
+}) => {
   const dispatch = useDispatch();
-  const [board, setBoard] = useState(whichBoard(pin, user));
-  const [save, setSave] = useState(isSaved(pin, user));
+  const savedBoardId = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
+    ?.id;
+  const savedBoardName = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
+    ?.name;
+  const [save, setSave] = useState(isSaved(pin, user, inThisBoard));
+  const [board, setBoard] = useState(
+    whichBoard(pin, user, thisBoardId, thisBoardName)
+  );
+  const history = useHistory();
 
   const userBoards = user?.boards || [];
 
@@ -56,20 +66,30 @@ const PinIndexItem = ({ pin, user }) => {
 
   return (
     <div key={pin.id} className="pinIndexItem">
-      <NavLink to={`/pins/${pin.id}`}>
-        <img src={pin.url} alt={pin.name} className="pinImg"/>
-      </NavLink>
+      {/* <Link to={{
+            pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
+  
+        <img src={pin.url} alt={pin.name} className="pinImg" />
+      </Link> */}
+      <Link to={`/pins/${pin.id}`}>
+        <img src={pin.url} alt={pin.name} className="pinImg" />
+      </Link>
       <div className="boardNSave">
         <select
           className="boardOption"
+          onSubmit={(e) => {
+            setBoard(Number(e.target.value));
+          }}
           onChange={(e) => {
             changeBoard(Number(e.target.value));
           }}
-          value={changingBoardId}
+          value={savedBoardId || changingBoardId}
           name="board"
           placeholder="Choose a board"
         >
-          <option value="0" className="option">Profile</option>
+          <option value="0" className="option">
+            Profile
+          </option>
           {userBoards.length > 0 &&
             userBoards.map((c) => (
               <option key={c.id} value={c.id}>
@@ -83,11 +103,16 @@ const PinIndexItem = ({ pin, user }) => {
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
-              console.log('clicked unsave')
-              await dispatch(pinsAction.unSavePinThunk(pin)).then(() => {
-                if (save === false) setSave(true);
-                else setSave(false);
-              });
+              await dispatch(pinsAction.unSavePinThunk(pin))
+                .then(() => {
+                  if (save === false) setSave(true);
+                  else setSave(false);
+                })
+                .then(() => {
+                  if (page === "AllPins") history.push(`/pins`);
+                  if (page === "BoardDetail") window.location.reload();
+                  if (page === "ProfilePage") window.location.reload();
+                });
             }}
           >
             Unsave
@@ -98,12 +123,12 @@ const PinIndexItem = ({ pin, user }) => {
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(changingBoardId);
-              await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(
-                () => {
-                  if (save === false) setSave(true);
-                  else setSave(false);
-                }
-              );
+              await dispatch(
+                pinsAction.savePinThunk(pin, changingBoardId)
+              ).then(() => {
+                if (save === false) setSave(true);
+                else setSave(false);
+              });
             }}
           >
             Save

@@ -52,3 +52,8 @@
 /* .pin-gallery-grid > li{
     flex: 3 0 auto;
 } */
+
+.board-detail-name-container{
+    /* border: 3px solid red; */
+    position: relative;
+}
