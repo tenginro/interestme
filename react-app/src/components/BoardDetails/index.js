@@ -10,7 +10,6 @@ import "./BoardDetails.css";
 function BoardDetails() {
   // Extract parameter variables from parameter object
   const { boardId } = useParams();
-  console.log("id: ", boardId);
 
   // Create dispatch method
   const dispatch = useDispatch();

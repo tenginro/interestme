@@ -45,7 +45,7 @@ function ProfilePage() {
     dispatch(getSavedPins(user.id));
     return () => {
       dispatch(actionClearBoards());
-      dispatch(actionClearBoard());
+      // dispatch(actionClearBoard());
     };
   }, [dispatch, user.id]);
 
