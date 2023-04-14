@@ -92,3 +92,8 @@
   border-style: solid;
   border-width: 2px;
 }
+
+.errorMessageContainer {
+  height: 90px;
+  width: 400px;
+}

@@ -8,7 +8,7 @@ def seed_boards():
         user_id=1,
         name="Board1",
         description="A small description about this board",
-        board_cover="https://as1.ftcdn.net/v2/jpg/05/19/94/26/1000_F_519942620_Nw6tDH3zl4KBignlZTEuGdbalnPbszaL.jpg",
+        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
         secret=False,
     )
 
@@ -16,21 +16,21 @@ def seed_boards():
         user_id=2,
         name="Board2",
         description="A small description about this board",
-        board_cover="https://as1.ftcdn.net/v2/jpg/05/19/94/26/1000_F_519942620_Nw6tDH3zl4KBignlZTEuGdbalnPbszaL.jpg",
+        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
         secret=False,
     )
     board3 = Board(
         user_id=3,
         name="Board3",
         description="A small description about this board",
-        board_cover="https://as1.ftcdn.net/v2/jpg/05/19/94/26/1000_F_519942620_Nw6tDH3zl4KBignlZTEuGdbalnPbszaL.jpg",
+        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
         secret=True,
     )
     board4 = Board(
         user_id=4,
         name="Board4",
         description="A small description about this board",
-        board_cover="https://as1.ftcdn.net/v2/jpg/05/19/94/26/1000_F_519942620_Nw6tDH3zl4KBignlZTEuGdbalnPbszaL.jpg",
+        board_cover="https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg",
         secret=True,
     )
 

@@ -38,12 +38,11 @@ function ProfileButton({ user }) {
     dispatch(logout());
     history.push("/");
     closeMenu();
-  }; 
+  };
 
   const clickToUserProfile = (e) => {
-
     history.push("/user");
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   const createBoardClick = (e) => {
@@ -67,7 +66,9 @@ function ProfileButton({ user }) {
           {/* <NavLink exact to="/user"> */}
           <button
             className="main_page_login_btn login"
-            onClick={()=>{clickToUserProfile()}}
+            onClick={() => {
+              clickToUserProfile();
+            }}
           >
             {user?.username[0]}
           </button>
@@ -93,55 +94,17 @@ function ProfileButton({ user }) {
         </div>
       )}
       <ul className={ulClassName} ref={ulRef}>
-        {
-          user && (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              {/* <li>
-                <button onClick={managePinsClick} className="dropDown-Button">
-                  Manage Pins
-                </button>
-              </li> */}
-              {/* <li>
-                <div
-                  className="create-new_board"
-                  onClick={createBoardClick}
-                  type="submit"
-                >
-                  Create Board
-                </div>
-                <div
-                  className="create-new_board"
-                  onClick={editBoardClick}
-                  type="submit"
-                >
-                  Manage Board
-                </div>
-              </li> */}
-              <li>
-                <button className="logoutButton" onClick={handleLogout}>
-                  Log Out
-                </button>
-              </li>
-            </>
-          )
-          // : (
-          //   <>
-          //     <OpenModalButton
-          //       buttonText="Log In"
-          //       onItemClick={closeMenu}
-          //       modalComponent={<LoginFormModal />}
-          //     />
-
-          //     <OpenModalButton
-          //       buttonText="Sign Up"
-          //       onItemClick={closeMenu}
-          //       modalComponent={<SignupFormModal />}
-          //     />
-          //   </>
-          // )
-        }
+        {user && (
+          <>
+            <li>{user.username}</li>
+            <li>{user.email}</li>
+            <li>
+              <button className="logoutButton" onClick={handleLogout}>
+                Log Out
+              </button>
+            </li>
+          </>
+        )}
       </ul>
     </>
   );

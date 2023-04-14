@@ -1,81 +1,89 @@
 .sign_up_modal {
-    display: flex;
-    padding:1em;
-    height: 48rem;
-    width: 30rem;
-    flex-direction: column;
-    background-color: white;
-    align-items: center;
-    border-radius: 30px;
-    
+  display: flex;
+  padding: 1em;
+  height: 50rem;
+  width: 30rem;
+  flex-direction: column;
+  background-color: white;
+  align-items: center;
+  border-radius: 30px;
+  /* max-height: fit-content; */
+  min-height: fit-content;
 }
-#logo{
-    height:40px;
-    width:40px;
+
+#logo {
+  height: 40px;
+  width: 40px;
 }
+
 .signUpForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .inputField {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 90%;
-    margin:0.5em;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 90%;
+  margin: 0.5em;
 }
 /* .inputField label {
     text-align: left;
 } */
 
 .inputField input {
-    padding:0.5em;
-    border: 2px solid rgb(196, 195, 195);
-    border-radius: 10px;
-    width:100%;
+  padding: 0.5em;
+  border: 2px solid rgb(196, 195, 195);
+  border-radius: 10px;
+  width: 100%;
 }
 .inputField input:hover {
-    border: 2px solid rgb(141, 139, 139);
-    border-radius: 10px;
+  border: 2px solid rgb(141, 139, 139);
+  border-radius: 10px;
 }
 .inputField textarea {
-    padding: 0.5em;
-    border: 2px solid rgb(196, 195, 195);
-    border-radius: 10px;
-    width: 100%;
+  padding: 0.5em;
+  border: 2px solid rgb(196, 195, 195);
+  border-radius: 10px;
+  width: 100%;
 }
 .inputField textarea:hover {
-    border: 2px solid rgb(141, 139, 139);
-    border-radius: 10px;
+  border: 2px solid rgb(141, 139, 139);
+  border-radius: 10px;
 }
 
 .SubmitButton {
-    background-color: red;
-    border: none;
-    width: 110%;
-    height: 2rem;
-    border-radius: 40px;
-    color: white;
-    -webkit-filter: brightness(100%);
+  background-color: red;
+  border: none;
+  width: 110%;
+  height: 2rem;
+  border-radius: 40px;
+  color: white;
+  -webkit-filter: brightness(100%);
 }
 
 .disable {
-    background-color: pink;
-    -webkit-filter: brightness(100%);
+  background-color: pink;
+  -webkit-filter: brightness(100%);
 }
 
 .SubmitButton:hover {
-    -webkit-filter: brightness(70%);
+  -webkit-filter: brightness(70%);
 }
 .disable:hover {
-    -webkit-filter: brightness(70%);
+  -webkit-filter: brightness(70%);
 }
 
 .welcome {
-    font-weight: bolder;
+  font-weight: bolder;
+}
+
+.errorMessageContainer {
+  height: 90px;
+  width: 400px;
+  color: red;
 }

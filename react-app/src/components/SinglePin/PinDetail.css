@@ -105,3 +105,8 @@
   flex-direction: row;
   column-gap: 2px;
 }
+
+.leftSide {
+  height: 30rem;
+  width: 400px;
+}

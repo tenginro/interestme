@@ -45,22 +45,20 @@ function BoardDetails() {
       <div className="info-container">
         <div className="board-detail-name-container">
           <h1>{board.name}</h1>
-          <DropdownMenuButton board={board} />
+          <div>
+            <DropdownMenuButton board={board} />
+          </div>
         </div>
         <div className="manage-board-buttons-container"></div>
         <div className="board-cover-container">
           {board.board_cover ? (
-            <img
-              src={board.board_cover}
-              alt="board-cover-pic"
-            />
+            <img src={board.board_cover} alt="board-cover-pic" />
           ) : (
             <img
               src={"https://i.stack.imgur.com/34AD2.jpg"}
               alt="board-cover-pic"
             />
           )}
-          {/* <img src={board.board_cover} alt="board-cover-pic" /> */}
         </div>
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
