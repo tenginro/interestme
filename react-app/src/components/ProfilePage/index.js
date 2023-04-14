@@ -46,7 +46,7 @@ function ProfilePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserBoards(user.id));
+    dispatch(getUserBoards());
     dispatch(getSavedPins(user.id));
     return () => {
       dispatch(actionClearBoards());

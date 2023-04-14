@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AllPins.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 
@@ -44,6 +44,8 @@ const PinIndexItem = ({
   page,
 }) => {
   const dispatch = useDispatch();
+  const boardsObj = useSelector((state) => state.boards.userBoards);
+  const boards = Object.values(boardsObj);
   const savedBoardId = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
     ?.id;
   const savedBoardName = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
@@ -90,8 +92,8 @@ const PinIndexItem = ({
           <option value="0" className="option">
             Profile
           </option>
-          {userBoards.length > 0 &&
-            userBoards.map((c) => (
+          {boards.length > 0 &&
+            boards.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
               </option>
