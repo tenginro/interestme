@@ -15,6 +15,7 @@ import {
 } from "../../store/board";
 import { actionClearSavedPins, getSavedPins } from "../../store/pin";
 import PinIndexItem from "../AllPins/PinIndexItem";
+import { defaultImage } from "../SinglePin";
 
 function ProfilePage() {
   // Create a reference to the session user

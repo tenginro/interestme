@@ -14,7 +14,6 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const [description, setDescription] = useState(newBoard.description);
   const currentUser = useSelector((state) => state.session.user);
 
-
   if (!currentUser) return <Redirect to="/" />;
 
   const submitNewBoardHandler = async (e) => {
@@ -32,6 +31,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
       )
         .then(() => {
           dispatch(boardsActions.getBoardDetail(newBoard.id));
+          dispatch(boardsActions.getUserBoards());
           closeModal();
         })
         .catch(async (response) => {
@@ -50,8 +50,9 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           newBoard.id
         )
       )
-        .then(async(res) => {
-          history.push(`/boards/${res.board.id}`)
+        .then(async (res) => {
+          // dispatch(boardsActions.getUserBoards());
+          history.push(`/boards/${res.board.id}`);
           closeModal();
         })
         .catch(async (response) => {
