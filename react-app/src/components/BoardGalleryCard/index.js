@@ -14,7 +14,7 @@ function BoardGalleryCard({ board }) {
   const history = useHistory();
 
   const pins = board.Pins?.length;
-
+console.log("im src:::", board.board_cover);
   // onClick function
   const onClick = () => {
     dispatch(getBoardDetail(board.id));
@@ -29,11 +29,19 @@ function BoardGalleryCard({ board }) {
       <div className="board-card-container">
         <NavLink exact to={`/boards/${board.id}`}>
           <div className="board-image-container">
-            <img
-              style={{ height: "160px", width: "250px" }}
-              src={board.board_cover}
-              alt="boardDefaultCover"
-            />
+            {board.board_cover ? (
+              <img
+                style={{ height: "160px", width: "250px" }}
+                src={board.board_cover}
+                alt="boardDefaultCover"
+              />
+            ) : (
+              <img
+                style={{ height: "160px", width: "250px" }}
+                src={"https://i.stack.imgur.com/34AD2.jpg"}
+                alt="boardDefaultCover"
+              />
+            )}
           </div>
           <div className="board-card-content-container">
             <h2 className="item">{board.name}</h2>
