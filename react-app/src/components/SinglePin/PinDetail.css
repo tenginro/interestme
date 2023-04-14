@@ -110,3 +110,8 @@
   height: 30rem;
   width: 400px;
 }
+
+.pinDescription {
+  overflow-y: scroll;
+  height: 60px;
+}

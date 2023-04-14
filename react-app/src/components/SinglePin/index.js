@@ -115,7 +115,7 @@ const Pin = () => {
         </div>
         <div>
           <p id="name_tag">{pin.name}</p>
-          <p>{pin.description}</p>
+          <p className="pinDescription">{pin.description}</p>
         </div>
 
         <div className="single-pin_user-follow_container">

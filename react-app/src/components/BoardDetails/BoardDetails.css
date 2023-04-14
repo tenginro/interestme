@@ -59,3 +59,10 @@
   /* border: 3px solid red; */
   position: relative;
 }
+
+.boardDescription {
+    width: 500px;
+    height: 60px;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+}
