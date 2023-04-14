@@ -48,11 +48,11 @@ function ProfilePage() {
   useEffect(() => {
     dispatch(getSavedPins(user.id));
     dispatch(getUserBoards(user.id));
-    return () => {
-      dispatch(actionClearBoards());
-      dispatch(actionClearBoard());
-      dispatch(actionClearSavedPins());
-    };
+    // return () => {
+    //   dispatch(actionClearBoards());
+    //   dispatch(actionClearBoard());
+    //   dispatch(actionClearSavedPins());
+    // };
   }, [dispatch, user.id]);
 
   useEffect(() => {

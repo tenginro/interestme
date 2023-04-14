@@ -165,6 +165,7 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     if (response.ok) {
       const newPinRes = await response.json();
       await dispatch(actionUpdatePin(newPinRes));
+      // await dispatch(actionLoadSavedPins(newPinRes));
       return newPinRes;
     }
     return await response.json();
@@ -181,6 +182,7 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
   if (response.ok) {
     const newPinRes = await response.json();
     await dispatch(actionUpdatePin(newPinRes));
+    await dispatch(actionLoadSavedPins(newPinRes));
     return newPinRes;
   }
 };
@@ -209,6 +211,7 @@ const pinReducer = (state = initialState, action) => {
       return { ...state, allPins: { ...allUserPins } };
     case LOAD_SAVED_PINS:
       const allSavedPins = {};
+      console.log('inside pin reducer', action.pins);
       action.pins.forEach((pin) => {
         allSavedPins[pin.id] = pin;
       });

@@ -3,6 +3,7 @@ import "./AllPins.css";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
+import { getBoardDetail } from "../../store/board";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
@@ -109,9 +110,9 @@ const PinIndexItem = ({
                   else setSave(false);
                 })
                 .then(() => {
-                  if (page === "AllPins") history.push(`/pins`);
-                  if (page === "BoardDetail") window.location.reload();
-                  if (page === "ProfilePage") window.location.reload();
+                  // if (page === "AllPins") history.push(`/pins`);
+                  if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId))
+                  // if (page === "ProfilePage") window.location.reload();
                 });
             }}
           >

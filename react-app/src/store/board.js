@@ -46,7 +46,7 @@ export const getBoardDetail = (id) => async (dispatch) => {
   const res = await fetch(`/api/boards/${id}`);
   if (res.ok) {
     const board = await res.json();
-    console.log("thunk board res: ", board);
+    console.log("thunk boardDetail res: ", board);
     await dispatch(actionLoadBoardDetail(board));
     return board;
   }
