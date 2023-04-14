@@ -78,13 +78,13 @@ function ProfilePage() {
       </div>
       <div className="subtitle-container">
         <div className="followers-container">
-          <div>
+          <div style={{ cursor: "pointer" }}>
             <OpenModalMenuItem
               itemText={`${user.following.length} following`}
               modalComponent={<FollowGallery follows={user.following} />}
             />
           </div>
-          <div>
+          <div style={{ cursor: "pointer" }}>
             <OpenModalMenuItem
               itemText={`${user.followers.length} followers`}
               modalComponent={
