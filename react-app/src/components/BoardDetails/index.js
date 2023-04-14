@@ -60,6 +60,9 @@ function BoardDetails() {
             />
           )}
         </div>
+        {board.description && ( 
+          <div>{board.description}</div>
+         )}
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
         </p>
