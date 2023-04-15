@@ -31,14 +31,16 @@ function BoardGalleryCard({ board }) {
           <div className="board-image-container">
             {board.board_cover ? (
               <img
-                style={{ height: "160px", width: "250px" , objectFit:'cover'}}
+                style={{ height: "160px", width: "250px", objectFit: "cover" }}
                 src={board.board_cover}
                 alt="boardDefaultCover"
               />
             ) : (
               <img
-                style={{ height: "160px", width: "250px" , objectFit:'cover'}}
-                src={"https://i.stack.imgur.com/34AD2.jpg"}
+                style={{ height: "160px", width: "250px", objectFit: "cover" }}
+                src={
+                  "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                }
                 alt="boardDefaultCover"
               />
             )}
