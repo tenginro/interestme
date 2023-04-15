@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AllPins.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import { getBoardDetail, getUserBoards } from "../../store/board";
 import { defaultImage } from "../SinglePin";
@@ -54,7 +54,6 @@ const PinIndexItem = ({
   const [board, setBoard] = useState(
     whichBoard(pin, user, thisBoardId, thisBoardName)
   );
-  const history = useHistory();
 
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
   // const userBoards = user?.boards || [];
@@ -65,17 +64,10 @@ const PinIndexItem = ({
     changingBoardId = id;
     setBoard(id);
   };
-  // console.log(`inside pinIndex item pinId ${pin.id} savedBoardId`, savedBoardId )
-  // console.log(`inside pinIndex item pinId ${pin.id} changingBoardId`, changingBoardId )
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div key={pin.id} className="pinIndexItem">
-      {/* <Link to={{
-            pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
-
-        <img src={pin.url} alt={pin.name} className="pinImg" />
-      </Link> */}
       <Link to={`/pins/${pin.id}`}>
         <img
           src={pin.url}
@@ -113,7 +105,6 @@ const PinIndexItem = ({
             onClick={async (e) => {
               e.preventDefault();
               changeBoard(0);
-              // console.log('unsaving from board detail before thunk')
               await dispatch(pinsAction.unSavePinThunk(pin))
                 .then(() => {
                   if (save === false) setSave(true);
@@ -121,7 +112,6 @@ const PinIndexItem = ({
                   changeBoard(0);
                 })
                 .then(() => {
-                  // if (page === "AllPins") history.push(`/pins`);
                   if (page === "BoardDetail")
                     dispatch(getBoardDetail(thisBoardId));
                   if (page === "ProfilePage") dispatch(getUserBoards());

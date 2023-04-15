@@ -1,5 +1,4 @@
 // Necessary imports
-import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import FollowGalleryCard from "../FollowGalleryCard";

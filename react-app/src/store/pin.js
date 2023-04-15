@@ -89,7 +89,6 @@ export const getSavedPins = (userId) => async (dispatch) => {
   if (response.ok) {
     const user = await response.json();
     const saved_pins = user.saved_pins;
-    // console.log(saved_pins);
     await dispatch(actionLoadSavedPins(saved_pins));
     return saved_pins;
   }
@@ -211,7 +210,6 @@ const pinReducer = (state = initialState, action) => {
       return { ...state, allPins: { ...allUserPins } };
     case LOAD_SAVED_PINS:
       const allSavedPins = {};
-      // console.log('inside pin reducer', action.pins);
       action.pins.forEach((pin) => {
         allSavedPins[pin.id] = pin;
       });

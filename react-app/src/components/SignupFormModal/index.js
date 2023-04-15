@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
@@ -42,17 +42,17 @@ function SignupFormModal() {
     }
   };
 
-  const SignUpButtonClassName =
-    "SubmitButton" +
-    (email.length < 4 ||
-    !username.length ||
-    !first_name.length ||
-    !last_name.length ||
-    !about.length ||
-    password.length < 6 ||
-    confirmPassword.length < 6
-      ? " disable"
-      : "");
+  // const SignUpButtonClassName =
+  //   "SubmitButton" +
+  //   (email.length < 4 ||
+  //   !username.length ||
+  //   !first_name.length ||
+  //   !last_name.length ||
+  //   !about.length ||
+  //   password.length < 6 ||
+  //   confirmPassword.length < 6
+  //     ? " disable"
+  //     : "");
 
   return (
     <div className="sign_up_modal">

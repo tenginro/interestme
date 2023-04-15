@@ -42,11 +42,9 @@ export const actionClearBoards = () => ({
 });
 
 export const getBoardDetail = (id) => async (dispatch) => {
-  // console.log("getBoardDetail thunk running");
   const res = await fetch(`/api/boards/${id}`);
   if (res.ok) {
     const board = await res.json();
-    // console.log("thunk boardDetail res: ", board);
     await dispatch(actionLoadBoardDetail(board));
     return board;
   }
