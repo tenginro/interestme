@@ -1,8 +1,6 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const ADD_USER_FOLLOW = "session/ADD_USER_FOLLOW";
-const REMOVE_USER_FOLLOW = "session/REMOVE_USER_FOLLOW";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -11,15 +9,6 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
-});
-
-const actionAddFollow = (user) => ({
-  type: ADD_USER_FOLLOW,
-  user,
-});
-
-const actionRemoveFollow = () => ({
-  type: REMOVE_USER_FOLLOW,
 });
 
 const initialState = { user: null };
@@ -31,15 +20,13 @@ export const addFollowThunk = (followingId) => async (dispatch) => {
 
   if (response.ok) {
     const userRes = await response.json();
-    // const following = userRes.following;
-    // await dispatch(actionGetFollowing(following));
+
     await dispatch(setUser(userRes));
     return userRes;
   }
 };
 
 export const removeFollowThunk = (followingId) => async (dispatch) => {
-  // console.log("followingId", followingId);
   const response = await fetch(`/api/users/${followingId}/follow`, {
     method: "DELETE",
   });

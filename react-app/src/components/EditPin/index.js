@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Link, useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import OpenModalButton from "../OpenModalButton/index";
 import DeleteModal from "../DeletePinModal";
 import { useModal } from "../../context/Modal";
-import "./editPin.css"
-const EditPin = ({pin}) => {
-  // const { pinId } = useParams();
+import "./editPin.css";
+const EditPin = ({ pin }) => {
   const pinId = pin.id;
   const dispatch = useDispatch();
   const history = useHistory();
-  const {closeModal} = useModal();
-  // const pin = useSelector((state) => state.pins.singlePin);
-
-  // useEffect(() => {
-  //   dispatch(pinsAction.getPinDetail(pinId));
-  // }, [dispatch, pinId]);
+  const { closeModal } = useModal();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -41,16 +35,16 @@ const EditPin = ({pin}) => {
   const updateName = (e) => setName(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
   const updateCategory = (e) => setCategory(e.target.value);
-  const updateUrl = (e) => setUrl(e.target.value);
+  // const updateUrl = (e) => setUrl(e.target.value);
 
-  useEffect(()=>{
-      const err = {};
-      if(!name.length) err.name = 'Name is required'
-      if(!description.length) err.description='Description is required'
-      if(!url.length) err.url='Image is required'
-      if(!category.length) err.category = 'Category is required'
-      setErrors(err)
-  },[name, description, url, category])
+  useEffect(() => {
+    const err = {};
+    if (!name.length) err.name = "Name is required";
+    if (!description.length) err.description = "Description is required";
+    if (!url.length) err.url = "Image is required";
+    if (!category.length) err.category = "Category is required";
+    setErrors(err);
+  }, [name, description, url, category]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,62 +84,64 @@ const EditPin = ({pin}) => {
     <div className="editPinModal">
       <h1>Edit this Pin</h1>
       <form onSubmit={handleSubmit} className="editForm">
-        <div className="formTop">  
-        <div className="leftSideEdit">
-          <div className="labelNinput">
-            <label>Title</label>
-            <div className="inputFieldEdit">
-              <input
-                className="input"
-                type="text"
-                onChange={updateName}
-                value={name}
-                placeholder="Add your title"
-                name="name"
+        <div className="formTop">
+          <div className="leftSideEdit">
+            <div className="labelNinput">
+              <label>Title</label>
+              <div className="inputFieldEdit">
+                <input
+                  className="input"
+                  type="text"
+                  onChange={updateName}
+                  value={name}
+                  placeholder="Add your title"
+                  name="name"
                 ></input>
-              {hasSubmitted ? <p className="error">{errors.name}</p> : null}
+                {hasSubmitted ? <p className="error">{errors.name}</p> : null}
+              </div>
             </div>
-          </div>
-          <div className="labelNinput">
-            <label>Category</label>
-            <div className="inputFieldEdit">
-              <select
-                className="select"
-                onChange={updateCategory}
-                value={category}
-                name="category"
-                placeholder="Choose a category"
+            <div className="labelNinput">
+              <label>Category</label>
+              <div className="inputFieldEdit">
+                <select
+                  className="select"
+                  onChange={updateCategory}
+                  value={category}
+                  name="category"
+                  placeholder="Choose a category"
                 >
-                <option value=""></option>
-                {categories.map((c) => (
-                  <option value={c} key={c}>{c}</option>
+                  <option value=""></option>
+                  {categories.map((c) => (
+                    <option value={c} key={c}>
+                      {c}
+                    </option>
                   ))}
-              </select>
-              {hasSubmitted ? (
+                </select>
+                {hasSubmitted ? (
                   <p className="error">{errors.category}</p>
-                  ) : null}
-            </div>
-          </div>
-          <div className="labelNinput">
-            <label>Description</label>
-            <div className="inputFieldEdit">
-              <textarea
-                className="input"
-                type="text"
-                onChange={updateDescription}
-                value={description}
-                placeholder="Tell everyone what your Pin is about"
-                name="description"
-                ></textarea>
-              {hasSubmitted ? (
-                <p className="error">{errors.description}</p>
                 ) : null}
+              </div>
+            </div>
+            <div className="labelNinput">
+              <label>Description</label>
+              <div className="inputFieldEdit">
+                <textarea
+                  className="input"
+                  type="text"
+                  onChange={updateDescription}
+                  value={description}
+                  placeholder="Tell everyone what your Pin is about"
+                  name="description"
+                ></textarea>
+                {hasSubmitted ? (
+                  <p className="error">{errors.description}</p>
+                ) : null}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="rightSideEdit">
-          <img src={pin.url} alt="pin.url" />
-        </div>
+          <div className="rightSideEdit">
+            <img src={pin.url} alt="pin.url" />
+          </div>
         </div>
         <div className="formBottom">
           <div className="bottomLeft">
@@ -155,16 +151,15 @@ const EditPin = ({pin}) => {
             />
           </div>
           <div>
-            <button 
-            className="cancelButton"
-            onClick={cancelClick}>Cancel</button>
-            <button 
-            className="submitButtonEdit"
-            type="submit">Update</button>
+            <button className="cancelButton" onClick={cancelClick}>
+              Cancel
+            </button>
+            <button className="submitButtonEdit" type="submit">
+              Update
+            </button>
           </div>
         </div>
       </form>
-    
     </div>
   );
 };

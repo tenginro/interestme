@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import "./LoginForm.css";
-import logo from "../LandingPage/Assets/icon.png"
+import logo from "../LandingPage/Assets/icon.png";
 import SignupFormPage from "../SignupFormPage";
 
 function LoginFormPage() {
-  const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -22,9 +21,7 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password))
-    .then(() => {
-
+    const data = await dispatch(login(email, password)).then(() => {
       closeModal();
     });
     if (data) {
