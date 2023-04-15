@@ -121,7 +121,7 @@ def seed_pins(all_boards, all_users):
         name="Flower",
         description="Flower Flower Flower",
         category='Art',
-        url="https://as1.ftcdn.net/v2/jpg/05/17/11/02/1000_F_517110230_pP1pTKZtmv7ZRWaKa0GNMCJBHS454S5W.jpg",
+        url="https://as2.ftcdn.net/v2/jpg/01/35/49/05/1000_F_135490522_9GD4FaP2KSNq3hHWtQiW5rwbRzvRaaqZ.jpg",
         # boards=sample(all_boards, randint(0, len(all_boards))),
         # user_saved=sample(all_users, randint(0, len(all_users)))
     )
