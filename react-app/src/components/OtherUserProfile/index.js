@@ -200,7 +200,7 @@ export default function OtherUserProfile() {
               )}
             </div>
             <div className="saved_pins-gallery-list">
-              <h4>All pins saved</h4>
+              <h4>All saved pins</h4>
               <div className="pinsDisplay">
                 {pins_saved.map((pin) => (
                   <PinIndexItem key={pin.id} pin={pin} user={LogInUser} />
