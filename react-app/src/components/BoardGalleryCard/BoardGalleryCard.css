@@ -20,8 +20,12 @@
     /* border: 3px solid pink; */
     border-radius: 10px;
     height: 160px;
+    
 }
+.board-image-container img{
+    border-radius: 20px;
 
+}
 .board-card-content-container{
     /* border: 3px solid brown; */
     height: 70px;
