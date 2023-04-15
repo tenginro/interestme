@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
-import { useHistory, useParams, Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./BoardForm.css";
 const BoardForm = ({ newBoard, submitType, formType, existing }) => {
@@ -13,7 +13,6 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const [name, setName] = useState(newBoard.name);
   const [description, setDescription] = useState(newBoard.description);
   const currentUser = useSelector((state) => state.session.user);
-
 
   if (!currentUser) return <Redirect to="/" />;
 
@@ -32,6 +31,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
       )
         .then(() => {
           dispatch(boardsActions.getBoardDetail(newBoard.id));
+          dispatch(boardsActions.getUserBoards());
           closeModal();
         })
         .catch(async (response) => {
@@ -50,8 +50,9 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           newBoard.id
         )
       )
-        .then(async(res) => {
-          history.push(`/boards/${res.board.id}`)
+        .then(async (res) => {
+          // dispatch(boardsActions.getUserBoards());
+          history.push(`/boards/${res.board.id}`);
           closeModal();
         })
         .catch(async (response) => {

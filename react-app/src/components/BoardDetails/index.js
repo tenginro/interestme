@@ -1,6 +1,6 @@
 // Necessary imports
 import { useParams, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardsActions from "../../store/board";
 import DropdownMenuButton from "../DropdownMenuButton";
@@ -23,11 +23,11 @@ function BoardDetails() {
   // Subscribe to user session slice of state
   const currentUser = useSelector((state) => state.session.user);
 
-  const pinLength = board.Pins?.length;
   // Upon component render, dispatch the action to load the single board into the redux store for retrieval
-  // let board
+
   useEffect(() => {
     dispatch(boardsActions.getBoardDetail(boardId));
+    dispatch(boardsActions.getUserBoards());
     return () => dispatch(boardsActions.actionClearBoard());
   }, [dispatch, boardId]);
 
@@ -62,7 +62,9 @@ function BoardDetails() {
             />
           )}
         </div>
-        {board.description && <div className="boardDescription">{board.description}</div>}
+        {board.description && (
+          <div className="boardDescription">{board.description}</div>
+        )}
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
         </p>

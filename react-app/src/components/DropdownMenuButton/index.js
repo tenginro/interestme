@@ -1,7 +1,5 @@
 // Necessary imports
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import DeleteBoard from "../DeleteBoard";
 import EditBoard from "../EditBoard";
@@ -13,7 +11,6 @@ function DropdownMenuButton({ board }) {
 
   // Create useRef hook
   const ulRef = useRef();
-  const eleRef = useRef();
 
   // Function to open dropdown menu
   const openMenu = () => {

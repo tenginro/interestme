@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect, useLocation, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
 import * as pinsAction from "../../store/pin";
 import { whichBoard, isSaved } from "../AllPins/PinIndexItem";
+import defaultPinPic from "../LandingPage/Assets/default-pin-pic.png";
 import "./PinDetail.css";
 
+export const defaultImage = (e) => {
+  e.target.onerror = null;
+  e.target.src = defaultPinPic;
+};
+
 const Pin = () => {
-  // const location = useLocation();
-  // console.log('inside pinnnnn', location?.boardProps);
-  // const { from } = location.state;
   const { pinId } = useParams();
-  // const thisBoardId = location.boardProps.thisBoardId
-  // const thisBoardName = location.boardProps.thisBoardName
   const dispatch = useDispatch();
   const pin = useSelector((state) => state.pins.singlePin);
   const [follow, setFollow] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const thisBoardId = pin?.boards?.filter((b)=> b.user_id === user?.id)[0]?.id
-  const thisBoardName = pin?.boards?.filter((b)=>b.user_id === user?.id)[0]?.name
-  const [board, setBoard] = useState(whichBoard(pin, user,thisBoardId,thisBoardName ));
+  const thisBoardId = pin?.boards?.filter((b) => b.user_id === user?.id)[0]?.id;
+  const thisBoardName = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
+    ?.name;
+  const [board, setBoard] = useState(
+    whichBoard(pin, user, thisBoardId, thisBoardName)
+  );
   const [save, setSave] = useState(false);
 
-  // console.log("inside single Pin thisBoardId", thisBoardId);
-  // console.log("inside single Pin thisBoardName", thisBoardName);
-
-  const userBoards = user?.boards || [];
+  const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
+  const userBoards = Object.values(allUserBoardsObj);
 
   let changingBoardId = board;
   const changeBoard = (id) => {
@@ -57,7 +59,12 @@ const Pin = () => {
   return (
     <div className="single-pin_container">
       <div className="leftSide">
-        <img className="single_pin_image" src={pin.url} alt="pin.url" />
+        <img
+          className="single_pin_image"
+          src={pin.url}
+          alt="pin.url"
+          onError={defaultImage}
+        />
       </div>
       <div className="rightSide">
         <div className="profile_saved-container">
@@ -69,7 +76,7 @@ const Pin = () => {
             onChange={(e) => {
               changeBoard(Number(e.target.value));
             }}
-            value={thisBoardId||changingBoardId}
+            value={thisBoardId || changingBoardId}
             name="board"
             placeholder="Choose a board"
           >

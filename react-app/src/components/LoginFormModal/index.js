@@ -35,7 +35,6 @@ function LoginFormModal() {
       .then(() => history.push(`/pins`))
       .catch(async (res) => {
         const data = await res.json();
-        // console.log(data);
         if (data && data.errors) setErrors(data.errors);
       });
   };
@@ -83,13 +82,14 @@ function LoginFormModal() {
           </div>
           <div className="loginSubmitButtonContainer">
             <button
-              className={
-                email.length < 4 || password.length < 6
-                  ? "loginSubmitButton disabled"
-                  : "loginSubmitButton"
-              }
+              className="loginSubmitButton"
+              // {
+              //   email.length < 4 || password.length < 6
+              //     ? "loginSubmitButton disabled"
+              //     : "loginSubmitButton"
+              // }
               type="submit"
-              disabled={email.length < 4 || password.length < 6}
+              // disabled={email.length < 4 || password.length < 6}
             >
               <div>Log In</div>
             </button>

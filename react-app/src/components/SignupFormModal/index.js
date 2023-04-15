@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
@@ -42,17 +42,18 @@ function SignupFormModal() {
     }
   };
 
-  const SignUpButtonClassName =
-    "SubmitButton" +
-    (email.length < 4 ||
-    !username.length ||
-    !first_name.length ||
-    !last_name.length ||
-    !about.length ||
-    password.length < 6 ||
-    confirmPassword.length < 6
-      ? " disable"
-      : "");
+  // const SignUpButtonClassName =
+  //   "SubmitButton" +
+  //   (email.length < 4 ||
+  //   !username.length ||
+  //   !first_name.length ||
+  //   !last_name.length ||
+  //   !about.length ||
+  //   password.length < 6 ||
+  //   confirmPassword.length < 6
+  //     ? " disable"
+  //     : "");
+
   return (
     <div className="sign_up_modal">
       <img id="logo" src={logo} alt="Logo" />
@@ -113,14 +114,13 @@ function SignupFormModal() {
             type="text"
             value={about}
             onChange={(e) => setAbout(e.target.value)}
-            required
           />
         </div>
         <div className="inputField">
           <label>Password</label>
           <input
             type="password"
-            placeholder="Password is required"
+            placeholder="Password is required, must be more than 5 characters"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -139,16 +139,16 @@ function SignupFormModal() {
         <div className="inputField">
           <button
             type="submit"
-            className={SignUpButtonClassName}
-            disabled={
-              email.length < 4 ||
-              !username.length ||
-              !first_name.length ||
-              !last_name.length ||
-              !about.length ||
-              password.length < 6 ||
-              confirmPassword.length < 6
-            }
+            className="SubmitButton"
+            // disabled={
+            //   email.length < 4 ||
+            //   !username.length ||
+            //   !first_name.length ||
+            //   !last_name.length ||
+            //   !about.length ||
+            //   password.length < 6 ||
+            //   confirmPassword.length < 6
+            // }
           >
             Continue
           </button>

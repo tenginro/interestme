@@ -18,6 +18,7 @@ import BoardDetails from "./components/BoardDetails";
 import MainPage from "./components/LandingPage/MainPage";
 import ProfilePage from "./components/ProfilePage";
 import OtherUserProfile from "./components/OtherUserProfile";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <MainPage />
+            <Footer />
           </Route>
           <Route exact path="/user">
             <ProfilePage />

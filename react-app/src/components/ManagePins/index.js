@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { actionClearPins, getUserPins } from "../../store/pin";
 import "./ManagePins.css";
 import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
+import { defaultImage } from "../SinglePin";
 
 function CurrentPins() {
   const dispatch = useDispatch();
@@ -25,7 +25,12 @@ function CurrentPins() {
         {pins.map((pin) => (
           <div key={pin.id} className="pinIndexItem">
             <NavLink key={pin.id} to={`/pins/${pin.id}`}>
-              <img className="pinImg" src={pin.url} alt={pin.name} />
+              <img
+                className="pinImg"
+                src={pin.url}
+                alt={pin.name}
+                onError={defaultImage}
+              />
             </NavLink>
             <div className="boardNSaveEdit">
               {/* <button className="editButton">

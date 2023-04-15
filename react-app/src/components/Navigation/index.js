@@ -37,7 +37,7 @@ function Navigation({ isLoaded }) {
           <button className="createPinButton" onClick={clickCreate}>
             <NavLink exact to="/pins/new">
               <div className="createWord">
-                Create{"  "}
+                Create Pin{"  "}
                 {/* <i className="fas fa-solid fa-angle-down"></i> */}
               </div>
             </NavLink>
