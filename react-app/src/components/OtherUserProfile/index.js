@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { actionClearProfile, getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
 import CurrentPins from "../ManagePins";
+import PinGalleryCard from "../PinGalleryCard";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
-import { removeFollowThunk } from "../../store/session";
+import { login, removeFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
 
 export default function OtherUserProfile() {
@@ -19,6 +20,7 @@ export default function OtherUserProfile() {
   const [showMenu, setShowMenu] = useState("");
   const [follow, setFollow] = useState(false);
 
+  const history = useHistory();
   const dispatch = useDispatch();
   const ulRef = useRef();
   const boards = user?.boards;
