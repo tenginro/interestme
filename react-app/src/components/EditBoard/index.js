@@ -8,6 +8,7 @@ const EditBoard = ({ board }) => {
 
   const user_board = useSelector((state) => state.boards.singleBoard);
 
+  console.log("user_board", user_board);
   useEffect(() => {
     dispatch(boardsActions.getUserBoards());
   }, [dispatch]);

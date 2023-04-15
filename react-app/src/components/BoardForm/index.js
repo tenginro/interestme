@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, useParams, Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./BoardForm.css";
 const BoardForm = ({ newBoard, submitType, formType, existing }) => {
