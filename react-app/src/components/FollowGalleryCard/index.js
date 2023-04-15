@@ -52,7 +52,11 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
 
   return (
     <div className="follow-card-container">
-      <NavLink exact to={`/users/${follow.id}`} onClick={onClick}>
+      <NavLink
+        exact
+        to={follow.id === user.id ? `/user` : `/users/${follow.id}`}
+        onClick={onClick}
+      >
         <div className="follow-image-container">
           <img
             style={{ height: "50px", width: "50px", borderRadius: "45px" }}

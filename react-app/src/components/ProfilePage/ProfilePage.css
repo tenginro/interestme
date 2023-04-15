@@ -1,7 +1,7 @@
 .profile-page-container {
   /* border: 3px solid lime; */
   width: 100%;
-  height: 1000px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

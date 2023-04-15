@@ -16,17 +16,28 @@ def get_user_boards():
     boards = [{**board.to_dict(), "User":board.user.to_dict(), "Pins": [pin.to_dict() for pin in board.pins]} for board in user_boards]
     return boards
 
+# @board_routes.route("/boards/<int:id>")
+# @login_required
+# def get_boards_by_id(id):
+#     user = current_user.to_dict()
+#     board = Board.query.get(id)
+#     if board:
+#         if board.user_id == user["id"]:
+#             pins = [pin.to_dict() for pin in board.pins]
+#             return {**board.to_dict(), "User":board.user.to_dict(), "Pins": pins}
+#         else:
+#             return {"message": 'User does not own this board'}
+#     else:
+#         return {"message": 'Board not found'}
+
 @board_routes.route("/boards/<int:id>")
 @login_required
 def get_boards_by_id(id):
     user = current_user.to_dict()
     board = Board.query.get(id)
     if board:
-        if board.user_id == user["id"]:
-            pins = [pin.to_dict() for pin in board.pins]
-            return {**board.to_dict(), "User":board.user.to_dict(), "Pins": pins}
-        else:
-            return {"message": 'User does not own this board'}
+        pins = [pin.to_dict() for pin in board.pins]
+        return {**board.to_dict(), "User":board.user.to_dict(), "Pins": pins}
     else:
         return {"message": 'Board not found'}
 

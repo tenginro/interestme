@@ -105,7 +105,11 @@ const CreatePin = () => {
               onChange={(e) => setUrl(e.target.value)}
               placeholder="Enter URL"
               name="url"
+              style={{minHeight: '40px' }}
             ></input>
+            {hasSubmitted ? (
+                <p className="error"> {errors.url}</p>
+              ) : null}
           </div>
           <div className="right-Side">
             <div className="category-save_container">
