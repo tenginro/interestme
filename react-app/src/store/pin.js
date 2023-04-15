@@ -164,8 +164,8 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
     if (response.ok) {
       const newPinRes = await response.json();
       console.log('inside save thunk', newPinRes);
-      await dispatch(actionUpdatePin(newPinRes));
-      // await dispatch(actionLoadSavedPins(newPinRes));
+      // await dispatch(actionUpdatePin(newPinRes));
+      await dispatch(actionLoadSavedPins(newPinRes));
       return newPinRes;
     }
     return await response.json();
@@ -186,7 +186,7 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
     //and so for our AllPins state, we are getting an undefined as the last item
     //and so for PinIndexItem, it will render loading div
     console.log('inside unsave thunk', newPinRes);
-    await dispatch(actionUpdatePin(newPinRes));
+    // await dispatch(actionUpdatePin(newPinRes));
     await dispatch(actionLoadSavedPins(newPinRes));
     return newPinRes;
   }

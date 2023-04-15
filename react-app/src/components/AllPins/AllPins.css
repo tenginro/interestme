@@ -26,6 +26,10 @@
 
 .pinImg {
   -webkit-filter: brightness(100%);
+  height:300px;
+  width:200px;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .pinIndexItem .boardNSave {
