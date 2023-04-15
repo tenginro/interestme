@@ -7,7 +7,8 @@ import "./ManagePins.css";
 import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
 import { defaultImage } from "../SinglePin";
-import DeleteModal from '../DeletePinModal'
+import DeleteModal from "../DeletePinModal";
+
 function CurrentPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
@@ -34,11 +35,6 @@ function CurrentPins() {
               />
             </NavLink>
             <div className="boardNSaveEdit">
-              {/* <button className="editButton">
-                  <Link key={pin.id} to={`/pins/${pin.id}/edit`}>
-                    <i class="fa-solid fa-pen"></i>
-                  </Link>
-                </button> */}
               <OpenModalicon
                 modalComponent={<EditPin pin={pin} />}
                 iconType={"editPen"}

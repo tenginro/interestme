@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { actionClearProfile, getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
@@ -11,6 +11,10 @@ import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
 import { login, removeFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
+import { defaultImage } from "../SinglePin";
+import OpenModalicon from "../OpenModalicon";
+import EditPin from "../EditPin";
+import DeleteModal from "../DeletePinModal";
 
 export default function OtherUserProfile() {
   const { userId } = useParams();
@@ -155,13 +159,45 @@ export default function OtherUserProfile() {
         </div>
       )}
       <div className="profile-boards-container">
-        {!saved && <CurrentPins />}
+        {!saved && (
+          <div>
+            <nav className="allPins">
+              {pins_saved?.map((pin) => (
+                <div key={pin.id} className="pinIndexItem">
+                  <NavLink key={pin.id} to={`/pins/${pin.id}`}>
+                    <img
+                      className="pinImg"
+                      src={pin.url}
+                      alt={pin.name}
+                      onError={defaultImage}
+                    />
+                  </NavLink>
+                  <div className="boardNSaveEdit">
+                    <OpenModalicon
+                      modalComponent={<EditPin pin={pin} />}
+                      iconType={"editPen"}
+                      pin={pin}
+                    />
+                    <OpenModalicon
+                      modalComponent={<DeleteModal pin={pin} />}
+                      iconType={"trashCan"}
+                      pin={pin}
+                    />
+                  </div>
+                </div>
+              ))}
+            </nav>
+          </div>
+        )}
         {saved && (
           <div className="boardsAndPins">
             <div className="board-gallery-list">
-              {boards.map((board) => (
-                <BoardGalleryCard key={board.id} board={board} />
-              ))}
+              {boards.map(
+                (board) =>
+                  !board.secret && (
+                    <BoardGalleryCard key={board.id} board={board} />
+                  )
+              )}
             </div>
             <div className="saved_pins-gallery-list">
               <h4>All pins saved</h4>
