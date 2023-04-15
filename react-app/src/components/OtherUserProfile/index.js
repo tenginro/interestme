@@ -9,7 +9,7 @@ import CurrentPins from "../ManagePins";
 import PinGalleryCard from "../PinGalleryCard";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
-import { login } from "../../store/session";
+import { login, removeFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
 
 export default function OtherUserProfile() {
@@ -18,6 +18,8 @@ export default function OtherUserProfile() {
   const user = useSelector((state) => state.profile);
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
+  const [follow, setFollow] = useState(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const ulRef = useRef();
@@ -30,8 +32,18 @@ export default function OtherUserProfile() {
   };
   const closeMenu = () => setShowMenu(false);
 
+  const checkFollow = () => {
+    if (LogInUser?.following) {
+      const following = LogInUser.following;
+      following.forEach((f) => {
+        if (f.id === user?.id) setFollow(true);
+      });
+    }
+  };
+
   useEffect(() => {
     dispatch(getProfile(userId));
+    checkFollow();
     return () => dispatch(actionClearProfile());
   }, [dispatch, userId]);
 
@@ -48,6 +60,29 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
+        {follow ? (
+          <button
+            className="unfollow_btn"
+            onClick={async (e) => {
+              e.preventDefault();
+              await dispatch(removeFollowThunk(user.id));
+              setFollow(false);
+            }}
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            className="follow_btn"
+            onClick={async (e) => {
+              e.preventDefault();
+              await dispatch(removeFollowThunk(user.id));
+              setFollow(true);
+            }}
+          >
+            Follow
+          </button>
+        )}
       </div>
       <div className="subtitle-container">
         <div className="followers-container">

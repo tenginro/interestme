@@ -35,6 +35,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <MainPage />
+            <Footer />
           </Route>
           <Route exact path="/user">
             <ProfilePage />
@@ -77,7 +78,6 @@ function App() {
           </Route>
         </Switch>
       )}
-      <Footer />
     </>
   );
 }
