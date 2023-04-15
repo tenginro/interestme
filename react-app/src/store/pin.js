@@ -151,7 +151,7 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
 
     if (response.ok) {
       const updatedPin = await response.json();
-      await dispatch(actionUpdatePin(updatedPin));
+      await dispatch(actionLoadSavedPins(updatedPin));
       return updatedPin;
     }
     // return await response.json();
