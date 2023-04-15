@@ -114,4 +114,5 @@
 .pinDescription {
   overflow-y: scroll;
   height: 60px;
+  width: 300px;
 }

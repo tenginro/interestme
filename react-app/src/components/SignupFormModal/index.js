@@ -114,7 +114,6 @@ function SignupFormModal() {
             type="text"
             value={about}
             onChange={(e) => setAbout(e.target.value)}
-            required
           />
         </div>
         <div className="inputField">
