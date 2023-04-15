@@ -8,7 +8,7 @@ function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
   const user = useSelector((state) => state.session.user);
-
+  console.log('inside All Pins, pinsObj', pinsObj)
   useEffect(() => {
     dispatch(getAllPins());
     return () => {
@@ -22,6 +22,7 @@ function AllPins() {
   return (
     <div >
       <nav className="allPins">
+        {console.log('before passing in pinIndexItem, pins', pins)}
         {pins.map((pin) => (
           <div key={pin.id}>
             <PinIndexItem pin={pin} key={pin.id} user={user} page="AllPins"/>
