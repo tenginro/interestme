@@ -164,8 +164,9 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
 
     if (response.ok) {
       const newPinRes = await response.json();
-      await dispatch(actionUpdatePin(newPinRes));
-      // await dispatch(actionLoadSavedPins(newPinRes));
+      console.log('inside save thunk', newPinRes);
+      // await dispatch(actionUpdatePin(newPinRes));
+      await dispatch(actionLoadSavedPins(newPinRes));
       return newPinRes;
     }
     return await response.json();
@@ -181,7 +182,12 @@ export const unSavePinThunk = (pin) => async (dispatch) => {
   });
   if (response.ok) {
     const newPinRes = await response.json();
-    await dispatch(actionUpdatePin(newPinRes));
+    //from here, newPinRes is an array, but actionUpdatePin expects 
+    //an object so for the reducer later, it cannot key into action.pin, 
+    //and so for our AllPins state, we are getting an undefined as the last item
+    //and so for PinIndexItem, it will render loading div
+    console.log('inside unsave thunk', newPinRes);
+    // await dispatch(actionUpdatePin(newPinRes));
     await dispatch(actionLoadSavedPins(newPinRes));
     return newPinRes;
   }

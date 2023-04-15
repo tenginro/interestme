@@ -18,6 +18,13 @@
 .board-cover-container {
   /* border: 3px solid purple; */
 }
+.board-cover-container img {
+  /* border: 3px solid purple; */
+  width:250px;
+  height:160px;
+  object-fit: cover;
+  border-radius: 20px;
+}
 
 .secret {
   /* border: 3px solid gray; */

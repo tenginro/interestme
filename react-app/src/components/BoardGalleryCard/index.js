@@ -31,13 +31,13 @@ function BoardGalleryCard({ board }) {
           <div className="board-image-container">
             {board.board_cover ? (
               <img
-                style={{ height: "160px", width: "250px" }}
+                style={{ height: "160px", width: "250px" , objectFit:'cover'}}
                 src={board.board_cover}
                 alt="boardDefaultCover"
               />
             ) : (
               <img
-                style={{ height: "160px", width: "250px" }}
+                style={{ height: "160px", width: "250px" , objectFit:'cover'}}
                 src={"https://i.stack.imgur.com/34AD2.jpg"}
                 alt="boardDefaultCover"
               />
