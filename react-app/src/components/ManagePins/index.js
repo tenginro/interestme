@@ -7,7 +7,7 @@ import "./ManagePins.css";
 import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
 import { defaultImage } from "../SinglePin";
-
+import DeleteModal from '../DeletePinModal'
 function CurrentPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
@@ -42,6 +42,11 @@ function CurrentPins() {
               <OpenModalicon
                 modalComponent={<EditPin pin={pin} />}
                 iconType={"editPen"}
+                pin={pin}
+              />
+              <OpenModalicon
+                modalComponent={<DeleteModal pin={pin} />}
+                iconType={"trashCan"}
                 pin={pin}
               />
             </div>

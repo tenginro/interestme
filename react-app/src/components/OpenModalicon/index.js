@@ -22,6 +22,13 @@ function OpenModalicon({
   // return (
   //     <li onClick={onClick}>{itemText}</li>
   // )
+  if (iconType === "trashCan") {
+    return (
+      <button className="editButton" onClick={onClick}>
+        <i className="fa-solid fa-trash"></i>
+      </button>
+    );
+  }
   if (iconType === "editPen") {
     return (
       <button className="editButton" onClick={onClick}>
