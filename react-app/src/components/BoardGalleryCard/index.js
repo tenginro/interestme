@@ -1,17 +1,28 @@
 // Necessary imports
-import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { NavLink, useHistory, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getBoardDetail } from "../../store/board";
 import "./BoardGalleryCard.css";
+import { useState } from "react";
 
 function BoardGalleryCard({ board }) {
   // Create dispatch method
   const dispatch = useDispatch();
+  // const this_board = useSelector((state) => state.boards.singleBoard);
+  // Create history method
+  const history = useHistory();
+
+  const pins = board.Pins?.length;
+
+  // onClick function
+  // const onClick = () => {
+  //   dispatch(getBoardDetail(board.id));
+  // };
 
   useEffect(() => {
     dispatch(getBoardDetail(board.id));
-  }, [dispatch, board.id]);
+  }, [dispatch]);
 
   return (
     <li>

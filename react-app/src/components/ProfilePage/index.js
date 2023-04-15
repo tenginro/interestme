@@ -8,9 +8,14 @@ import "./ProfilePage.css";
 import CurrentPins from "../ManagePins";
 import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
-import { getUserBoards } from "../../store/board";
-import { getSavedPins } from "../../store/pin";
+import {
+  actionClearBoard,
+  actionClearBoards,
+  getUserBoards,
+} from "../../store/board";
+import { actionClearSavedPins, getSavedPins } from "../../store/pin";
 import PinIndexItem from "../AllPins/PinIndexItem";
+import { defaultImage } from "../SinglePin";
 
 function ProfilePage() {
   // Create a reference to the session user
@@ -21,9 +26,12 @@ function ProfilePage() {
   const boards = Object.values(boardsObj);
 
   const savedPinsObj = useSelector((state) => state.pins.savedPins);
+  // console.log("savedPinsObj", savedPinsObj);
+  // const savedPinsArr = user.saved_pins;
   let savedPinsArr = [];
   if (savedPinsObj !== null && savedPinsObj !== undefined) {
     savedPinsArr = Object.values(savedPinsObj);
+    // console.log("savedPinsArr", savedPinsArr);
   }
 
   const [saved, setSaved] = useState(true);

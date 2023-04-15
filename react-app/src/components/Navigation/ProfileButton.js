@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./Navigation.css";
 import LoginFormModal from "../LoginFormModal";
@@ -45,16 +45,16 @@ function ProfileButton({ user }) {
     // window.location.reload(false);
   };
 
-  // const createBoardClick = (e) => {
-  //   e.preventDefault();
-  //   history.push("/boards/new");
-  //   closeMenu();
-  // };
-  // const editBoardClick = (e) => {
-  //   e.preventDefault();
-  //   history.push("/boards/current");
-  //   closeMenu();
-  // };
+  const createBoardClick = (e) => {
+    e.preventDefault();
+    history.push("/boards/new");
+    closeMenu();
+  };
+  const editBoardClick = (e) => {
+    e.preventDefault();
+    history.push("/boards/current");
+    closeMenu();
+  };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);

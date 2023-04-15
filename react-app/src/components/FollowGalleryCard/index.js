@@ -1,5 +1,5 @@
 // Necessary imports
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useModal } from "../../context/Modal";
@@ -44,6 +44,7 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
 
   // unfollow function
   const dispatchUnfollow = (id) => {
+    // console.log(id);
     dispatch(removeFollowThunk(id));
     reload(!variable);
     closeModal();

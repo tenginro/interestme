@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, Redirect, useLocation, useParams } from "react-router-dom";
 import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
 import * as pinsAction from "../../store/pin";
@@ -14,7 +14,12 @@ export const defaultImage = (e) => {
 };
 
 const Pin = () => {
+  // const location = useLocation();
+  // console.log('inside pinnnnn', location?.boardProps);
+  // const { from } = location.state;
   const { pinId } = useParams();
+  // const thisBoardId = location.boardProps.thisBoardId
+  // const thisBoardName = location.boardProps.thisBoardName
   const dispatch = useDispatch();
   const pin = useSelector((state) => state.pins.singlePin);
   const [follow, setFollow] = useState(false);
@@ -27,7 +32,12 @@ const Pin = () => {
   );
   const [save, setSave] = useState(false);
 
+  // console.log("inside single Pin thisBoardId", thisBoardId);
+  // console.log("inside single Pin thisBoardName", thisBoardName);
+
+  // const userBoards = user?.boards || [];
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
+  // const userBoards = user?.boards || [];
   const userBoards = Object.values(allUserBoardsObj);
 
   let changingBoardId = board;
