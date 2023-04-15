@@ -26,7 +26,9 @@
 }
 
 .editButton {
-  border-radius: 50px;
+  height:35px;
+  width:35px;
+  border-radius: 50%;
   border:0;
   padding: 10px;
   -webkit-filter: brightness(70%);
