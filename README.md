@@ -1,4 +1,4 @@
-# Flask React Project
+# Pinterest Clone Project "Tinterest"
 
 This is the starter for the Flask React project.
 
