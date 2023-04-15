@@ -64,7 +64,7 @@ function BoardDetails() {
           )}
         </div>
         {board.description && (
-          <div className="boardDescription">{board.description}</div>
+          <div className="boardDescription">{board.description && !board.secret ? board.description : ''}</div>
         )}
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
@@ -72,7 +72,7 @@ function BoardDetails() {
       </div>
 
       <h2 className="pinsCountNumber">
-        {board.Pins?.length} {board.Pins?.length < 2 ? " pin" : " pins"}
+        {board.Pins?.length > 0 ? board.Pins?.length : ''} {board.Pins?.length == 0 ? '' : board.Pins?.length < 2 ? " pin" : " pins"}
       </h2>
       <div className="pin-gallery-grid">
         {board.Pins?.map((pin) => (
