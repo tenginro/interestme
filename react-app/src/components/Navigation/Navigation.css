@@ -160,6 +160,9 @@
   align-items: center;
   width: 100px;
 }
+.createWord:hover {
+  color:grey;
+}
 
 .createWord i {
   margin-left: 1em;
