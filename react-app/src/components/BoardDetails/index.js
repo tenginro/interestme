@@ -46,9 +46,11 @@ function BoardDetails() {
       <div className="info-container">
         <div className="board-detail-name-container">
           <h1>{board.name}</h1>
-          <div>
-            <DropdownMenuButton board={board} />
-          </div>
+          {board.user_id === currentUser.id && (
+            <div>
+              <DropdownMenuButton board={board} />
+            </div>
+          )}
         </div>
         <div className="manage-board-buttons-container"></div>
         <div className="board-cover-container">
@@ -64,7 +66,9 @@ function BoardDetails() {
           )}
         </div>
         {board.description && (
-          <div className="boardDescription">{board.description && !board.secret ? board.description : ''}</div>
+          <div className="boardDescription">
+            {board.description && !board.secret ? board.description : ""}
+          </div>
         )}
         <p className="secret">
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
@@ -72,7 +76,12 @@ function BoardDetails() {
       </div>
 
       <h2 className="pinsCountNumber">
-        {board.Pins?.length > 0 ? board.Pins?.length : ''} {board.Pins?.length == 0 ? '' : board.Pins?.length < 2 ? " pin" : " pins"}
+        {board.Pins?.length > 0 ? board.Pins?.length : ""}{" "}
+        {board.Pins?.length == 0
+          ? ""
+          : board.Pins?.length < 2
+          ? " pin"
+          : " pins"}
       </h2>
       <div className="pin-gallery-grid">
         {board.Pins?.map((pin) => (

@@ -5,16 +5,11 @@ import { actionClearProfile, getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
-import CurrentPins from "../ManagePins";
-import PinGalleryCard from "../PinGalleryCard";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
-import { login, removeFollowThunk } from "../../store/session";
+import { removeFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import { defaultImage } from "../SinglePin";
-import OpenModalicon from "../OpenModalicon";
-import EditPin from "../EditPin";
-import DeleteModal from "../DeletePinModal";
 
 export default function OtherUserProfile() {
   const { userId } = useParams();
