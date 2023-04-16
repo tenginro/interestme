@@ -105,11 +105,13 @@ const CreatePin = () => {
               onChange={(e) => setUrl(e.target.value)}
               placeholder="Enter URL"
               name="url"
-              style={{minHeight: '40px' }}
+              style={{ minHeight: "40px" }}
             ></input>
             {hasSubmitted ? (
-                <p className="error"> {errors.url}</p>
-              ) : null}
+              <p className="error"> {errors.url}</p>
+            ) : (
+              <p className="noErrorDisplay">{"  "}</p>
+            )}
           </div>
           <div className="right-Side">
             <div className="category-save_container">
@@ -142,7 +144,11 @@ const CreatePin = () => {
                 placeholder="Add your title"
                 name="name"
               ></input>
-              {hasSubmitted ? <p className="error"> {errors.name}</p> : null}
+              {hasSubmitted ? (
+                <p className="error"> {errors.name}</p>
+              ) : (
+                <p className="noErrorDisplay">{"  "}</p>
+              )}
             </div>
             <div>
               <label>Choose a category: </label>
@@ -176,7 +182,9 @@ const CreatePin = () => {
               ></input>
               {hasSubmitted ? (
                 <p className="error"> {errors.description}</p>
-              ) : null}
+              ) : (
+                <p className="noErrorDisplay">{"  "}</p>
+              )}
             </div>
           </div>
         </div>
