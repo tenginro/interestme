@@ -15,8 +15,8 @@ import DeleteModal from "../DeletePinModal";
 import OpenModalicon from "../OpenModalicon";
 
 function isFollowed(LogInUser, user) {
+  console.log('is Followed', LogInUser.following.filter((f) => f.id === user.id).length)
   if(!LogInUser.following.filter((f) => f.id === user.id).length) {
-    // console.log('is Followed', LogInUser.following.filter((f) => f.id === user.id).length)
     return false;
   }
   else return true;
@@ -80,6 +80,7 @@ export default function OtherUserProfile() {
             onClick={async (e) => {
               e.preventDefault();
               await dispatch(removeFollowThunk(user.id));
+              await dispatch(getProfile(userId));
               setFollow(false);
             }}
           >
@@ -91,6 +92,7 @@ export default function OtherUserProfile() {
             onClick={async (e) => {
               e.preventDefault();
               await dispatch(addFollowThunk(user.id));
+              await dispatch(getProfile(userId));
               setFollow(true);
             }}
           >
