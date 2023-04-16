@@ -99,6 +99,16 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
+              <button
+                className="viewProfileButton"
+                onClick={() => {
+                  clickToUserProfile();
+                }}
+              >
+                View your profile
+              </button>
+            </li>
+            <li>
               <button className="logoutButton" onClick={handleLogout}>
                 Log Out
               </button>
