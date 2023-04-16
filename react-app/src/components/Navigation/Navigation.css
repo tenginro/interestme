@@ -87,6 +87,10 @@
   background-color: rgb(203, 202, 202);
 }
 
+.main_page_login_btn.login:hover {
+  background-color: grey;
+}
+
 .main_page_login_btn.notLogIn {
   background-color: rgb(234, 2, 2);
   border: none;
@@ -156,6 +160,9 @@
   align-items: center;
   width: 100px;
 }
+.createWord:hover {
+  color:grey;
+}
 
 .createWord i {
   margin-left: 1em;
@@ -172,6 +179,9 @@
   justify-content: center;
   margin-left: 0;
   font-weight: bolder;
+}
+.projectName:hover {
+  color: grey;
 }
 
 .logoutButton {
