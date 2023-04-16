@@ -5,6 +5,7 @@ import logo from "../LandingPage/Assets/icon.png";
 import ProfileButton from "./ProfileButton";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import CreateBoard from "../CreateBoard";
+import CreatePin from "../CreatePin";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -64,8 +65,9 @@ useEffect(() => {
           </NavLink>
         )}
       </li>
-      {sessionUser && <div className="createPin">
-        {/* {sessionUser ? (
+      {sessionUser && (
+        <div className="createPin">
+          {/* {sessionUser ? (
           <button className="createPinButton" onClick={clickCreate}>
             <NavLink exact to="/pins/new">
               <div className="createWord">
@@ -75,32 +77,31 @@ useEffect(() => {
           </button>
         ) : null} */}
 
-        <button className="create__Button" onClick={openMenu}>
-          Create
-        </button>
-        {setShowMenu ? (
-          <ul className={ulClass} ref={ulRef}>
-            <li className="menu-item">
-              <button
-                className="create-pin_board-btn"
-                onClick={handleCreatePin}
-              >
-                Create Pin
-              </button>
-            </li>
+          <button className="create__Button" onClick={openMenu}>
+            Create
+          </button>
+          {setShowMenu ? (
+            <ul className={ulClass} ref={ulRef}>
+              <div className="create-pin_board-btn">
+                <OpenModalMenuItem
+                  itemText="Pin"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreatePin />}
+                />
+              </div>
 
               <div className="create-pin_board-btn">
                 <OpenModalMenuItem
-                  itemText="Create Board"
+                  itemText="Board"
                   onItemClick={closeMenu}
                   modalComponent={<CreateBoard />}
                 />
               </div>
+            </ul>
+          ) : null}
+        </div>
+      )}
 
-          </ul>
-        ) : null}
-      </div>}
-      
       {sessionUser && (
         <div className="searchBar">
           <i className="fas fa-solid fa-magnifying-glass"></i>
