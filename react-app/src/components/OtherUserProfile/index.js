@@ -18,7 +18,6 @@ export default function OtherUserProfile() {
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
   const [follow, setFollow] = useState(false);
-  console.log("inside other user profile");
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,17 +45,13 @@ export default function OtherUserProfile() {
   }
 
   useEffect(() => {
-    console.log("login user", LogInUser);
-    console.log("profile user", user);
     dispatch(getProfile(userId));
     checkFollow();
-    console.log("follow inside useEffect", follow);
 
     return () => dispatch(actionClearProfile());
   }, [dispatch, userId, follow]);
 
   if (!user.username) return <div>Loading</div>;
-  console.log("other user follow", follow);
 
   return (
     <div className="profile-page-container">
@@ -69,8 +64,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
-
-        {follow ? (
+        {LogInUser.following.filter((f) => f.id === user.id).length ? (
           <button
             className="unfollow_btn"
             onClick={async (e) => {

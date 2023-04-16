@@ -15,7 +15,6 @@ export const defaultImage = (e) => {
 
 const Pin = () => {
   // const location = useLocation();
-  // console.log('inside pinnnnn', location?.boardProps);
   // const { from } = location.state;
   const { pinId } = useParams();
   // const thisBoardId = location.boardProps.thisBoardId
@@ -31,9 +30,6 @@ const Pin = () => {
     whichBoard(pin, user, thisBoardId, thisBoardName)
   );
   const [save, setSave] = useState(false);
-
-  // console.log("inside single Pin thisBoardId", thisBoardId);
-  // console.log("inside single Pin thisBoardName", thisBoardName);
 
   // const userBoards = user?.boards || [];
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
@@ -59,7 +55,7 @@ const Pin = () => {
 
   useEffect(() => {
     dispatch(getPinDetail(pinId));
-    checkFollow();
+    // checkFollow();
     return () => dispatch(actionClearPin());
   }, [dispatch, pinId, save]);
   //when hitting save button, it will reload the whole page
@@ -148,7 +144,7 @@ const Pin = () => {
           </NavLink>
           {pin.User?.username === user.username ? (
             <div></div>
-          ) : follow ? (
+          ) : user.following.filter((f) => f.id === pin.user_id).length ? (
             <button
               className="unfollow_btn"
               onClick={async (e) => {
