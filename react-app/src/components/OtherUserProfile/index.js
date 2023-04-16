@@ -40,23 +40,23 @@ export default function OtherUserProfile() {
 
   const pins_created = user?.pins;
   const pins_saved = user?.saved_pins;
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
-  const closeMenu = () => setShowMenu(false);
+  // const openMenu = () => {
+  //   if (showMenu) return;
+  //   setShowMenu(true);
+  // };
+  // const closeMenu = () => setShowMenu(false);
 
-  function checkFollow() {
-    if (LogInUser?.following) {
-      const following = LogInUser.following;
-      following.forEach((f) => {
-        if (f.id === user?.id) {
-          setFollow(true);
-        }
-      });
-    }
-    return follow;
-  }
+  // function checkFollow() {
+  //   if (LogInUser?.following) {
+  //     const following = LogInUser.following;
+  //     following.forEach((f) => {
+  //       if (f.id === user?.id) {
+  //         setFollow(true);
+  //       }
+  //     });
+  //   }
+  //   return follow;
+  // }
 
   useEffect(() => {
     dispatch(getProfile(userId));
