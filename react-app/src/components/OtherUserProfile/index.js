@@ -23,6 +23,7 @@ export default function OtherUserProfile() {
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
   const [follow, setFollow] = useState(false);
+  console.log('inside other user profile');
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ export default function OtherUserProfile() {
   }, [dispatch, userId]);
 
   if (!user.username) return <div>Loading</div>;
+  console.log('other user follow', follow)
 
   return (
     <div className="profile-page-container">
@@ -64,6 +66,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
+        {console.log('other user follow', follow)}
         {follow ? (
           <button
             className="unfollow_btn"
