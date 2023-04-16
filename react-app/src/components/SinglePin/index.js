@@ -13,17 +13,20 @@ export const defaultImage = (e) => {
   e.target.src = defaultPinPic;
 };
 
+function isFollowed(user, pin) {
+  return Boolean(user.following.filter((f) => f.id === pin.user_id).length);
+}
+
 const Pin = () => {
   // const location = useLocation();
-  // console.log('inside pinnnnn', location?.boardProps);
   // const { from } = location.state;
   const { pinId } = useParams();
   // const thisBoardId = location.boardProps.thisBoardId
   // const thisBoardName = location.boardProps.thisBoardName
   const dispatch = useDispatch();
   const pin = useSelector((state) => state.pins.singlePin);
-  const [follow, setFollow] = useState(false);
   const user = useSelector((state) => state.session.user);
+  const [follow, setFollow] = useState(false);
   const thisBoardId = pin?.boards?.filter((b) => b.user_id === user?.id)[0]?.id;
   const thisBoardName = pin?.boards?.filter((b) => b.user_id === user?.id)[0]
     ?.name;
@@ -31,9 +34,6 @@ const Pin = () => {
     whichBoard(pin, user, thisBoardId, thisBoardName)
   );
   const [save, setSave] = useState(false);
-
-  // console.log("inside single Pin thisBoardId", thisBoardId);
-  // console.log("inside single Pin thisBoardName", thisBoardName);
 
   // const userBoards = user?.boards || [];
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
@@ -59,9 +59,8 @@ const Pin = () => {
 
   useEffect(() => {
     dispatch(getPinDetail(pinId));
-    checkFollow();
     return () => dispatch(actionClearPin());
-  }, [dispatch, pinId, save]);
+  }, [dispatch, pinId, save, follow]);
   //when hitting save button, it will reload the whole page
 
   if (!user.id || !pin.id) return <div>Loading</div>;
@@ -148,14 +147,12 @@ const Pin = () => {
           </NavLink>
           {pin.User?.username === user.username ? (
             <div></div>
-          ) : follow ? (
+          ) : isFollowed(user, pin) ? (
             <button
               className="unfollow_btn"
               onClick={async (e) => {
                 e.preventDefault();
-                await dispatch(
-                  sessionAction.removeFollowThunk(user, pin.user_id)
-                );
+                await dispatch(sessionAction.removeFollowThunk(pin.user_id));
                 setFollow(false);
               }}
             >

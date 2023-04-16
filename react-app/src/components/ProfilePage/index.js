@@ -26,12 +26,10 @@ function ProfilePage() {
   const boards = Object.values(boardsObj);
 
   const savedPinsObj = useSelector((state) => state.pins.savedPins);
-  // console.log("savedPinsObj", savedPinsObj);
   // const savedPinsArr = user.saved_pins;
   let savedPinsArr = [];
   if (savedPinsObj !== null && savedPinsObj !== undefined) {
     savedPinsArr = Object.values(savedPinsObj);
-    // console.log("savedPinsArr", savedPinsArr);
   }
 
   const [saved, setSaved] = useState(true);
