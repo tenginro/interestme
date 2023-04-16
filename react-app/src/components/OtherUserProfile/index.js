@@ -15,7 +15,7 @@ import DeleteModal from "../DeletePinModal";
 import OpenModalicon from "../OpenModalicon";
 
 function isFollowed(LogInUser, user) {
-  console.log('is Followed', LogInUser.following.filter((f) => f.id === user.id).length)
+  // console.log('is Followed', LogInUser.following.filter((f) => f.id === user.id).length)
   if(!LogInUser.following.filter((f) => f.id === user.id).length) {
     return false;
   }
@@ -30,6 +30,8 @@ export default function OtherUserProfile() {
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
   const [follow, setFollow] = useState(false);
+
+  const LogInUserSavedPins = LogInUser.saved_pins;
 
   const history = useHistory();
   const dispatch = useDispatch();

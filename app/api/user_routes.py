@@ -31,12 +31,20 @@ def user(id):
     allUsers = User.query.all()
     followers = [user.to_dict() for user in allUsers if this_user in user.following]
 
+    # return {**this_user.to_dict(), 
+    #         "pins":[pin.to_dict() for pin in this_user.pins], 
+    #         "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in this_user.boards],
+    #         "saved_pins":[{**pin.to_dict(), "boards":[board.to_dict() for board in pin.boards]} for pin in this_user.saved_pins],  
+    #         "following": following, 
+    #         "followers": followers}
     return {**this_user.to_dict(), 
-            "pins":[pin.to_dict() for pin in this_user.pins], 
+            "pins":[{**pin.to_dict(), "user_saved":[user.to_dict() for user in pin.user_saved]} for pin in this_user.pins], 
             "boards":[{**board.to_dict(), "Pins":[pin.to_dict() for pin in board.pins]} for board in this_user.boards],
             "saved_pins":[{**pin.to_dict(), "boards":[board.to_dict() for board in pin.boards]} for pin in this_user.saved_pins],  
             "following": following, 
             "followers": followers}
+
+
 
 
 # please note the int:id here is other user's id

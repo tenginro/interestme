@@ -26,6 +26,8 @@ export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
 
 export const isSaved = (pin, user, inThisBoard) => {
   let saveOrNot = false;
+  console.log('inside isSaved pin.user_saved', pin)
+  console.log('inside isSaved user', user)
   if (inThisBoard) saveOrNot = true;
   else if (pin?.user_saved !== undefined) {
     pin?.user_saved.forEach((s) => {

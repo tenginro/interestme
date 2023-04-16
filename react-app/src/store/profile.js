@@ -17,6 +17,7 @@ export const getProfile = (id) => async (dispatch) => {
 
   if (response.ok) {
     const profile = await response.json();
+    console.log('in profile thunk profile: ', profile)
     await dispatch(actionReadProfile(profile));
     return profile;
   }
