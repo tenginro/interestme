@@ -31,6 +31,9 @@
 }
 .rightSideEdit img {
   height: 300px;
+  width:220px;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .formBottom {
