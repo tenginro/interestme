@@ -7,7 +7,7 @@ import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
-import { removeFollowThunk } from "../../store/session";
+import { removeFollowThunk, addFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import { defaultImage } from "../SinglePin";
 import EditPin from "../EditPin";
@@ -15,7 +15,12 @@ import DeleteModal from "../DeletePinModal";
 import OpenModalicon from "../OpenModalicon";
 
 function isFollowed(LogInUser, user) {
-  return Boolean(LogInUser.following.filter((f) => f.id === user.id).length);
+  if(!LogInUser.following.filter((f) => f.id === user.id).length) {
+    // console.log('is Followed', LogInUser.following.filter((f) => f.id === user.id).length)
+    return false;
+  }
+  else return true;
+  // return Boolean(LogInUser.following.filter((f) => f.id === user.id).length);
 }
 
 export default function OtherUserProfile() {
@@ -85,7 +90,7 @@ export default function OtherUserProfile() {
             className="follow_btn"
             onClick={async (e) => {
               e.preventDefault();
-              await dispatch(removeFollowThunk(user.id));
+              await dispatch(addFollowThunk(user.id));
               setFollow(true);
             }}
           >
