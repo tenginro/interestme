@@ -1,45 +1,68 @@
 .board-form_container {
-    display: flex;
-    height: 400px;
-    width: 540px;
-    flex-direction: column;
-    justify-content: space-evenly;
-
+  display: flex;
+  height: 400px;
+  width: 540px;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 #board-form {
-    display: flex;
-    flex-direction: column;
-margin: 25px;
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
 }
 
 #board-form_title {
-    display: flex;
-        flex-direction: row;
-        justify-content: center;
-        font-weight: bolder;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: bolder;
 }
 
 .create_board-btn-div {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 20px;
 }
 
-
-
 .board-form_input-field {
-    border: 1px solid gray;
-    border-radius: 7px;
-    padding: 20px;
+  border: 1px solid gray;
+  border-radius: 7px;
+  padding: 20px;
 }
 
 .create_board-btn {
-    margin-right: 20px;
-    width: 120px;
-    height: 50px;
-    border-radius: 40px;
-    border: none;
-    background: rgb(208, 206, 206);
+  margin-right: 20px;
+  width: 120px;
+  height: 50px;
+  border-radius: 40px;
+  border: none;
+  background: rgb(208, 206, 206);
+}
+
+.secretCheckboxContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.secretCheckboxContainer input {
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.secretCheckboxSecondLine {
+  display: flex;
+  flex-direction: column;
+}
+
+.secretCheckboxSecondFirst {
+  font-weight: bolder;
+  color: black;
+}
+.secretCheckboxSecondSecond {
+  color: gray;
 }
