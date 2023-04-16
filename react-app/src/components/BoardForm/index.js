@@ -15,8 +15,6 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const [secret, setSecret] = useState(newBoard.secret);
   const currentUser = useSelector((state) => state.session.user);
 
-  console.log("secret", secret);
-
   if (!currentUser) return <Redirect to="/" />;
 
   const submitNewBoardHandler = async (e) => {
@@ -75,7 +73,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           <h1 id="board-form_title">{formType}</h1>
           <label>Name</label>
           <input
-            className="board-form_input-field"
+            className="board-form_input"
             type="text"
             id="name"
             value={name}

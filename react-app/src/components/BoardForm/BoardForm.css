@@ -4,6 +4,7 @@
   width: 540px;
   flex-direction: column;
   justify-content: space-evenly;
+  padding: 10px 0;
 }
 
 #board-form {
@@ -23,13 +24,19 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding-top: 20px;
+}
+.board-form_input {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 3px;
 }
 
 .board-form_input-field {
   border: 1px solid gray;
-  border-radius: 7px;
-  padding: 20px;
+  border-radius: 5px;
+  overflow-y: auto;
+  height: 50px;
+  padding: 3px;
 }
 
 .create_board-btn {
