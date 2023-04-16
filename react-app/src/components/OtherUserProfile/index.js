@@ -37,24 +37,33 @@ export default function OtherUserProfile() {
   };
   const closeMenu = () => setShowMenu(false);
 
-  const checkFollow = () => {
+  function checkFollow () {
+    
     if (LogInUser?.following) {
       const following = LogInUser.following;
       following.forEach((f) => {
-        if (f.id === user?.id) setFollow(true);
+        if (f.id === user?.id) {
+          setFollow(true);
+        }
       });
     }
+    return follow;
+    
   };
 
   useEffect(() => {
+    console.log('login user', LogInUser);
+    console.log('profile user', user)
     dispatch(getProfile(userId));
     checkFollow();
+    console.log('follow inside useEffect', follow)
+
     return () => dispatch(actionClearProfile());
-  }, [dispatch, userId]);
+  }, [dispatch, userId, follow]);
 
   if (!user.username) return <div>Loading</div>;
   console.log('other user follow', follow)
-
+  
   return (
     <div className="profile-page-container">
       <div className="profile-picture-container">
@@ -66,7 +75,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
-        {console.log('other user follow', follow)}
+        
         {follow ? (
           <button
             className="unfollow_btn"
