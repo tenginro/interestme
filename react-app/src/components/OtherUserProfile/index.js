@@ -48,18 +48,14 @@ export default function OtherUserProfile() {
       });
     }
     return follow;
-    
   };
 
   useEffect(() => {
-    console.log('login user', LogInUser);
-    console.log('profile user', user)
+    
     dispatch(getProfile(userId));
     checkFollow();
-    console.log('follow inside useEffect', follow)
-
     return () => dispatch(actionClearProfile());
-  }, [dispatch, userId, follow]);
+  }, [dispatch, userId]);
 
   if (!user.username) return <div>Loading</div>;
   console.log('other user follow', follow)
