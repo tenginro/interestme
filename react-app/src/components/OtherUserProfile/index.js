@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { Link, NavLink, useHistory, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { actionClearProfile, getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
@@ -116,7 +116,6 @@ export default function OtherUserProfile() {
             />
           </div>
         </div>
-
         <div className="created-saved-container">
           <button
             className={!saved ? "activated" : ""}
@@ -132,51 +131,18 @@ export default function OtherUserProfile() {
           </button>
         </div>
       </div>
-      {/* {user.id === LogInUser.id && (
-        <div className="plus-sign-container">
-          <div className="icons">
-            <i
-              style={{ cursor: "pointer" }}
-              onClick={() => alert("feature coming soon")}
-              className="fa-solid fa-sliders"
-            />
-          </div>
-          <div className="plusIcon">
-            <i className="fa-solid fa-plus" onClick={openMenu}></i>
-            <ul className={showMenu ? "dropdown-menu" : "hidden"} ref={ulRef}>
-              <p className="dropdown-header">Create</p>
-              <div>
-                <OpenModalMenuItem
-                  itemText="Pin"
-                  onItemClick={closeMenu}
-                  modalComponent={<CreatePin />}
-                />
-              </div>
-              <div>
-                <OpenModalMenuItem
-                  itemText="Board"
-                  onItemClick={closeMenu}
-                  modalComponent={<CreateBoard />}
-                />
-              </div>
-            </ul>
-          </div>
-        </div>
-      )} */}
       <div className="profile-boards-container">
         {!saved && (
           <div>
             <nav className="allPins">
               {pins_created?.map((pin) => (
-                <div key={pin.id} className="pinIndexItem">
-                  <NavLink key={pin.id} to={`/pins/${pin.id}`}>
-                    <img
-                      className="pinImg"
-                      src={pin.url}
-                      alt={pin.name}
-                      onError={defaultImage}
-                    />
-                  </NavLink>
+                <div key={pin.id}>
+                  <PinIndexItem
+                    key={pin.id}
+                    pin={pin}
+                    user={LogInUser}
+                    page="OtherProfile"
+                  />
                 </div>
               ))}
             </nav>
