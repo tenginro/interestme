@@ -23,13 +23,14 @@ export default function OtherUserProfile() {
   const [saved, setSaved] = useState(true);
   const [showMenu, setShowMenu] = useState("");
   const [follow, setFollow] = useState(false);
-  console.log('inside other user profile');
+  console.log("inside other user profile");
 
   const history = useHistory();
   const dispatch = useDispatch();
   const ulRef = useRef();
   const boards = user?.boards;
 
+  const pins_created = user?.pins;
   const pins_saved = user?.saved_pins;
   const openMenu = () => {
     if (showMenu) return;
@@ -37,8 +38,7 @@ export default function OtherUserProfile() {
   };
   const closeMenu = () => setShowMenu(false);
 
-  function checkFollow () {
-    
+  function checkFollow() {
     if (LogInUser?.following) {
       const following = LogInUser.following;
       following.forEach((f) => {
@@ -48,22 +48,21 @@ export default function OtherUserProfile() {
       });
     }
     return follow;
-    
-  };
+  }
 
   useEffect(() => {
-    console.log('login user', LogInUser);
-    console.log('profile user', user)
+    console.log("login user", LogInUser);
+    console.log("profile user", user);
     dispatch(getProfile(userId));
     checkFollow();
-    console.log('follow inside useEffect', follow)
+    console.log("follow inside useEffect", follow);
 
     return () => dispatch(actionClearProfile());
   }, [dispatch, userId, follow]);
 
   if (!user.username) return <div>Loading</div>;
-  console.log('other user follow', follow)
-  
+  console.log("other user follow", follow);
+
   return (
     <div className="profile-page-container">
       <div className="profile-picture-container">
@@ -75,7 +74,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
-        
+
         {follow ? (
           <button
             className="unfollow_btn"
@@ -174,7 +173,7 @@ export default function OtherUserProfile() {
         {!saved && (
           <div>
             <nav className="allPins">
-              {pins_saved?.map((pin) => (
+              {pins_created?.map((pin) => (
                 <div key={pin.id} className="pinIndexItem">
                   <NavLink key={pin.id} to={`/pins/${pin.id}`}>
                     <img
@@ -184,18 +183,6 @@ export default function OtherUserProfile() {
                       onError={defaultImage}
                     />
                   </NavLink>
-                  <div className="boardNSaveEdit">
-                    <OpenModalicon
-                      modalComponent={<EditPin pin={pin} />}
-                      iconType={"editPen"}
-                      pin={pin}
-                    />
-                    <OpenModalicon
-                      modalComponent={<DeleteModal pin={pin} />}
-                      iconType={"trashCan"}
-                      pin={pin}
-                    />
-                  </div>
                 </div>
               ))}
             </nav>
