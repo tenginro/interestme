@@ -10,6 +10,13 @@ import CreateBoard from "../CreateBoard";
 import { removeFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import { defaultImage } from "../SinglePin";
+import EditPin from "../EditPin";
+import DeleteModal from "../DeletePinModal";
+import OpenModalicon from "../OpenModalicon";
+
+function isFollowed(LogInUser, user) {
+  return Boolean(LogInUser.following.filter((f) => f.id === user.id).length);
+}
 
 export default function OtherUserProfile() {
   const { userId } = useParams();
@@ -46,10 +53,8 @@ export default function OtherUserProfile() {
 
   useEffect(() => {
     dispatch(getProfile(userId));
-    checkFollow();
-
     return () => dispatch(actionClearProfile());
-  }, [dispatch, userId, follow]);
+  }, [dispatch, userId]);
 
   if (!user.username) return <div>Loading</div>;
 
@@ -64,7 +69,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
-        {LogInUser.following.filter((f) => f.id === user.id).length ? (
+        {isFollowed(LogInUser, user) ? (
           <button
             className="unfollow_btn"
             onClick={async (e) => {
@@ -127,7 +132,7 @@ export default function OtherUserProfile() {
           </button>
         </div>
       </div>
-      {user.id === LogInUser.id && (
+      {/* {user.id === LogInUser.id && (
         <div className="plus-sign-container">
           <div className="icons">
             <i
@@ -157,7 +162,7 @@ export default function OtherUserProfile() {
             </ul>
           </div>
         </div>
-      )}
+      )} */}
       <div className="profile-boards-container">
         {!saved && (
           <div>
