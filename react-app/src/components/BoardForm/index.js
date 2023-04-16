@@ -12,7 +12,10 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
 
   const [name, setName] = useState(newBoard.name);
   const [description, setDescription] = useState(newBoard.description);
+  const [secret, setSecret] = useState(newBoard.secret);
   const currentUser = useSelector((state) => state.session.user);
+
+  console.log("secret", secret);
 
   if (!currentUser) return <Redirect to="/" />;
 
@@ -25,6 +28,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           {
             name,
             description,
+            secret,
           },
           newBoard.id
         )
@@ -46,6 +50,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           {
             name,
             description,
+            secret,
           },
           newBoard.id
         )
@@ -87,6 +92,25 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
+          <br />
+          <div className="secretCheckboxContainer">
+            <div className="secretCheckboxFirstLine">
+              <input
+                type="checkbox"
+                checked={secret}
+                id="secret"
+                onChange={(e) => setSecret(e.target.checked)}
+              ></input>
+            </div>
+            <div className="secretCheckboxSecondLine">
+              <div className="secretCheckboxSecondFirst">
+                Keep this board secret
+              </div>
+              <div className="secretCheckboxSecondSecond">
+                So only you can see it
+              </div>
+            </div>
+          </div>
           <br />
           <div className="create_board-btn-div">
             <button className="create_board-btn" type="submit">
