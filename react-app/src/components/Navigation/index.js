@@ -1,12 +1,45 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from "../LandingPage/Assets/icon.png";
 import ProfileButton from "./ProfileButton";
+import OpenModalMenuItem from "../OpenModalMenuItem";
+import CreateBoard from "../CreateBoard";
+import CreatePin from "../CreatePin";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+   const ulRef = useRef();
+  const [showMenu, setShowMenu] = useState(false);
+const history = useHistory();
+
+const openMenu = () => {
+  if (showMenu) return;
+  setShowMenu(true);
+};
+
+useEffect(() => {
+  if (!showMenu) return;
+
+  const closeMenu = (e) => {
+    if (!ulRef.current.contains(e.target)) {
+      setShowMenu(false);
+    }
+  };
+
+  document.addEventListener("click", closeMenu);
+
+  return () => document.removeEventListener("click", closeMenu);
+}, [showMenu]);
+
+  const ulClass = "create_drop-down" + (showMenu ? "" : " hidden");
+  const closeMenu = () => setShowMenu(false);
+
+  const handleCreatePin = () => {
+    history.push("/pins/new");
+    setShowMenu(false);
+  };
 
   const clickCreate = (e) => {
     e.preventDefault();
@@ -32,18 +65,43 @@ function Navigation({ isLoaded }) {
           </NavLink>
         )}
       </li>
-      <div className="createPin">
-        {sessionUser ? (
+      {sessionUser && (
+        <div className="createPin">
+          {/* {sessionUser ? (
           <button className="createPinButton" onClick={clickCreate}>
             <NavLink exact to="/pins/new">
               <div className="createWord">
                 Create Pin{"  "}
-                {/* <i className="fas fa-solid fa-angle-down"></i> */}
               </div>
             </NavLink>
           </button>
-        ) : null}
-      </div>
+        ) : null} */}
+
+          <button className="create__Button" onClick={openMenu}>
+            Create
+          </button>
+          {setShowMenu ? (
+            <ul className={ulClass} ref={ulRef}>
+              <div className="create-pin_board-btn">
+                <OpenModalMenuItem
+                  itemText="Pin"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreatePin />}
+                />
+              </div>
+
+              <div className="create-pin_board-btn">
+                <OpenModalMenuItem
+                  itemText="Board"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreateBoard />}
+                />
+              </div>
+            </ul>
+          ) : null}
+        </div>
+      )}
+
       {sessionUser && (
         <div className="searchBar">
           <i className="fas fa-solid fa-magnifying-glass"></i>
