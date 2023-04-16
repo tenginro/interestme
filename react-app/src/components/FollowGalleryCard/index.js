@@ -44,7 +44,6 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
 
   // unfollow function
   const dispatchUnfollow = (id) => {
-    // console.log(id);
     dispatch(removeFollowThunk(id));
     reload(!variable);
     closeModal();

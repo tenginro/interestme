@@ -5,16 +5,11 @@ import { actionClearProfile, getProfile } from "../../store/profile";
 import BoardGalleryCard from "../BoardGalleryCard";
 import OpenModalMenuItem from "../OpenModalMenuItem";
 import FollowGallery from "../FollowGallery";
-import CurrentPins from "../ManagePins";
-import PinGalleryCard from "../PinGalleryCard";
 import CreatePin from "../CreatePin";
 import CreateBoard from "../CreateBoard";
-import { login, removeFollowThunk } from "../../store/session";
+import { removeFollowThunk } from "../../store/session";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import { defaultImage } from "../SinglePin";
-import OpenModalicon from "../OpenModalicon";
-import EditPin from "../EditPin";
-import DeleteModal from "../DeletePinModal";
 
 export default function OtherUserProfile() {
   const { userId } = useParams();
@@ -29,6 +24,7 @@ export default function OtherUserProfile() {
   const ulRef = useRef();
   const boards = user?.boards;
 
+  const pins_created = user?.pins;
   const pins_saved = user?.saved_pins;
   const openMenu = () => {
     if (showMenu) return;
@@ -36,20 +32,24 @@ export default function OtherUserProfile() {
   };
   const closeMenu = () => setShowMenu(false);
 
-  const checkFollow = () => {
+  function checkFollow() {
     if (LogInUser?.following) {
       const following = LogInUser.following;
       following.forEach((f) => {
-        if (f.id === user?.id) setFollow(true);
+        if (f.id === user?.id) {
+          setFollow(true);
+        }
       });
     }
-  };
+    return follow;
+  }
 
   useEffect(() => {
     dispatch(getProfile(userId));
     checkFollow();
+
     return () => dispatch(actionClearProfile());
-  }, [dispatch, userId]);
+  }, [dispatch, userId, follow]);
 
   if (!user.username) return <div>Loading</div>;
 
@@ -64,7 +64,7 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
-        {follow ? (
+        {LogInUser.following.filter((f) => f.id === user.id).length ? (
           <button
             className="unfollow_btn"
             onClick={async (e) => {
@@ -162,7 +162,7 @@ export default function OtherUserProfile() {
         {!saved && (
           <div>
             <nav className="allPins">
-              {pins_saved?.map((pin) => (
+              {pins_created?.map((pin) => (
                 <div key={pin.id} className="pinIndexItem">
                   <NavLink key={pin.id} to={`/pins/${pin.id}`}>
                     <img
@@ -172,18 +172,6 @@ export default function OtherUserProfile() {
                       onError={defaultImage}
                     />
                   </NavLink>
-                  <div className="boardNSaveEdit">
-                    <OpenModalicon
-                      modalComponent={<EditPin pin={pin} />}
-                      iconType={"editPen"}
-                      pin={pin}
-                    />
-                    <OpenModalicon
-                      modalComponent={<DeleteModal pin={pin} />}
-                      iconType={"trashCan"}
-                      pin={pin}
-                    />
-                  </div>
                 </div>
               ))}
             </nav>
