@@ -30,7 +30,7 @@ export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
 
 export const isSaved = (pin, user, inThisBoard) => {
   let saveOrNot = false;
-  
+
   if (inThisBoard) saveOrNot = true;
   else if (pin?.user_saved !== undefined) {
     pin?.user_saved.forEach((s) => {
@@ -43,13 +43,11 @@ export const isSaved = (pin, user, inThisBoard) => {
 };
 
 export const isCreated = (pin, user) => {
-  
-  if(user.id === pin.user_id) {
-    console.log('is created')
+  if (user.id === pin.user_id) {
     return true;
   }
   return false;
-}
+};
 
 const PinIndexItem = ({
   pin,
@@ -97,20 +95,20 @@ const PinIndexItem = ({
           onError={defaultImage}
         />
       </Link>
-      {isCreated(pin, user) ? 
-      <div className="boardNSaveEdit">
-        <OpenModalicon
-          modalComponent={<EditPin pin={pin} />}
-          iconType={"editPen"}
-          pin={pin}
-        />
-        <OpenModalicon
-          modalComponent={<DeleteModal pin={pin} />}
-          iconType={"trashCan"}
-          pin={pin}
-        />
-      </div> : null
-    }
+      {isCreated(pin, user) ? (
+        <div className="boardNSaveEdit">
+          <OpenModalicon
+            modalComponent={<EditPin pin={pin} />}
+            iconType={"editPen"}
+            pin={pin}
+          />
+          <OpenModalicon
+            modalComponent={<DeleteModal pin={pin} />}
+            iconType={"trashCan"}
+            pin={pin}
+          />
+        </div>
+      ) : null}
       <div className="boardNSave">
         <select
           className="boardOption"
