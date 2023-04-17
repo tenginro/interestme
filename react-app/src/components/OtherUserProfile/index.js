@@ -15,11 +15,9 @@ import DeleteModal from "../DeletePinModal";
 import OpenModalicon from "../OpenModalicon";
 
 function isFollowed(LogInUser, user) {
-  // console.log('is Followed', LogInUser.following.filter((f) => f.id === user.id).length)
-  if(!LogInUser.following.filter((f) => f.id === user.id).length) {
+  if (!LogInUser.following.filter((f) => f.id === user.id).length) {
     return false;
-  }
-  else return true;
+  } else return true;
   // return Boolean(LogInUser.following.filter((f) => f.id === user.id).length);
 }
 

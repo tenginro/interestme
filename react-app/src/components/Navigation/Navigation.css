@@ -161,7 +161,7 @@
   width: 100px;
 }
 .createWord:hover {
-  color:grey;
+  color: grey;
 }
 
 .createWord i {
@@ -192,6 +192,14 @@
   border: 0;
 }
 
+.viewProfileButton {
+  background-color: rgb(220, 218, 218);
+  color: black;
+  border-radius: 30px;
+  padding: 1em;
+  border: 0;
+}
+
 .logoutButton:hover {
   -webkit-filter: brightness(70%);
 }
@@ -202,4 +210,40 @@
   justify-content: center;
   align-items: center;
   min-width: fit-content;
+}
+
+.create_drop-down {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: none;
+  cursor: pointer;
+  position: absolute;
+  background-color: white;
+  padding: 25px;
+  border: 1px solid rgb(221, 221, 221);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  border-radius: 12px;
+  z-index: 10;
+  /* right: 190px; */
+  top: 70px;
+  align-items: flex-start;
+  font-size: 18px;
+}
+.create_drop-down.hidden {
+  display: None;
+}
+
+.create__Button {
+  border: none;
+  background: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.create-pin_board-btn {
+  border: none;
+  background: none;
+  font-weight: bold;
+  font-size: 20px;
 }

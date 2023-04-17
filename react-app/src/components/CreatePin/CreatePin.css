@@ -1,102 +1,103 @@
 .create-new_pin-container {
-    display: flex;
-    background: rgb(239, 239, 239);
-    flex-direction: column;
-    align-items: center;
-    height: 50rem;
-    width: 100%;
-
+  display: flex;
+  /* background: rgb(239, 239, 239); */
+  flex-direction: column;
+  align-items: center;
+  height: 44rem;
+  width: 100%;
 }
 
 .create_new-pin-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 34rem;
-    width: 700px;
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    margin-top: 40px;
-
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 40rem;
+  width: 700px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  /* margin-top: 40px; */
 }
 
 .right-Side {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    padding-left: 25px;
-    padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding-left: 25px;
+  padding-bottom: 20px;
 }
 
 .left-Side {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* width: 225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* width: 225px;
     height: 440px;
     padding: 20px;
     background: rgb(239, 239, 239);
     border-radius: 10px; */
-
 }
 
 .file-image_input-field-container {
-    width: 225px;
-    height: 440px;
-    padding: 20px;
-    background: rgb(239, 239, 239);
-    border-radius: 10px;
+  width: 225px;
+  height: 440px;
+  padding: 20px;
+  background: rgb(239, 239, 239);
+  border-radius: 10px;
 }
 
 #file-image_input-field {
-    background: rgb(239, 239, 239);
-    width: 220px;
-    height: 440px;
-    border: 3px rgb(215, 212, 212) dashed;
-    border-radius: 10px;
-    cursor: pointer;
+  background: rgb(239, 239, 239);
+  width: 220px;
+  height: 440px;
+  border: 3px rgb(215, 212, 212) dashed;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 #file-image_input-field::placeholder {
-    font-weight: bold;
-    opacity: 0.5;
-    text-align: center;
+  font-weight: bold;
+  opacity: 0.5;
+  text-align: center;
 }
 
 #create-pin-url_input {
-
-    margin-top: 20px;
-    border: none;
-    background: rgb(239, 239, 239);
-    border-radius: 20px;
-    height: 40px;
+  margin-top: 20px;
+  border: none;
+  background: rgb(239, 239, 239);
+  border-radius: 20px;
+  height: 40px;
 }
 
 #create-pin-url_input::placeholder {
-    text-align: center;
+  text-align: center;
 }
 
 .category-save_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    padding-bottom: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 40px;
 }
 
 #save-create_btn {
-    background: red;
-    color: white;
-    border: none;
-    width: 80px;
-    height: 50px;
-    border-radius: 30px;
+  background: red;
+  color: white;
+  border: none;
+  width: 80px;
+  height: 50px;
+  border-radius: 30px;
 }
 
 .error {
-    color: red;
+  color: red;
+  height: 1.5rem;
+}
+
+.noErrorDisplay {
+  height: 1.5rem;
 }
 
 /* #select-create_pin-board {
@@ -110,37 +111,35 @@
 } */
 
 #select-create_pin-category {
-    border: none;
-    height: 35px;
-    font-size: 18px;
-    background: rgb(239, 239, 239);
-    width: 170px;
-    border-radius: 7px;
-    padding-left: 5px;
+  border: none;
+  height: 35px;
+  font-size: 18px;
+  background: rgb(239, 239, 239);
+  width: 170px;
+  border-radius: 7px;
+  padding-left: 5px;
 }
 
 .add-your_title {
-
-    padding-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 #ad-your_title-input {
-    border: none;
-    font-weight: bold;
-    font-size: 32px;
-    border-bottom: 1px rgb(182, 181, 181) solid;
-    width: 100%;
-    padding-bottom: 10px;
+  border: none;
+  font-weight: bold;
+  font-size: 32px;
+  border-bottom: 1px rgb(182, 181, 181) solid;
+  width: 100%;
+  padding-bottom: 10px;
 }
 
-
 #description-input_ {
-    border: none;
-    color: rgb(178, 174, 174);
-    width: 100%;
-    font-size: 15px;
-    border-bottom: 1px rgb(182, 181, 181) solid;
-    padding-bottom: 20px;
+  border: none;
+  color: rgb(178, 174, 174);
+  width: 100%;
+  font-size: 15px;
+  border-bottom: 1px rgb(182, 181, 181) solid;
+  padding-bottom: 20px;
 
-    margin-top: 40px;
+  margin-top: 40px;
 }
