@@ -9,7 +9,7 @@ function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
   const user = useSelector((state) => state.session.user);
-  const logInUserPins = user.pins;
+  // const logInUserPins = user.pins;
 
   useEffect(() => {
     dispatch(getAllPins());
