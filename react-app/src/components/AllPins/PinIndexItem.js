@@ -78,6 +78,37 @@ const PinIndexItem = ({
     setBoard(id);
   };
 
+  const [showDropDownMenu, setShowDropDownMenu] = useState(false);
+
+  const showDropDownIdName =
+    "save-dropdown" + (showDropDownMenu ? "" : " hidden");
+
+  const unsaveButtonClick = async (e) => {
+    e.preventDefault();
+    changeBoard(0);
+
+    await dispatch(pinsAction.unSavePinThunk(pin))
+      .then(() => {
+        if (save === false) setSave(true);
+        else setSave(false);
+        changeBoard(0);
+      })
+      .then(() => {
+        // if (page === "AllPins") history.push(`/pins`);
+        if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId));
+        if (page === "ProfilePage") dispatch(getUserBoards());
+      });
+  };
+
+  const saveButtonClick = async (e) => {
+    e.preventDefault();
+    changeBoard(changingBoardId);
+    await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(() => {
+      if (save === false) setSave(true);
+      else setSave(false);
+    });
+  };
+
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
@@ -110,7 +141,7 @@ const PinIndexItem = ({
         </div>
       ) : null}
       <div className="boardNSave">
-        <select
+        {/* <select
           className="boardOption"
           onSubmit={(e) => {
             setBoard(Number(e.target.value));
@@ -124,54 +155,42 @@ const PinIndexItem = ({
         >
           <option value="0" className="option">
             Profile
-          </option>
-          {userBoards.length > 0 &&
-            userBoards.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-        </select>
-        {save || page === "ProfilePage" ? (
-          <button
-            className="saveButton"
-            onClick={async (e) => {
-              e.preventDefault();
-              changeBoard(0);
+          </option> */}
+        <div
+          onClick={() =>
+            showDropDownMenu
+              ? setShowDropDownMenu(false)
+              : setShowDropDownMenu(true)
+          }
+        >
+          Profile <i className="fas fa-solid fa-angle-down"></i>
+        </div>
 
-              await dispatch(pinsAction.unSavePinThunk(pin))
-                .then(() => {
-                  if (save === false) setSave(true);
-                  else setSave(false);
-                  changeBoard(0);
-                })
-                .then(() => {
-                  // if (page === "AllPins") history.push(`/pins`);
-                  if (page === "BoardDetail")
-                    dispatch(getBoardDetail(thisBoardId));
-                  if (page === "ProfilePage") dispatch(getUserBoards());
-                });
-            }}
-          >
+        {/* </select> */}
+        {save || page === "ProfilePage" ? (
+          <button className="saveButton" onClick={unsaveButtonClick}>
             Unsave
           </button>
         ) : (
-          <button
-            className="saveButton"
-            onClick={async (e) => {
-              e.preventDefault();
-              changeBoard(changingBoardId);
-              await dispatch(
-                pinsAction.savePinThunk(pin, changingBoardId)
-              ).then(() => {
-                if (save === false) setSave(true);
-                else setSave(false);
-              });
-            }}
-          >
+          <button className="saveButton" onClick={saveButtonClick}>
             Save
           </button>
         )}
+      </div>
+      <div className={showDropDownIdName}>
+        {userBoards.length > 0 &&
+          userBoards.map((b) => (
+            <div key={b.id} value={b.id} className="saveBoardLine">
+              <img
+                src={
+                  b.board_cover ||
+                  "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                }
+                alt="board_cover"
+              ></img>
+              <div>{b.name}</div>
+            </div>
+          ))}
       </div>
       {/* {isCreated(pin, user) ? 
       <div className="boardNSaveEdit">
