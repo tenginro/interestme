@@ -64,24 +64,41 @@
   width: 40%;
 }
 
+.save-dropdown {
+  background-color: rgb(237, 234, 234);
+  width: 360px;
+  height: 564.3px;
+  z-index: 5;
+  position: absolute;
+  top: 50px;
+  border-radius: 16px;
+  overflow-y: auto;
+}
+
+.dropDownContainer {
+  margin: 20px;
+}
+
 .save-dropdown img {
   height: 50px;
   width: 50px;
   border-radius: 5px;
   margin-right: 10px;
-  z-index: 5;
-}
-.save-dropdown {
-  background-color: lightgrey;
-  width: 360px;
-  height: 564.3px;
 }
 
 .saveBoardLine {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
 }
 .save-dropdown.hidden {
   display: none;
+}
+
+.boardNameCover {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./AllPins.css";
 import { useDispatch, useSelector } from "react-redux";
-import { actionClearPins, getAllPins } from "../../store/pin";
+import { actionClearPins, getAllPins, getSavedPins } from "../../store/pin";
 import PinIndexItem from "./PinIndexItem";
 import { getUserBoards } from "../../store/board";
 
@@ -14,6 +14,7 @@ function AllPins() {
   useEffect(() => {
     dispatch(getAllPins());
     dispatch(getUserBoards());
+    dispatch(getSavedPins());
     return () => {
       dispatch(actionClearPins());
     };

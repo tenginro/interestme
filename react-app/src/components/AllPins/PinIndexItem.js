@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AllPins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -67,10 +67,13 @@ const PinIndexItem = ({
     whichBoard(pin, user, thisBoardId, thisBoardName)
   );
   const history = useHistory();
+  const ulRef = useRef();
 
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
-  // const userBoards = user?.boards || [];
   const userBoards = Object.values(allUserBoardsObj);
+
+  const allUserSavedPins = useSelector((state) => state.pins.savedPins);
+  const savedPins = Object.values(allUserSavedPins);
 
   let changingBoardId = board;
   const changeBoard = (id) => {
@@ -79,6 +82,25 @@ const PinIndexItem = ({
   };
 
   const [showDropDownMenu, setShowDropDownMenu] = useState(false);
+
+  const openDropDownMenu = () => {
+    if (showDropDownMenu) return;
+    setShowDropDownMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showDropDownMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current?.contains(e.target)) {
+        setShowDropDownMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showDropDownMenu]);
 
   const showDropDownIdName =
     "save-dropdown" + (showDropDownMenu ? "" : " hidden");
@@ -94,7 +116,6 @@ const PinIndexItem = ({
         changeBoard(0);
       })
       .then(() => {
-        // if (page === "AllPins") history.push(`/pins`);
         if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId));
         if (page === "ProfilePage") dispatch(getUserBoards());
       });
@@ -109,15 +130,24 @@ const PinIndexItem = ({
     });
   };
 
+  const saveToBoard = async (e, boardId) => {
+    e.preventDefault();
+    await dispatch(pinsAction.savePinThunk(pin, boardId)).then(() =>
+      dispatch(getUserBoards())
+    );
+  };
+  const unsaveFromBoard = async (e, boardId) => {
+    e.preventDefault();
+    await dispatch(pinsAction.unSavePinThunk(pin, boardId)).then(() => {
+      if (page === "BoardDetail") dispatch(getBoardDetail(boardId));
+      if (page === "ProfilePage") dispatch(getUserBoards());
+    });
+  };
+
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div key={pin.id} className="pinIndexItem">
-      {/* <Link to={{
-            pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
-
-        <img src={pin.url} alt={pin.name} className="pinImg" />
-      </Link> */}
       <Link to={`/pins/${pin.id}`}>
         <img
           src={pin.url}
@@ -141,21 +171,6 @@ const PinIndexItem = ({
         </div>
       ) : null}
       <div className="boardNSave">
-        {/* <select
-          className="boardOption"
-          onSubmit={(e) => {
-            setBoard(Number(e.target.value));
-          }}
-          onChange={(e) => {
-            changeBoard(Number(e.target.value));
-          }}
-          value={savedBoardId || changingBoardId}
-          name="board"
-          placeholder="Choose a board"
-        >
-          <option value="0" className="option">
-            Profile
-          </option> */}
         <div
           onClick={() =>
             showDropDownMenu
@@ -165,8 +180,6 @@ const PinIndexItem = ({
         >
           Profile <i className="fas fa-solid fa-angle-down"></i>
         </div>
-
-        {/* </select> */}
         {save || page === "ProfilePage" ? (
           <button className="saveButton" onClick={unsaveButtonClick}>
             Unsave
@@ -177,35 +190,49 @@ const PinIndexItem = ({
           </button>
         )}
       </div>
-      <div className={showDropDownIdName}>
-        {userBoards.length > 0 &&
-          userBoards.map((b) => (
-            <div key={b.id} value={b.id} className="saveBoardLine">
-              <img
-                src={
-                  b.board_cover ||
-                  "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
-                }
-                alt="board_cover"
-              ></img>
-              <div>{b.name}</div>
+      <div className={showDropDownIdName} ref={ulRef}>
+        <div className="dropDownContainer">
+          <div>Quick save and organize later</div>
+          <div className="saveBoardLine">
+            <div className="boardNameCover">
+              <div>
+                <i className="fas fa-solid fa-clock-rotate-left fa-3x"></i>
+              </div>
+              <div style={{ paddingLeft: "10px" }}>Profile</div>
             </div>
-          ))}
+            {savedPins.filter((p) => p.id === pin.id).length > 0 ? (
+              <button className="saveButton">Unsave</button>
+            ) : (
+              <button className="saveButton">Save</button>
+            )}
+          </div>
+          <div>Save to board</div>
+          {userBoards.length > 0 &&
+            userBoards.map((b) => (
+              <div key={b.id} value={b.id} className="saveBoardLine">
+                <div className="boardNameCover">
+                  <div>
+                    <img
+                      src={
+                        b.board_cover ||
+                        "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                      }
+                      alt="board_cover"
+                    ></img>
+                  </div>
+                  <div>{b.name}</div>
+                </div>
+                <div>
+                  {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
+                    <button className="saveButton">Unsave</button>
+                  ) : (
+                    <button className="saveButton">Save</button>
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
-      {/* {isCreated(pin, user) ? 
-      <div className="boardNSaveEdit">
-        <OpenModalicon
-          modalComponent={<EditPin pin={pin} />}
-          iconType={"editPen"}
-          pin={pin}
-        />
-        <OpenModalicon
-          modalComponent={<DeleteModal pin={pin} />}
-          iconType={"trashCan"}
-          pin={pin}
-        />
-      </div> : null
-    } */}
     </div>
   );
 };
