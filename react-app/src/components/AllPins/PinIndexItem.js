@@ -105,31 +105,6 @@ const PinIndexItem = ({
   const showDropDownIdName =
     "save-dropdown" + (showDropDownMenu ? "" : " hidden");
 
-  const unsaveButtonClick = async (e) => {
-    e.preventDefault();
-    changeBoard(0);
-
-    await dispatch(pinsAction.unSavePinThunk(pin))
-      .then(() => {
-        if (save === false) setSave(true);
-        else setSave(false);
-        changeBoard(0);
-      })
-      .then(() => {
-        if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId));
-        if (page === "ProfilePage") dispatch(getUserBoards());
-      });
-  };
-
-  const saveButtonClick = async (e) => {
-    e.preventDefault();
-    changeBoard(changingBoardId);
-    await dispatch(pinsAction.savePinThunk(pin, changingBoardId)).then(() => {
-      if (save === false) setSave(true);
-      else setSave(false);
-    });
-  };
-
   const saveToBoard = async (e, boardId) => {
     e.preventDefault();
     await dispatch(pinsAction.savePinThunk(pin, boardId)).then(() =>
@@ -140,8 +115,22 @@ const PinIndexItem = ({
     e.preventDefault();
     await dispatch(pinsAction.unSavePinThunk(pin, boardId)).then(() => {
       if (page === "BoardDetail") dispatch(getBoardDetail(boardId));
-      if (page === "ProfilePage") dispatch(getUserBoards());
+      dispatch(getUserBoards());
     });
+  };
+  const isSavedInProfile = () => {
+    if (
+      savedPins.filter((p) => p.id === pin.id).length > 0 &&
+      userBoards.filter((b) => b.Pins.filter((p) => p.id === pin.id) === 0)
+        .length === 0
+    ) {
+      return true;
+    }
+  };
+  const SavedInThisBoard = () => {
+    return userBoards.find(
+      (b) => b.Pins.filter((p) => p.id === pin.id).length > 0
+    );
   };
 
   if (!user.id || !pin.id) return <div>Loading</div>;
@@ -171,21 +160,16 @@ const PinIndexItem = ({
         </div>
       ) : null}
       <div className="boardNSave">
-        <div
-          onClick={() =>
-            showDropDownMenu
-              ? setShowDropDownMenu(false)
-              : setShowDropDownMenu(true)
-          }
-        >
-          Profile <i className="fas fa-solid fa-angle-down"></i>
+        <div onClick={openDropDownMenu}>
+          Profile
+          <i className="fas fa-solid fa-angle-down"></i>
         </div>
-        {save || page === "ProfilePage" ? (
-          <button className="saveButton" onClick={unsaveButtonClick}>
+        {isSavedInProfile() ? (
+          <button className="saveButton" onClick={(e) => unsaveFromBoard(e, 0)}>
             Unsave
           </button>
         ) : (
-          <button className="saveButton" onClick={saveButtonClick}>
+          <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
             Save
           </button>
         )}
@@ -200,17 +184,27 @@ const PinIndexItem = ({
               </div>
               <div style={{ paddingLeft: "10px" }}>Profile</div>
             </div>
-            {savedPins.filter((p) => p.id === pin.id).length > 0 ? (
-              <button className="saveButton">Unsave</button>
+            {isSavedInProfile() ? (
+              <button
+                className="saveButton"
+                onClick={(e) => unsaveFromBoard(e, 0)}
+              >
+                Unsave
+              </button>
             ) : (
-              <button className="saveButton">Save</button>
+              <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
+                Save
+              </button>
             )}
           </div>
           <div>Save to board</div>
           {userBoards.length > 0 &&
             userBoards.map((b) => (
               <div key={b.id} value={b.id} className="saveBoardLine">
-                <div className="boardNameCover">
+                <div
+                  className="boardNameCover"
+                  onClick={() => history.push(`/boards/${b.id}`)}
+                >
                   <div>
                     <img
                       src={
@@ -224,9 +218,19 @@ const PinIndexItem = ({
                 </div>
                 <div>
                   {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
-                    <button className="saveButton">Unsave</button>
+                    <button
+                      className="saveButton"
+                      onClick={(e) => unsaveFromBoard(e, b.id)}
+                    >
+                      Unsave
+                    </button>
                   ) : (
-                    <button className="saveButton">Save</button>
+                    <button
+                      className="saveButton"
+                      onClick={(e) => saveToBoard(e, b.id)}
+                    >
+                      Save
+                    </button>
                   )}
                 </div>
               </div>

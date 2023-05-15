@@ -9,16 +9,17 @@ function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
   const user = useSelector((state) => state.session.user);
+  const userId = user.id;
   // const logInUserPins = user.pins;
 
   useEffect(() => {
     dispatch(getAllPins());
     dispatch(getUserBoards());
-    dispatch(getSavedPins());
+    dispatch(getSavedPins(userId));
     return () => {
       dispatch(actionClearPins());
     };
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   if (!pinsObj) return <div>Loading</div>;
   const pins = Object.values(pinsObj);

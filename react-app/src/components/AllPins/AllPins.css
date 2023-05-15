@@ -93,6 +93,12 @@
   padding: 10px 20px;
   justify-content: space-between;
 }
+
+.saveBoardLine:hover {
+  font-size: large;
+  background-color: lightgray;
+}
+
 .save-dropdown.hidden {
   display: none;
 }
@@ -101,4 +107,5 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
 }
