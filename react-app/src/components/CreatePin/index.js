@@ -9,6 +9,7 @@ const CreatePin = () => {
   const categories = ["Art", "Food", "Tech"];
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [desCount, setDesCount] = useState(255);
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState(categories[0]);
   // const [board, setBoard] = useState("")
@@ -26,6 +27,7 @@ const CreatePin = () => {
     const err = [];
     if (!name.length) err.name = "Name is required";
     if (!description.length) err.description = "Description is required";
+    
     if (!url.length) err.url = "Image is required";
     if (!category.length) err.category = "Category is required";
     setErrors(err);
@@ -150,6 +152,12 @@ const CreatePin = () => {
                 <p className="noErrorDisplay">{"  "}</p>
               )}
             </div>
+            {/* <div>
+              <img src={currentUser.profile_pic} />
+              <div>
+                <p>{currentUser.first_name}{currentUser.last_name}</p>
+              </div>
+            </div> */}
             <div>
               <label>Choose a category: </label>
               <select
