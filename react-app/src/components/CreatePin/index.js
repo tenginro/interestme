@@ -27,7 +27,7 @@ const CreatePin = () => {
     const err = [];
     if (!name.length) err.name = "Name is required";
     if (!description.length) err.description = "Description is required";
-    
+    if (description.length>255) err.description = "Description length can only have 255 characters." 
     if (!url.length) err.url = "Image is required";
     if (!category.length) err.category = "Category is required";
     setErrors(err);
@@ -185,11 +185,15 @@ const CreatePin = () => {
               <input
                 id="description-input_"
                 type="text"
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  setDescription(e.target.value)
+                  setDesCount(255 - description.length)
+                }}
                 value={description}
                 placeholder="Tell everyone what your Pin is about             😃"
                 name="description"
               ></input>
+              <p>{desCount} characters left</p>
               {hasSubmitted ? (
                 <p className="error"> {errors.description}</p>
               ) : (
