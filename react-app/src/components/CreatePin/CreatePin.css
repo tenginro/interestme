@@ -93,7 +93,7 @@
 
 .error {
   color: red;
-  height: 1.5rem;
+  height: 1rem;
 }
 
 .noErrorDisplay {
@@ -121,7 +121,7 @@
 }
 
 .add-your_title {
-  padding-bottom: 60px;
+  /* padding-bottom: 60px; */
 }
 
 #ad-your_title-input {
@@ -142,4 +142,16 @@
   padding-bottom: 20px;
 
   margin-top: 40px;
+}
+
+.profile_pic {
+  width: 60px;
+  height:60px;
+  border-radius: 50%;
+}
+
+.userInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
