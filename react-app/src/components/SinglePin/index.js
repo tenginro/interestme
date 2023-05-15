@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Redirect, useLocation, useParams } from "react-router-dom";
+import {
+  NavLink,
+  Redirect,
+  useHistory,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { actionClearPin, getPinDetail } from "../../store/pin";
 import * as sessionAction from "../../store/session";
 import * as pinsAction from "../../store/pin";
 import { whichBoard, isSaved } from "../AllPins/PinIndexItem";
 import defaultPinPic from "../LandingPage/Assets/default-pin-pic.png";
 import "./PinDetail.css";
+import { getBoardDetail, getUserBoards } from "../../store/board";
 
 export const defaultImage = (e) => {
   e.target.onerror = null;
@@ -24,6 +31,9 @@ const Pin = () => {
   // const thisBoardId = location.boardProps.thisBoardId
   // const thisBoardName = location.boardProps.thisBoardName
   const dispatch = useDispatch();
+  const ulRef = useRef();
+  const history = useHistory();
+
   const pin = useSelector((state) => state.pins.singlePin);
   const user = useSelector((state) => state.session.user);
   const [follow, setFollow] = useState(false);
@@ -39,6 +49,9 @@ const Pin = () => {
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
   // const userBoards = user?.boards || [];
   const userBoards = Object.values(allUserBoardsObj);
+
+  const allUserSavedPins = useSelector((state) => state.pins.savedPins);
+  const savedPins = Object.values(allUserSavedPins);
 
   let changingBoardId = board;
   const changeBoard = (id) => {
@@ -63,6 +76,58 @@ const Pin = () => {
   }, [dispatch, pinId, save, follow]);
   //when hitting save button, it will reload the whole page
 
+  const [showDropDownMenu, setShowDropDownMenu] = useState(false);
+
+  const openDropDownMenu = () => {
+    if (showDropDownMenu) return;
+    setShowDropDownMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showDropDownMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current?.contains(e.target)) {
+        setShowDropDownMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showDropDownMenu]);
+
+  const showDropDownIdName =
+    "save-dropdown pinDetail" + (showDropDownMenu ? "" : " hidden");
+
+  const saveToBoard = async (e, boardId) => {
+    e.preventDefault();
+    await dispatch(pinsAction.savePinThunk(pin, boardId)).then(() =>
+      dispatch(getUserBoards())
+    );
+  };
+  const unsaveFromBoard = async (e, boardId) => {
+    e.preventDefault();
+    console.log("boardId", boardId);
+    await dispatch(pinsAction.unSavePinThunk(pin, boardId)).then(() => {
+      dispatch(getUserBoards());
+    });
+  };
+  const isSavedInProfile = () => {
+    if (
+      savedPins.filter((p) => p.id === pin.id).length > 0 &&
+      userBoards.filter((b) => b.Pins.filter((p) => p.id === pin.id) === 0)
+        .length === 0
+    ) {
+      return true;
+    }
+  };
+  const SavedInThisBoard = () => {
+    return userBoards.find(
+      (b) => b.Pins.filter((p) => p.id === pin.id).length > 0
+    );
+  };
+
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
@@ -77,7 +142,7 @@ const Pin = () => {
       </div>
       <div className="rightSide">
         <div className="profile_saved-container">
-          <select
+          {/* <select
             id="profile_dropdown-menu"
             onSubmit={(e) => {
               setBoard(Number(e.target.value));
@@ -127,7 +192,89 @@ const Pin = () => {
             >
               Save
             </button>
+          )} */}
+          <div onClick={openDropDownMenu}>
+            Profile
+            <i className="fas fa-solid fa-angle-down"></i>
+          </div>
+          {isSavedInProfile() ? (
+            <button
+              className="saveButton"
+              onClick={(e) => unsaveFromBoard(e, 0)}
+            >
+              Unsave
+            </button>
+          ) : (
+            <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
+              Save
+            </button>
           )}
+        </div>
+        <div className={showDropDownIdName} ref={ulRef}>
+          <div className="dropDownContainer">
+            <div>Quick save and organize later</div>
+            <div className="saveBoardLine">
+              <div className="boardNameCover">
+                <div>
+                  <i className="fas fa-solid fa-clock-rotate-left fa-3x"></i>
+                </div>
+                <div style={{ paddingLeft: "10px" }}>Profile</div>
+              </div>
+              {isSavedInProfile() ? (
+                <button
+                  className="saveButton"
+                  onClick={(e) => unsaveFromBoard(e, 0)}
+                >
+                  Unsave
+                </button>
+              ) : (
+                <button
+                  className="saveButton"
+                  onClick={(e) => saveToBoard(e, 0)}
+                >
+                  Save
+                </button>
+              )}
+            </div>
+            <div>Save to board</div>
+            {userBoards.length > 0 &&
+              userBoards.map((b) => (
+                <div key={b.id} value={b.id} className="saveBoardLine">
+                  <div
+                    className="boardNameCover"
+                    onClick={() => history.push(`/boards/${b.id}`)}
+                  >
+                    <div>
+                      <img
+                        src={
+                          b.board_cover ||
+                          "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                        }
+                        alt="board_cover"
+                      ></img>
+                    </div>
+                    <div>{b.name}</div>
+                  </div>
+                  <div>
+                    {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
+                      <button
+                        className="saveButton"
+                        onClick={(e) => unsaveFromBoard(e, b.id)}
+                      >
+                        Unsave
+                      </button>
+                    ) : (
+                      <button
+                        className="saveButton"
+                        onClick={(e) => saveToBoard(e, b.id)}
+                      >
+                        Save
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
         <div>
           <p id="name_tag">{pin.name}</p>

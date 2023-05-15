@@ -180,7 +180,6 @@ def unsave_pin(id):
         board = Board.query.get(request_obj["id"])
         pin.boards.remove(board)
     else:
-        # user = User.query.get(user["id"])
         pin.user_saved.remove(user)
 
     db.session.commit()
