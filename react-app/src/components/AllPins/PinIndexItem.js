@@ -9,6 +9,8 @@ import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
 
 import DeleteModal from "../DeletePinModal";
+import OpenModalMenuItem from "../OpenModalMenuItem";
+import CreateBoard from "../CreateBoard";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
@@ -133,6 +135,7 @@ const PinIndexItem = ({
       (b) => b.Pins.filter((p) => p.id === pin.id).length > 0
     );
   };
+  const closeMenu = () => setShowDropDownMenu(false);
 
   if (!user.id || !pin.id) return <div>Loading</div>;
 
@@ -198,44 +201,60 @@ const PinIndexItem = ({
               </button>
             )}
           </div>
-          <div>Save to board</div>
-          {userBoards.length > 0 &&
-            userBoards.map((b) => (
-              <div key={b.id} value={b.id} className="saveBoardLine">
-                <div
-                  className="boardNameCover"
-                  onClick={() => history.push(`/boards/${b.id}`)}
-                >
-                  <div>
-                    <img
-                      src={
-                        b.board_cover ||
-                        "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
-                      }
-                      alt="board_cover"
-                    ></img>
+          <div className="saveDropDownSecondPart">
+            <div>Save to board</div>
+            {userBoards.length > 0 &&
+              userBoards.map((b) => (
+                <div key={b.id} value={b.id} className="saveBoardLine">
+                  <div
+                    className="boardNameCover"
+                    onClick={() => history.push(`/boards/${b.id}`)}
+                  >
+                    <div>
+                      <img
+                        src={
+                          b.board_cover ||
+                          "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                        }
+                        alt="board_cover"
+                      ></img>
+                    </div>
+                    <div>{b.name}</div>
                   </div>
-                  <div>{b.name}</div>
+                  <div>
+                    {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
+                      <button
+                        className="saveButton"
+                        onClick={(e) => unsaveFromBoard(e, b.id)}
+                      >
+                        Unsave
+                      </button>
+                    ) : (
+                      <button
+                        className="saveButton"
+                        onClick={(e) => saveToBoard(e, b.id)}
+                      >
+                        Save
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
-                    <button
-                      className="saveButton"
-                      onClick={(e) => unsaveFromBoard(e, b.id)}
-                    >
-                      Unsave
-                    </button>
-                  ) : (
-                    <button
-                      className="saveButton"
-                      onClick={(e) => saveToBoard(e, b.id)}
-                    >
-                      Save
-                    </button>
-                  )}
-                </div>
+              ))}
+          </div>
+          <div className="saveBoardLine">
+            <div className="boardNameCover">
+              <div>
+                <i className="fas fa-solid fa-plus fa-3x"></i>
               </div>
-            ))}
+              <div style={{ paddingLeft: "10px" }}>
+                <OpenModalMenuItem
+                  itemText="Create board"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreateBoard />}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -72,6 +72,11 @@
   position: absolute;
   top: 50px;
   border-radius: 16px;
+}
+
+.saveDropDownSecondPart {
+  /* border: 1px solid red; */
+  height: 350px;
   overflow-y: auto;
 }
 
