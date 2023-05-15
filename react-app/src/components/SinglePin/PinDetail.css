@@ -116,3 +116,14 @@
   height: 60px;
   width: 300px;
 }
+
+.save-dropdown.pinDetail {
+  background-color: rgb(237, 234, 234);
+  width: 360px;
+  height: 564.3px;
+  z-index: 5;
+  position: absolute;
+  top: 180px;
+  border-radius: 16px;
+  overflow-y: auto;
+}

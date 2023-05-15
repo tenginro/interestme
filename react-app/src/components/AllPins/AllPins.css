@@ -18,7 +18,7 @@
   display: flex;
   justify-content: space-between;
   position: absolute;
-  width:90%;
+  width: 90%;
   top: 10px;
   left: 10px;
   z-index: 2;
@@ -26,8 +26,8 @@
 
 .pinImg {
   -webkit-filter: brightness(100%);
-  height:300px;
-  width:200px;
+  height: 300px;
+  width: 200px;
   object-fit: cover;
   border-radius: 20px;
 }
@@ -62,4 +62,55 @@
   background-color: transparent;
   color: white;
   width: 40%;
+}
+
+.save-dropdown {
+  background-color: rgb(237, 234, 234);
+  width: 360px;
+  height: 564.3px;
+  z-index: 5;
+  position: absolute;
+  top: 50px;
+  border-radius: 16px;
+}
+
+.saveDropDownSecondPart {
+  /* border: 1px solid red; */
+  height: 350px;
+  overflow-y: auto;
+}
+
+.dropDownContainer {
+  margin: 20px;
+}
+
+.save-dropdown img {
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.saveBoardLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+}
+
+.saveBoardLine:hover {
+  font-size: large;
+  background-color: lightgray;
+}
+
+.save-dropdown.hidden {
+  display: none;
+}
+
+.boardNameCover {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
 }

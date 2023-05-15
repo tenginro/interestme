@@ -16,32 +16,48 @@ def get_all_pins():
     # allUsers = User.query.all()
     # userSaved = [user for user in allUsers if user in pin.user_saved]
 
-    all_pins = [{**pin.to_dict(), 
-                 "User":pin.user.to_dict(), 
-                 "boards":[board.to_dict() for board in pin.boards],
-                 "user_saved": [user.to_dict() for user in pin.user_saved]
-                 } for pin in pins]
+    all_pins = [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        }
+        for pin in pins
+    ]
     return all_pins
+
 
 @pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
     pin = Pin.query.get(id)
-    return {**pin.to_dict(), 
-            "User": pin.user.to_dict(), 
-            "boards":[board.to_dict() for board in pin.boards], 
-            "user_saved": [user.to_dict() for user in pin.user_saved]}
-
+    return {
+        **pin.to_dict(),
+        "User": pin.user.to_dict(),
+        "boards": [board.to_dict() for board in pin.boards],
+        "user_saved": [user.to_dict() for user in pin.user_saved],
+    }
 
 
 @pin_routes.route("/pins/current")
 def get_user_pins():
     user = current_user.to_dict()
     user_pins = Pin.query.filter(Pin.user_id == user["id"])
-    pins = [{**pin.to_dict(), "User":pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in user_pins]
+    pins = [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        }
+        for pin in user_pins
+    ]
 
     return pins
 
+
 # saved pins
+
 
 @pin_routes.route("/pins", methods=["POST"])
 @login_required
@@ -49,23 +65,24 @@ def create_pin():
     user = current_user.to_dict()
     form = PinForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
-    
+
     if form.validate_on_submit():
         new_pin = Pin(
-            user_id = user["id"],
-            name = form.data["name"],
-            description = form.data["description"],
-            category = form.data["category"],
-            url = form.data["url"]
+            user_id=user["id"],
+            name=form.data["name"],
+            description=form.data["description"],
+            category=form.data["category"],
+            url=form.data["url"],
         )
         db.session.add(new_pin)
         db.session.commit()
-        return {"pin": new_pin.to_dict(), "User":new_pin.user.to_dict()}
+        return {"pin": new_pin.to_dict(), "User": new_pin.user.to_dict()}
     if form.errors:
         return {"message": "form errors", "errors": f"{form.errors}"}
-    return {"message": 'Bad Data'}
+    return {"message": "Bad Data"}
 
-@pin_routes.route("pins/<int:id>", methods=["PATCH","PUT"])
+
+@pin_routes.route("pins/<int:id>", methods=["PATCH", "PUT"])
 @login_required
 def update_pin(id):
     user = current_user.to_dict()
@@ -74,18 +91,28 @@ def update_pin(id):
     if pin.user_id == user["id"]:
         form = PinForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
-        
+
         if form.validate_on_submit():
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]
             db.session.commit()
             updated_pin = Pin.query.get(id)
-            return {"pin": updated_pin.to_dict(), "User": pin.user.to_dict(), "boards":[board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+            return {
+                "pin": updated_pin.to_dict(),
+                "User": pin.user.to_dict(),
+                "boards": [board.to_dict() for board in pin.boards],
+                "user_saved": [user.to_dict() for user in pin.user_saved],
+            }
         if form.errors:
-            return {"message": "form errors", "statusCode": 400, "errors": f"{form.errors}"}
-        
-    return {"message": 'User does not own this pin'}
+            return {
+                "message": "form errors",
+                "statusCode": 400,
+                "errors": f"{form.errors}",
+            }
+
+    return {"message": "User does not own this pin"}
+
 
 @pin_routes.route("pins/<int:id>", methods=["DELETE"])
 @login_required
@@ -94,19 +121,16 @@ def delete_pin(id):
     if pin:
         db.session.delete(pin)
         db.session.commit()
-        return {"message":'Pin Deleted!'}
-    return {"message": 'Pin not found'}
+        return {"message": "Pin Deleted!"}
+    return {"message": "Pin not found"}
 
 
-
-
-@pin_routes.route('pins/<int:id>/save', methods=['PATCH'])
+@pin_routes.route("pins/<int:id>/save", methods=["PATCH"])
 @login_required
 def save_pin(id):
     user = current_user
-    # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
     pin = Pin.query.get(id)
-    
+
     request_obj = request.get_json()
     if request_obj:
         boardId = request_obj["id"]
@@ -116,60 +140,58 @@ def save_pin(id):
             if board.user_id == user.id:
                 if pin.boards:
                     if board not in pin.boards:
-                        pin.boards.append(board)   
+                        pin.boards.append(board)
                 else:
                     pin.boards = []
                     pin.boards.append(board)
             else:
                 return {"message": "User does not own this board"}
-        
-    if pin.user_saved:
-        if user not in pin.user_saved:
-            pin.user_saved.append(user)
     else:
-        pin.user_saved=[]
-        pin.user_saved.append(user)
-        
+        if pin.user_saved:
+            if user not in pin.user_saved:
+                pin.user_saved.append(user)
+        else:
+            pin.user_saved = []
+            pin.user_saved.append(user)
+
     db.session.commit()
-    
-    # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    # pin = Pin.query.get(id)
+
     user = User.query.get(user.id)
     savedPins = user.saved_pins
-    return [{**pin.to_dict(), 
-            "User": pin.user.to_dict(), 
-            "boards": [board.to_dict() for board in pin.boards], 
-            "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in savedPins
-            ]
-    # return {**pin.to_dict(), 
-    #         "User": pin.user.to_dict(), 
-    #         "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
+    return [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        }
+        for pin in savedPins
+    ]
 
 
-
-@pin_routes.route('pins/<int:id>/unsave', methods=['PATCH'])
+@pin_routes.route("pins/<int:id>/unsave", methods=["PATCH"])
 @login_required
 def unsave_pin(id):
-    user = current_user.to_dict()
-    pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    
-    if pin.boards:
-        boards_to_remove = [board for board in pin.boards if board.user_id == user['id']]
-        for board in boards_to_remove:
-            pin.boards.remove(board)
-    if pin.user_saved:
-        user_to_remove = User.query.get(user['id'])
-        pin.user_saved.remove(user_to_remove)
-        
+    user = current_user
+    pin = Pin.query.get(id)
+
+    request_obj = request.get_json()
+    if request_obj:
+        board = Board.query.get(request_obj["id"])
+        pin.boards.remove(board)
+    else:
+        pin.user_saved.remove(user)
+
     db.session.commit()
 
-    user = User.query.get(user['id'])
+    user = User.query.get(user.id)
     savedPins = user.saved_pins
-    return [{**pin.to_dict(), 
-            "User": pin.user.to_dict(), 
-            "boards": [board.to_dict() for board in pin.boards], 
-            "user_saved": [user.to_dict() for user in pin.user_saved]} for pin in savedPins
-            ]
-    # pin = Pin.query.options(joinedload(Pin.user_saved), joinedload(Pin.boards)).get(id)
-    # return {**pin.to_dict(), "User": pin.user.to_dict(), "boards": [board.to_dict() for board in pin.boards], "user_saved": [user.to_dict() for user in pin.user_saved]}
-
+    return [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        }
+        for pin in savedPins
+    ]

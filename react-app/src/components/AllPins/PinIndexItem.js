@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AllPins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -9,6 +9,8 @@ import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
 
 import DeleteModal from "../DeletePinModal";
+import OpenModalMenuItem from "../OpenModalMenuItem";
+import CreateBoard from "../CreateBoard";
 
 export const whichBoard = (pin, user, thisBoardId, thisBoardName) => {
   let board_info = [0, "Profile"];
@@ -67,10 +69,13 @@ const PinIndexItem = ({
     whichBoard(pin, user, thisBoardId, thisBoardName)
   );
   const history = useHistory();
+  const ulRef = useRef();
 
   const allUserBoardsObj = useSelector((state) => state.boards.userBoards);
-  // const userBoards = user?.boards || [];
   const userBoards = Object.values(allUserBoardsObj);
+
+  const allUserSavedPins = useSelector((state) => state.pins.savedPins);
+  const savedPins = Object.values(allUserSavedPins);
 
   let changingBoardId = board;
   const changeBoard = (id) => {
@@ -78,15 +83,64 @@ const PinIndexItem = ({
     setBoard(id);
   };
 
+  const [showDropDownMenu, setShowDropDownMenu] = useState(false);
+
+  const openDropDownMenu = () => {
+    if (showDropDownMenu) return;
+    setShowDropDownMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showDropDownMenu) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current?.contains(e.target)) {
+        setShowDropDownMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showDropDownMenu]);
+
+  const showDropDownIdName =
+    "save-dropdown" + (showDropDownMenu ? "" : " hidden");
+
+  const saveToBoard = async (e, boardId) => {
+    e.preventDefault();
+    await dispatch(pinsAction.savePinThunk(pin, boardId)).then(() =>
+      dispatch(getUserBoards())
+    );
+  };
+  const unsaveFromBoard = async (e, boardId) => {
+    e.preventDefault();
+    console.log("boardId", boardId);
+    await dispatch(pinsAction.unSavePinThunk(pin, boardId)).then(() => {
+      if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId));
+      dispatch(getUserBoards());
+    });
+  };
+  const isSavedInProfile = () => {
+    if (
+      savedPins.filter((p) => p.id === pin.id).length > 0 &&
+      userBoards.filter((b) => b.Pins.filter((p) => p.id === pin.id) === 0)
+        .length === 0
+    ) {
+      return true;
+    }
+  };
+  const SavedInThisBoard = () => {
+    return userBoards.find(
+      (b) => b.Pins.filter((p) => p.id === pin.id).length > 0
+    );
+  };
+  const closeMenu = () => setShowDropDownMenu(false);
+
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
     <div key={pin.id} className="pinIndexItem">
-      {/* <Link to={{
-            pathname:`/pins/${pin.id}`, state:{thisBoardId:changingBoardId, thisBoardName:thisBoardName}}}>
-
-        <img src={pin.url} alt={pin.name} className="pinImg" />
-      </Link> */}
       <Link to={`/pins/${pin.id}`}>
         <img
           src={pin.url}
@@ -110,83 +164,99 @@ const PinIndexItem = ({
         </div>
       ) : null}
       <div className="boardNSave">
-        <select
-          className="boardOption"
-          onSubmit={(e) => {
-            setBoard(Number(e.target.value));
-          }}
-          onChange={(e) => {
-            changeBoard(Number(e.target.value));
-          }}
-          value={savedBoardId || changingBoardId}
-          name="board"
-          placeholder="Choose a board"
-        >
-          <option value="0" className="option">
-            Profile
-          </option>
-          {userBoards.length > 0 &&
-            userBoards.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-        </select>
-        {save || page === "ProfilePage" ? (
-          <button
-            className="saveButton"
-            onClick={async (e) => {
-              e.preventDefault();
-              changeBoard(0);
-
-              await dispatch(pinsAction.unSavePinThunk(pin))
-                .then(() => {
-                  if (save === false) setSave(true);
-                  else setSave(false);
-                  changeBoard(0);
-                })
-                .then(() => {
-                  // if (page === "AllPins") history.push(`/pins`);
-                  if (page === "BoardDetail")
-                    dispatch(getBoardDetail(thisBoardId));
-                  if (page === "ProfilePage") dispatch(getUserBoards());
-                });
-            }}
-          >
+        <div onClick={openDropDownMenu}>
+          Profile
+          <i className="fas fa-solid fa-angle-down"></i>
+        </div>
+        {isSavedInProfile() ? (
+          <button className="saveButton" onClick={(e) => unsaveFromBoard(e, 0)}>
             Unsave
           </button>
         ) : (
-          <button
-            className="saveButton"
-            onClick={async (e) => {
-              e.preventDefault();
-              changeBoard(changingBoardId);
-              await dispatch(
-                pinsAction.savePinThunk(pin, changingBoardId)
-              ).then(() => {
-                if (save === false) setSave(true);
-                else setSave(false);
-              });
-            }}
-          >
+          <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
             Save
           </button>
         )}
       </div>
-      {/* {isCreated(pin, user) ? 
-      <div className="boardNSaveEdit">
-        <OpenModalicon
-          modalComponent={<EditPin pin={pin} />}
-          iconType={"editPen"}
-          pin={pin}
-        />
-        <OpenModalicon
-          modalComponent={<DeleteModal pin={pin} />}
-          iconType={"trashCan"}
-          pin={pin}
-        />
-      </div> : null
-    } */}
+      <div className={showDropDownIdName} ref={ulRef}>
+        <div className="dropDownContainer">
+          <div>Quick save and organize later</div>
+          <div className="saveBoardLine">
+            <div className="boardNameCover">
+              <div>
+                <i className="fas fa-solid fa-clock-rotate-left fa-3x"></i>
+              </div>
+              <div style={{ paddingLeft: "10px" }}>Profile</div>
+            </div>
+            {isSavedInProfile() ? (
+              <button
+                className="saveButton"
+                onClick={(e) => unsaveFromBoard(e, 0)}
+              >
+                Unsave
+              </button>
+            ) : (
+              <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
+                Save
+              </button>
+            )}
+          </div>
+          <div className="saveDropDownSecondPart">
+            <div>Save to board</div>
+            {userBoards.length > 0 &&
+              userBoards.map((b) => (
+                <div key={b.id} value={b.id} className="saveBoardLine">
+                  <div
+                    className="boardNameCover"
+                    onClick={() => history.push(`/boards/${b.id}`)}
+                  >
+                    <div>
+                      <img
+                        src={
+                          b.board_cover ||
+                          "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                        }
+                        alt="board_cover"
+                      ></img>
+                    </div>
+                    <div>{b.name}</div>
+                  </div>
+                  <div>
+                    {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
+                      <button
+                        className="saveButton"
+                        onClick={(e) => unsaveFromBoard(e, b.id)}
+                      >
+                        Unsave
+                      </button>
+                    ) : (
+                      <button
+                        className="saveButton"
+                        onClick={(e) => saveToBoard(e, b.id)}
+                      >
+                        Save
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+          </div>
+          <div className="saveBoardLine">
+            <div className="boardNameCover">
+              <div>
+                <i className="fas fa-solid fa-plus fa-3x"></i>
+              </div>
+              <div style={{ paddingLeft: "10px" }}>
+                <OpenModalMenuItem
+                  itemText="Create board"
+                  onItemClick={closeMenu}
+                  modalComponent={<CreateBoard />}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
