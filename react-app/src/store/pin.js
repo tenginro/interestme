@@ -171,22 +171,38 @@ export const savePinThunk = (pin, boardId) => async (dispatch) => {
   }
 };
 
-export const unSavePinThunk = (pin) => async (dispatch) => {
-  const response = await fetch(`/api/pins/${pin.id}/unsave`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (response.ok) {
-    const newPinRes = await response.json();
-    //from here, newPinRes is an array, but actionUpdatePin expects
-    //an object so for the reducer later, it cannot key into action.pin,
-    //and so for our AllPins state, we are getting an undefined as the last item
-    //and so for PinIndexItem, it will render loading div
-    // await dispatch(actionUpdatePin(newPinRes));
-    await dispatch(actionLoadSavedPins(newPinRes));
-    return newPinRes;
+export const unSavePinThunk = (pin, boardId) => async (dispatch) => {
+  if (boardId !== 0) {
+    const boardResponse = await fetch(`/api/boards/${boardId}`);
+    const board = await boardResponse.json();
+
+    const response = await fetch(`/api/pins/${pin.id}/unsave`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(board),
+    });
+
+    if (response.ok) {
+      const newPinRes = await response.json();
+      //from here, newPinRes is an array, but actionUpdatePin expects an object so for the reducer later, it cannot key into action.pin, and so for our AllPins state, we are getting an undefined as the last item and so for PinIndexItem, it will render loading div
+      await dispatch(actionLoadSavedPins(newPinRes));
+      return newPinRes;
+    }
+  } else {
+    const response = await fetch(`/api/pins/${pin.id}/unsave`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(0),
+    });
+    if (response.ok) {
+      const newPinRes = await response.json();
+      await dispatch(actionLoadSavedPins(newPinRes));
+      return newPinRes;
+    }
   }
 };
 
