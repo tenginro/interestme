@@ -118,8 +118,13 @@ def update_pin(id):
 @login_required
 def delete_pin(id):
     pin = Pin.query.get(id)
+    user = current_user
     if pin:
         db.session.delete(pin)
+
+        if pin in user.saved_pins:
+            user.saved_pins.remove(pin)
+
         db.session.commit()
         return {"message": "Pin Deleted!"}
     return {"message": "Pin not found"}

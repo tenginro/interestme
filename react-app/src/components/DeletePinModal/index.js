@@ -9,11 +9,14 @@ function DeleteModal({ pin }) {
   const { closeModal } = useModal();
   const history = useHistory();
 
+  const user = useSelector((state) => state.session.user);
+
   const ClickYes = async (e) => {
     e.preventDefault();
     await dispatch(pinsActions.deletePin(pin));
     await closeModal();
     await dispatch(pinsActions.getUserPins());
+    await dispatch(pinsActions.getSavedPins(user.id));
     return history.push(`/user`);
   };
 
