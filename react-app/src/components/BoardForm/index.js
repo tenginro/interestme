@@ -21,7 +21,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
 
   useEffect(()=> {
     const err = [];
-    if (name.length<3) err.name = "* Name is required";
+    if (!name.length) err.name = "* Name is required";
     if (name.length>50) err.name = "* The max is 50 characters."
     if (!description.length) err.description = "* Description is required";
     if (description.length>255) err.description = "* Description length can only have 255 characters." 
