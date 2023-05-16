@@ -148,14 +148,19 @@ const CreatePin = () => {
                                       <p className="postDate">
                                         Release to drop the files here
                                     </p>
+                                    <p className="recommend">Recommendation: Use high-quality .jpg files less than 20MB</p>
                                     </div>
                                     ) : (
                                       <div className="dragNotActive">
+                                        <i className="fa-solid fa-arrow-up-from-bracket fa-xl"></i>
                                         <p className="postDate">
                                         Drag and drop or click to upload
                                     </p>
+                                    <p className="recommend">Recommendation: Use high-quality .jpg <br/>
+                                    files less than 20MB</p>
                                       </div>
                                   )}
+                                  
                                 </div>
                                 <aside className="preview">
                                   {thumb(acceptedFiles)}
@@ -172,21 +177,7 @@ const CreatePin = () => {
           </div>
           <div className="right-Side">
             <div className="category-save_container">
-              {/* <select
-                id="select-create_pin-board"
-                onChange={(e) => setBoard(e.target.value)}
-                value={board}
-                name="board"
-                placeholder="Choose a Board"
-              >
-                {currentUser.boards ? (
-                  currentUser.boards.map((board) => (
-                    <option key={board.id}>{board.name}</option>
-                  ))
-                ) : (
-                  <option>None</option>
-                )}
-              </select> */}
+              
               <button id="save-create_btn" type="submit">
                 Create
               </button>
