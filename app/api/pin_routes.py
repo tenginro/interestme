@@ -101,7 +101,7 @@ def update_pin(id):
         form["csrf_token"].data = request.cookies["csrf_token"]
 
         if form.validate_on_submit():
-            image_to_remove
+            
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]
@@ -129,7 +129,9 @@ def delete_pin(id):
     pin = Pin.query.get(id)
     user = current_user
     if pin:
-        db.session.delete(pin)
+        file_delete = remove_file_from_s3(pin.url)
+        if file_delete:
+            db.session.delete(pin)
 
         if pin in user.saved_pins:
             user.saved_pins.remove(pin)
