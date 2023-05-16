@@ -111,7 +111,15 @@ const CreatePin = () => {
         onLoad = {() => {URL.revokeObjectURL(preview.preview)}}
         /> : null}
         {preview?.preview ? 
-        <i className="fa-solid fa-trash-can" onClick={removeHandler}></i> : null
+        <div className="trashDiv">
+          <button onClick={removeHandler} className="trashbutton left"
+          data-text="Delete image"
+          >
+            <i className="fa-solid fa-trash-can fa-xl"></i>
+          </button>
+            
+        </div>
+        : null
         }
       </div>
     )

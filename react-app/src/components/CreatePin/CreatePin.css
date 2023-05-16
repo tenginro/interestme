@@ -197,17 +197,67 @@
   font-size: 13px;
 }
 
-
-
 .previewImage {
-  width:260px;
-  height:350px;
+  width:340px;
+  height:450px;
   object-fit: cover;
 }
 .preview {
   display: block;
   position: absolute;
   z-index: 4;
+  top: 15px;
+  left:0px;
+}
+
+.trashDiv {
+  display: block;
+  position: relative;
+}
+.trashbutton{
+  position:absolute;
+  top:-50px;
+  left:0px;
+  cursor: pointer;
+  color:rgba(0, 0, 0, 0.866);
+  background-color: white;
+  height:45px;
+  width: 45px;
+  border-radius: 50%;
+  border: 0;
+}
+.trashbutton{
+  position: relative;
+}
+
+.trashbutton:before {
+  content: attr(data-text);
+  position: absolute;
   top: 50px;
-  left:40px;
+  transform: translateX(70%);
+  right:60px;
+  /* margin-left: 15px; */
+  width: 80px;
+  padding: 8px;
+  font-size: 11px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  display: none;
+  position: absolute;
+}
+.trashbutton:hover:before{
+  display: block;
+}
+.trashbutton.left:before{
+  left: initial;
+  margin: initial; 
+   
+    /* set new values */
+    right:90%;
+    /* margin-right: 15px; */
+}
+.trashbutton:hover {
+  filter:brightness(0.85)
 }
