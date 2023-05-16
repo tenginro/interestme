@@ -22,8 +22,15 @@ function AllPins() {
     };
   }, [dispatch, userId]);
 
-  if (!pinsObj) return <div>Loading</div>;
   const pins = Object.values(pinsObj);
+
+  if (!pinsObj)
+    return (
+      <h2 className="loadingAllPins">
+        <i className="fas fa-solid fa-spinner fa-5x"></i>
+        <div>We're adding new ideas to your home feed!</div>
+      </h2>
+    );
 
   return (
     <div>
