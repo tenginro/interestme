@@ -1,6 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
-export default function NotFound() {
+export default function NotFound({ searchQuery, setSearchQuery }) {
+  const history = useHistory();
+
+  const handleClick = () => {
+    setSearchQuery("");
+    history.push("/pins");
+  };
+
   return (
     <h2
       className="loadingAllPins"
@@ -20,9 +27,7 @@ export default function NotFound() {
         <div style={{ textAlign: "center" }}>
           Please return to{" "}
           <span style={{ textDecoration: "underline" }}>
-            <NavLink exact to="/pins">
-              HomePage
-            </NavLink>
+            <span onClick={handleClick}>HomePage</span>
           </span>
           .
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../LandingPage/Assets/icon.png";
 import ProfileButton from "./ProfileButton";
@@ -8,7 +8,7 @@ import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
 import "./Navigation.css";
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
   const ulRef = useRef();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   const [showMenu, setShowMenu] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const openMenu = () => {

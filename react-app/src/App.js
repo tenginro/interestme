@@ -25,6 +25,7 @@ import NotFound from "./components/NotFound";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
@@ -32,7 +33,11 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <Navigation
+        isLoaded={isLoaded}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       {isLoaded && (
         <Switch>
           <Route exact path="/">
@@ -45,7 +50,10 @@ function App() {
             <OtherUserProfile />
           </Route>
           <Route exact path="/pins">
-            <AllPins />
+            <AllPins
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
           <Route exact path="/pins/search/:searchQuery">
             <SearchPins />
@@ -81,7 +89,10 @@ function App() {
             <EditBoard />
           </Route>
           <Route>
-            <NotFound />
+            <NotFound
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
         </Switch>
       )}

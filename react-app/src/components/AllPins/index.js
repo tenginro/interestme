@@ -5,7 +5,6 @@ import PinIndexItem from "./PinIndexItem";
 import { getUserBoards } from "../../store/board";
 
 import "./AllPins.css";
-import { NavLink } from "react-router-dom";
 import NotFound from "../NotFound";
 
 function AllPins() {
