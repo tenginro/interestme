@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Dropzone from "react-dropzone";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import "./CreatePin.css";
@@ -30,7 +31,7 @@ const CreatePin = () => {
     if (name.length>50) err.name = "* The max is 50 characters."
     if (!description.length) err.description = "* Description is required";
     if (description.length>255) err.description = "* Description length can only have 255 characters." 
-    if (!url.length) err.url = "* Image is required";
+    if (!url) err.url = "* Image is required";
     if (!category.length) err.category = "* Category is required";
     setErrors(err);
   }, [name, description, url, category]);
@@ -87,11 +88,14 @@ const CreatePin = () => {
     setResErrors({});
     setHasSubmitted(false);
   };
+  const handleOnDrop =(files) => {
+        setUrl(files[0])
+    }
 
   return (
     <div className="create-new_pin-container">
       {/* <h1>Create a New Pin</h1> */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <ul>
           {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
             <li>{Object.values(resErrors)}</li>
@@ -101,13 +105,42 @@ const CreatePin = () => {
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
             <div className="file-image_input-field-container">
-              <input
+              <Dropzone className ='dropzone' onDrop={handleOnDrop} multiple={false} accept={'image/*'} >
+                {({getRootProps, getInputProps, isDragActive, acceptedFiles}) => (
+                            <section className="container">
+                                <div {...getRootProps({className: 'dropzone'})}>
+                                <input {...getInputProps()} />
+                                {isDragActive ? (
+                                <p className="postDate">
+                                    Release to drop the files here
+                                </p>
+                                ) : (
+                                <p className="postDate">
+                                    Drag’n’drop some files here, or click to select files
+                                </p>
+                                )}
+                                </div>
+                                <aside>
+                                    <ul>
+                                        {acceptedFiles.map((file) => (
+                                            <li key={file.path} className="postDate">
+                                                * {file.path} - {file.size} bytes
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </aside>
+                                
+                            </section>
+                            )}
+
+              </Dropzone>
+              {/* <input
                 id="file-image_input-field"
                 type="text"
                 placeholder=" Drag and drop an image file"
                 name="url"
                 onClick={() => window.alert("Feature coming soon!")}
-              ></input>
+              ></input> */}
             </div>
 
             <input
