@@ -15,13 +15,16 @@ export const actionLoadAllPins = (pins) => ({
   type: LOAD_PINS,
   pins,
 });
-
 export const actionLoadPinDetail = (pin) => ({
   type: LOAD_PIN_DETAIL,
   pin,
 });
 export const actionLoadUserPins = (pins) => ({
   type: LOAD_USER_PINS,
+  pins,
+});
+export const actionLoadSavedPins = (pins) => ({
+  type: LOAD_SAVED_PINS,
   pins,
 });
 
@@ -36,11 +39,6 @@ export const actionUpdatePin = (pin) => ({
 export const actionRemovePin = (id) => ({
   type: REMOVE_PIN,
   id,
-});
-
-export const actionLoadSavedPins = (pins) => ({
-  type: LOAD_SAVED_PINS,
-  pins,
 });
 
 export const actionClearPins = () => ({
@@ -61,6 +59,16 @@ export const getAllPins = () => async (dispatch) => {
     return pins;
   }
   return response;
+};
+
+export const getSearchedPins = (searchQuery) => async (dispatch) => {
+  const response = await fetch(`/api/pins/search/${searchQuery}`);
+
+  if (response.ok) {
+    const pins = await response.json();
+    await dispatch(actionLoadAllPins(pins));
+    return pins;
+  }
 };
 
 export const getPinDetail = (id) => async (dispatch) => {

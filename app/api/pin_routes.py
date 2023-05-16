@@ -13,8 +13,28 @@ pin_routes = Blueprint("pins", __name__)
 @pin_routes.route("/pins")
 def get_all_pins():
     pins = Pin.query.all()
-    # allUsers = User.query.all()
-    # userSaved = [user for user in allUsers if user in pin.user_saved]
+    all_pins = [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        }
+        for pin in pins
+    ]
+    return all_pins
+
+
+@pin_routes.route("/pins/search/<string:searchQuery>")
+def get_search_pins(searchQuery):
+    pins = Pin.query.filter(
+        db.or_(
+            # ilike - case insensitive
+            Pin.name.ilike(f"%{searchQuery}%"),
+            Pin.description.ilike(f"%{searchQuery}%"),
+            Pin.category.ilike(f"%{searchQuery}%"),
+        )
+    ).all()
 
     all_pins = [
         {
