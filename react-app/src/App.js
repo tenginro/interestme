@@ -19,6 +19,8 @@ import MainPage from "./components/LandingPage/MainPage";
 import ProfilePage from "./components/ProfilePage";
 import OtherUserProfile from "./components/OtherUserProfile";
 import Footer from "./components/Footer";
+import SearchPins from "./components/SearchPins";
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +37,6 @@ function App() {
         <Switch>
           <Route exact path="/">
             <MainPage />
-            <Footer />
           </Route>
           <Route exact path="/user">
             <ProfilePage />
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/pins">
             <AllPins />
+          </Route>
+          <Route exact path="/pins/search/:searchQuery">
+            <SearchPins />
           </Route>
           <Route exact path="/login">
             <LoginFormPage />
@@ -76,8 +80,12 @@ function App() {
           <Route exact path="/boards/edit">
             <EditBoard />
           </Route>
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

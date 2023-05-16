@@ -1,32 +1,36 @@
 import React, { useEffect } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actionClearPins, getAllPins, getSavedPins } from "../../store/pin";
-import PinIndexItem from "./PinIndexItem";
-import { getUserBoards } from "../../store/board";
 
-import "./AllPins.css";
-import { NavLink } from "react-router-dom";
+import {
+  actionClearPins,
+  getAllPins,
+  getSavedPins,
+  getSearchedPins,
+} from "../../store/pin";
+import PinIndexItem from "../AllPins/PinIndexItem";
+import { getUserBoards } from "../../store/board";
 import NotFound from "../NotFound";
 
-function AllPins({ searchQuery }) {
+export default function SearchPins() {
   const dispatch = useDispatch();
+  const { searchQuery } = useParams();
   const pinsObj = useSelector((state) => state.pins.allPins);
   const user = useSelector((state) => state.session.user);
-  const userId = user?.id;
-  // const logInUserPins = user.pins;
+  const userId = user.id;
 
   useEffect(() => {
-    dispatch(getAllPins());
+    dispatch(getSearchedPins(searchQuery));
     dispatch(getUserBoards());
     dispatch(getSavedPins(userId));
     return () => {
       dispatch(actionClearPins());
     };
-  }, [dispatch, userId]);
+  }, [dispatch, userId, searchQuery]);
 
   const pins = Object.values(pinsObj);
 
-  if (!pinsObj) return <NotFound />;
+  if (!pins.length) return <NotFound />;
 
   return (
     <div>
@@ -40,5 +44,3 @@ function AllPins({ searchQuery }) {
     </div>
   );
 }
-
-export default AllPins;

@@ -73,8 +73,8 @@ function ProfilePage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "flex-start",
-          marginTop: "20px",
+          alignItems: "center",
+          marginTop: "50px",
         }}
       >
         <img

@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
+from .aws_helpers import upload_file_to_s3, get_unique_filename,remove_file_from_s3
 
 
 from ..models import db, Pin, User, Board
@@ -13,8 +14,28 @@ pin_routes = Blueprint("pins", __name__)
 @pin_routes.route("/pins")
 def get_all_pins():
     pins = Pin.query.all()
-    # allUsers = User.query.all()
-    # userSaved = [user for user in allUsers if user in pin.user_saved]
+    all_pins = [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        }
+        for pin in pins
+    ]
+    return all_pins
+
+
+@pin_routes.route("/pins/search/<string:searchQuery>")
+def get_search_pins(searchQuery):
+    pins = Pin.query.filter(
+        db.or_(
+            # ilike - case insensitive
+            Pin.name.ilike(f"%{searchQuery}%"),
+            Pin.description.ilike(f"%{searchQuery}%"),
+            Pin.category.ilike(f"%{searchQuery}%"),
+        )
+    ).all()
 
     all_pins = [
         {
@@ -67,12 +88,19 @@ def create_pin():
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
+        url = form.data["url"]
+        url.filename = get_unique_filename(url.filename)
+        upload = upload_file_to_s3(url)
+        if "url" not in upload:
+            return {"message": "Image not uploaded successfully."}
+        url = upload["url"]
+
         new_pin = Pin(
             user_id=user["id"],
             name=form.data["name"],
             description=form.data["description"],
             category=form.data["category"],
-            url=form.data["url"],
+            url=upload["url"],
         )
         db.session.add(new_pin)
         db.session.commit()
@@ -93,6 +121,7 @@ def update_pin(id):
         form["csrf_token"].data = request.cookies["csrf_token"]
 
         if form.validate_on_submit():
+            
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]
@@ -120,7 +149,9 @@ def delete_pin(id):
     pin = Pin.query.get(id)
     user = current_user
     if pin:
-        db.session.delete(pin)
+        file_delete = remove_file_from_s3(pin.url)
+        if file_delete:
+            db.session.delete(pin)
 
         if pin in user.saved_pins:
             user.saved_pins.remove(pin)
