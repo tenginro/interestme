@@ -165,8 +165,7 @@ const PinIndexItem = ({
       ) : null}
       <div className="boardNSave">
         <div onClick={openDropDownMenu}>
-          Profile
-          <i className="fas fa-solid fa-angle-down"></i>
+          Profile <i className="fas fa-solid fa-angle-down"></i>
         </div>
         {isSavedInProfile() ? (
           <button className="saveButton" onClick={(e) => unsaveFromBoard(e, 0)}>

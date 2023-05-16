@@ -25,7 +25,7 @@ function CurrentPins() {
 
   return (
     <div>
-      <nav className="allPins">
+      <nav className="createdPins">
         {pins.map((pin) => (
           <div key={pin.id}>
             <PinIndexItem
