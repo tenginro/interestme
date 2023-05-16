@@ -170,8 +170,8 @@ const CreatePin = () => {
             <div className="userInfo">
               <img src={currentUser.profile_pic} className="profile_pic"/>
               <div>
-                <p>{currentUser.first_name}{currentUser.last_name}</p>
-                <p>{currentUser.followers.length} 
+                <p className="userName">{currentUser.first_name}{currentUser.last_name}</p>
+                <p className="userName">{currentUser.followers.length} 
                 {currentUser.followers.length <= 1 ? ` follower` : ` followers`}</p>
               </div>
             </div>
