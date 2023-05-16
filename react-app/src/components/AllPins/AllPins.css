@@ -4,6 +4,7 @@
   height: 3898px;
   width: 1920px;
   margin: 30px auto;
+  overflow-y: hidden;
 }
 
 /* parent */
