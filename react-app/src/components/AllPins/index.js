@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import "./AllPins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { actionClearPins, getAllPins, getSavedPins } from "../../store/pin";
 import PinIndexItem from "./PinIndexItem";
 import { getUserBoards } from "../../store/board";
+
+import "./AllPins.css";
 
 function AllPins() {
   const dispatch = useDispatch();
@@ -26,13 +27,13 @@ function AllPins() {
 
   return (
     <div>
-      <nav className="allPins">
+      <div className="allPins">
         {pins.map((pin) => (
           <div key={pin.id}>
             <PinIndexItem pin={pin} key={pin.id} user={user} page="AllPins" />
           </div>
         ))}
-      </nav>
+      </div>
     </div>
   );
 }

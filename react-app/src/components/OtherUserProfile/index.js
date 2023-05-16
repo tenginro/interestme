@@ -38,30 +38,15 @@ export default function OtherUserProfile() {
 
   const pins_created = user?.pins;
   const pins_saved = user?.saved_pins;
-  // const openMenu = () => {
-  //   if (showMenu) return;
-  //   setShowMenu(true);
-  // };
-  // const closeMenu = () => setShowMenu(false);
 
-  // function checkFollow() {
-  //   if (LogInUser?.following) {
-  //     const following = LogInUser.following;
-  //     following.forEach((f) => {
-  //       if (f.id === user?.id) {
-  //         setFollow(true);
-  //       }
-  //     });
-  //   }
-  //   return follow;
-  // }
+  console.log(LogInUser.id, +userId);
 
   useEffect(() => {
     dispatch(getProfile(userId));
     return () => dispatch(actionClearProfile());
   }, [dispatch, userId]);
 
-  if (!user.username) return <div>Loading</div>;
+  if (!user.id) return <div>Loading</div>;
 
   return (
     <div className="profile-page-container">
@@ -74,31 +59,33 @@ export default function OtherUserProfile() {
       </div>
       <div className="username-container">
         <h2>{user.username}</h2>
-        {isFollowed(LogInUser, user) ? (
-          <button
-            className="unfollow_btn"
-            onClick={async (e) => {
-              e.preventDefault();
-              await dispatch(removeFollowThunk(user.id));
-              await dispatch(getProfile(userId));
-              setFollow(false);
-            }}
-          >
-            Unfollow
-          </button>
-        ) : (
-          <button
-            className="follow_btn"
-            onClick={async (e) => {
-              e.preventDefault();
-              await dispatch(addFollowThunk(user.id));
-              await dispatch(getProfile(userId));
-              setFollow(true);
-            }}
-          >
-            Follow
-          </button>
-        )}
+        {LogInUser.id !== +userId ? (
+          isFollowed(LogInUser, user) ? (
+            <button
+              className="unfollow_btn"
+              onClick={async (e) => {
+                e.preventDefault();
+                await dispatch(removeFollowThunk(user.id));
+                await dispatch(getProfile(userId));
+                setFollow(false);
+              }}
+            >
+              Unfollow
+            </button>
+          ) : (
+            <button
+              className="follow_btn"
+              onClick={async (e) => {
+                e.preventDefault();
+                await dispatch(addFollowThunk(user.id));
+                await dispatch(getProfile(userId));
+                setFollow(true);
+              }}
+            >
+              Follow
+            </button>
+          )
+        ) : null}
       </div>
       <div className="subtitle-container">
         <div className="followers-container">

@@ -8,10 +8,12 @@ import OpenModalicon from "../OpenModalicon";
 import EditPin from "../EditPin";
 import { defaultImage } from "../SinglePin";
 import DeleteModal from "../DeletePinModal";
+import PinIndexItem from "../AllPins/PinIndexItem";
 
 function CurrentPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(getUserPins());
@@ -23,30 +25,38 @@ function CurrentPins() {
 
   return (
     <div>
-      <nav className="allPins">
+      <nav className="createdPins">
         {pins.map((pin) => (
-          <div key={pin.id} className="pinIndexItem">
-            <NavLink key={pin.id} to={`/pins/${pin.id}`}>
-              <img
-                className="pinImg"
-                src={pin.url}
-                alt={pin.name}
-                onError={defaultImage}
-              />
-            </NavLink>
-            <div className="boardNSaveEdit">
-              <OpenModalicon
-                modalComponent={<EditPin pin={pin} />}
-                iconType={"editPen"}
-                pin={pin}
-              />
-              <OpenModalicon
-                modalComponent={<DeleteModal pin={pin} />}
-                iconType={"trashCan"}
-                pin={pin}
-              />
-            </div>
+          <div key={pin.id}>
+            <PinIndexItem
+              pin={pin}
+              key={pin.id}
+              user={user}
+              page="CreatedPins"
+            />
           </div>
+          // <div key={pin.id} className="pinIndexItem">
+          //   <NavLink key={pin.id} to={`/pins/${pin.id}`}>
+          //     <img
+          //       className="pinImg"
+          //       src={pin.url}
+          //       alt={pin.name}
+          //       onError={defaultImage}
+          //     />
+          //   </NavLink>
+          //   <div className="boardNSaveEdit">
+          //     <OpenModalicon
+          //       modalComponent={<EditPin pin={pin} />}
+          //       iconType={"editPen"}
+          //       pin={pin}
+          //     />
+          //     <OpenModalicon
+          //       modalComponent={<DeleteModal pin={pin} />}
+          //       iconType={"trashCan"}
+          //       pin={pin}
+          //     />
+          //   </div>
+          // </div>
         ))}
       </nav>
     </div>
