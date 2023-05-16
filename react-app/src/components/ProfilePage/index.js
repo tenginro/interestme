@@ -66,7 +66,25 @@ function ProfilePage() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  if (!user) return <div>Loading</div>;
+  if (!user)
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          marginTop: "20px",
+        }}
+      >
+        <img
+          src="https://design.netcorecloud.com/wp-content/uploads/2020/09/infinity-loader.gif"
+          alt="loading"
+          style={{ width: "800px", height: "400px" }}
+        ></img>
+        <h2>Loading...</h2>
+      </div>
+    );
 
   return (
     <div className="profile-page-container">
@@ -151,7 +169,7 @@ function ProfilePage() {
               ))}
             </div>
             <div className="saved_pins-gallery-list">
-              <h4>All saved pins</h4>
+              <h4>Unorganized pins</h4>
               <div className="pinsDisplay">
                 {savedPinsArr?.map((pin) => (
                   <PinIndexItem
