@@ -164,29 +164,11 @@ const CreatePin = () => {
                             )}
 
               </Dropzone>
-              {/* <input
-                id="file-image_input-field"
-                type="text"
-                placeholder=" Drag and drop an image file"
-                name="url"
-                onClick={() => window.alert("Feature coming soon!")}
-              ></input> */}
-            {/* </div> */}
-
-            {/* <input
-              id="create-pin-url_input"
-              type="text"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter URL"
-              name="url"
-              style={{ minHeight: "40px" }}
-            ></input>
-            {hasSubmitted ? (
+              {hasSubmitted ? (
               <p className="error"> {errors.url}</p>
             ) : (
               <p className="noErrorDisplay">{"  "}</p>
-            )} */}
+            )}
           </div>
           <div className="right-Side">
             <div className="category-save_container">
