@@ -37,6 +37,7 @@
   overflow-y: auto;
   height: 50px;
   padding: 3px;
+  margin-bottom: 0;
 }
 
 .create_board-btn {

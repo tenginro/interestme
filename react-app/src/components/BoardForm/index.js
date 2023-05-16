@@ -69,6 +69,8 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
     }
   };
   if (!newBoard) return null;
+
+
   const maxCharClassNameHandle = (desCount) => {
     if (desCount===255) return "showCharacterLength reachedMax"
     return "showCharacterLength"
@@ -109,8 +111,8 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
-          <br />
           <p className={maxCharClassNameHandle(desCount)}>{desCount} /255 characters</p>
+          <br />
           <div className="secretCheckboxContainer">
             <div className="secretCheckboxFirstLine">
               <input
