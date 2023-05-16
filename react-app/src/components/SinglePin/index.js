@@ -131,7 +131,25 @@ const Pin = () => {
   };
   const closeMenu = () => setShowDropDownMenu(false);
 
-  if (!user.id || !pin.id) return <div>Loading</div>;
+  if (!user.id || !pin.id)
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          marginTop: "20px",
+        }}
+      >
+        <img
+          src="https://design.netcorecloud.com/wp-content/uploads/2020/09/infinity-loader.gif"
+          alt="loading"
+          style={{ width: "800px", height: "400px" }}
+        ></img>
+        <h2>Loading...</h2>
+      </div>
+    );
 
   return (
     <div className="single-pin_container">
