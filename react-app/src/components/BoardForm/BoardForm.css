@@ -64,6 +64,7 @@
   height: 24px;
   box-sizing: border-box;
   cursor: pointer;
+ 
 }
 .secretCheckboxSecondLine {
   display: flex;
