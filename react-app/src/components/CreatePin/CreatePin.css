@@ -172,3 +172,7 @@
   margin:0;
   font-size: 13px;
 }
+
+.previewImage {
+  width:200px;
+}

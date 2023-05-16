@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropzone from "react-dropzone";
+import {useDropzone} from "react-dropzone";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import "./CreatePin.css";
@@ -13,6 +14,7 @@ const CreatePin = () => {
   const [description, setDescription] = useState("");
   const [desCount, setDesCount] = useState(0);
   const [url, setUrl] = useState("");
+  const [preview, setPreview] = useState({})
   const [category, setCategory] = useState(categories[0]);
   // const [board, setBoard] = useState("")
   const [errors, setErrors] = useState({});
@@ -90,7 +92,29 @@ const CreatePin = () => {
   };
   const handleOnDrop =(files) => {
         setUrl(files[0])
-    }
+        let pre = {}
+        pre.preview = URL.createObjectURL(files[0])
+        setPreview(pre)
+  }
+  const removeHandler = (e) => {
+    e.preventDefault();
+    setUrl([])
+    setPreview({})
+  }
+  const thumb = (files) => {
+    return (
+      <div>
+        <img 
+        className="previewImage"
+        src={preview.preview}
+        onLoad = {() => {URL.revokeObjectURL(preview.preview)}}
+        />
+        {preview?.preview ? 
+        <button onClick={removeHandler}><i className="fa-solid fa-trash-can"></i></button> : null
+        }
+      </div>
+    )
+  }
 
   return (
     <div className="create-new_pin-container">
@@ -121,13 +145,14 @@ const CreatePin = () => {
                                 )}
                                 </div>
                                 <aside>
-                                    <ul>
+                                    {/* <ul>
                                         {acceptedFiles.map((file) => (
                                             <li key={file.path} className="postDate">
                                                 * {file.path} - {file.size} bytes
                                             </li>
                                         ))}
-                                    </ul>
+                                    </ul> */}
+                                    {thumb(acceptedFiles)}
                                 </aside>
                                 
                             </section>
@@ -143,7 +168,7 @@ const CreatePin = () => {
               ></input> */}
             {/* </div> */}
 
-            <input
+            {/* <input
               id="create-pin-url_input"
               type="text"
               value={url}
@@ -156,7 +181,7 @@ const CreatePin = () => {
               <p className="error"> {errors.url}</p>
             ) : (
               <p className="noErrorDisplay">{"  "}</p>
-            )}
+            )} */}
           </div>
           <div className="right-Side">
             <div className="category-save_container">
