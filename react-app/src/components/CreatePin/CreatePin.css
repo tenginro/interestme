@@ -99,11 +99,11 @@
 }
 
 .noErrorDisplay {
-  
   margin:0;
 }
 .showCharacterLength {
   font-size: 11px;
+  margin:0;
 }
 .reachedMax {
   font-size: 11px;
@@ -166,6 +166,7 @@
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 .userName {
   margin:0;
