@@ -93,11 +93,19 @@
 
 .error {
   color: red;
-  height: 1rem;
+  font-size: 11px;
+  height: 0.5rem;
 }
 
 .noErrorDisplay {
-  height: 1.5rem;
+  height: 0.5rem;
+}
+.showCharacterLength {
+  font-size: 11px;
+}
+.reachedMax {
+  font-size: 11px;
+  color:red;
 }
 
 /* #select-create_pin-board {

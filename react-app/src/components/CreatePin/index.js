@@ -9,7 +9,7 @@ const CreatePin = () => {
   const categories = ["Art", "Food", "Tech"];
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [desCount, setDesCount] = useState(255);
+  const [desCount, setDesCount] = useState(0);
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState(categories[0]);
   // const [board, setBoard] = useState("")
@@ -25,12 +25,12 @@ const CreatePin = () => {
 
   useEffect(() => {
     const err = [];
-    if (!name.length) err.name = "Name is required";
-    if (name.length>50) err.name = "The max is 50 characters."
-    if (!description.length) err.description = "Description is required";
-    if (description.length>255) err.description = "Description length can only have 255 characters." 
-    if (!url.length) err.url = "Image is required";
-    if (!category.length) err.category = "Category is required";
+    if (!name.length) err.name = "* Name is required";
+    if (name.length>50) err.name = "* The max is 50 characters."
+    if (!description.length) err.description = "* Description is required";
+    if (description.length>255) err.description = "* Description length can only have 255 characters." 
+    if (!url.length) err.url = "* Image is required";
+    if (!category.length) err.category = "* Category is required";
     setErrors(err);
   }, [name, description, url, category]);
 
@@ -68,6 +68,10 @@ const CreatePin = () => {
       }
     }
   };
+  const maxCharClassNameHandle = (desCount) => {
+    if (desCount>=255) return "showCharacterLength reachedMax"
+    return "showCharacterLength"
+  }
 
   const reset = () => {
     setName("");
@@ -188,13 +192,14 @@ const CreatePin = () => {
                 type="text"
                 onChange={(e) => {
                   setDescription(e.target.value)
-                  setDesCount(255 - description.length)
+                  setDesCount(e.target.value.length)
                 }}
                 value={description}
                 placeholder="Tell everyone what your Pin is about             😃"
                 name="description"
               ></input>
-              <p>{desCount} characters left</p>
+              <p className={maxCharClassNameHandle(desCount)}>{desCount} /255 characters</p>
+              
               {hasSubmitted ? (
                 <p className="error"> {errors.description}</p>
               ) : (
