@@ -152,7 +152,7 @@ const CreatePin = () => {
                                     </div>
                                     ) : (
                                       <div className="dragNotActive">
-                                        <i className="fa-solid fa-arrow-up-from-bracket fa-xl"></i>
+                                        <i className="fa-solid fa-arrow-up-from-bracket fa-xl" style={{color: "#818488;"}}></i>
                                         <p className="postDate">
                                         Drag and drop or click to upload
                                     </p>
