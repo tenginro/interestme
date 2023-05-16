@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
-from aws_helpers import upload_file_to_s3, get_unique_filename,remove_file_from_s3
+from .aws_helpers import upload_file_to_s3, get_unique_filename,remove_file_from_s3
 
 
 from ..models import db, Pin, User, Board

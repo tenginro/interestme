@@ -104,10 +104,10 @@ const CreatePin = () => {
         <div className="create_new-pin-form">
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
-            <div className="file-image_input-field-container">
+            {/* <div className="file-image_input-field-container"> */}
               <Dropzone className ='dropzone' onDrop={handleOnDrop} multiple={false} accept={'image/*'} >
                 {({getRootProps, getInputProps, isDragActive, acceptedFiles}) => (
-                            <section className="container">
+                            <section className="file-image_input-field-container">
                                 <div {...getRootProps({className: 'dropzone'})}>
                                 <input {...getInputProps()} />
                                 {isDragActive ? (
@@ -141,7 +141,7 @@ const CreatePin = () => {
                 name="url"
                 onClick={() => window.alert("Feature coming soon!")}
               ></input> */}
-            </div>
+            {/* </div> */}
 
             <input
               id="create-pin-url_input"
