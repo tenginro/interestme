@@ -17,8 +17,6 @@ function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
 
   const [showMenu, setShowMenu] = useState(false);
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -26,7 +24,7 @@ function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
 
   useEffect(() => {
     setSearchQuery("");
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -117,8 +115,7 @@ function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
               if (e.key === "Enter") {
                 e.preventDefault();
                 setSearchQuery(e.target.value);
-                if (searchQuery.length) setIsSubmitted(true);
-                if (isSubmitted) {
+                if (searchQuery.length) {
                   history.push(`/pins/search/${searchQuery}`);
                 }
               }

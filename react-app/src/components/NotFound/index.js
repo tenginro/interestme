@@ -1,12 +1,12 @@
+import { useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
-export default function NotFound({ searchQuery, setSearchQuery }) {
+export default function NotFound({
+  clearSearchQuery,
+  searchQuery,
+  setSearchQuery,
+}) {
   const history = useHistory();
-
-  const handleClick = () => {
-    setSearchQuery("");
-    history.push("/pins");
-  };
 
   return (
     <h2
@@ -26,8 +26,11 @@ export default function NotFound({ searchQuery, setSearchQuery }) {
         <div>We're adding new ideas to your home feed!</div>
         <div style={{ textAlign: "center" }}>
           Please return to{" "}
-          <span style={{ textDecoration: "underline" }}>
-            <span onClick={handleClick}>HomePage</span>
+          <span
+            style={{ textDecoration: "underline" }}
+            onClick={clearSearchQuery}
+          >
+            <NavLink to="/pins">HomePage</NavLink>
           </span>
           .
         </div>

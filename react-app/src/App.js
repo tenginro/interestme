@@ -90,6 +90,7 @@ function App() {
           </Route>
           <Route>
             <NotFound
+              clearSearchQuery={() => setSearchQuery("")}
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
