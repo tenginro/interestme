@@ -8,6 +8,7 @@ import { useModal } from "../../context/Modal";
 const CreatePin = () => {
   const categories = ["Art", "Food", "Tech"];
   const [name, setName] = useState("");
+  const [nameCount, setNameCount] = useState(0);
   const [description, setDescription] = useState("");
   const [desCount, setDesCount] = useState(0);
   const [url, setUrl] = useState("");
@@ -70,6 +71,10 @@ const CreatePin = () => {
   };
   const maxCharClassNameHandle = (desCount) => {
     if (desCount>=255) return "showCharacterLength reachedMax"
+    return "showCharacterLength"
+  }
+  const nameCountClassHandler = (nameCount) => {
+    if(nameCount>=50) return "showCharacterLength reachedMax"
     return "showCharacterLength"
   }
 
@@ -146,11 +151,15 @@ const CreatePin = () => {
               <input
                 id="ad-your_title-input"
                 type="text"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value)
+                  setNameCount(e.target.value.length)
+                }}
                 value={name}
                 placeholder="Add your title"
                 name="name"
               ></input>
+              <p className={nameCountClassHandler(nameCount)}>{nameCount} /50 characters</p>
               {hasSubmitted ? (
                 <p className="error"> {errors.name}</p>
               ) : (
