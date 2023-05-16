@@ -70,11 +70,11 @@ const CreatePin = () => {
     }
   };
   const maxCharClassNameHandle = (desCount) => {
-    if (desCount>=255) return "showCharacterLength reachedMax"
+    if (desCount===255) return "showCharacterLength reachedMax"
     return "showCharacterLength"
   }
   const nameCountClassHandler = (nameCount) => {
-    if(nameCount>=50) return "showCharacterLength reachedMax"
+    if(nameCount===50) return "showCharacterLength reachedMax"
     return "showCharacterLength"
   }
 
@@ -149,6 +149,7 @@ const CreatePin = () => {
 
             <div className="add-your_title">
               <input
+                maxLength={50}
                 id="ad-your_title-input"
                 type="text"
                 onChange={(e) => {
@@ -197,6 +198,7 @@ const CreatePin = () => {
             <br />
             <div>
               <input
+                maxLength={50}
                 id="description-input_"
                 type="text"
                 onChange={(e) => {
