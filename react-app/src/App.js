@@ -20,6 +20,7 @@ import ProfilePage from "./components/ProfilePage";
 import OtherUserProfile from "./components/OtherUserProfile";
 import Footer from "./components/Footer";
 import SearchPins from "./components/SearchPins";
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +79,9 @@ function App() {
           </Route>
           <Route exact path="/boards/edit">
             <EditBoard />
+          </Route>
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       )}
