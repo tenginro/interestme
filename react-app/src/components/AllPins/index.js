@@ -5,12 +5,13 @@ import PinIndexItem from "./PinIndexItem";
 import { getUserBoards } from "../../store/board";
 
 import "./AllPins.css";
+import NotFound from "../NotFound";
 
 function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
   const user = useSelector((state) => state.session.user);
-  const userId = user.id;
+  const userId = user?.id;
   // const logInUserPins = user.pins;
 
   useEffect(() => {
@@ -24,13 +25,7 @@ function AllPins() {
 
   const pins = Object.values(pinsObj);
 
-  if (!pinsObj)
-    return (
-      <h2 className="loadingAllPins">
-        <i className="fas fa-solid fa-spinner fa-5x"></i>
-        <div>We're adding new ideas to your home feed!</div>
-      </h2>
-    );
+  if (!pinsObj) return <NotFound />;
 
   return (
     <div>

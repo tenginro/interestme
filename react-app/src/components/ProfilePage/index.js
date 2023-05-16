@@ -16,6 +16,7 @@ import {
 import { actionClearSavedPins, getSavedPins } from "../../store/pin";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import { defaultImage } from "../SinglePin";
+import Loading from "../Loading";
 
 function ProfilePage() {
   // Create a reference to the session user
@@ -66,25 +67,7 @@ function ProfilePage() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  if (!user)
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          marginTop: "20px",
-        }}
-      >
-        <img
-          src="https://design.netcorecloud.com/wp-content/uploads/2020/09/infinity-loader.gif"
-          alt="loading"
-          style={{ width: "800px", height: "400px" }}
-        ></img>
-        <h2>Loading...</h2>
-      </div>
-    );
+  if (!user) return <Loading />;
 
   return (
     <div className="profile-page-container">

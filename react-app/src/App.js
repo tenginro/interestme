@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
 
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -19,10 +19,14 @@ import MainPage from "./components/LandingPage/MainPage";
 import ProfilePage from "./components/ProfilePage";
 import OtherUserProfile from "./components/OtherUserProfile";
 import Footer from "./components/Footer";
+import SearchPins from "./components/SearchPins";
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
@@ -30,12 +34,15 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <Navigation
+        isLoaded={isLoaded}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       {isLoaded && (
         <Switch>
           <Route exact path="/">
             <MainPage />
-            <Footer />
           </Route>
           <Route exact path="/user">
             <ProfilePage />
@@ -44,7 +51,17 @@ function App() {
             <OtherUserProfile />
           </Route>
           <Route exact path="/pins">
-            <AllPins />
+            <AllPins
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </Route>
+          <Route exact path="/pins/search/:searchInput">
+            <SearchPins
+              clearSearchQuery={() => setSearchQuery("")}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
           <Route exact path="/login">
             <LoginFormPage />
@@ -76,8 +93,16 @@ function App() {
           <Route exact path="/boards/edit">
             <EditBoard />
           </Route>
+          <Route>
+            <NotFound
+              clearSearchQuery={() => setSearchQuery("")}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }

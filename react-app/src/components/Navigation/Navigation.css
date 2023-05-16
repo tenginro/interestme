@@ -131,7 +131,7 @@
   flex-direction: row;
   align-items: center;
   padding: 10px;
-  height: 40px;
+  height: 45px;
   width: 100%;
   margin-left: 20px;
   margin-right: 20px;
@@ -141,11 +141,16 @@
 .searchInput {
   background-color: transparent;
   border: none;
-  margin-left: 5px;
+  margin-left: 10px;
   height: 100%;
   width: 100%;
-  padding: 0;
+  padding-left: 10px;
   outline: line;
+  cursor: text;
+}
+
+.searchIcon.hidden {
+  display: none;
 }
 
 .createPinButton {

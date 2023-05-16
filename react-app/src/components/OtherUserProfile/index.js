@@ -13,6 +13,7 @@ import { defaultImage } from "../SinglePin";
 import EditPin from "../EditPin";
 import DeleteModal from "../DeletePinModal";
 import OpenModalicon from "../OpenModalicon";
+import Loading from "../Loading";
 
 function isFollowed(LogInUser, user) {
   if (!LogInUser.following.filter((f) => f.id === user.id).length) {
@@ -39,32 +40,12 @@ export default function OtherUserProfile() {
   const pins_created = user?.pins;
   const pins_saved = user?.saved_pins;
 
-  console.log(LogInUser.id, +userId);
-
   useEffect(() => {
     dispatch(getProfile(userId));
     return () => dispatch(actionClearProfile());
   }, [dispatch, userId]);
 
-  if (!user.id)
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          marginTop: "20px",
-        }}
-      >
-        <img
-          src="https://design.netcorecloud.com/wp-content/uploads/2020/09/infinity-loader.gif"
-          alt="loading"
-          style={{ width: "800px", height: "400px" }}
-        ></img>
-        <h2>Loading...</h2>
-      </div>
-    );
+  if (!user.id) return <Loading />;
 
   return (
     <div className="profile-page-container">

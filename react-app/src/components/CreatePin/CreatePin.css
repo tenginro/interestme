@@ -7,15 +7,15 @@
   width: 100%;
 }
 
-.create_new-pin-form {
+.create_form {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   height: 40rem;
-  width: 700px;
+  width: 800px;
   background: white;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: 15px;
   /* margin-top: 40px; */
 }
 
@@ -23,30 +23,64 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 100%;
-  padding-left: 25px;
-  padding-bottom: 20px;
+  /* width: 100%; */
+  padding:25px;
 }
 
 .left-Side {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* width: 225px;
-    height: 440px;
-    padding: 20px;
-    background: rgb(239, 239, 239);
-    border-radius: 10px; */
-}
-
-.file-image_input-field-container {
-  width: 225px;
+  align-items: center;
+  margin-top: 70px;
+  width: 300px;
   height: 440px;
   padding: 20px;
   background: rgb(239, 239, 239);
   border-radius: 10px;
+  position:relative;
 }
 
+.image_drop_zone{
+  width: 295px;
+  height: 440px;
+  padding: 20px;
+  background: rgb(239, 239, 239);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.dragActive {
+  width:295px;
+  height:430px;
+  border:3px dashed rgb(148, 148, 148);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.dragNotActive{
+  width: 295px;
+  height: 430px;
+  border: 3px dashed rgb(212, 212, 212);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.recommend {
+  position: absolute;
+  bottom: 20px;
+  text-align: center;
+  font-size: 13px;
+  color:gray;
+}
 #file-image_input-field {
   background: rgb(239, 239, 239);
   width: 220px;
@@ -171,4 +205,69 @@
 .userName {
   margin:0;
   font-size: 13px;
+}
+
+.previewImage {
+  width:340px;
+  height:450px;
+  object-fit: cover;
+}
+.preview {
+  display: block;
+  position: absolute;
+  z-index: 4;
+  top: 15px;
+  left:0px;
+}
+
+.trashDiv {
+  display: block;
+  position: relative;
+}
+.trashbutton{
+  position:absolute;
+  top:-50px;
+  left:0px;
+  cursor: pointer;
+  color:rgba(0, 0, 0, 0.866);
+  background-color: white;
+  height:45px;
+  width: 45px;
+  border-radius: 50%;
+  border: 0;
+}
+.trashbutton{
+  position: relative;
+}
+
+.trashbutton:before {
+  content: attr(data-text);
+  position: absolute;
+  top: 50px;
+  transform: translateX(70%);
+  right:60px;
+  /* margin-left: 15px; */
+  width: 80px;
+  padding: 8px;
+  font-size: 11px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  display: none;
+  position: absolute;
+}
+.trashbutton:hover:before{
+  display: block;
+}
+.trashbutton.left:before{
+  left: initial;
+  margin: initial; 
+   
+    /* set new values */
+    right:90%;
+    /* margin-right: 15px; */
+}
+.trashbutton:hover {
+  filter:brightness(0.85)
 }

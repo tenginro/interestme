@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Dropzone from "react-dropzone";
+import {useDropzone} from "react-dropzone";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import "./CreatePin.css";
@@ -12,6 +14,7 @@ const CreatePin = () => {
   const [description, setDescription] = useState("");
   const [desCount, setDesCount] = useState(0);
   const [url, setUrl] = useState("");
+  const [preview, setPreview] = useState({})
   const [category, setCategory] = useState(categories[0]);
   // const [board, setBoard] = useState("")
   const [errors, setErrors] = useState({});
@@ -30,7 +33,7 @@ const CreatePin = () => {
     if (name.length>50) err.name = "* The max is 50 characters."
     if (!description.length) err.description = "* Description is required";
     if (description.length>255) err.description = "* Description length can only have 255 characters." 
-    if (!url.length) err.url = "* Image is required";
+    if (!url) err.url = "* Image is required";
     if (!category.length) err.category = "* Category is required";
     setErrors(err);
   }, [name, description, url, category]);
@@ -87,39 +90,86 @@ const CreatePin = () => {
     setResErrors({});
     setHasSubmitted(false);
   };
+  const handleOnDrop =(files) => {
+        setUrl(files[0])
+        let pre = {}
+        pre.preview = URL.createObjectURL(files[0])
+        setPreview(pre)
+  }
+  const removeHandler = (e) => {
+    e.preventDefault();
+    setUrl([])
+    setPreview({})
+  }
+  const thumb = (files) => {
+    return (
+      <div>
+        {preview?.preview ? 
+        <img 
+        className="previewImage"
+        src={preview.preview}
+        onLoad = {() => {URL.revokeObjectURL(preview.preview)}}
+        /> : null}
+        {preview?.preview ? 
+        <div className="trashDiv">
+          <button onClick={removeHandler} className="trashbutton left"
+          data-text="Delete image"
+          >
+            <i className="fa-solid fa-trash-can fa-xl"></i>
+          </button>
+            
+        </div>
+        : null
+        }
+      </div>
+    )
+  }
 
   return (
     <div className="create-new_pin-container">
       {/* <h1>Create a New Pin</h1> */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <ul>
           {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
             <li>{Object.values(resErrors)}</li>
           ) : null}
         </ul>
-        <div className="create_new-pin-form">
+        <div className="create_form">
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
-            <div className="file-image_input-field-container">
-              <input
-                id="file-image_input-field"
-                type="text"
-                placeholder=" Drag and drop an image file"
-                name="url"
-                onClick={() => window.alert("Feature coming soon!")}
-              ></input>
-            </div>
+            {/* <div className="file-image_input-field-container"> */}
+              <Dropzone className ='dropzone' onDrop={handleOnDrop} multiple={false} accept={'image/*'} >
+                {({getRootProps, getInputProps, isDragActive, acceptedFiles}) => (
+                            <section >
+                                <div {...getRootProps({className: 'dropzone'})} className="image_drop_zone">
+                                  <input {...getInputProps()} />
+                                  {isDragActive ? (
+                                    <div className="dragActive">
+                                      <p className="postDate">
+                                        Release to drop the files here
+                                    </p>
+                                    <p className="recommend">Recommendation: Use high-quality .jpg files less than 20MB</p>
+                                    </div>
+                                    ) : (
+                                      <div className="dragNotActive">
+                                        <i className="fa-solid fa-arrow-up-from-bracket fa-xl" style={{color: "#818488;"}}></i>
+                                        <p className="postDate">
+                                        Drag and drop or click to upload
+                                    </p>
+                                    <p className="recommend">Recommendation: Use high-quality .jpg <br/>
+                                    files less than 20MB</p>
+                                      </div>
+                                  )}
+                                  
+                                </div>
+                                <aside className="preview">
+                                  {thumb(acceptedFiles)}
+                                </aside>
+                            </section>
+                            )}
 
-            <input
-              id="create-pin-url_input"
-              type="text"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter URL"
-              name="url"
-              style={{ minHeight: "40px" }}
-            ></input>
-            {hasSubmitted ? (
+              </Dropzone>
+              {hasSubmitted ? (
               <p className="error"> {errors.url}</p>
             ) : (
               <p className="noErrorDisplay">{"  "}</p>
@@ -127,21 +177,7 @@ const CreatePin = () => {
           </div>
           <div className="right-Side">
             <div className="category-save_container">
-              {/* <select
-                id="select-create_pin-board"
-                onChange={(e) => setBoard(e.target.value)}
-                value={board}
-                name="board"
-                placeholder="Choose a Board"
-              >
-                {currentUser.boards ? (
-                  currentUser.boards.map((board) => (
-                    <option key={board.id}>{board.name}</option>
-                  ))
-                ) : (
-                  <option>None</option>
-                )}
-              </select> */}
+              
               <button id="save-create_btn" type="submit">
                 Create
               </button>
