@@ -4,6 +4,7 @@ import * as boardsActions from "../../store/board";
 import { useHistory, useParams, Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./BoardForm.css";
+
 const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -11,6 +12,9 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const { closeModal } = useModal();
 
   const [name, setName] = useState(newBoard.name);
+
+  const [nameCount, setNameCount] = useState(0);
+  const [desCount, setDesCount] = useState(0);
   const [description, setDescription] = useState(newBoard.description);
   const [secret, setSecret] = useState(newBoard.secret);
   const currentUser = useSelector((state) => state.session.user);
@@ -65,6 +69,14 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
     }
   };
   if (!newBoard) return null;
+  const maxCharClassNameHandle = (desCount) => {
+    if (desCount===255) return "showCharacterLength reachedMax"
+    return "showCharacterLength"
+  }
+  const nameCountClassHandler = (nameCount) => {
+    if(nameCount===50) return "showCharacterLength reachedMax"
+    return "showCharacterLength"
+  }
 
   return (
     <div className="board-form_container">
@@ -73,16 +85,23 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           <h1 id="board-form_title">{formType}</h1>
           <label>Name</label>
           <input
+            maxLength={50}
             className="board-form_input"
             type="text"
             id="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder='Like "Places to Go" or "Recipes to Make"'
+            onChange={(e) => {
+              setName(e.target.value)
+              setNameCount(e.target.value.length)
+            }}
             required
           ></input>
+          <p className={nameCountClassHandler(nameCount)}>{nameCount}/50 characters</p>
           <br />
           <label>Description</label>
           <textarea
+            maxLength={255}
             className="board-form_input-field"
             type="text"
             id="description"
@@ -91,6 +110,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
             required
           ></textarea>
           <br />
+          <p className={maxCharClassNameHandle(desCount)}>{desCount} /255 characters</p>
           <div className="secretCheckboxContainer">
             <div className="secretCheckboxFirstLine">
               <input
@@ -105,7 +125,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
                 Keep this board secret
               </div>
               <div className="secretCheckboxSecondSecond">
-                So only you can see it
+                So only you can see it.
               </div>
             </div>
           </div>
