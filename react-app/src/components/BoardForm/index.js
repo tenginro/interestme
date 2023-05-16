@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as boardsActions from "../../store/board";
 import { useHistory, useParams, Redirect } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./BoardForm.css";
+
 const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -11,16 +12,29 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   const { closeModal } = useModal();
 
   const [name, setName] = useState(newBoard.name);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [nameCount, setNameCount] = useState(0);
+  const [desCount, setDesCount] = useState(0);
   const [description, setDescription] = useState(newBoard.description);
   const [secret, setSecret] = useState(newBoard.secret);
   const currentUser = useSelector((state) => state.session.user);
+
+  useEffect(()=> {
+    const err = [];
+    if (!name.length) err.name = "* Name is required";
+    if (name.length>50) err.name = "* The max is 50 characters."
+    if (!description.length) err.description = "* Description is required";
+    if (description.length>255) err.description = "* Description length can only have 255 characters." 
+    setErrors(err)
+  },[name, description])
 
   if (!currentUser) return <Redirect to="/" />;
 
   const submitNewBoardHandler = async (e) => {
     e.preventDefault();
+    setHasSubmitted(true);
 
-    if (submitType === "Edit") {
+    if (submitType === "Edit" && !Boolean(Object.values(errors).length)) {
       await dispatch(
         boardsActions.updateBoard(
           {
@@ -42,7 +56,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
         });
     }
 
-    if (submitType === "Create") {
+    if (submitType === "Create" && !Boolean(Object.values(errors).length)) {
       newBoard = await dispatch(
         boardsActions.createBoard(
           {
@@ -66,6 +80,16 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
   };
   if (!newBoard) return null;
 
+
+  const maxCharClassNameHandle = (desCount) => {
+    if (desCount===255) return "showCharacterLength reachedMax"
+    return "showCharacterLength"
+  }
+  const nameCountClassHandler = (nameCount) => {
+    if(nameCount===50) return "showCharacterLength reachedMax"
+    return "showCharacterLength"
+  }
+
   return (
     <div className="board-form_container">
       <form onSubmit={submitNewBoardHandler}>
@@ -73,16 +97,28 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
           <h1 id="board-form_title">{formType}</h1>
           <label>Name</label>
           <input
+            maxLength={50}
             className="board-form_input"
             type="text"
             id="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder='Like "Places to Go" or "Recipes to Make"'
+            onChange={(e) => {
+              setName(e.target.value)
+              setNameCount(e.target.value.length)
+            }}
             required
           ></input>
+          <p className={nameCountClassHandler(nameCount)}>{nameCount}/50 characters</p>
+          {hasSubmitted ? (
+                <p className="error"> {errors.name}</p>
+              ) : (
+                <p className="noErrorDisplay">{"  "}</p>
+              )}
           <br />
           <label>Description</label>
           <textarea
+            maxLength={255}
             className="board-form_input-field"
             type="text"
             id="description"
@@ -90,6 +126,12 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
+          <p className={maxCharClassNameHandle(desCount)}>{desCount} /255 characters</p>
+          {hasSubmitted ? (
+                <p className="error"> {errors.description}</p>
+              ) : (
+                <p className="noErrorDisplay">{"  "}</p>
+              )}
           <br />
           <div className="secretCheckboxContainer">
             <div className="secretCheckboxFirstLine">
@@ -105,7 +147,7 @@ const BoardForm = ({ newBoard, submitType, formType, existing }) => {
                 Keep this board secret
               </div>
               <div className="secretCheckboxSecondSecond">
-                So only you can see it
+                So only you can see it.
               </div>
             </div>
           </div>
