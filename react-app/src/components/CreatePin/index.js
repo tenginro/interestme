@@ -104,11 +104,12 @@ const CreatePin = () => {
   const thumb = (files) => {
     return (
       <div>
+        {preview?.preview ? 
         <img 
         className="previewImage"
         src={preview.preview}
         onLoad = {() => {URL.revokeObjectURL(preview.preview)}}
-        />
+        /> : null}
         {preview?.preview ? 
         <i className="fa-solid fa-trash-can" onClick={removeHandler}></i> : null
         }
@@ -125,36 +126,32 @@ const CreatePin = () => {
             <li>{Object.values(resErrors)}</li>
           ) : null}
         </ul>
-        <div className="create_new-pin-form">
+        <div className="create_form">
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
             {/* <div className="file-image_input-field-container"> */}
               <Dropzone className ='dropzone' onDrop={handleOnDrop} multiple={false} accept={'image/*'} >
                 {({getRootProps, getInputProps, isDragActive, acceptedFiles}) => (
-                            <section className="file-image_input-field-container">
-                                <div {...getRootProps({className: 'dropzone'})}>
-                                <input {...getInputProps()} />
-                                {isDragActive ? (
-                                <p className="postDate">
-                                    Release to drop the files here
-                                </p>
-                                ) : (
-                                <p className="postDate">
-                                    Drag’n’drop some files here, or click to select files
-                                </p>
-                                )}
+                            <section >
+                                <div {...getRootProps({className: 'dropzone'})} className="image_drop_zone">
+                                  <input {...getInputProps()} />
+                                  {isDragActive ? (
+                                    <div className="dragActive">
+                                      <p className="postDate">
+                                        Release to drop the files here
+                                    </p>
+                                    </div>
+                                    ) : (
+                                      <div className="dragNotActive">
+                                        <p className="postDate">
+                                        Drag and drop or click to upload
+                                    </p>
+                                      </div>
+                                  )}
                                 </div>
-                                <aside>
-                                    {/* <ul>
-                                        {acceptedFiles.map((file) => (
-                                            <li key={file.path} className="postDate">
-                                                * {file.path} - {file.size} bytes
-                                            </li>
-                                        ))}
-                                    </ul> */}
-                                    {thumb(acceptedFiles)}
+                                <aside className="preview">
+                                  {thumb(acceptedFiles)}
                                 </aside>
-                                
                             </section>
                             )}
 
