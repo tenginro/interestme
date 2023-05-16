@@ -94,11 +94,13 @@
 .error {
   color: red;
   font-size: 11px;
-  height: 0.5rem;
+  
+  margin:0;
 }
 
 .noErrorDisplay {
-  height: 0.5rem;
+  
+  margin:0;
 }
 .showCharacterLength {
   font-size: 11px;
