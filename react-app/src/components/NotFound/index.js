@@ -25,19 +25,12 @@ export default function NotFound({
       }}
     >
       <div style={{ marginBottom: "20px" }}>
-        <i className="fas fa-solid fa-spinner fa-5x"></i>
+        {/* <i className="fas fa-solid fa-spinner fa-5x"></i> */}
+        <i className="fas fa-solid fa-magnifying-glass fa-5x"></i>
       </div>
       <div>
-        <div>We're adding new ideas to your home feed!</div>
-        <div style={{ textAlign: "center" }}>
-          Please return to{" "}
-          <span style={{ textDecoration: "underline" }}>
-            <NavLink exact to="/pins" onClick={clearSearchQuery}>
-              HomePage
-            </NavLink>
-          </span>
-          .
-        </div>
+        <div>Sorry, we couldn't find any Pins for this search.</div>
+        <div style={{ textAlign: "center" }}>Please return to Home page.</div>
       </div>
     </h2>
   );
