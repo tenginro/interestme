@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
 
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -24,6 +24,7 @@ import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -55,8 +56,12 @@ function App() {
               setSearchQuery={setSearchQuery}
             />
           </Route>
-          <Route exact path="/pins/search/:searchQuery">
-            <SearchPins />
+          <Route exact path="/pins/search/:searchInput">
+            <SearchPins
+              clearSearchQuery={() => setSearchQuery("")}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
           <Route exact path="/login">
             <LoginFormPage />

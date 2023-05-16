@@ -8,7 +8,7 @@ import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
 import "./Navigation.css";
 
-function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
+function Navigation({ isLoaded, searchQuery, setSearchQuery, searchInput }) {
   const ulRef = useRef();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -21,6 +21,10 @@ function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  useEffect(() => {
+    setSearchQuery("");
+  }, [dispatch]);
 
   useEffect(() => {
     setSearchQuery("");
@@ -57,7 +61,7 @@ function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
       <li className="home li">
         {sessionUser && (
           <NavLink exact to="/pins">
-            <div className="logoLine">
+            <div className="logoLine" onClick={() => setSearchQuery("")}>
               <img className="logo" src={logo} alt="logo" />
               <div className="projectName">Home</div>
             </div>

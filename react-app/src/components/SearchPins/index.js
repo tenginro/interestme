@@ -12,25 +12,27 @@ import PinIndexItem from "../AllPins/PinIndexItem";
 import { getUserBoards } from "../../store/board";
 import NotFound from "../NotFound";
 
-export default function SearchPins() {
+export default function SearchPins({ clearSearchQuery, setSearchQuery }) {
   const dispatch = useDispatch();
-  const { searchQuery } = useParams();
-  const pinsObj = useSelector((state) => state.pins.allPins);
+  const { searchInput } = useParams();
   const user = useSelector((state) => state.session.user);
   const userId = user.id;
+  const pinsObj = useSelector((state) => state.pins.allPins);
+  const pins = Object.values(pinsObj);
 
   useEffect(() => {
-    dispatch(getSearchedPins(searchQuery));
+    dispatch(getSearchedPins(searchInput));
     dispatch(getUserBoards());
     dispatch(getSavedPins(userId));
     return () => {
       dispatch(actionClearPins());
     };
-  }, [dispatch, userId, searchQuery]);
+  }, [dispatch, userId, searchInput]);
 
-  const pins = Object.values(pinsObj);
-
-  if (!pins.length) return <NotFound />;
+  if (!pins.length) {
+    // clearSearchQuery();
+    return <NotFound />;
+  }
 
   return (
     <div>

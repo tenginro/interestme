@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
 export default function NotFound({
@@ -7,6 +8,10 @@ export default function NotFound({
   setSearchQuery,
 }) {
   const history = useHistory();
+
+  // useEffect(() => {
+  //   clearSearchQuery();
+  // }, []);
 
   return (
     <h2
@@ -19,18 +24,17 @@ export default function NotFound({
         height: "70vh",
       }}
     >
-      <div>
+      <div style={{ marginBottom: "20px" }}>
         <i className="fas fa-solid fa-spinner fa-5x"></i>
       </div>
       <div>
         <div>We're adding new ideas to your home feed!</div>
         <div style={{ textAlign: "center" }}>
           Please return to{" "}
-          <span
-            style={{ textDecoration: "underline" }}
-            onClick={clearSearchQuery}
-          >
-            <NavLink to="/pins">HomePage</NavLink>
+          <span style={{ textDecoration: "underline" }}>
+            <NavLink exact to="/pins" onClick={clearSearchQuery}>
+              HomePage
+            </NavLink>
           </span>
           .
         </div>
