@@ -114,11 +114,12 @@
 
 .save-dropdown {
   background-color: rgb(255, 255, 255);
-  width: 360px;
+  width: 330px;
   height: 564.3px;
   z-index: 5;
   position: absolute;
   top: 50px;
+  left: -50px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
