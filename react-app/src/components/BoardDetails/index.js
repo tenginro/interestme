@@ -53,7 +53,15 @@ function BoardDetails() {
           )}
         </div>
         <div className="manage-board-buttons-container"></div>
-        <div className="board-cover-container">
+        <div className="allPinUserInfo">
+            <img
+              src={board.User?.profile_pic}
+              alt={board.User?.username}
+              style={{width:"50px", height: "50px", borderRadius:"50%", marginRight:"0.5em"}}
+            />
+            <p style={{ fontSize: "14px" }}>{board.User?.username}</p>
+          </div>
+        {/* <div className="board-cover-container">
           {board.board_cover ? (
             <img src={board.board_cover} alt="board-cover-pic" />
           ) : (
@@ -64,7 +72,7 @@ function BoardDetails() {
               alt="board-cover-pic"
             />
           )}
-        </div>
+        </div> */}
         {board.description && (
           <div className="boardDescription">
             {board.description && !board.secret ? board.description : ""}
