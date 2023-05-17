@@ -263,7 +263,7 @@ const PinIndexItem = ({
             </div>
           </div>
         </div>
-        {page === "ProfilePage"? (
+        {page === "ProfilePage" || "BoardDetail"? (
           <div>
             <p className="pinName">{pin.name}</p>
           </div>
