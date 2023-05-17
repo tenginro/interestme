@@ -145,9 +145,14 @@ ul.followers-container > li:hover {
   align-items: center;
 }
 .pinsDisplay {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  row-gap: 50px;
+  row-gap: 50px; */
+  columns: 7 200px;
+  column-gap: 1em;
+  height: 3898px;
+  padding: 0 10px 0 10px;
+  margin: 30px 80px 0 80px;
 }
 
 .created-saved-container button {
