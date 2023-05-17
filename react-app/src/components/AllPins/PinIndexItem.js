@@ -263,25 +263,25 @@ const PinIndexItem = ({
             </div>
           </div>
         </div>
-        
-        {page === "ProfilePage" || "BoardDetail"? (
+        {page === "ProfilePage" ||
+        page === "BoardDetail" ||
+        page === "SinglePin" ? (
           <div>
             <p className="pinName">{pin.name}</p>
           </div>
         ) : (
           <div>
-          <p className="pinName">{pin.name}</p>
-          <div className="allPinUserInfo">
-            <img
-              src={pin.User?.profile_pic}
-              alt={pin.User?.username}
-              className="user-pic-allPin"
-            />
-            <p style={{ fontSize: "12px" }}>{pin.User?.username}</p>
+            <p className="pinName">{pin.name}</p>
+            <div className="allPinUserInfo">
+              <img
+                src={pin.User?.profile_pic}
+                alt={pin.User?.username}
+                className="user-pic-allPin"
+              />
+              <p style={{ fontSize: "12px" }}>{pin.User?.username}</p>
+            </div>
           </div>
-        </div>
         )}
-        
       </div>
     </div>
   );

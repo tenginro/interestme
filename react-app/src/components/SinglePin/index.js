@@ -307,12 +307,7 @@ const Pin = () => {
         <h4>More like this</h4>
         <div className="pinsDisplay">
           {sameCategoryPinsArr?.map((pin) => (
-            <PinIndexItem
-              key={pin.id}
-              pin={pin}
-              user={user}
-              page="SinglePinPage"
-            />
+            <PinIndexItem key={pin.id} pin={pin} user={user} page="SinglePin" />
           ))}
         </div>
       </div>
