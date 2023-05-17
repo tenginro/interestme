@@ -148,10 +148,10 @@ ul.followers-container > li:hover {
 }
 .pinsDisplay {
   columns: 7 200px;
-    column-gap: 1em;
-    height: 3898px;
-    padding: 0 10px 0 10px;
-    margin: 30px 80px 0 80px;
+  column-gap: 1em;
+  
+  padding: 0 10px 0 10px;
+  margin: 30px 80px 0 80px;
 }
 
 .created-saved-container button {
