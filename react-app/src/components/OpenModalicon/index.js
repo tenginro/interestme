@@ -44,6 +44,3 @@ function OpenModalicon({
 
 export default OpenModalicon;
 
-{
-  /* <Link key={pin.id} to={`/pins/${pin.id}/edit`}></Link> */
-}

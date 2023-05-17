@@ -46,7 +46,17 @@
   width: 90%;
   left: 10px;
   bottom: 10px;
-  transform: translateY(-160%);
+  transform: translateY(-170%);
+  z-index: 2;
+}
+.notAllPins {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 90%;
+  left: 10px;
+  bottom: 10px;
+  transform: translateY(-50%);
   z-index: 2;
 }
 
