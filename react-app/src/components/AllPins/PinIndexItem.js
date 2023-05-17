@@ -140,122 +140,138 @@ const PinIndexItem = ({
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
-    <div key={pin.id} className="pinIndexItem">
-      <Link to={`/pins/${pin.id}`}>
-        <img
-          src={pin.url}
-          alt={pin.name}
-          className="pinImg"
-          onError={defaultImage}
-        />
-      </Link>
-      {isCreated(pin, user) ? (
-        <div className="boardNSaveEdit">
-          <OpenModalicon
-            modalComponent={<EditPin pin={pin} />}
-            iconType={"editPen"}
-            pin={pin}
+    <div className="pinIndex">
+      <div key={pin.id} className="pinIndexItem">
+        
+        <Link to={`/pins/${pin.id}`}>
+          <img
+            src={pin.url}
+            alt={pin.name}
+            className="pinImg"
+            onError={defaultImage}
           />
-          <OpenModalicon
-            modalComponent={<DeleteModal pin={pin} />}
-            iconType={"trashCan"}
-            pin={pin}
-          />
-        </div>
-      ) : null}
-      <div className="boardNSave">
-        <div onClick={openDropDownMenu}>
-          Profile <i className="fas fa-solid fa-angle-down"></i>
-        </div>
-        {isSavedInProfile() ? (
-          <button className="saveButton" onClick={(e) => unsaveFromBoard(e, 0)}>
-            Unsave
-          </button>
-        ) : (
-          <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
-            Save
-          </button>
-        )}
-      </div>
-      <div className={showDropDownIdName} ref={ulRef}>
-        <div className="dropDownContainer">
-          <div>Quick save and organize later</div>
-          <div className="saveBoardLine">
-            <div className="boardNameCover">
-              <div>
-                <i className="fas fa-solid fa-clock-rotate-left fa-3x"></i>
-              </div>
-              <div style={{ paddingLeft: "10px" }}>Profile</div>
-            </div>
-            {isSavedInProfile() ? (
-              <button
-                className="saveButton"
-                onClick={(e) => unsaveFromBoard(e, 0)}
-              >
-                Unsave
-              </button>
-            ) : (
-              <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
-                Save
-              </button>
-            )}
+        </Link>
+        
+        {isCreated(pin, user) ? (
+          <div className="boardNSaveEdit">
+            <OpenModalicon
+              modalComponent={<EditPin pin={pin} />}
+              iconType={"editPen"}
+              pin={pin}
+            />
+            <OpenModalicon
+              modalComponent={<DeleteModal pin={pin} />}
+              iconType={"trashCan"}
+              pin={pin}
+            />
           </div>
-          <div className="saveDropDownSecondPart">
-            <div>Save to board</div>
-            {userBoards.length > 0 &&
-              userBoards.map((b) => (
-                <div key={b.id} value={b.id} className="saveBoardLine">
-                  <div
-                    className="boardNameCover"
-                    onClick={() => history.push(`/boards/${b.id}`)}
-                  >
-                    <div>
-                      <img
-                        src={
-                          b.board_cover ||
-                          "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
-                        }
-                        alt="board_cover"
-                      ></img>
-                    </div>
-                    <div>{b.name}</div>
-                  </div>
-                  <div>
-                    {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
-                      <button
-                        className="saveButton"
-                        onClick={(e) => unsaveFromBoard(e, b.id)}
-                      >
-                        Unsave
-                      </button>
-                    ) : (
-                      <button
-                        className="saveButton"
-                        onClick={(e) => saveToBoard(e, b.id)}
-                      >
-                        Save
-                      </button>
-                    )}
-                  </div>
+        ) : null}
+        <div className="boardNSave">
+          <div onClick={openDropDownMenu}>
+            Profile <i className="fas fa-solid fa-angle-down"></i>
+          </div>
+          {isSavedInProfile() ? (
+            <button className="saveButton" onClick={(e) => unsaveFromBoard(e, 0)}>
+              Unsave
+            </button>
+          ) : (
+            <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
+              Save
+            </button>
+          )}
+        </div>
+        <div className={showDropDownIdName} ref={ulRef}>
+          <div className="dropDownContainer">
+            <div>Quick save and organize later</div>
+            <div className="saveBoardLine">
+              <div className="boardNameCover">
+                <div>
+                  <i className="fas fa-solid fa-clock-rotate-left fa-3x"></i>
                 </div>
-              ))}
-          </div>
-          <div className="saveBoardLine">
-            <div className="boardNameCover">
-              <div>
-                <i className="fas fa-solid fa-plus fa-3x"></i>
+                <div style={{ paddingLeft: "10px" }}>Profile</div>
               </div>
-              <div style={{ paddingLeft: "10px" }}>
-                <OpenModalMenuItem
-                  itemText="Create board"
-                  onItemClick={closeMenu}
-                  modalComponent={<CreateBoard />}
-                />
+              {isSavedInProfile() ? (
+                <button
+                  className="saveButton"
+                  onClick={(e) => unsaveFromBoard(e, 0)}
+                >
+                  Unsave
+                </button>
+              ) : (
+                <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
+                  Save
+                </button>
+              )}
+            </div>
+            <div className="saveDropDownSecondPart">
+              <div>Save to board</div>
+              {userBoards.length > 0 &&
+                userBoards.map((b) => (
+                  <div key={b.id} value={b.id} className="saveBoardLine">
+                    <div
+                      className="boardNameCover"
+                      onClick={() => history.push(`/boards/${b.id}`)}
+                    >
+                      <div>
+                        <img
+                          src={
+                            b.board_cover ||
+                            "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
+                          }
+                          alt="board_cover"
+                        ></img>
+                      </div>
+                      <div>{b.name}</div>
+                    </div>
+                    <div>
+                      {b.Pins?.filter((p) => p.id === pin.id).length > 0 ? (
+                        <button
+                          className="saveButton"
+                          onClick={(e) => unsaveFromBoard(e, b.id)}
+                        >
+                          Unsave
+                        </button>
+                      ) : (
+                        <button
+                          className="saveButton"
+                          onClick={(e) => saveToBoard(e, b.id)}
+                        >
+                          Save
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+            </div>
+            <div className="saveBoardLine">
+              <div className="boardNameCover">
+                <div>
+                  <i className="fas fa-solid fa-plus fa-2x"></i>
+                </div>
+                <div style={{ paddingLeft: "10px" }}>
+                  <OpenModalMenuItem
+                    itemText="Create board"
+                    onItemClick={closeMenu}
+                    modalComponent={<CreateBoard />}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div>
+        <p className="pinName">{pin.name}</p>
+        <div className="allPinUserInfo">
+          <img 
+          src = {pin.User?.profile_pic}
+          alt = {pin.User?.username}
+          className="user-pic-allPin"
+          />
+          <p style={{fontSize: "12px"}}>{pin.User?.username}</p>
+        </div>
+      </div>
+
     </div>
   );
 };
