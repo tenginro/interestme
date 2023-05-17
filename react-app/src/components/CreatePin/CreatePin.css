@@ -40,6 +40,14 @@
   border-radius: 10px;
   position:relative;
 }
+.closeButton {
+  position: absolute;
+  top:-80px;
+  transform: translateX(-150px);
+  border: 0;
+  background-color: transparent;
+
+}
 
 .image_drop_zone{
   width: 295px;

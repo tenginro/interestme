@@ -14,3 +14,8 @@ class PinForm(FlaskForm):
     submit = SubmitField("Create Pin")
 
 
+class EditPinForm(FlaskForm):
+    name = StringField("name", validators=[DataRequired()])
+    description = StringField("description", validators=[DataRequired()])
+    category = SelectField("category", choices=["Art","Food","Tech"])
+    submit = SubmitField("Create Pin")

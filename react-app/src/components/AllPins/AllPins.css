@@ -7,14 +7,15 @@
 }
 
 .allPins {
-  columns: 7 260px;
+  columns: 7 200px;
   column-gap: 1em;
   height: 3898px;
   /* width: 1920px;  */
 
   /* width: 100%; */
   padding: 0 10px 0 10px;
-  margin: 30px auto;
+  margin: 30px 80px 0 80px;
+
   /* overflow-y: hidden; */
 }
 .pinIndex {
@@ -45,13 +46,14 @@
   width: 90%;
   left: 10px;
   bottom: 10px;
+  transform: translateY(-170%);
   z-index: 2;
 }
 
 /* children */
 .boardNSave {
   display: flex;
-  color: white;
+  color: rgb(244, 240, 240);
   justify-content: space-between;
   align-items: center;
   position: absolute;
@@ -78,6 +80,8 @@
 
 .pinIndexItem:hover .pinImg {
   -webkit-filter: brightness(70%);
+
+  cursor: zoom-in;
 }
 
 .pinIndexItem:hover .boardNSave {
@@ -102,15 +106,19 @@
   background-color: transparent;
   color: white;
   width: 40%;
+  cursor: pointer;
+}
+.boardOption:hover {
 }
 
 .save-dropdown {
   background-color: rgb(255, 255, 255);
-  width: 360px;
+  width: 330px;
   height: 564.3px;
   z-index: 5;
   position: absolute;
   top: 50px;
+  left: -50px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }

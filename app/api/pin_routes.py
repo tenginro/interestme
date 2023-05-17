@@ -5,7 +5,7 @@ from .aws_helpers import upload_file_to_s3, get_unique_filename,remove_file_from
 
 
 from ..models import db, Pin, User, Board
-from ..forms import PinForm
+from ..forms import PinForm, EditPinForm
 
 
 pin_routes = Blueprint("pins", __name__)
@@ -117,11 +117,10 @@ def update_pin(id):
     pin = Pin.query.get(id)
 
     if pin.user_id == user["id"]:
-        form = PinForm()
+        form = EditPinForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
 
         if form.validate_on_submit():
-            
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]

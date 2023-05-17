@@ -6,20 +6,17 @@ import OpenModalButton from "../OpenModalButton/index";
 import DeleteModal from "../DeletePinModal";
 import { useModal } from "../../context/Modal";
 import "./editPin.css"
+
 const EditPin = ({pin}) => {
   // const { pinId } = useParams();
   const pinId = pin.id;
   const dispatch = useDispatch();
   const history = useHistory();
   const {closeModal} = useModal();
-  // const pin = useSelector((state) => state.pins.singlePin);
-
-  // useEffect(() => {
-  //   dispatch(pinsAction.getPinDetail(pinId));
-  // }, [dispatch, pinId]);
-
   const [name, setName] = useState("");
+  const [nameCount, setNameCount] = useState(0);
   const [description, setDescription] = useState("");
+  const [desCount, setDesCount] = useState(0);
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState("");
   const [errors, setErrors] = useState({});
@@ -32,23 +29,39 @@ const EditPin = ({pin}) => {
   useEffect(() => {
     if (pin) {
       setName(pin.name);
+      setNameCount(name.length);
       setDescription(pin.description);
+      setDesCount(description.length);
       setCategory(pin.category);
       setUrl(pin.url);
     }
+    return (()=>{
+      pinsAction.actionClearPin();
+      pinsAction.actionClearPins();
+    })
+    
   }, [pin]);
 
-  const updateName = (e) => setName(e.target.value);
-  const updateDescription = (e) => setDescription(e.target.value);
+  const updateName = (e) => {
+    setName(e.target.value);
+    setNameCount(e.target.value.length)
+  }
+  const updateDescription = (e) => {
+    setDescription(e.target.value)
+    setDesCount(e.target.value.length)
+  };
   const updateCategory = (e) => setCategory(e.target.value);
   const updateUrl = (e) => setUrl(e.target.value);
 
   useEffect(()=>{
       const err = {};
-      if(!name.length) err.name = 'Name is required'
-      if(!description.length) err.description='Description is required'
-      if(!url.length) err.url='Image is required'
-      if(!category.length) err.category = 'Category is required'
+      if(!name.length) err.name = '* Name is required'
+      if (name.length > 50) err.name = "* The max is 50 characters.";
+      if(!description.length) err.description='* Description is required'
+      if (description.length > 255)
+      err.description = "* Description length can only have 255 characters.";
+      if(!url.length) err.url='* Image is required'
+      if(!category.length) err.category = '* Category is required'
       setErrors(err)
   },[name, description, url, category])
 
@@ -62,8 +75,6 @@ const EditPin = ({pin}) => {
     formData.append("description", description);
     formData.append("category", category);
     formData.append("id", pinId);
-
-    formData.append("url", url);
     formData.append("user_id", currentUser.id);
 
     if (!Boolean(Object.values(errors).length)) {
@@ -83,6 +94,18 @@ const EditPin = ({pin}) => {
     // history.push(`/pins/current`);
     closeModal();
   };
+  const maxCharClassNameHandle = (desCount) => {
+    if (desCount === 255) return "showCharacterLengthEdit reachedMaxEdit";
+    return "showCharacterLengthEdit";
+  };
+  const nameCountClassHandler = (nameCount) => {
+    if (nameCount === 50) return "showCharacterLengthEdit reachedMaxEdit";
+    return "showCharacterLengthEdit";
+  };
+  const handleClosedModal = (e) =>{
+    e.preventDefault();
+    closeModal();
+  }
 
   if (!pin) return <h1>No pins found</h1>;
 
@@ -94,8 +117,12 @@ const EditPin = ({pin}) => {
         <div className="leftSideEdit">
           <div className="labelNinput">
             <label>Title</label>
+            <button onClick={handleClosedModal} className="closeButtonEdit">
+              <i class="fa-solid fa-xmark fa-2xl"></i>
+            </button>
             <div className="inputFieldEdit">
               <input
+                maxLength={50}
                 className="input"
                 type="text"
                 onChange={updateName}
@@ -103,6 +130,9 @@ const EditPin = ({pin}) => {
                 placeholder="Add your title"
                 name="name"
                 ></input>
+                <p className={nameCountClassHandler(nameCount)}>
+                {nameCount} /50 characters
+              </p>
               {hasSubmitted ? <p className="error">{errors.name}</p> : null}
             </div>
           </div>
@@ -122,7 +152,7 @@ const EditPin = ({pin}) => {
                   ))}
               </select>
               {hasSubmitted ? (
-                  <p className="error">{errors.category}</p>
+                  <p className="errorEdit">{errors.category}</p>
                   ) : null}
             </div>
           </div>
@@ -137,8 +167,11 @@ const EditPin = ({pin}) => {
                 placeholder="Tell everyone what your Pin is about"
                 name="description"
                 ></textarea>
+                <p className={maxCharClassNameHandle(desCount)}>
+                {desCount} /255 characters
+              </p>
               {hasSubmitted ? (
-                <p className="error">{errors.description}</p>
+                <p className="errorEdit">{errors.description}</p>
                 ) : null}
             </div>
           </div>
