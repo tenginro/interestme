@@ -102,6 +102,10 @@ const EditPin = ({pin}) => {
     if (nameCount === 50) return "showCharacterLengthEdit reachedMaxEdit";
     return "showCharacterLengthEdit";
   };
+  const handleClosedModal = (e) =>{
+    e.preventDefault();
+    closeModal();
+  }
 
   if (!pin) return <h1>No pins found</h1>;
 
@@ -113,6 +117,9 @@ const EditPin = ({pin}) => {
         <div className="leftSideEdit">
           <div className="labelNinput">
             <label>Title</label>
+            <button onClick={handleClosedModal} className="closeButtonEdit">
+              <i class="fa-solid fa-xmark fa-2xl"></i>
+            </button>
             <div className="inputFieldEdit">
               <input
                 maxLength={50}

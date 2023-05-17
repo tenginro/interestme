@@ -81,6 +81,10 @@ const CreatePin = () => {
     if (nameCount === 50) return "showCharacterLength reachedMax";
     return "showCharacterLength";
   };
+  const handleClosedModal = (e) =>{
+    e.preventDefault();
+    closeModal();
+  }
 
   const reset = () => {
     setName("");
@@ -141,6 +145,10 @@ const CreatePin = () => {
         </ul>
         <div className="create_form">
           <div className="left-Side">
+            <button onClick={handleClosedModal} className="closeButton">
+              <i class="fa-solid fa-xmark fa-2xl"></i>
+            </button>
+            
             {/* <label>Upload an Image</label> */}
             {/* <div className="file-image_input-field-container"> */}
             <Dropzone
