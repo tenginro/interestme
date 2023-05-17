@@ -118,12 +118,7 @@ function BoardDetails() {
               className="singleBoardPinIdeaImage"
               />
             </Link>
-            // <PinIndexItem
-            //   key={pin.id}
-            //   pin={pin}
-            //   user={currentUser}
-            //   page="singleBoard"
-            // />
+            
           ))}
         </div>
       </div>
