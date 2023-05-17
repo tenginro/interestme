@@ -115,7 +115,6 @@ const PinIndexItem = ({
   };
   const unsaveFromBoard = async (e, boardId) => {
     e.preventDefault();
-    console.log("boardId", boardId);
     await dispatch(pinsAction.unSavePinThunk(pin, boardId)).then(() => {
       if (page === "BoardDetail") dispatch(getBoardDetail(thisBoardId));
       dispatch(getUserBoards());

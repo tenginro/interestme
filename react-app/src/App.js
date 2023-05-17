@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
 
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -24,7 +24,9 @@ import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
@@ -32,7 +34,11 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <Navigation
+        isLoaded={isLoaded}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       {isLoaded && (
         <Switch>
           <Route exact path="/">
@@ -45,10 +51,17 @@ function App() {
             <OtherUserProfile />
           </Route>
           <Route exact path="/pins">
-            <AllPins />
+            <AllPins
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
-          <Route exact path="/pins/search/:searchQuery">
-            <SearchPins />
+          <Route exact path="/pins/search/:searchInput">
+            <SearchPins
+              clearSearchQuery={() => setSearchQuery("")}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
           <Route exact path="/login">
             <LoginFormPage />
@@ -81,7 +94,11 @@ function App() {
             <EditBoard />
           </Route>
           <Route>
-            <NotFound />
+            <NotFound
+              clearSearchQuery={() => setSearchQuery("")}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
         </Switch>
       )}

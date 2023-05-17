@@ -5,10 +5,9 @@ import PinIndexItem from "./PinIndexItem";
 import { getUserBoards } from "../../store/board";
 
 import "./AllPins.css";
-import { NavLink } from "react-router-dom";
 import NotFound from "../NotFound";
 
-function AllPins({ searchQuery }) {
+function AllPins() {
   const dispatch = useDispatch();
   const pinsObj = useSelector((state) => state.pins.allPins);
   const user = useSelector((state) => state.session.user);

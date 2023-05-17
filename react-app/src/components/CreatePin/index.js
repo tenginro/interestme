@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropzone from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import { useHistory } from "react-router-dom";
 import * as pinsAction from "../../store/pin";
 import "./CreatePin.css";
@@ -13,6 +14,7 @@ const CreatePin = () => {
   const [description, setDescription] = useState("");
   const [desCount, setDesCount] = useState(0);
   const [url, setUrl] = useState("");
+  const [preview, setPreview] = useState({});
   const [category, setCategory] = useState(categories[0]);
   // const [board, setBoard] = useState("")
   const [errors, setErrors] = useState({});
@@ -28,9 +30,10 @@ const CreatePin = () => {
   useEffect(() => {
     const err = [];
     if (!name.length) err.name = "* Name is required";
-    if (name.length>50) err.name = "* The max is 50 characters."
+    if (name.length > 50) err.name = "* The max is 50 characters.";
     if (!description.length) err.description = "* Description is required";
-    if (description.length>255) err.description = "* Description length can only have 255 characters." 
+    if (description.length > 255)
+      err.description = "* Description length can only have 255 characters.";
     if (!url) err.url = "* Image is required";
     if (!category.length) err.category = "* Category is required";
     setErrors(err);
@@ -71,13 +74,13 @@ const CreatePin = () => {
     }
   };
   const maxCharClassNameHandle = (desCount) => {
-    if (desCount===255) return "showCharacterLength reachedMax"
-    return "showCharacterLength"
-  }
+    if (desCount === 255) return "showCharacterLength reachedMax";
+    return "showCharacterLength";
+  };
   const nameCountClassHandler = (nameCount) => {
-    if(nameCount===50) return "showCharacterLength reachedMax"
-    return "showCharacterLength"
-  }
+    if (nameCount === 50) return "showCharacterLength reachedMax";
+    return "showCharacterLength";
+  };
 
   const reset = () => {
     setName("");
@@ -88,9 +91,44 @@ const CreatePin = () => {
     setResErrors({});
     setHasSubmitted(false);
   };
-  const handleOnDrop =(files) => {
-        setUrl(files[0])
-    }
+  const handleOnDrop = (files) => {
+    setUrl(files[0]);
+    let pre = {};
+    pre.preview = URL.createObjectURL(files[0]);
+    setPreview(pre);
+  };
+  const removeHandler = (e) => {
+    e.preventDefault();
+    setUrl([]);
+    setPreview({});
+  };
+  const thumb = (files) => {
+    return (
+      <div>
+        {preview?.preview ? (
+          <img
+            className="previewImage"
+            src={preview.preview}
+            alt="preview"
+            onLoad={() => {
+              URL.revokeObjectURL(preview.preview);
+            }}
+          />
+        ) : null}
+        {preview?.preview ? (
+          <div className="trashDiv">
+            <button
+              onClick={removeHandler}
+              className="trashbutton left"
+              data-text="Delete image"
+            >
+              <i className="fa-solid fa-trash-can fa-xl"></i>
+            </button>
+          </div>
+        ) : null}
+      </div>
+    );
+  };
 
   return (
     <div className="create-new_pin-container">
@@ -101,57 +139,58 @@ const CreatePin = () => {
             <li>{Object.values(resErrors)}</li>
           ) : null}
         </ul>
-        <div className="create_new-pin-form">
+        <div className="create_form">
           <div className="left-Side">
             {/* <label>Upload an Image</label> */}
             {/* <div className="file-image_input-field-container"> */}
-              <Dropzone className ='dropzone' onDrop={handleOnDrop} multiple={false} accept={'image/*'} >
-                {({getRootProps, getInputProps, isDragActive, acceptedFiles}) => (
-                            <section className="file-image_input-field-container">
-                                <div {...getRootProps({className: 'dropzone'})}>
-                                <input {...getInputProps()} />
-                                {isDragActive ? (
-                                <p className="postDate">
-                                    Release to drop the files here
-                                </p>
-                                ) : (
-                                <p className="postDate">
-                                    Drag’n’drop some files here, or click to select files
-                                </p>
-                                )}
-                                </div>
-                                <aside>
-                                    <ul>
-                                        {acceptedFiles.map((file) => (
-                                            <li key={file.path} className="postDate">
-                                                * {file.path} - {file.size} bytes
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </aside>
-                                
-                            </section>
-                            )}
-
-              </Dropzone>
-              {/* <input
-                id="file-image_input-field"
-                type="text"
-                placeholder=" Drag and drop an image file"
-                name="url"
-                onClick={() => window.alert("Feature coming soon!")}
-              ></input> */}
-            {/* </div> */}
-
-            <input
-              id="create-pin-url_input"
-              type="text"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter URL"
-              name="url"
-              style={{ minHeight: "40px" }}
-            ></input>
+            <Dropzone
+              className="dropzone"
+              onDrop={handleOnDrop}
+              multiple={false}
+              accept={"image/*"}
+            >
+              {({
+                getRootProps,
+                getInputProps,
+                isDragActive,
+                acceptedFiles,
+              }) => (
+                <section>
+                  <div
+                    {...getRootProps({ className: "dropzone" })}
+                    className="image_drop_zone"
+                  >
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <div className="dragActive">
+                        <p className="postDate">
+                          Release to drop the files here
+                        </p>
+                        <p className="recommend">
+                          Recommendation: Use high-quality .jpg files less than
+                          20MB
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="dragNotActive">
+                        <i
+                          className="fa-solid fa-arrow-up-from-bracket fa-xl"
+                          style={{ color: "#818488;" }}
+                        ></i>
+                        <p className="postDate">
+                          Drag and drop or click to upload
+                        </p>
+                        <p className="recommend">
+                          Recommendation: Use high-quality .jpg <br />
+                          files less than 20MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <aside className="preview">{thumb(acceptedFiles)}</aside>
+                </section>
+              )}
+            </Dropzone>
             {hasSubmitted ? (
               <p className="error"> {errors.url}</p>
             ) : (
@@ -160,21 +199,6 @@ const CreatePin = () => {
           </div>
           <div className="right-Side">
             <div className="category-save_container">
-              {/* <select
-                id="select-create_pin-board"
-                onChange={(e) => setBoard(e.target.value)}
-                value={board}
-                name="board"
-                placeholder="Choose a Board"
-              >
-                {currentUser.boards ? (
-                  currentUser.boards.map((board) => (
-                    <option key={board.id}>{board.name}</option>
-                  ))
-                ) : (
-                  <option>None</option>
-                )}
-              </select> */}
               <button id="save-create_btn" type="submit">
                 Create
               </button>
@@ -186,14 +210,16 @@ const CreatePin = () => {
                 id="ad-your_title-input"
                 type="text"
                 onChange={(e) => {
-                  setName(e.target.value)
-                  setNameCount(e.target.value.length)
+                  setName(e.target.value);
+                  setNameCount(e.target.value.length);
                 }}
                 value={name}
                 placeholder="Add your title"
                 name="name"
               ></input>
-              <p className={nameCountClassHandler(nameCount)}>{nameCount} /50 characters</p>
+              <p className={nameCountClassHandler(nameCount)}>
+                {nameCount} /50 characters
+              </p>
               {hasSubmitted ? (
                 <p className="error"> {errors.name}</p>
               ) : (
@@ -201,11 +227,18 @@ const CreatePin = () => {
               )}
             </div>
             <div className="userInfo">
-              <img src={currentUser.profile_pic} className="profile_pic"/>
+              <img src={currentUser.profile_pic} className="profile_pic" />
               <div>
-                <p className="userName">{currentUser.first_name}{currentUser.last_name}</p>
-                <p className="userName">{currentUser.followers.length} 
-                {currentUser.followers.length <= 1 ? ` follower` : ` followers`}</p>
+                <p className="userName">
+                  {currentUser.first_name}
+                  {currentUser.last_name}
+                </p>
+                <p className="userName">
+                  {currentUser.followers.length}
+                  {currentUser.followers.length <= 1
+                    ? ` follower`
+                    : ` followers`}
+                </p>
               </div>
             </div>
             <div>
@@ -235,15 +268,17 @@ const CreatePin = () => {
                 id="description-input_"
                 type="text"
                 onChange={(e) => {
-                  setDescription(e.target.value)
-                  setDesCount(e.target.value.length)
+                  setDescription(e.target.value);
+                  setDesCount(e.target.value.length);
                 }}
                 value={description}
                 placeholder="Tell everyone what your Pin is about             😃"
                 name="description"
               ></input>
-              <p className={maxCharClassNameHandle(desCount)}>{desCount} /255 characters</p>
-              
+              <p className={maxCharClassNameHandle(desCount)}>
+                {desCount} /255 characters
+              </p>
+
               {hasSubmitted ? (
                 <p className="error"> {errors.description}</p>
               ) : (

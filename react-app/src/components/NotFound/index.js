@@ -1,6 +1,18 @@
-import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 
-export default function NotFound() {
+export default function NotFound({
+  clearSearchQuery,
+  searchQuery,
+  setSearchQuery,
+}) {
+  const history = useHistory();
+
+  // useEffect(() => {
+  //   clearSearchQuery();
+  // }, []);
+
   return (
     <h2
       className="loadingAllPins"
@@ -12,20 +24,13 @@ export default function NotFound() {
         height: "70vh",
       }}
     >
-      <div>
-        <i className="fas fa-solid fa-spinner fa-5x"></i>
+      <div style={{ marginBottom: "20px" }}>
+        {/* <i className="fas fa-solid fa-spinner fa-5x"></i> */}
+        <i className="fas fa-solid fa-magnifying-glass fa-5x"></i>
       </div>
       <div>
-        <div>We're adding new ideas to your home feed!</div>
-        <div style={{ textAlign: "center" }}>
-          Please return to{" "}
-          <span style={{ textDecoration: "underline" }}>
-            <NavLink exact to="/pins">
-              HomePage
-            </NavLink>
-          </span>
-          .
-        </div>
+        <div>Sorry, we couldn't find any Pins for this search.</div>
+        <div style={{ textAlign: "center" }}>Please return to Home page.</div>
       </div>
     </h2>
   );
