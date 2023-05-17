@@ -151,7 +151,7 @@ const PinIndexItem = ({
         </Link>
 
         {isCreated(pin, user) ? (
-          <div className="boardNSaveEdit">
+          <div className={page==='AllPins' ? "boardNSaveEdit" : "boardNSaveEdit notAllPins"}>
             <OpenModalicon
               modalComponent={<EditPin pin={pin} />}
               iconType={"editPen"}
@@ -265,7 +265,9 @@ const PinIndexItem = ({
         </div>
         {page === "ProfilePage" ||
         page === "BoardDetail" ||
-        page === "SinglePin" ? (
+        page === "SinglePin" ||
+        page === "singleBoard"
+        ? (
           <div>
             <p className="pinName">{pin.name}</p>
           </div>
