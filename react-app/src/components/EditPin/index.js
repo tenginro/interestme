@@ -35,6 +35,11 @@ const EditPin = ({pin}) => {
       setCategory(pin.category);
       setUrl(pin.url);
     }
+    return (()=>{
+      pinsAction.actionClearPin();
+      pinsAction.actionClearPins();
+    })
+    
   }, [pin]);
 
   const updateName = (e) => {
@@ -70,8 +75,6 @@ const EditPin = ({pin}) => {
     formData.append("description", description);
     formData.append("category", category);
     formData.append("id", pinId);
-
-    formData.append("url", url);
     formData.append("user_id", currentUser.id);
 
     if (!Boolean(Object.values(errors).length)) {
