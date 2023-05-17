@@ -141,7 +141,6 @@ const PinIndexItem = ({
   return (
     <div className="pinIndex">
       <div key={pin.id} className="pinIndexItem">
-        
         <Link to={`/pins/${pin.id}`}>
           <img
             src={pin.url}
@@ -150,7 +149,7 @@ const PinIndexItem = ({
             onError={defaultImage}
           />
         </Link>
-        
+
         {isCreated(pin, user) ? (
           <div className="boardNSaveEdit">
             <OpenModalicon
@@ -170,7 +169,10 @@ const PinIndexItem = ({
             Profile <i className="fas fa-solid fa-angle-down"></i>
           </div>
           {isSavedInProfile() ? (
-            <button className="saveButton" onClick={(e) => unsaveFromBoard(e, 0)}>
+            <button
+              className="saveButton"
+              onClick={(e) => unsaveFromBoard(e, 0)}
+            >
               Unsave
             </button>
           ) : (
@@ -197,7 +199,10 @@ const PinIndexItem = ({
                   Unsave
                 </button>
               ) : (
-                <button className="saveButton" onClick={(e) => saveToBoard(e, 0)}>
+                <button
+                  className="saveButton"
+                  onClick={(e) => saveToBoard(e, 0)}
+                >
                   Save
                 </button>
               )}
@@ -258,19 +263,18 @@ const PinIndexItem = ({
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <p className="pinName">{pin.name}</p>
-        <div className="allPinUserInfo">
-          <img 
-          src = {pin.User?.profile_pic}
-          alt = {pin.User?.username}
-          className="user-pic-allPin"
-          />
-          <p style={{fontSize: "12px"}}>{pin.User?.username}</p>
+        <div>
+          <p className="pinName">{pin.name}</p>
+          <div className="allPinUserInfo">
+            <img
+              src={pin.User?.profile_pic}
+              alt={pin.User?.username}
+              className="user-pic-allPin"
+            />
+            <p style={{ fontSize: "12px" }}>{pin.User?.username}</p>
+          </div>
         </div>
       </div>
-
     </div>
   );
 };

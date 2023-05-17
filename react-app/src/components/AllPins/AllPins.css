@@ -9,9 +9,9 @@
 .allPins {
   columns: 7 260px;
   column-gap: 1em;
-  height: 3898px; 
+  height: 3898px;
   /* width: 1920px;  */
- 
+
   /* width: 100%; */
   padding: 0 10px 0 10px;
   margin: 30px auto;
@@ -22,7 +22,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center; */
-  border:1px solid red;
+  /* border:1px solid red; */
   height: auto;
 }
 
@@ -35,7 +35,6 @@
   width: 100%;
   display: inline-block;
   margin-bottom: 10px;
-  
 }
 
 /* children */
@@ -52,7 +51,7 @@
 /* children */
 .boardNSave {
   display: flex;
-  color:white;
+  color: white;
   justify-content: space-between;
   align-items: center;
   position: absolute;
@@ -113,15 +112,13 @@
   position: absolute;
   top: 50px;
   border-radius: 16px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)
-  
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .saveDropDownSecondPart {
   /* border: 1px solid red; */
   height: 350px;
   overflow-y: auto;
-  
 }
 
 .dropDownContainer {
@@ -137,7 +134,7 @@
 
 .saveBoardLine {
   display: flex;
-  
+
   flex-direction: row;
   align-items: center;
   padding: 10px 20px;
@@ -162,19 +159,19 @@
   box-shadow: 10px black;
 }
 
-.user-pic-allPin{
-  width:30px;
+.user-pic-allPin {
+  width: 30px;
   height: 30px;
   border-radius: 50%;
   margin-right: 0.5em;
 }
 .pinName {
-  margin:0;
-  padding-left:1em;
+  margin: 0;
+  padding-left: 1em;
 }
 .allPinUserInfo {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left:1em;
+  padding-left: 1em;
 }
