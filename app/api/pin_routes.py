@@ -52,7 +52,7 @@ def get_search_pins(searchQuery):
 def get_random_five_pins ():
     pins = Pin.query.all()
     result_pins = []
-    for i in range (6):
+    for i in range (7):
         result_pins.append(random.choice(pins))
     all_pins = [
         {
@@ -60,7 +60,7 @@ def get_random_five_pins ():
             "User": pin.user.to_dict(),
             "boards": [board.to_dict() for board in pin.boards],
             "user_saved": [user.to_dict() for user in pin.user_saved],
-        } for pin in pins
+        } for pin in result_pins
     ]
     return all_pins
 

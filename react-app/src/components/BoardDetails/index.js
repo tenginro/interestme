@@ -32,9 +32,12 @@ function BoardDetails() {
   useEffect(() => {
     dispatch(boardsActions.getBoardDetail(boardId));
     dispatch(boardsActions.getUserBoards());
-    dispatch(pinsActions.getAllPins());
+    dispatch(pinsActions.getRandomPins());
     
-    return () => dispatch(boardsActions.actionClearBoard());
+    return () => {
+      dispatch(boardsActions.actionClearBoard())
+      dispatch(pinsActions.actionClearPins())
+    };
   }, [dispatch, boardId]);
   
   const deleteBoardClick = (e) => {
@@ -49,18 +52,18 @@ function BoardDetails() {
     console.log(pinsArr)
   }
   
-  const randomPinsGenerator = (pins) => {
-    let randomPinsArr = []
-    let randomIndexSet = new Set();
-    while (randomIndexSet.size < 5) {
-      randomIndexSet.add(Math.floor(Math.random() * pins.length))
-    }
-    randomIndexSet.forEach((i)=>{
-      randomPinsArr.push(pins[i])
-    })
-    console.log(randomPinsArr)
-    return randomPinsArr;
-  }
+  // const randomPinsGenerator = (pins) => {
+  //   let randomPinsArr = []
+  //   let randomIndexSet = new Set();
+  //   while (randomIndexSet.size < 5) {
+  //     randomIndexSet.add(Math.floor(Math.random() * pins.length))
+  //   }
+  //   randomIndexSet.forEach((i)=>{
+  //     randomPinsArr.push(pins[i])
+  //   })
+  //   console.log(randomPinsArr)
+  //   return randomPinsArr;
+  // }
 
   if (!board || !pins) return <Loading />;
 
@@ -128,10 +131,10 @@ function BoardDetails() {
         ))}
       </div>
       {/* <div>{console.log("random pins", randomPinsGenerator(pinsArr))}</div> */}
-      {/* <div className="saved_pins-gallery-list">
+      <div className="saved_pins-gallery-list">
         <h4>More like this</h4>
         <div className="pinsDisplay">
-          {randomPinsGenerator(pinsArr)?.map((pin) => (
+          {pinsArr?.map((pin) => (
             <PinIndexItem
               key={pin.id}
               pin={pin}
@@ -140,7 +143,7 @@ function BoardDetails() {
             />
           ))}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
