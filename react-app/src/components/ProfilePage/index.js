@@ -74,7 +74,7 @@ function ProfilePage() {
       <div className="profile-picture-container">
         <img
           style={{ height: "150px", width: "150px", borderRadius: "45px" }}
-          src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+          src={user.profile_pic}
           alt=""
         />
       </div>
