@@ -13,8 +13,9 @@ function BoardGalleryCard({ board }) {
   // Create history method
   const history = useHistory();
 
-  const pins = board.Pins?.length;
-
+  const pinsCount = board.Pins?.length;
+  let pins;
+  if (board.Pins.length!==0) pins = board.Pins
   // onClick function
   // const onClick = () => {
   //   dispatch(getBoardDetail(board.id));
@@ -29,6 +30,34 @@ function BoardGalleryCard({ board }) {
       <div className="board-card-container">
         <NavLink exact to={`/boards/${board.id}`}>
           <div className="board-image-container">
+            <div className="left-image-div">
+              {pinsCount>=1 ? 
+              <img 
+              style={{ height:"100%", width: "100%", objectFit: "cover", borderRadius: "10px 0 0 10px" }}
+                src = {pins[0].url}
+                alt = 'pin_image'
+                /> : null
+            }
+            </div>
+            <div className="right-images-div">
+              <div className="right-top-image-div">
+                {pinsCount >=2 ? <img 
+                style={{ height:"100%", width: "100%", objectFit: "cover", borderRadius: "0 10px 0 0" }}
+                src = {pins[1].url}
+                alt = 'pin_image'
+                />
+              : null }
+                </div>
+              <div className="right-bottom-image-div"> 
+                {pinsCount >= 3? <img 
+                style={{ height:"100%", width: "100%", objectFit: "cover", borderRadius: "0 0 10px" }}
+                src = {pins[2].url}
+                alt = 'pin_image'
+                />:null}
+              </div>
+            </div>
+          </div>
+          {/* <div className="board-image-container">
             {board.board_cover ? (
               <img
                 style={{ height: "160px", width: "250px", objectFit: "cover" }}
@@ -44,7 +73,7 @@ function BoardGalleryCard({ board }) {
                 alt="boardDefaultCover"
               />
             )}
-          </div>
+          </div> */}
           <div className="board-card-content-container">
             <h2 className="item">{board.name}</h2>
             {board.Pins && (
