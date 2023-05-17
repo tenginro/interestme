@@ -263,7 +263,12 @@ const PinIndexItem = ({
             </div>
           </div>
         </div>
-        <div>
+        {page === "ProfilePage"? (
+          <div>
+            <p className="pinName">{pin.name}</p>
+          </div>
+        ) : (
+          <div>
           <p className="pinName">{pin.name}</p>
           <div className="allPinUserInfo">
             <img
@@ -274,6 +279,8 @@ const PinIndexItem = ({
             <p style={{ fontSize: "12px" }}>{pin.User?.username}</p>
           </div>
         </div>
+        )}
+        
       </div>
     </div>
   );
