@@ -264,7 +264,7 @@ const CreatePin = () => {
             <br />
             <div>
               <input
-                maxLength={50}
+                maxLength={255}
                 id="description-input_"
                 type="text"
                 onChange={(e) => {

@@ -45,13 +45,14 @@
   width: 90%;
   left: 10px;
   bottom: 10px;
+  transform: translateY(-170%);
   z-index: 2;
 }
 
 /* children */
 .boardNSave {
   display: flex;
-  color: white;
+  color: rgb(244, 240, 240);
   justify-content: space-between;
   align-items: center;
   position: absolute;

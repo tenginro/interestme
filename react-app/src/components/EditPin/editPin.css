@@ -60,7 +60,7 @@
   align-items: flex-end;
   width: 100%;
 }
-.inputFieldEdit p {
+.errorEdit{
   position: absolute;
   bottom: 0;
   font-size: 13px;
@@ -112,4 +112,16 @@
 
 .cancelButton:hover {
   -webkit-filter: brightness(70%);
+}
+
+
+.showCharacterLengthEdit {
+  font-size: 11px;
+  color:black;
+  margin: 0;
+}
+
+.reachedMaxEdit {
+  font-size: 11px;
+  color: red;
 }
