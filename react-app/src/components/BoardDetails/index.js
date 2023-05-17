@@ -3,9 +3,12 @@ import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardsActions from "../../store/board";
+import * as pinsActions from "../../store/pin";
 import DropdownMenuButton from "../DropdownMenuButton";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import "./BoardDetails.css";
+import Loading from "../Loading";
+
 
 function BoardDetails() {
   // Extract parameter variables from parameter object
@@ -19,27 +22,47 @@ function BoardDetails() {
 
   // Subscribe to single board slice of state
   const board = useSelector((state) => state.boards.singleBoard);
-
+  const pins = useSelector((state=>state.pins.allPins))
   // Subscribe to user session slice of state
   const currentUser = useSelector((state) => state.session.user);
-
+  
   const pinLength = board.Pins?.length;
   // Upon component render, dispatch the action to load the single board into the redux store for retrieval
   // let board
   useEffect(() => {
     dispatch(boardsActions.getBoardDetail(boardId));
     dispatch(boardsActions.getUserBoards());
+    dispatch(pinsActions.getAllPins());
+    
     return () => dispatch(boardsActions.actionClearBoard());
   }, [dispatch, boardId]);
-
+  
   const deleteBoardClick = (e) => {
     e.preventDefault();
     dispatch(boardsActions.deleteBoard(board.id)).then(() => {
       history.push("/boards/current");
     });
   };
+  let pinsArr;
+  if(pins){
+    pinsArr = Object.values(pins)
+    console.log(pinsArr)
+  }
+  
+  const randomPinsGenerator = (pins) => {
+    let randomPinsArr = []
+    let randomIndexSet = new Set();
+    while (randomIndexSet.size < 5) {
+      randomIndexSet.add(Math.floor(Math.random() * pins.length))
+    }
+    randomIndexSet.forEach((i)=>{
+      randomPinsArr.push(pins[i])
+    })
+    console.log(randomPinsArr)
+    return randomPinsArr;
+  }
 
-  if (!board) return null;
+  if (!board || !pins) return <Loading />;
 
   return (
     <div className="whole-container">
@@ -104,6 +127,20 @@ function BoardDetails() {
           />
         ))}
       </div>
+      {/* <div>{console.log("random pins", randomPinsGenerator(pinsArr))}</div> */}
+      {/* <div className="saved_pins-gallery-list">
+        <h4>More like this</h4>
+        <div className="pinsDisplay">
+          {randomPinsGenerator(pinsArr)?.map((pin) => (
+            <PinIndexItem
+              key={pin.id}
+              pin={pin}
+              user={currentUser}
+              page="SinglePinPage"
+            />
+          ))}
+        </div>
+      </div> */}
     </div>
   );
 }
