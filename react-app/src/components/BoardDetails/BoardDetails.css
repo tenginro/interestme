@@ -101,11 +101,19 @@
   align-items: center;
   flex-wrap: wrap;
   width:1600px;
+  margin-bottom: 30px;
 }
 
-.singleBoardPinIndex{
-  width: 150px;
-  height:360px;
+
+.singleBoardPinIdeaImage {
+  width:150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
   margin: 0 0.2em 0 0.2em;
+
+}
+
+.singleBoardPinIdeaImage:hover {
 
 }

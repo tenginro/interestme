@@ -1,5 +1,5 @@
 // Necessary imports
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardsActions from "../../store/board";
@@ -132,15 +132,22 @@ function BoardDetails() {
       </div>
       {/* <div>{console.log("random pins", randomPinsGenerator(pinsArr))}</div> */}
       <div className="board-detail-more-like-this-container">
-        <h4>More like this</h4>
+        <h4>Find some ideas for this board</h4>
         <div className="randomPinsDisplay">
           {pinsArr?.map((pin) => (
-            <PinIndexItem
-              key={pin.id}
-              pin={pin}
-              user={currentUser}
-              page="singleBoard"
-            />
+            <Link to={`/pins/${pin.id}`}>
+              <img 
+              src = {pin.url}
+              alt = "pinImages"
+              className="singleBoardPinIdeaImage"
+              />
+            </Link>
+            // <PinIndexItem
+            //   key={pin.id}
+            //   pin={pin}
+            //   user={currentUser}
+            //   page="singleBoard"
+            // />
           ))}
         </div>
       </div>
