@@ -79,6 +79,8 @@
 
 .pinIndexItem:hover .pinImg {
   -webkit-filter: brightness(70%);
+  
+  cursor: zoom-in;
 }
 
 .pinIndexItem:hover .boardNSave {
@@ -103,6 +105,9 @@
   background-color: transparent;
   color: white;
   width: 40%;
+  cursor: pointer;
+}
+.boardOption:hover {
 }
 
 .save-dropdown {
