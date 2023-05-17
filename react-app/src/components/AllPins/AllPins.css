@@ -4,17 +4,20 @@
   align-items: flex-start;
   justify-content: center;
   margin-top: 20px;
+  
 }
 
 .allPins {
-  columns: 7 260px;
+  columns: 7 220px;
   column-gap: 1em;
   height: 3898px;
   /* width: 1920px;  */
-
+  
   /* width: 100%; */
   padding: 0 10px 0 10px;
   margin: 30px auto;
+  margin-left: 80px;
+  margin-right:80px;
   /* overflow-y: hidden; */
 }
 .pinIndex {
