@@ -18,7 +18,7 @@ import BoardDetails from "./components/BoardDetails";
 import MainPage from "./components/LandingPage/MainPage";
 import ProfilePage from "./components/ProfilePage";
 import OtherUserProfile from "./components/OtherUserProfile";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import SearchPins from "./components/SearchPins";
 import NotFound from "./components/NotFound";
 
@@ -85,7 +85,7 @@ function App() {
           </Route>
         </Switch>
       )}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
