@@ -51,19 +51,6 @@ function BoardDetails() {
     pinsArr = Object.values(pins)
     console.log(pinsArr)
   }
-  
-  // const randomPinsGenerator = (pins) => {
-  //   let randomPinsArr = []
-  //   let randomIndexSet = new Set();
-  //   while (randomIndexSet.size < 5) {
-  //     randomIndexSet.add(Math.floor(Math.random() * pins.length))
-  //   }
-  //   randomIndexSet.forEach((i)=>{
-  //     randomPinsArr.push(pins[i])
-  //   })
-  //   console.log(randomPinsArr)
-  //   return randomPinsArr;
-  // }
 
   if (!board || !pins) return <Loading />;
 
@@ -87,18 +74,7 @@ function BoardDetails() {
             />
             <p style={{ fontSize: "14px" }}>{board.User?.username}</p>
           </div>
-        {/* <div className="board-cover-container">
-          {board.board_cover ? (
-            <img src={board.board_cover} alt="board-cover-pic" />
-          ) : (
-            <img
-              src={
-                "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
-              }
-              alt="board-cover-pic"
-            />
-          )}
-        </div> */}
+        
         {board.description && (
           <div className="boardDescription">
             {board.description && !board.secret ? board.description : ""}

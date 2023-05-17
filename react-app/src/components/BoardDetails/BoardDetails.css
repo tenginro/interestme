@@ -100,8 +100,13 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width:1600px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  padding: 10px;
+  
+}
+.randomPinsDisplay:hover {
+  background-color: rgba(218, 215, 215, 0.352);
+  border-radius: 15px;
 }
 
 
@@ -115,5 +120,5 @@
 }
 
 .singleBoardPinIdeaImage:hover {
-
+  filter: brightness(0.85);
 }
