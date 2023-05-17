@@ -66,7 +66,7 @@
   columns: 7 200px;
   column-gap: 1em;
   /* height:2500px; */
-  height: 3898px;
+  height: fit-content;
   padding: 0 10px 0 10px;
   margin: 30px 80px 0 80px;
 }
@@ -87,4 +87,25 @@
   overflow-y: auto;
   text-align: center;
   margin-top: 2em;
+}
+
+.board-detail-more-like-this-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.randomPinsDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width:1600px;
+}
+
+.singleBoardPinIndex{
+  width: 150px;
+  height:360px;
+  margin: 0 0.2em 0 0.2em;
+
 }

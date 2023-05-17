@@ -139,7 +139,7 @@ const PinIndexItem = ({
   if (!user.id || !pin.id) return <div>Loading</div>;
 
   return (
-    <div className="pinIndex">
+    <div className={page === 'singleBoard'? "singleBoardPinIndex" : "pinIndex"}>
       <div key={pin.id} className="pinIndexItem">
         <Link to={`/pins/${pin.id}`}>
           <img
@@ -265,7 +265,9 @@ const PinIndexItem = ({
         </div>
         {page === "ProfilePage" ||
         page === "BoardDetail" ||
-        page === "SinglePin" ? (
+        page === "SinglePin" ||
+        page === "singleBoard"
+        ? (
           <div>
             <p className="pinName">{pin.name}</p>
           </div>

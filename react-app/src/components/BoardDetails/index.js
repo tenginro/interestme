@@ -131,15 +131,15 @@ function BoardDetails() {
         ))}
       </div>
       {/* <div>{console.log("random pins", randomPinsGenerator(pinsArr))}</div> */}
-      <div className="saved_pins-gallery-list">
+      <div className="board-detail-more-like-this-container">
         <h4>More like this</h4>
-        <div className="pinsDisplay">
+        <div className="randomPinsDisplay">
           {pinsArr?.map((pin) => (
             <PinIndexItem
               key={pin.id}
               pin={pin}
               user={currentUser}
-              page="SinglePinPage"
+              page="singleBoard"
             />
           ))}
         </div>
