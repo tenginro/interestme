@@ -1,13 +1,25 @@
 .main_page-container {
-  display: flex;
-  flex-direction: column;
-  /* scroll-snap-stop: always; */
-  /* scroll-snap-type: y mandatory;
+    /* display: flex;
+  flex-direction: column; */
+    /* scroll-snap-stop: always; */
+    /* scroll-snap-type: y mandatory;
   overflow-y: scroll; */
-  height: 100vh;
+    /* height: 100vh; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
 }
-.main_page-container > * {
-  scroll-snap-align: start;
+
+.main_page-container>* {
+    scroll-snap-align: start;
+}
+
+.main_page-container::-webkit-scrollbar {
+    display: block;
+    width: 0px;
 }
 
 /* .page1-image {
@@ -82,18 +94,40 @@
 } */
 
 .signupPartInLanding {
-  background-color: white;
-  margin-right: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
+    background-color: white;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
 }
 
 .main-page3-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.linked_info_div {
+    border: rgb(0, 213, 255) solid 4px;
+    height: 50%;
+    width: 15vw;
+    position: relative;
+    top: 15rem;
+    left: 20rem;
+    background-color: aliceblue;
+    border-radius: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.inner-div-linked_info {
+    /* padding:1rem; */
+    height: 19%;
+    width: 100%;
 }
