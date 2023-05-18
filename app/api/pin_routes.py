@@ -2,10 +2,10 @@ from flask import Blueprint, request
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 from .aws_helpers import upload_file_to_s3, get_unique_filename,remove_file_from_s3
-
+import random
 
 from ..models import db, Pin, User, Board
-from ..forms import PinForm
+from ..forms import PinForm, EditPinForm
 
 
 pin_routes = Blueprint("pins", __name__)
@@ -48,6 +48,21 @@ def get_search_pins(searchQuery):
     ]
     return all_pins
 
+@pin_routes.route("/pins/randomFivePins")
+def get_random_five_pins ():
+    pins = Pin.query.all()
+    result_pins = []
+    for i in range (7):
+        result_pins.append(random.choice(pins))
+    all_pins = [
+        {
+            **pin.to_dict(),
+            "User": pin.user.to_dict(),
+            "boards": [board.to_dict() for board in pin.boards],
+            "user_saved": [user.to_dict() for user in pin.user_saved],
+        } for pin in result_pins
+    ]
+    return all_pins
 
 @pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
@@ -117,11 +132,10 @@ def update_pin(id):
     pin = Pin.query.get(id)
 
     if pin.user_id == user["id"]:
-        form = PinForm()
+        form = EditPinForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
 
         if form.validate_on_submit():
-            
             pin.name = form.data["name"]
             pin.description = form.data["description"]
             pin.category = form.data["category"]

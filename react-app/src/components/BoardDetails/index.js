@@ -1,11 +1,14 @@
 // Necessary imports
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardsActions from "../../store/board";
+import * as pinsActions from "../../store/pin";
 import DropdownMenuButton from "../DropdownMenuButton";
 import PinIndexItem from "../AllPins/PinIndexItem";
 import "./BoardDetails.css";
+import Loading from "../Loading";
+
 
 function BoardDetails() {
   // Extract parameter variables from parameter object
@@ -19,27 +22,37 @@ function BoardDetails() {
 
   // Subscribe to single board slice of state
   const board = useSelector((state) => state.boards.singleBoard);
-
+  const pins = useSelector((state=>state.pins.allPins))
   // Subscribe to user session slice of state
   const currentUser = useSelector((state) => state.session.user);
-
+  
   const pinLength = board.Pins?.length;
   // Upon component render, dispatch the action to load the single board into the redux store for retrieval
   // let board
   useEffect(() => {
     dispatch(boardsActions.getBoardDetail(boardId));
     dispatch(boardsActions.getUserBoards());
-    return () => dispatch(boardsActions.actionClearBoard());
+    dispatch(pinsActions.getRandomPins());
+    
+    return () => {
+      dispatch(boardsActions.actionClearBoard())
+      dispatch(pinsActions.actionClearPins())
+    };
   }, [dispatch, boardId]);
-
+  
   const deleteBoardClick = (e) => {
     e.preventDefault();
     dispatch(boardsActions.deleteBoard(board.id)).then(() => {
       history.push("/boards/current");
     });
   };
+  let pinsArr;
+  if(pins){
+    pinsArr = Object.values(pins)
+    console.log(pinsArr)
+  }
 
-  if (!board) return null;
+  if (!board || !pins) return <Loading />;
 
   return (
     <div className="whole-container">
@@ -53,18 +66,15 @@ function BoardDetails() {
           )}
         </div>
         <div className="manage-board-buttons-container"></div>
-        <div className="board-cover-container">
-          {board.board_cover ? (
-            <img src={board.board_cover} alt="board-cover-pic" />
-          ) : (
+        <div className="allPinUserInfo">
             <img
-              src={
-                "https://as2.ftcdn.net/v2/jpg/03/64/76/97/1000_F_364769719_nOVnv8n06e2l2YS3u7NCwzcySTjD0YOe.jpg"
-              }
-              alt="board-cover-pic"
+              src={board.User?.profile_pic}
+              alt={board.User?.username}
+              style={{width:"50px", height: "50px", borderRadius:"50%", marginRight:"0.5em"}}
             />
-          )}
-        </div>
+            <p style={{ fontSize: "14px" }}>{board.User?.username}</p>
+          </div>
+        
         {board.description && (
           <div className="boardDescription">
             {board.description && !board.secret ? board.description : ""}
@@ -95,6 +105,22 @@ function BoardDetails() {
             page="BoardDetail"
           />
         ))}
+      </div>
+      {/* <div>{console.log("random pins", randomPinsGenerator(pinsArr))}</div> */}
+      <div className="board-detail-more-like-this-container">
+        <h4>Find some ideas for this board</h4>
+        <div className="randomPinsDisplay">
+          {pinsArr?.map((pin) => (
+            <Link to={`/pins/${pin.id}`}>
+              <img 
+              src = {pin.url}
+              alt = "pinImages"
+              className="singleBoardPinIdeaImage"
+              />
+            </Link>
+            
+          ))}
+        </div>
       </div>
     </div>
   );
