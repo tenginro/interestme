@@ -113,8 +113,8 @@
 
 .linked_info_div {
     border: rgb(0, 213, 255) solid 4px;
-    height: 50%;
-    width: 15vw;
+    height: 400px;
+    width: 300px;
     position: relative;
     top: 15rem;
     left: 20rem;
