@@ -9,7 +9,6 @@ import PinIndexItem from "../AllPins/PinIndexItem";
 import "./BoardDetails.css";
 import Loading from "../Loading";
 
-
 function BoardDetails() {
   // Extract parameter variables from parameter object
   const { boardId } = useParams();
@@ -22,10 +21,10 @@ function BoardDetails() {
 
   // Subscribe to single board slice of state
   const board = useSelector((state) => state.boards.singleBoard);
-  const pins = useSelector((state=>state.pins.allPins))
+  const pins = useSelector((state) => state.pins.allPins);
   // Subscribe to user session slice of state
   const currentUser = useSelector((state) => state.session.user);
-  
+
   const pinLength = board.Pins?.length;
   // Upon component render, dispatch the action to load the single board into the redux store for retrieval
   // let board
@@ -33,13 +32,13 @@ function BoardDetails() {
     dispatch(boardsActions.getBoardDetail(boardId));
     dispatch(boardsActions.getUserBoards());
     dispatch(pinsActions.getRandomPins());
-    
+
     return () => {
-      dispatch(boardsActions.actionClearBoard())
-      dispatch(pinsActions.actionClearPins())
+      dispatch(boardsActions.actionClearBoard());
+      dispatch(pinsActions.actionClearPins());
     };
   }, [dispatch, boardId]);
-  
+
   const deleteBoardClick = (e) => {
     e.preventDefault();
     dispatch(boardsActions.deleteBoard(board.id)).then(() => {
@@ -47,9 +46,8 @@ function BoardDetails() {
     });
   };
   let pinsArr;
-  if(pins){
-    pinsArr = Object.values(pins)
-    console.log(pinsArr)
+  if (pins) {
+    pinsArr = Object.values(pins);
   }
 
   if (!board || !pins) return <Loading />;
@@ -67,14 +65,19 @@ function BoardDetails() {
         </div>
         <div className="manage-board-buttons-container"></div>
         <div className="allPinUserInfo">
-            <img
-              src={board.User?.profile_pic}
-              alt={board.User?.username}
-              style={{width:"50px", height: "50px", borderRadius:"50%", marginRight:"0.5em"}}
-            />
-            <p style={{ fontSize: "14px" }}>{board.User?.username}</p>
-          </div>
-        
+          <img
+            src={board.User?.profile_pic}
+            alt={board.User?.username}
+            style={{
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+              marginRight: "0.5em",
+            }}
+          />
+          <p style={{ fontSize: "14px" }}>{board.User?.username}</p>
+        </div>
+
         {board.description && (
           <div className="boardDescription">
             {board.description && !board.secret ? board.description : ""}
@@ -112,13 +115,12 @@ function BoardDetails() {
         <div className="randomPinsDisplay">
           {pinsArr?.map((pin) => (
             <Link to={`/pins/${pin.id}`}>
-              <img 
-              src = {pin.url}
-              alt = "pinImages"
-              className="singleBoardPinIdeaImage"
+              <img
+                src={pin.url}
+                alt="pinImages"
+                className="singleBoardPinIdeaImage"
               />
             </Link>
-            
           ))}
         </div>
       </div>
