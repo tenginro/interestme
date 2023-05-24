@@ -1,3 +1,5 @@
+import MainPage1Animation from "./MainPage1Animation";
+
 import MainPage1 from "./MainPage1";
 import MainPage2 from "./MainPage2";
 import MainPage3 from "./MainPage3";
@@ -7,6 +9,10 @@ const MainPage = () => {
   return (
     <div className="main_page-container">
       {/* <div className="page2-image"></div> */}
+      <div>
+        <MainPage1Animation/>
+       
+      </div>
       <div>
         <MainPage1 src={`./Assets/image1.jpeg`} layout={"fill"} />
       </div>
