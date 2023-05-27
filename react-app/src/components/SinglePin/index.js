@@ -265,11 +265,13 @@ const Pin = () => {
               <div className="pinOwnerProfile">
                 <img
                   style={{
+                    marginRight:"10px",
                     height: "50px",
                     width: "50px",
-                    borderRadius: "45px",
+                    borderRadius: "50%",
+                    objectFit:"cover",
                   }}
-                  src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+                  src={pin.User.profile_pic}
                   alt=""
                 />
                 <h4>{pin.User?.username}</h4>
