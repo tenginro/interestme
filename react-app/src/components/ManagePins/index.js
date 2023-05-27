@@ -32,31 +32,9 @@ function CurrentPins() {
               pin={pin}
               key={pin.id}
               user={user}
-              page="CreatedPins"
+              page="AllPins"
             />
           </div>
-          // <div key={pin.id} className="pinIndexItem">
-          //   <NavLink key={pin.id} to={`/pins/${pin.id}`}>
-          //     <img
-          //       className="pinImg"
-          //       src={pin.url}
-          //       alt={pin.name}
-          //       onError={defaultImage}
-          //     />
-          //   </NavLink>
-          //   <div className="boardNSaveEdit">
-          //     <OpenModalicon
-          //       modalComponent={<EditPin pin={pin} />}
-          //       iconType={"editPen"}
-          //       pin={pin}
-          //     />
-          //     <OpenModalicon
-          //       modalComponent={<DeleteModal pin={pin} />}
-          //       iconType={"trashCan"}
-          //       pin={pin}
-          //     />
-          //   </div>
-          // </div>
         ))}
       </nav>
     </div>

@@ -263,10 +263,10 @@ const PinIndexItem = ({
             </div>
           </div>
         </div>
-        {page === "ProfilePage" ||
-        page === "BoardDetail" ||
-        page === "SinglePin" ||
-        page === "singleBoard"
+        { page === "ProfilePage" ||
+          page === "BoardDetail" ||
+          page === "SinglePin" ||
+          page === "singleBoard"
         ? (
           <div>
             <p className="pinName">{pin.name}</p>
