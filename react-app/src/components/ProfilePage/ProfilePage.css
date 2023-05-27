@@ -64,7 +64,7 @@ ul.followers-container > li:hover {
   height: 35px;
   width: 100px;
   border: none;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 5px;
 }
 
@@ -82,9 +82,11 @@ ul.followers-container > li:hover {
 }
 
 .activated {
-  font-weight: 900;
-  /* border-bottom: 2px solid black; */
+  font-weight: 800;
+  border-bottom: 2px solid black;
   text-decoration: underline;
+  /* color: red; */
+
 }
 
 .icons {

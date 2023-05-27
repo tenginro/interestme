@@ -169,14 +169,14 @@ const CreatePin = () => {
                           Release to drop the files here
                         </p>
                         <p className="recommend">
-                          Recommendation: Use high-quality .jpg/.png files less than
-                          20MB
+                          Recommendation: Use high-quality .jpg/.png <br />
+                          files less than 20MB
                         </p>
                       </div>
                     ) : (
                       <div className="dragNotActive">
                         <i className="fa-solid fa-arrow-up-from-bracket fa-xl"
-                          style={{ color: "#818488;" }}></i>
+                          style={{ color: "#818488;", marginBottom:"20px" }}></i>
                         <p className="postDate">
                           Drag and drop or click to upload
                         </p>

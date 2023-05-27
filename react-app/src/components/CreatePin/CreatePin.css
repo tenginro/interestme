@@ -151,7 +151,6 @@
   font-size: 11px;
   color:red;
 }
-
 #select-create_pin-category {
   border: none;
   height: 35px;
@@ -160,10 +159,6 @@
   width: 170px;
   border-radius: 7px;
   padding-left: 5px;
-}
-
-.add-your_title {
-  /* padding-bottom: 60px; */
 }
 
 #ad-your_title-input {
