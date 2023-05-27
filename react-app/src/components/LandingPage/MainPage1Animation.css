@@ -39,10 +39,11 @@ background-color: white;
 }
 
 .splash-bottom {
-    width: 100%;
-    height: 300px;
     position: absolute;
     bottom: 0;
+    width: 100%;
+    height: 300px;
+
     background-image: linear-gradient(to bottom,
             rgba(255, 255, 255, 0),
             rgba(255, 255, 255, 1) 100%);
