@@ -115,11 +115,11 @@ function ProfilePage() {
       </div>
       <div className="plus-sign-container">
         <div className="icons">
-          <i
+          {/* <i
             style={{ cursor: "pointer" }}
             onClick={() => alert("feature coming soon")}
             className="fa-solid fa-sliders"
-          />
+          /> */}
         </div>
         <div className="plusIcon">
           <i className="fa-solid fa-plus" onClick={openMenu}></i>
