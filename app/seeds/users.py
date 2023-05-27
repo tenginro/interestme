@@ -5,15 +5,15 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='DemoUser', first_name="Demo", last_name="User", email='demouser@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg", about="This guy is too lazy to do an introduction")
+        username='john_doe', first_name="John", last_name="Doe", email='demouser@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg", about="This guy is too lazy to do an introduction")
     user1 = User(
-        username='UserOne', first_name="One", last_name="User",email='userone@aa.io', password='password')
+        username='jane_doe', first_name="Jane", last_name="Doe",email='janedoe@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg")
     user2 = User(
-        username='UserTwo', first_name="Two", last_name="User",email='usertwo@aa.io', password='password')
+        username='john_smith', first_name="John", last_name="Smith",email='johnsmith@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg")
     user3 = User(
-        username='UserThree', first_name="Three", last_name="User",email='userthree@aa.io', password='password')
+        username='jane_smith', first_name="Jane", last_name="Smith",email='janesmith@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg")
     user4 = User(
-        username='UserFour', first_name="Four", last_name="User",email='userfour@aa.io', password='password')
+        username='bill_jameson', first_name="Bill", last_name="Jameson",email='billjameson@aa.io', password='password', profile_pic="https://as2.ftcdn.net/v2/jpg/00/64/67/27/1000_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg")
 
     demo.following.append(user1)
     demo.following.append(user2)
