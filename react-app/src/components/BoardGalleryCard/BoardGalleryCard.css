@@ -12,10 +12,6 @@
     flex-direction: column;
 }
 
-/* .board-card-container:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
-} */
-
 .board-image-container{
     /* border: 3px solid pink; */
     border-radius: 10px;
@@ -28,10 +24,7 @@
 .board-image-container:hover {
     filter: brightness(0.85);
 }
-/* .board-image-container img{
-    border-radius: 20px;
 
-} */
 .board-card-content-container{
     /* border: 3px solid brown; */
     height: 70px;

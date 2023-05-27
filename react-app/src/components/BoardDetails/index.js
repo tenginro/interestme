@@ -87,15 +87,30 @@ function BoardDetails() {
           {board.secret ? "Secret Board! Shhh!" : "Public Board"}
         </p>
       </div>
-
-      <h2 className="pinsCountNumber">
-        {board.Pins?.length > 0 ? board.Pins?.length : ""}{" "}
-        {board.Pins?.length == 0
-          ? ""
-          : board.Pins?.length < 2
-          ? " pin"
-          : " pins"}
-      </h2>
+      <div 
+      style={{display:'flex',
+              justifyContent:"space-between",
+              alignItems:"center",
+              marginLeft: '100px',
+              width:'300px'
+            }}>
+        <i style={{cursor:"pointer"}}
+        onClick={(e)=>{
+          e.preventDefault();
+          history.push("/user");
+        }}
+        className="fa-solid fa-arrow-left"></i>
+        <h2 className="pinsCountNumber"
+        style={{width:"100%"}}
+        >
+          {board.Pins?.length > 0 ? board.Pins?.length : ""}{" "}
+          {board.Pins?.length === 0
+            ? ("")
+            : (board.Pins?.length < 2)
+            ? (" pin")
+            : (" pins")}
+        </h2>
+      </div>
       <div className="pin-gallery-grid">
         {board.Pins?.map((pin) => (
           <PinIndexItem
@@ -109,7 +124,6 @@ function BoardDetails() {
           />
         ))}
       </div>
-      {/* <div>{console.log("random pins", randomPinsGenerator(pinsArr))}</div> */}
       <div className="board-detail-more-like-this-container">
         <h4>Find some ideas for this board</h4>
         <div className="randomPinsDisplay">
