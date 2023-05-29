@@ -1,7 +1,7 @@
 .sign_up_modal {
   display: flex;
   padding: 1em;
-  height: 50rem;
+  height: 40rem;
   width: 30rem;
   flex-direction: column;
   background-color: white;
@@ -9,6 +9,8 @@
   border-radius: 30px;
   /* max-height: fit-content; */
   min-height: fit-content;
+  /* overflow-y: scroll; */
+  font-size: 13px;
 }
 
 #logo {
@@ -36,9 +38,9 @@
 } */
 
 .inputField input {
-  padding: 0.5em;
+  /* padding: 0.5em; */
   border: 2px solid rgb(196, 195, 195);
-  border-radius: 10px;
+  border-radius: 5px;
   width: 100%;
 }
 .inputField input:hover {
@@ -49,7 +51,7 @@
   padding: 0.5em;
   border: 2px solid rgb(196, 195, 195);
   border-radius: 10px;
-  width: 100%;
+  width: 98%;
 }
 .inputField textarea:hover {
   border: 2px solid rgb(141, 139, 139);

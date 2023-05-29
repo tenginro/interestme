@@ -1,4 +1,5 @@
 import image2 from "./Assets/image2.jpeg";
+
 const MainPage2 = () => {
   const myStyle = {
     backgroundImage: `url(${image2})`,
@@ -6,6 +7,9 @@ const MainPage2 = () => {
     width: "100%",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   };
   return (
     <div className="main-page1-container" style={myStyle}>
@@ -47,7 +51,21 @@ const MainPage2 = () => {
           </a>
         </div>
       </div>
-      {/* <img className="page2-image" src={image2} alt="scenic-pic-2" /> */}
+      {/* <div style={{ width: "200px", height: "50px" }}>
+        <h2
+          style={{
+            fontSize: "70px",
+            fontWeight: "600",
+            marginLeft: "30px",
+          }}
+        >
+          See it, make it, try it, do it
+        </h2>
+        <h4>
+          The best part of Tinterest is discovering new things and ideas from
+          people around the world.
+        </h4>
+      </div> */}
     </div>
   );
 };

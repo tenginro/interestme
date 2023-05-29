@@ -56,17 +56,20 @@ function SignupFormModal() {
 
   return (
     <div className="sign_up_modal">
-      <img id="logo" src={logo} alt="Logo" />
       <h1 className="welcome">Welcome to Tinterest</h1>
       <form onSubmit={handleSubmit} className="signUpForm">
         <div className="errorMessageContainer">
-          <ul>
-            {errors.map((error, idx) => (
-              <li className="errorListing" key={idx}>
-                {error}
-              </li>
-            ))}
-          </ul>
+          {errors.length ? (
+            <ul>
+              {errors.map((error, idx) => (
+                <li className="errorListing" key={idx}>
+                  {error}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <img id="logo" src={logo} alt="Logo" />
+          )}
         </div>
         <div className="inputField">
           <label className="signUpLabel">Email</label>
