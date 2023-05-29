@@ -146,6 +146,9 @@ const Pin = () => {
   return (
     <div>
       <div className="single-pin_container">
+        <div style={{ top: "0" }} onClick={(e) => history.push("/pins")}>
+          <i className="fa-solid fa-arrow-left"></i>
+        </div>
         <div className="leftSide">
           <img
             className="single_pin_image"
@@ -265,11 +268,11 @@ const Pin = () => {
               <div className="pinOwnerProfile">
                 <img
                   style={{
-                    marginRight:"10px",
+                    marginRight: "10px",
                     height: "50px",
                     width: "50px",
                     borderRadius: "50%",
-                    objectFit:"cover",
+                    objectFit: "cover",
                   }}
                   src={pin.User.profile_pic}
                   alt=""

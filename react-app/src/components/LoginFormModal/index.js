@@ -43,19 +43,22 @@ function LoginFormModal() {
   return (
     <div id="loginModal">
       <div className="logoTitle">
-        <img id="logo_in_logo" src={logo} alt="Logo" />
         <h1>Welcome to Tinterest</h1>
       </div>
       <div>
         <form id="loginForm" onSubmit={handleSubmit}>
           <div className="errorMessageContainer">
-            <ul>
-              {errors.map((error, idx) => (
-                <li className="errorListing" key={idx}>
-                  {error}
-                </li>
-              ))}
-            </ul>
+            {errors.length ? (
+              <ul>
+                {errors.map((error, idx) => (
+                  <li className="errorListing" key={idx}>
+                    {error}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <img id="logo_in_logo" src={logo} alt="Logo" />
+            )}
           </div>
           <div>
             <label>

@@ -128,4 +128,5 @@
   top: 180px;
   border-radius: 16px;
   overflow-y: auto;
+  left: auto;
 }
