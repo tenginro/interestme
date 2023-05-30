@@ -126,6 +126,7 @@
   z-index: 5;
   position: absolute;
   top: 180px;
+  
   border-radius: 16px;
   overflow-y: auto;
 }
