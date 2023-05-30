@@ -6,6 +6,7 @@
   justify-content: center;
   padding: 30px;
   margin-bottom: 30px;
+  font-size: 13px;
 }
 #loginModal h1 {
   font-weight: 600;
@@ -87,7 +88,7 @@
   height: 40px;
   border-color: lightgray;
   box-sizing: border-box;
-  border-radius: 16px;
+  border-radius: 10px;
   padding: 10px;
   border-style: solid;
   border-width: 2px;

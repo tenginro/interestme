@@ -1,4 +1,5 @@
 import image1 from "./Assets/image1.jpg";
+
 const MainPage1 = () => {
   const myStyle = {
     backgroundImage: `url(${image1})`,
