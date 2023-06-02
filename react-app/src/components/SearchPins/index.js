@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   actionClearPins,
-  getAllPins,
   getSavedPins,
   getSearchedPins,
 } from "../../store/pin";
@@ -12,7 +11,7 @@ import PinIndexItem from "../AllPins/PinIndexItem";
 import { getUserBoards } from "../../store/board";
 import NotFound from "../NotFound";
 
-export default function SearchPins({ clearSearchQuery, setSearchQuery }) {
+export default function SearchPins() {
   const dispatch = useDispatch();
   const { searchInput } = useParams();
   const user = useSelector((state) => state.session.user);
@@ -30,7 +29,6 @@ export default function SearchPins({ clearSearchQuery, setSearchQuery }) {
   }, [dispatch, userId, searchInput]);
 
   if (!pins.length) {
-    // clearSearchQuery();
     return <NotFound />;
   }
 

@@ -63,16 +63,21 @@ function ProfileButton({ user }) {
     <>
       {user ? (
         <div className="profileDropDownButtons">
-          {/* <NavLink exact to="/user"> */}
-          <button
+          <NavLink exact to="/user"> 
+          <img 
+          style={{height:"40px", width:"40px", borderRadius:"50%"}}
+          src={user?.profile_pic}
+          alt="profileImage"
+          />
+          </NavLink>
+          {/* <button
             className="main_page_login_btn login"
             onClick={() => {
               clickToUserProfile();
             }}
           >
             {user?.username[0]}
-          </button>
-          {/* </NavLink> */}
+          </button> */}
           <button className="profileDownButton" onClick={openMenu}>
             <i className="fas fa-solid fa-angle-down"></i>
           </button>

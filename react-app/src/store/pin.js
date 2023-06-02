@@ -73,12 +73,13 @@ export const getSearchedPins = (searchQuery) => async (dispatch) => {
 
 export const getRandomPins = () => async (dispatch) => {
   const response = await fetch(`/api/pins/randomFivePins`);
-  if(response.ok) {
+
+  if (response.ok) {
     const pins = await response.json();
     await dispatch(actionLoadAllPins(pins));
     return pins;
   }
-}
+};
 
 export const getPinDetail = (id) => async (dispatch) => {
   const response = await fetch(`/api/pins/${id}`);
