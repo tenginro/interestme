@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
-from .aws_helpers import upload_file_to_s3, get_unique_filename,remove_file_from_s3
+from .aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 import random
 
 from ..models import db, Pin, User, Board
@@ -48,11 +48,12 @@ def get_search_pins(searchQuery):
     ]
     return all_pins
 
+
 @pin_routes.route("/pins/randomFivePins")
-def get_random_five_pins ():
+def get_random_five_pins():
     pins = Pin.query.all()
     result_pins = []
-    for i in range (7):
+    for i in range(7):
         result_pins.append(random.choice(pins))
     all_pins = [
         {
@@ -60,9 +61,11 @@ def get_random_five_pins ():
             "User": pin.user.to_dict(),
             "boards": [board.to_dict() for board in pin.boards],
             "user_saved": [user.to_dict() for user in pin.user_saved],
-        } for pin in result_pins
+        }
+        for pin in result_pins
     ]
     return all_pins
+
 
 @pin_routes.route("/pins/<int:id>")
 def get_pins_by_id(id):
@@ -90,9 +93,6 @@ def get_user_pins():
     ]
 
     return pins
-
-
-# saved pins
 
 
 @pin_routes.route("/pins", methods=["POST"])
