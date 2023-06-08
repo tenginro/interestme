@@ -52,15 +52,15 @@ function App() {
           </Route>
           <Route exact path="/pins">
             <AllPins
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
+            // searchQuery={searchQuery}
+            // setSearchQuery={setSearchQuery}
             />
           </Route>
           <Route exact path="/pins/search/:searchInput">
             <SearchPins
-              clearSearchQuery={() => setSearchQuery("")}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
+            // clearSearchQuery={() => setSearchQuery("")}
+            // searchQuery={searchQuery}
+            // setSearchQuery={setSearchQuery}
             />
           </Route>
           <Route exact path="/login">
