@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../LandingPage/Assets/icon.png";
 import ProfileButton from "./ProfileButton";
@@ -8,7 +8,7 @@ import CreateBoard from "../CreateBoard";
 import CreatePin from "../CreatePin";
 import "./Navigation.css";
 
-function Navigation({ isLoaded, searchQuery, setSearchQuery, searchInput }) {
+function Navigation({ isLoaded, searchQuery, setSearchQuery }) {
   const ulRef = useRef();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -47,14 +47,14 @@ function Navigation({ isLoaded, searchQuery, setSearchQuery, searchInput }) {
   const ulClass = "create_drop-down" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
-  const handleCreatePin = () => {
-    history.push("/pins/new");
-    setShowMenu(false);
-  };
+  // const handleCreatePin = () => {
+  //   history.push("/pins/new");
+  //   setShowMenu(false);
+  // };
 
-  const clickCreate = (e) => {
-    e.preventDefault();
-  };
+  // const clickCreate = (e) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <ul className="nav ul">
