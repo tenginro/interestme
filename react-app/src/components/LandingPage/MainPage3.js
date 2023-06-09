@@ -19,10 +19,9 @@ const MainPage3 = () => {
           fontSize: "70px",
           fontWeight: "600",
           marginLeft: "30px",
-          color: "white",
         }}
       >
-        <h2>Sign up to get your ideas</h2>
+        <h2 style={{ color: "white" }}>Sign up to get your ideas</h2>
       </div>
       <div className="signupPartInLanding">
         <SignupFormModal />
