@@ -4,10 +4,11 @@ This is a Pinterest clone project. You can access the page here.
 https://tinterest-me.onrender.com
 
 Landing Page
-![Screenshot 2023-04-14 at 20 46 12](https://user-images.githubusercontent.com/108156588/232174821-13c90720-ef71-45d0-a109-b1cc3290d7f4.png)
+![Screenshot 2023-06-09 at 10 26 25](https://github.com/tenginro/interestme/assets/108156588/4d4ebdd9-6518-463a-a5e9-d1eceb771924)
 
 Homepage
-![Screenshot 2023-04-14 at 20 46 36](https://user-images.githubusercontent.com/108156588/232174811-d1ed5858-ef89-4823-9452-de8e06460cd7.png)
+![Screenshot 2023-06-09 at 13 23 27](https://github.com/tenginro/interestme/assets/108156588/1b426369-d09c-4c32-b636-082c34a4a82a)
+
 
 Technologies used in this project: python, flask, html, css, javascript, JSX, React, Redux, FontAwesome for icons, Google Fonts for fonts.
 
