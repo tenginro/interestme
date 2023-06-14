@@ -9,7 +9,6 @@ Landing Page
 Homepage
 ![Screenshot 2023-06-09 at 13 23 27](https://github.com/tenginro/interestme/assets/108156588/1b426369-d09c-4c32-b636-082c34a4a82a)
 
-
 Technologies used in this project: python, flask, html, css, javascript, JSX, React, Redux, FontAwesome for icons, Google Fonts for fonts.
 
 To launch the full application locally, please perform the following steps:
@@ -49,4 +48,5 @@ To launch the full application locally, please perform the following steps:
    ```bash
    flask run
    ```
-7. cd into frontend (react-app folder), run npm install, and then run npm start.
+
+7. cd into frontend (react-app folder), run `npm install`, and then run `npm start`.
