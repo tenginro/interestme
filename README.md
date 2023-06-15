@@ -8,9 +8,9 @@ https://tinterest-me.onrender.com
 ## Homepage
 ![Screenshot 2023-06-09 at 13 23 27](https://github.com/tenginro/interestme/assets/108156588/1b426369-d09c-4c32-b636-082c34a4a82a)
 
-
 ## Technologies Used In This Project
 Python, Flask, HTML, CSS, JavaScript, JSX, React, Redux, FontAwesome for icons, Google Fonts for fonts.
+
 
 ## To Launch Full Application Locally, Perform Following Steps:
 
@@ -49,7 +49,10 @@ Python, Flask, HTML, CSS, JavaScript, JSX, React, Redux, FontAwesome for icons, 
    ```bash
    flask run
    ```
-7. cd into frontend (react-app folder), run npm install, and then run npm start.
+
+
+7. cd into frontend (react-app folder), run `npm install`, and then run `npm start`.
+
 
 # Features
 
@@ -89,3 +92,4 @@ Python, Flask, HTML, CSS, JavaScript, JSX, React, Redux, FontAwesome for icons, 
 - DELETE (unfollow a user  - /api/users/<int:id>/follow)
 
 # Future Features
+
