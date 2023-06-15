@@ -1,17 +1,18 @@
-# Pinterest Clone Project "Tinterest"
-
+# "Tinterest"
 This is a Pinterest clone project. You can access the page here.
 https://tinterest-me.onrender.com
 
-Landing Page
+## Landing Page
 ![Screenshot 2023-06-09 at 10 26 25](https://github.com/tenginro/interestme/assets/108156588/4d4ebdd9-6518-463a-a5e9-d1eceb771924)
 
-Homepage
+## Homepage
 ![Screenshot 2023-06-09 at 13 23 27](https://github.com/tenginro/interestme/assets/108156588/1b426369-d09c-4c32-b636-082c34a4a82a)
 
-Technologies used in this project: python, flask, html, css, javascript, JSX, React, Redux, FontAwesome for icons, Google Fonts for fonts.
+## Technologies Used In This Project
+Python, Flask, HTML, CSS, JavaScript, JSX, React, Redux, FontAwesome for icons, Google Fonts for fonts.
 
-To launch the full application locally, please perform the following steps:
+
+## To Launch Full Application Locally, Perform Following Steps:
 
 1. Clone this repository (only this branch)
 
@@ -49,4 +50,46 @@ To launch the full application locally, please perform the following steps:
    flask run
    ```
 
+
 7. cd into frontend (react-app folder), run `npm install`, and then run `npm start`.
+
+
+# Features
+
+## Pins
+- CREATE (create a pin - /api/pins)
+- READ (read all pins - /api/pins)
+- UPDATE (update a pin - /api/pins/<int:id> )
+- DELETE (delete a pin - /api/pins/<int:id> )
+
+## Boards
+- CREATE (create a board - /api/boards)
+- READ 
+      (read all boards that the user owned - /api/boards)
+      (read one board detail that the user owned - /api/boards/<int:id>)
+- UPDATE (update a board - /api/boards/<int:id>)
+- DELETE (delete a board - /api/boards/<int:id>)
+
+## Profiles
+- CREATE
+- READ 
+      (read all pins created by the current user -  /api/pins/current) 
+      (read all boards and pins saved by the current user -    /api/boards)
+      
+## Saves (Pins)
+- CREATE (save a pin to profile or board  -  /api/pins/<int:id>/save)
+- DELETE (unsave a pin   -  /api/pins/<int:id>/unsave )
+
+## Follows
+- CREATE (follow a user  - /api/users/<int:id>/follow)
+- READ 
+  - /api/auth/login
+      (read followings for the current user)
+      (read followers for the current user)
+  - /api/users/<int:id>
+      (read followings for another user)
+      (read followers for another user)
+- DELETE (unfollow a user  - /api/users/<int:id>/follow)
+
+# Future Features
+
