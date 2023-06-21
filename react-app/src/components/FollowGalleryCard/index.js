@@ -56,17 +56,27 @@ function FollowGalleryCard({ follow, flag, reload, variable }) {
         to={follow.id === user.id ? `/user` : `/users/${follow.id}`}
         onClick={onClick}
       >
-        <div className="follow-image-container">
+        <div
+          className="follow-image-container"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            columnGap: "10px",
+          }}
+        >
           <img
             style={{ height: "50px", width: "50px", borderRadius: "45px" }}
-            src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+            src={
+              follow.profile_pic ||
+              "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+            }
             alt=""
           />
+          <div className="follow-card-content-container">{follow.username}</div>
         </div>
       </NavLink>
-      <div className="follow-card-content-container">
-        <p>{follow.username}</p>
-      </div>
       {follow.id !== user.id ? (
         <div className="follow-card-follow-button-container">
           {!followOrNot ? (
