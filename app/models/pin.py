@@ -18,16 +18,19 @@ class Pin(db.Model):
     # )
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255))
-    category = db.Column(
-        db.String(100))
-    
+    category = db.Column(db.String(100))
+
     url = db.Column(db.String(255))
 
     # relationship attributed
     user = db.relationship("User", back_populates="pins")
 
     boards = db.relationship(
-        "Board", secondary=board_pins, back_populates="pins"
+        # secondary = join table name
+        # back_populates = column name of the other table
+        "Board",
+        secondary=board_pins,
+        back_populates="pins",
     )
 
     user_saved = db.relationship(
