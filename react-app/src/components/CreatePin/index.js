@@ -22,7 +22,6 @@ const CreatePin = () => {
   const [resErrors, setResErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
-  
 
   useEffect(() => {
     const err = [];
@@ -49,9 +48,7 @@ const CreatePin = () => {
     formData.append("user_id", currentUser.id);
 
     if (!Boolean(Object.values(errors).length)) {
-      const createdRes = await dispatch(
-        pinsAction.createPin(formData)
-      );
+      const createdRes = await dispatch(pinsAction.createPin(formData));
       if (!createdRes.errors) {
         closeModal();
         history.push(`/pins/${createdRes.id}`);
@@ -72,10 +69,10 @@ const CreatePin = () => {
     return "showCharacterLength";
   };
 
-  const handleClosedModal = (e) =>{
+  const handleClosedModal = (e) => {
     e.preventDefault();
     closeModal();
-  }
+  };
 
   const reset = () => {
     setName("");
@@ -100,43 +97,39 @@ const CreatePin = () => {
     setPreview({});
   };
 
+  // rendering a thumbnail (or preview) of uploaded or selected files
   const thumb = (files) => {
     return (
       <div>
-        {
-          preview?.preview ? (
-            <img
-              className="previewImage"
-              src={preview.preview}
-              alt="preview"
-              onLoad={() => {
-                URL.revokeObjectURL(preview.preview);
-              }}
-            />) 
-          : null
-        }
-        {
-          preview?.preview 
-          ? (
-              <div className="trashDiv">
-                <button
-                  onClick={removeHandler}
-                  className="trashbutton left"
-                  data-text="Delete image"
-                >
-                  <i className="fa-solid fa-trash-can fa-xl"></i>
-                </button>
-              </div>
-          ) 
-          : null
-        }
+        {preview?.preview ? (
+          <img
+            className="previewImage"
+            src={preview.preview}
+            alt="preview"
+            // Revoke data uri after image is loaded
+            onLoad={() => {
+              URL.revokeObjectURL(preview.preview);
+            }}
+          />
+        ) : null}
+        {preview?.preview ? (
+          <div className="trashDiv">
+            <button
+              onClick={removeHandler}
+              className="trashbutton left"
+              // data-text attribute is a custom attribute that might be used for tooltips or some other UI/UX purpose
+              data-text="Delete image"
+            >
+              <i className="fa-solid fa-trash-can fa-xl"></i>
+            </button>
+          </div>
+        ) : null}
       </div>
     );
   };
 
   return (
     <div className="create-new_pin-container">
-      
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <ul>
           {hasSubmitted && Boolean(Object.values(resErrors).length) ? (
@@ -151,14 +144,21 @@ const CreatePin = () => {
             </button>
 
             <Dropzone
-              onDrop={handleOnDrop} multiple={false}
-              className="dropzone" accept={"image/*"} >
+              onDrop={handleOnDrop}
+              multiple={false}
+              className="dropzone"
+              // restricts the file types
+              accept={"image/*"}
+            >
               {({
-                getRootProps, getInputProps,
-                isDragActive, acceptedFiles,
+                getRootProps, //returns properties that need to be spread onto the dropzone
+                getInputProps, //returns properties for the file input
+                isDragActive, //indicates whether a file is currently being dragged over the dropzone
+                acceptedFiles, //array of accepted files
               }) => (
                 <section>
                   <div
+                    // spread properties returned by getRootProps
                     {...getRootProps({ className: "dropzone" })}
                     className="image_drop_zone"
                   >
@@ -175,8 +175,10 @@ const CreatePin = () => {
                       </div>
                     ) : (
                       <div className="dragNotActive">
-                        <i className="fa-solid fa-arrow-up-from-bracket fa-xl"
-                          style={{ color: "#818488;", marginBottom:"20px" }}></i>
+                        <i
+                          className="fa-solid fa-arrow-up-from-bracket fa-xl"
+                          style={{ color: "#818488;", marginBottom: "20px" }}
+                        ></i>
                         <p className="postDate">
                           Drag and drop or click to upload
                         </p>
@@ -187,6 +189,8 @@ const CreatePin = () => {
                       </div>
                     )}
                   </div>
+                  {/* Asides are frequently presented as sidebars or call-out boxes. */}
+                  {/* show a preview of the file */}
                   <aside className="preview"> {thumb(acceptedFiles)} </aside>
                 </section>
               )}
@@ -227,22 +231,23 @@ const CreatePin = () => {
               )}
             </div>
             <div className="userInfo">
-              <img  
-                  src={currentUser.profile_pic} 
-                  alt="profile_img"
-                  className="profile_pic" />
-            <div>
-              <p className="userName">
-                {currentUser.first_name}
-                {currentUser.last_name}
-              </p>
-              <p className="userName">
-                {currentUser.followers.length}
-                {currentUser.followers.length <= 1
-                  ? ` follower`
-                  : ` followers`}
-              </p>
-            </div>
+              <img
+                src={currentUser.profile_pic}
+                alt="profile_img"
+                className="profile_pic"
+              />
+              <div>
+                <p className="userName">
+                  {currentUser.first_name}
+                  {currentUser.last_name}
+                </p>
+                <p className="userName">
+                  {currentUser.followers.length}
+                  {currentUser.followers.length <= 1
+                    ? ` follower`
+                    : ` followers`}
+                </p>
+              </div>
             </div>
             <div>
               <label>Choose a category: </label>
@@ -255,7 +260,6 @@ const CreatePin = () => {
                 name="category"
                 placeholder="Choose a category"
               >
-                
                 {categories.map((c) => (
                   <option value={c} key={c}>
                     {c}
@@ -278,7 +282,8 @@ const CreatePin = () => {
                 name="description"
               ></input>
               <p className={maxCharClassNameHandle(desCount)}>
-                {desCount} /255 characters </p>
+                {desCount} /255 characters{" "}
+              </p>
               {hasSubmitted ? (
                 <p className="error"> {errors.description}</p>
               ) : (
